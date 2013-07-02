@@ -7,10 +7,14 @@ This script parses the Oracle firmware page to get firmware information.
 It returns the versions of firmware (top most is the current) and their
 URLs.
 
+Oracle Firmware URL:
+
+http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html
+
 Usage
 =====
 
-	./goofball.rb-[h|V] -m [model]
+	./goofball.rb -[h|V] -m [model]
 
 	-V:       Display version information
 	-h:       Display usage information
