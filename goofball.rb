@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-#!/usr/bin/env ruby
-
 # Name:         goofball (Grep Oracle OBP Firmware)
 # Version:      1.0.0
 # Release:      1
