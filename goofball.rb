@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.0.1
+# Version:      0.0.2
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -18,10 +18,16 @@ require 'nokogiri'
 require 'open-uri'
 require 'getopt/std'
 
+$url="http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
+
 firmware_urls={}
 firmware_text={}
 def search_firmware_page(search_model)
-  doc=Nokogiri::HTML(open('http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html'))
+  if $url.match(/http/)
+    doc=Nokogiri::HTML(open($url))
+  else
+    doc=Nokogiri::HTML(File.open($url))
+  end
   model=""
   urls=[]
   txts=[]
@@ -87,6 +93,7 @@ def print_usage()
   puts "-h:       Display usage information"
   puts "-m all:   Display firmware information for all machines"
   puts "-m MODEL: Display firmware information for a specific model (eg. X2-4)"
+  puts "-f FILE:  Open a locally saved HTML file for processing rather then fetching it"
 end
 
 def print_version()
@@ -98,7 +105,7 @@ def print_version()
 end
 
 begin
-  opt=Getopt::Std.getopts("V?hm:")
+  opt=Getopt::Std.getopts("V?hf:m:")
 rescue
   print_version()
   print_usage()
@@ -114,6 +121,18 @@ if opt["h"] or opt["?"]
   print_version()
   print_usage()
   exit
+end
+
+if opt["f"]
+  $url=opt["f"] 
+  if !File.exist?($url)
+    puts "File "+$url+" does not exist"
+    exit
+  end
+end
+
+if !opt["m"]
+  opt["m"]="all"
 end
 
 if opt["m"] == "all"
