@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      1.0.0
+# Version:      0.0.1
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -48,8 +48,7 @@ def search_firmware_page(search_model)
       end
     else
       if node.content.to_s.match(/^[A-z]/) and !node.content.to_s.match(/download/) 
-        text=node.content.to_s
-        text=text.gsub(/\s+/,' ')
+        text=node.content.to_s.gsub(/\s+/,' ')
         if text.match(/[0-9,A-z]\(/)
           (head,tail)=text.split("(")
           text=head+" ("+tail
