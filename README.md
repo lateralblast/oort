@@ -20,7 +20,9 @@ Usage
 	-h:       Display usage information
 	-m all:   Display firmware information for all machines
 	-m MODEL: Display firmware information for a specific model (eg. X2-4)
-	-f FILE:  Open a locally saved HTML file for processing rather then fetching it
+	-i FILE:  Open a locally saved HTML file for processing rather then fetching it
+	-c:       Output in CSV format
+	-o FILE:  Open a file for writing (CSV mode)
 
 Examples
 ========
