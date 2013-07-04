@@ -2,3 +2,5 @@
 #               Initial version
 #               0.0.2 Wed  3 Jul 2013 21:12:03 EST
 #               Added option to read from file
+#		0.0.3 Thu  4 Jul 2013 10:38:09 EST
+#               Added CSV support, updated change log and version number
