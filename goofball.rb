@@ -18,15 +18,13 @@ require 'nokogiri'
 require 'open-uri'
 require 'getopt/std'
 
-$url="http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
+url="http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
 
-firmware_urls={}
-firmware_text={}
-def search_firmware_page(search_model)
-  if $url.match(/http/)
-    doc=Nokogiri::HTML(open($url))
+def search_firmware_page(search_model,url)
+  if url.match(/http/)
+    doc=Nokogiri::HTML(open(url))
   else
-    doc=Nokogiri::HTML(File.open($url))
+    doc=Nokogiri::HTML(File.open(url))
   end
   model=""
   urls=[]
@@ -93,7 +91,9 @@ def print_usage()
   puts "-h:       Display usage information"
   puts "-m all:   Display firmware information for all machines"
   puts "-m MODEL: Display firmware information for a specific model (eg. X2-4)"
-  puts "-f FILE:  Open a locally saved HTML file for processing rather then fetching it"
+  puts "-i FILE:  Open a locally saved HTML file for processing rather then fetching it"
+  puts "-c:       Output in CSV format"
+  puts "-o FILE:  Open a file for writing (CSV mode)"  
 end
 
 def print_version()
@@ -104,8 +104,43 @@ def print_version()
   puts name+" v. "+version+" "+packager
 end
 
+def print_output(model,firmware_urls,firmware_text,output_type,output_file)
+  counter=0
+  if output_type != "CSV"
+    output_text=model+":\n"
+    if output_file.match(/[A-z,0-9]/)
+      File.open(output_file, 'a') { |file| file.write(output_text) }
+    else
+      print output_text
+    end
+  end
+  firmware_text[model].each do
+    if output_type == "CSV"
+      output_text=model+","+firmware_text[model][counter]+","+firmware_urls[model][counter]+"\n"
+    else
+      output_text=firmware_text[model][counter]+"\n"+firmware_urls[model][counter]+"\n"
+    end
+    if output_file.match(/[A-z,0-9]/)
+      File.open(output_file, 'a') { |file| file.write(output_text) }
+    else
+      print output_text
+    end
+    counter=counter+1
+  end
+end
+
+def handle_output(model,firmware_urls,firmware_text,output_type,output_file)
+  if model == "all"
+    firmware_text.each do |model, text|
+      print_output(model,firmware_urls,firmware_text,output_type,output_file)
+    end
+  else
+    print_output(model,firmware_urls,firmware_text,output_type,output_file)
+  end
+end
+
 begin
-  opt=Getopt::Std.getopts("V?hf:m:")
+  opt=Getopt::Std.getopts("V?chi:m:o:")
 rescue
   print_version()
   print_usage()
@@ -123,38 +158,35 @@ if opt["h"] or opt["?"]
   exit
 end
 
-if opt["f"]
-  $url=opt["f"] 
-  if !File.exist?($url)
-    puts "File "+$url+" does not exist"
+if opt["o"]
+  output_file=opt["o"]
+else
+  output_file=""
+end
+
+if opt["i"]
+  url=opt["i"] 
+  if !File.exist?(url)
+    puts "File "+url+" does not exist"
     exit
   end
+end
+
+if opt["c"]
+  output_type="CSV"
+else
+  output_type="TXT"
 end
 
 if !opt["m"]
   opt["m"]="all"
 end
 
-if opt["m"] == "all"
+if opt["m"]
   model=opt["m"]
-  (firmware_urls,firmware_text)=search_firmware_page(model)
-  firmware_text.each do |model, text|
-    puts model+":"
-    counter=0
-    firmware_text[model].each do
-      puts firmware_text[model][counter]
-      puts firmware_urls[model][counter]
-      counter=counter+1
-    end
-  end
-else
-  model=opt["m"].upcase
-  (firmware_urls,firmware_text)=search_firmware_page(model)
-  counter=0
-  puts model+":"
-  firmware_text[model].each do
-    puts firmware_text[model][counter]
-    puts firmware_urls[model][counter]
-    counter=counter+1
-  end
+  if model != "all"
+    model=model.upcase
+  end    
+  (firmware_urls,firmware_text)=search_firmware_page(model,url)
+  handle_output(model,firmware_urls,firmware_text,output_type,output_file)
 end
