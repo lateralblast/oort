@@ -19,7 +19,11 @@ Usage
 	-V:       Display version information
 	-h:       Display usage information
 	-m all:   Display firmware information for all machines
+	-d all:   Display firmware information for all disks
+	-e all:   Display firmware information for all Emulex HBAs
 	-m MODEL: Display firmware information for a specific model (eg. X2-4)
+	-d MODEL: Display firmware information for a specific model of disk (eg. MAW3300FC)
+	-e MODEL: Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)
 	-i FILE:  Open a locally saved HTML file for processing rather then fetching it
 	-c:       Output in CSV format
 	-o FILE:  Open a file for writing (CSV mode)
