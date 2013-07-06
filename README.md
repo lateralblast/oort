@@ -11,10 +11,40 @@ Oracle Firmware URL:
 
 http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html
 
+Oracle README URL:
+
+https://getupdates.oracle.com/readme/PATCH_NO-PATCH_REV
+
+Eg:
+
+https://getupdates.oracle.com/readme/119255-01
+
+Oracle Patch URL:
+
+https://getupdates.oracle.com/all_unsigned/PATCH_NO-PATCH_REV
+
+Eg:
+
+https://getupdates.oracle.com/all_unsigned/119255-01.zip
+
+Oracle patchdiag.xref URL:
+
+https://getupdates.oracle.com/reports/patchdiag.xref
+
+Emulex Firmware URL:
+
+http://www.emulex.com/downloads/oracle.html
+
+Qlogic Firmware URLs:
+
+http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=1
+http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=2
+http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3
+
 Usage
 =====
 
-	./goofball.rb -[h|V] -[q|m|d|e] [MODEL|all] -i [FILE] -o [FILE] -w [WORK_DIR]
+	./goofball.rb -[h|V] -[q|m|d|e] [MODEL|all] -[r|p] [PATCH] -i [FILE] -o [FILE] -w [WORK_DIR]
 
 	-V:          Display version information
 	-h:          Display usage information
@@ -27,9 +57,11 @@ Usage
 	-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)
 	-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)
 	-i FILE:     Open a locally saved HTML file for processing rather then fetching it
+	-p PATCH:    Get a patch from MOS (Requires Username and Password)
 	-r PATCH:    Get README for a patch from MOS (Requires Username and Password)
 	-w WORK_DIR: Set work directory (Default is ~/.goofball)
 	-c:          Output in CSV format
+	-x:          Get patchdiag.xref
 	-o FILE:     Open a file for writing (CSV mode)
 
 Examples

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.0.6
+# Version:      0.0.7
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -19,6 +19,7 @@ require 'open-uri'
 require 'getopt/std'
 
 $work_dir=Dir.home+"/.goofball"
+$verbose=0
 
 def search_disk_firmware_page(search_model,url)
   base_url="https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
@@ -27,7 +28,7 @@ def search_disk_firmware_page(search_model,url)
   model=""
   firmware_urls={}
   firmware_text={}
-  doc=get_patchdiag_xref(url,output_file)
+  doc=open_patchdiag_xref()
   if search_model == "all"
     disk_info=doc.grep(/firmware$/)
   else
@@ -91,7 +92,7 @@ def search_qlogic_firmware_page(search_model,url)
   urls=[]
   txts=[]
   search_list=[]
-  doc=get_patchdiag_xref(url)
+  doc=open_patchdiag_xref()
   if search_model.match(/all/)
     hba_info.each do |model|
       model=model[0]
@@ -118,11 +119,11 @@ def search_qlogic_firmware_page(search_model,url)
     text=hba_info[model]
     if !model.match(/QF8|Q8/)
       if patch_no.match(/^[0-9]/)
-        doc=get_patchdiag_xref(url)
+        doc=open_patchdiag_xref()
         patch_info=doc.grep(/^#{patch_no}/)
         patch_info=patch_info[0].split("|")
         patch_no=patch_info[0]+"-"+patch_info[1]
-        doc=get_patch_readme(patch_no) 
+        doc=open_patch_readme(patch_no) 
         fcode_info=doc.grep(/Unbundled Release/)
         fcode_info=fcode_info[0].split(": ")
         fcode_info=fcode_info[1].gsub(%r{</?[^>]+?>}, '').chomp
@@ -143,52 +144,90 @@ def search_qlogic_firmware_page(search_model,url)
   return firmware_urls,firmware_text
 end
 
-def get_patch_readme(patch_no)
-  base_url="https://updates.oracle.com/Orion/Services/download?type=readme&bugfix_name="
+def get_mos_details()
   mos_passwd_file=Dir.home+"/.mospasswd"
-  readme_file=$work_dir+"/README."+patch_no
-  if !File.exists?(readme_file)
-    if !patch_no.match(/http/)
-      url=base_url+patch_no
-    end
-    if !File.exists?(mos_passwd_file)
-      puts "Enter MOS Username:"
-      STDOUT.flush
-      mos_username=gets.chomp 
-      puts "Enter MOS Password:"
-      STDOUT.flush
-      mos_password=gets.chomp 
-    else
-      mos_details=IO.readlines(mos_passwd_file)
-      mos_details=mos_details[0].split(":")
-      mos_username=mos_details[0]
-      mos_password=mos_details[1].chomp
-    end
-    puts "Fetching: "+url
-    if url.match(/http/)
-      command="wget --http-user=\"#{mos_username}\" --http-passwd=\"#{mos_password}\" --no-check-certificate \"#{url}\" -q -O #{readme_file}" 
-      doc=system(command)
-    else
-      doc=Nokogiri::HTML(File.open(url))
-    end
+  if !File.exists?(mos_passwd_file)
+    puts "Enter MOS Username:"
+    STDOUT.flush
+    mos_username=gets.chomp 
+    puts "Enter MOS Password:"
+    STDOUT.flush
+    mos_password=gets.chomp 
+  else
+    mos_details=IO.readlines(mos_passwd_file)
+    mos_details=mos_details[0].split(":")
+    mos_username=mos_details[0]
+    mos_password=mos_details[1].chomp
   end
-  doc=IO.readlines(readme_file)
+  return mos_username,mos_password
+end
+
+def get_patch_full_id(patch_no)
+  if !patch_no.match(/-/)
+    doc=open_patchdiag_xref()
+    patch_no=doc.grep(/^#{patch_no}/)
+    patch_no=patch_no.split("|")
+    patch_no=patch_no[0]+patch_no[1]
+  end
+  return(patch_no)
+end
+
+def get_patch_file(patch_no,output_file)
+  base_url="https://getupdates.oracle.com/all_unsigned/"
+  patch_no=get_patch_full_id(patch_no)
+  if !output_file.match(/[A-z]/)
+    output_file=$work_dir+"/"+patch_no+".zip"
+  end
+  url=base_url+patch_no+".zip"
+  get_oracle_download(url,output_file)
+end
+
+def open_patch_readme(patch_no)
+  output_file=""
+  get_patch_readme(patch_no,output_file)
+  doc=IO.readlines(output_file)
   return doc 
 end
 
-def get_patchdiag_xref(url)
-  output_file=$work_dir+"/patchdiag.xref"
-  if url.match(/http/)
-    if !File.exists?(output_file)
-      # have to use wget as all modules break with akamai redirect
-      # have tried all the TLS workarounds
-      command="wget "+url+" -O "+output_file
-      system(command)
-    end
-    url=output_file
+def get_patch_readme(patch_no,output_file)
+  base_url="https://getupdates.oracle.com/readme/"
+  patch_no=get_patch_full_id(patch_no)
+  if !output_file.match(/[A-z]/)
+    output_file=$work_dir+"/README."+patch_no
   end
-  doc=IO.readlines(url)
+  url=base_url+patch_no
+  get_oracle_download(url,output_file)
+end
+
+def get_oracle_download(url,output_file)
+  if $verbose
+    puts "Fetching #{url} to #{output_file}"
+  end
+  if !File.exists?(output_file)
+    (mos_username,mos_password)=get_mos_details()
+    command="wget --http-user=\"#{mos_username}\" --http-passwd=\"#{mos_password}\" --no-check-certificate \"#{url}\" -q -O #{output_file}" 
+    system(command)
+  end
+end
+
+def open_patchdiag_xref()
+  output_file=""
+  get_patchdiag_xref(output_file)
+  doc=IO.readlines(output_file)
   return(doc)
+end
+
+def get_patchdiag_xref(output_file)
+  url="https://getupdates.oracle.com/reports/patchdiag.xref"
+  if !output_file.match(/[A-z]/)
+    output_file=$work_dir+"/patchdiag.xref"
+  end
+  if !File.exists?(output_file)
+    # have to use wget as all modules break with akamai redirect
+    # have tried all the TLS workarounds
+    command="wget "+url+" -O "+output_file
+    system(command)
+  end
 end
 
 def search_emulex_firmware_page(search_model,url)
@@ -326,9 +365,11 @@ def print_usage()
   puts "-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)"
   puts "-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)"
   puts "-i FILE:     Open a locally saved HTML file for processing rather then fetching it"
+  puts "-p PATCH:    Get a patch from MOS (Requires Username and Password)"
   puts "-r PATCH:    Get README for a patch from MOS (Requires Username and Password)"
   puts "-w WORK_DIR: Set work directory (Default is ~/.goofball)"
   puts "-c:          Output in CSV format"
+  puts "-x:          Get patchdiag.xref"
   puts "-o FILE:     Open a file for writing (CSV mode)"  
 end
 
@@ -382,7 +423,7 @@ def check_local_config
 end
 
 begin
-  opt=Getopt::Std.getopts("V?chd:e:i:m:o:q:r:w:")
+  opt=Getopt::Std.getopts("V?chvxd:e:i:m:o:p:q:r:w:")
 rescue
   print_version()
   print_usage()
@@ -399,6 +440,10 @@ else
       url="http://www.emulex.com/downloads/oracle.html"
     end
   end
+end
+
+if opt["v"]
+  $verbose=1
 end
 
 if opt["V"]
@@ -437,18 +482,42 @@ if opt["w"]
 end
 check_local_config()
 
-if !opt["m"] and !opt["d"] and !opt["e"] and !opt["q"] and !opt["r"]
+if !opt["m"] and !opt["d"] and !opt["e"] and !opt["q"] and !opt["r"] and !opt["x"] and !opt["p"]
   print_usage
   exit
 end
 
-if opt["r"]
-  patch_no=opt["r"]
+if opt["x"]
+  if opt["o"]
+    $verbose=1
+    output_file=opt["o"]
+  else
+    output_file=""
+  end
+  get_patchdiag_xref(output_file)
+end
+
+if opt["r"] or opt["p"]
+  if opt["p"]
+    patch_no=opt["p"]
+  else
+    patch_no=opt["r"]
+  end
   if !patch_no.match(/[0-9]/)
     puts "Invalid Patch Number"
     exit
   end
-  get_patch_readme(patch_no)
+  if opt["o"]
+    $verbose=1
+    output_file=opt["o"]
+  else
+    output_file=""
+  end
+  if opt["r"]
+    get_patch_readme(patch_no,output_file)
+  else
+    get_patch_file(patch_no,output_file)
+  end
 end
 
 if opt["q"]

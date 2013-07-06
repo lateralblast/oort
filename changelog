@@ -10,3 +10,5 @@
 #               Added Emulex HBA support
 #		0.0.6 Sat  6 Jul 2013 23:46:59 EST
 #               Added Qlogic HBA support
+#               0.0.7 Sun  7 Jul 2013 09:51:40 EST
+#               Added support to download Patches, README, and patchdiag.xref independently
