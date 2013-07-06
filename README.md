@@ -14,19 +14,23 @@ http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-1
 Usage
 =====
 
-	./goofball.rb -[h|V] -m [model]
+	./goofball.rb -[h|V] -[q|m|d|e] [MODEL|all] -i [FILE] -o [FILE] -w [WORK_DIR]
 
-	-V:       Display version information
-	-h:       Display usage information
-	-m all:   Display firmware information for all machines
-	-d all:   Display firmware information for all disks
-	-e all:   Display firmware information for all Emulex HBAs
-	-m MODEL: Display firmware information for a specific model (eg. X2-4)
-	-d MODEL: Display firmware information for a specific model of disk (eg. MAW3300FC)
-	-e MODEL: Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)
-	-i FILE:  Open a locally saved HTML file for processing rather then fetching it
-	-c:       Output in CSV format
-	-o FILE:  Open a file for writing (CSV mode)
+	-V:          Display version information
+	-h:          Display usage information
+	-m all:      Display firmware information for all machines
+	-d all:      Display firmware information for all disks
+	-e all:      Display firmware information for all Emulex HBAs
+	-q all:      Display firmware information for all Qlogic HBAs
+	-m MODEL:    Display firmware information for a specific model (eg. X2-4)
+	-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)
+	-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)
+	-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)
+	-i FILE:     Open a locally saved HTML file for processing rather then fetching it
+	-r PATCH:    Get README for a patch from MOS (Requires Username and Password)
+	-w WORK_DIR: Set work directory (Default is ~/.goofball)
+	-c:          Output in CSV format
+	-o FILE:     Open a file for writing (CSV mode)
 
 Examples
 ========

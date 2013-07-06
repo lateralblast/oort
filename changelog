@@ -8,3 +8,5 @@
 #               Added disk firmware support
 #		0.0.5 Sat  6 Jul 2013 08:27:53 EST
 #               Added Emulex HBA support
+#		0.0.6 Sat  6 Jul 2013 23:46:59 EST
+#               Added Qlogic HBA support

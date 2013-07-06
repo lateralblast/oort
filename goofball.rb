@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.0.5
+# Version:      0.0.6
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -18,22 +18,16 @@ require 'nokogiri'
 require 'open-uri'
 require 'getopt/std'
 
+$work_dir=Dir.home+"/.goofball"
+
 def search_disk_firmware_page(search_model,url)
   base_url="https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
-  output_file="patchdiag.xref"
   urls=[]
   txts=[]
   model=""
   firmware_urls={}
   firmware_text={}
-  if url.match(/http/)
-    # have to use wget as all modules break with akamai redirect
-    # have tried all the TLS workarounds
-    command="wget "+url+" -O "+output_file
-    system(command)
-    url=output_file
-  end
-  doc=IO.readlines(url)
+  doc=get_patchdiag_xref(url,output_file)
   if search_model == "all"
     disk_info=doc.grep(/firmware$/)
   else
@@ -58,8 +52,8 @@ def search_disk_firmware_page(search_model,url)
             if patch_text.match(/[A-z]/) and model
               urls.push(patch_url)
               txts.push(patch_text)
-              firmware_text[model]=txts
-              firmware_urls[model]=urls
+              puts firmware_text
+              puts firmware_urls
               urls=[]
               txts=[]
             end
@@ -69,6 +63,132 @@ def search_disk_firmware_page(search_model,url)
     end
   end
   return firmware_urls,firmware_text
+end
+
+def search_qlogic_firmware_page(search_model,url)
+  base_url="https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
+  qlogic_url="http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3"
+  firmware_text={}
+  firmware_urls={}
+  qf8_firmware=""
+  if search_model.match(/all|8$/)
+    doc=Nokogiri::HTML(open(qlogic_url))
+    node=doc.search("[text()*='QF8']").each do |node|
+      qf8_firmware=node.previous_element.text
+    end
+  end
+  # Information from Sun System Handbook
+  hba_info={}
+  hba_info["SG-XPCIEFCGBE-Q8-Z"] = "8Gb/sec PCI Express Dual FC / Dual Gigabit Ethernet Host Adapter ExpressModule, QLogic"
+  hba_info["SG-XPCIE2FC-QB4-Z"]  = "4Gb/sec PCI Express Dual Fibre Channel ExpressModule Host Adapter, QLogic"
+  hba_info["SG-XPCIE2FCGBE-Q-Z"] = "4Gb/sec PCI Express Dual FC / Dual Gigabit Ethernet ExpressModule Host Adapter, QLogic"
+  hba_info["SG-XPCI2FC-QF4-Z"]   = "4Gb PCI-X Dual FC Host Adapter"
+  hba_info["SG-XPCIE1FC-QF8-Z"]  = "8Gigabit/Sec PCI Express Single FC Host Adapter"
+  hba_info["SG-XPCIE2FC-QF8-Z"]  = "8Gigabit/Sec PCI Express Dual FC Host Adapter"
+  hba_info["SG-XPCI1FC-QF4-Z"]   = "4Gb PCI-X Single FC Host Adapter"
+  hba_info["SG-XPCIE1FC-QF4-Z"]  = "4Gigabit/Sec PCI Express Single FC Host Adapter"
+  hba_info["SG-XPCIE2FC-QF4-Z"]  = "4Gigabit/Sec PCI Express Dual FC Host Adapter"
+  urls=[]
+  txts=[]
+  search_list=[]
+  doc=get_patchdiag_xref(url)
+  if search_model.match(/all/)
+    hba_info.each do |model|
+      model=model[0]
+      if model.match(/[A-z]/)
+        search_list.push(model)
+      end
+    end
+  else
+    search_list[0]="#{search_model}"
+  end
+  search_list.each do |model|
+    patch_no=""
+    if model.match(/2$|2-Z$|4$|4-Z$|Q$|Q-Z$|all/)
+      if model.match(/XPCI1FC-QF2|all/)
+        patch_no="114873"
+      end
+      if model.match(/XPCI2FC-QF2|XPCI2FC-QF2|XPCI1FC-QL2|all/)
+        patch_no="114874"
+      end
+      if model.match(/QF4|QB4|Q$|Q-Z$/)
+        patch_no="123305"
+      end
+    end
+    text=hba_info[model]
+    if !model.match(/QF8|Q8/)
+      if patch_no.match(/^[0-9]/)
+        doc=get_patchdiag_xref(url)
+        patch_info=doc.grep(/^#{patch_no}/)
+        patch_info=patch_info[0].split("|")
+        patch_no=patch_info[0]+"-"+patch_info[1]
+        doc=get_patch_readme(patch_no) 
+        fcode_info=doc.grep(/Unbundled Release/)
+        fcode_info=fcode_info[0].split(": ")
+        fcode_info=fcode_info[1].gsub(%r{</?[^>]+?>}, '').chomp
+        patch_url=base_url+patch_no
+        text=text+" "+fcode_info
+      end
+    else
+      text=text+" Firmware Version "+qf8_firmware
+      patch_url=qlogic_url
+    end
+    txts.push(text)
+    urls.push(patch_url)
+    firmware_urls[model]=urls
+    firmware_text[model]=txts
+    urls=[]
+    txts=[]
+  end
+  return firmware_urls,firmware_text
+end
+
+def get_patch_readme(patch_no)
+  base_url="https://updates.oracle.com/Orion/Services/download?type=readme&bugfix_name="
+  mos_passwd_file=Dir.home+"/.mospasswd"
+  readme_file=$work_dir+"/README."+patch_no
+  if !File.exists?(readme_file)
+    if !patch_no.match(/http/)
+      url=base_url+patch_no
+    end
+    if !File.exists?(mos_passwd_file)
+      puts "Enter MOS Username:"
+      STDOUT.flush
+      mos_username=gets.chomp 
+      puts "Enter MOS Password:"
+      STDOUT.flush
+      mos_password=gets.chomp 
+    else
+      mos_details=IO.readlines(mos_passwd_file)
+      mos_details=mos_details[0].split(":")
+      mos_username=mos_details[0]
+      mos_password=mos_details[1].chomp
+    end
+    puts "Fetching: "+url
+    if url.match(/http/)
+      command="wget --http-user=\"#{mos_username}\" --http-passwd=\"#{mos_password}\" --no-check-certificate \"#{url}\" -q -O #{readme_file}" 
+      doc=system(command)
+    else
+      doc=Nokogiri::HTML(File.open(url))
+    end
+  end
+  doc=IO.readlines(readme_file)
+  return doc 
+end
+
+def get_patchdiag_xref(url)
+  output_file=$work_dir+"/patchdiag.xref"
+  if url.match(/http/)
+    if !File.exists?(output_file)
+      # have to use wget as all modules break with akamai redirect
+      # have tried all the TLS workarounds
+      command="wget "+url+" -O "+output_file
+      system(command)
+    end
+    url=output_file
+  end
+  doc=IO.readlines(url)
+  return(doc)
 end
 
 def search_emulex_firmware_page(search_model,url)
@@ -193,19 +313,23 @@ def search_system_firmware_page(search_model,url)
 end
 
 def print_usage()
-  puts "Usage: "+$0+"-[h|V] -m [model]"
+  puts "Usage: "+$0+"-[h|V] -[q|m|d|e] [MODEL|all] -i [FILE] -o [FILE] -w [WORK_DIR]"
   puts
-  puts "-V:       Display version information"
-  puts "-h:       Display usage information"
-  puts "-m all:   Display firmware information for all machines"
-  puts "-d all:   Display firmware information for all disks"
-  puts "-e all:   Display firmware information for all Emulex HBAs"
-  puts "-m MODEL: Display firmware information for a specific model (eg. X2-4)"
-  puts "-d MODEL: Display firmware information for a specific model of disk (eg. MAW3300FC)"
-  puts "-e MODEL: Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)"
-  puts "-i FILE:  Open a locally saved HTML file for processing rather then fetching it"
-  puts "-c:       Output in CSV format"
-  puts "-o FILE:  Open a file for writing (CSV mode)"  
+  puts "-V:          Display version information"
+  puts "-h:          Display usage information"
+  puts "-m all:      Display firmware information for all machines"
+  puts "-d all:      Display firmware information for all disks"
+  puts "-e all:      Display firmware information for all Emulex HBAs"
+  puts "-q all:      Display firmware information for all Qlogic HBAs"
+  puts "-m MODEL:    Display firmware information for a specific model (eg. X2-4)"
+  puts "-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)"
+  puts "-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)"
+  puts "-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)"
+  puts "-i FILE:     Open a locally saved HTML file for processing rather then fetching it"
+  puts "-r PATCH:    Get README for a patch from MOS (Requires Username and Password)"
+  puts "-w WORK_DIR: Set work directory (Default is ~/.goofball)"
+  puts "-c:          Output in CSV format"
+  puts "-o FILE:     Open a file for writing (CSV mode)"  
 end
 
 def print_version()
@@ -251,8 +375,14 @@ def handle_output(model,firmware_urls,firmware_text,output_type,output_file)
   end
 end
 
+def check_local_config
+  if !Dir.exists?($work_dir)
+    Dir.mkdir($work_dir)
+  end    
+end
+
 begin
-  opt=Getopt::Std.getopts("V?chd:e:i:m:o:")
+  opt=Getopt::Std.getopts("V?chd:e:i:m:o:q:r:w:")
 rescue
   print_version()
   print_usage()
@@ -262,7 +392,7 @@ end
 if opt ["m"]
   url="http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
 else
-  if opt["d"]  
+  if opt["d"] or opt ["q"] 
     url="https://getupdates.oracle.com/reports/patchdiag.xref"
   else
     if opt["e"]
@@ -302,9 +432,32 @@ else
   output_type="TXT"
 end
 
-if !opt["m"] and !opt["d"] and !opt["e"]
+if opt["w"]
+  $work_dir=opt["w"]
+end
+check_local_config()
+
+if !opt["m"] and !opt["d"] and !opt["e"] and !opt["q"] and !opt["r"]
   print_usage
   exit
+end
+
+if opt["r"]
+  patch_no=opt["r"]
+  if !patch_no.match(/[0-9]/)
+    puts "Invalid Patch Number"
+    exit
+  end
+  get_patch_readme(patch_no)
+end
+
+if opt["q"]
+  model=opt["q"]
+  if model != "all"
+    model=model.upcase
+  end    
+  (firmware_urls,firmware_text)=search_qlogic_firmware_page(model,url)
+  handle_output(model,firmware_urls,firmware_text,output_type,output_file)
 end
 
 if opt["d"]
