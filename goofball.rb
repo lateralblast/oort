@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.0.8
+# Version:      0.0.9
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -11,7 +11,7 @@
 # Vendor:       Lateral Blast
 # Packager:     Richard Spindler <richard@lateralblast.com.au>
 # Description:  Ruby script to Grep Oracle firmware site
-#               http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html
+#               http//www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html
 
 require 'rubygems'
 require 'nokogiri'
@@ -368,6 +368,7 @@ def print_usage()
   puts "-i FILE:     Open a locally saved HTML file for processing rather then fetching it"
   puts "-p PATCH:    Get a patch from MOS (Requires Username and Password)"
   puts "-r PATCH:    Get README for a patch from MOS (Requires Username and Password)"
+  puts "-R PATCH:    Get README for a patch from MOS (Requires Username and Password) and send to STDOUT"
   puts "-w WORK_DIR: Set work directory (Default is ~/.goofball)"
   puts "-c:          Output in CSV format"
   puts "-x:          Get patchdiag.xref"
@@ -424,7 +425,7 @@ def check_local_config
 end
 
 begin
-  opt=Getopt::Std.getopts("V?chvxd:e:i:m:o:p:q:r:w:")
+  opt=Getopt::Std.getopts("V?chvxR:d:e:i:m:o:p:q:r:w:")
 rescue
   print_version()
   print_usage()
@@ -483,7 +484,7 @@ if opt["w"]
 end
 check_local_config()
 
-if !opt["m"] and !opt["d"] and !opt["e"] and !opt["q"] and !opt["r"] and !opt["x"] and !opt["p"]
+if !opt["m"] and !opt["d"] and !opt["e"] and !opt["q"] and !opt["r"] and !opt["x"] and !opt["p"] and !opt["R"]
   print_usage
   exit
 end
@@ -498,11 +499,15 @@ if opt["x"]
   get_patchdiag_xref(output_file)
 end
 
-if opt["r"] or opt["p"]
+if opt["r"] or opt["p"] or opt["R"]
   if opt["p"]
     patch_no=opt["p"]
   else
-    patch_no=opt["r"]
+    if opt["r"]
+      patch_no=opt["r"]
+    else
+      patch_no=opt["R"]
+    end
   end
   if !patch_no.match(/[0-9]/)
     puts "Invalid Patch Number"
@@ -517,7 +522,12 @@ if opt["r"] or opt["p"]
   if opt["r"]
     get_patch_readme(patch_no,output_file)
   else
-    get_patch_file(patch_no,output_file)
+    if opt["R"]
+      doc=open_patch_readme(patch_no)
+      puts doc
+    else
+      get_patch_file(patch_no,output_file)
+    end
   end
 end
 

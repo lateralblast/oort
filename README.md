@@ -59,6 +59,7 @@ Usage
 	-i FILE:     Open a locally saved HTML file for processing rather then fetching it
 	-p PATCH:    Get a patch from MOS (Requires Username and Password)
 	-r PATCH:    Get README for a patch from MOS (Requires Username and Password)
+	-R PATCH:    Get README for a patch from MOS (Requires Username and Password) and send to STDOUT
 	-w WORK_DIR: Set work directory (Default is ~/.goofball)
 	-c:          Output in CSV format
 	-x:          Get patchdiag.xref
