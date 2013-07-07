@@ -88,6 +88,65 @@ Display firmware information for the X2-4:
 	ILOM 3.0.14.20 r63740 BIOS vers. 16.01.01.18
 	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=12673454
 
+Display firmware for all Emulex HBAs:
+
+	$ ./goofball.rb -e all
+	SG-XPCIEFCGBE-E8-Z:
+	Firmware Version 1.11a5
+	http://www.emulex.com/downloads/oracle/sg-xpciefcgbe-e8-z/firmware-and-boot-code.html
+	SG-XPCIE1FC-EM8-ZSG-XPCIE2FC-EM8-Z:
+	Firmware Version 1.11a5
+	http://www.emulex.com/downloads/oracle/sg-xpcie1fc-em8-z-and-sg-xpcie2fc-em8-z/firmware-and-boot-code.html
+	SG-XPCIE1FC-EM4SG-XPCIE2FC-EM4:
+	Firmware version 2.82a4
+	http://www.emulex.com/downloads/oracle/sg-xpcie1fc-em4-and-sg-xpcie2fc-em4/firmware-and-boot-code.html
+	SG-XPCI1FC-EM4-Z SG-XPCI2FC-EM4-Z:
+	Firmware version 2.82a3
+	http://www.emulex.com/downloads/oracle/sg-xpci1fc-em4-z-and-sg-xpci2fc-em4-z/firmware-and-boot-code.html
+	SG-XPCIE20FC-NEM-Z:
+	Firmware Version 2.82a4 
+	http://www.emulex.com/downloads/oracle/sg-xpcie20fc-nem-z.html
+	SG-XPCIE2FC-EB4-Z:
+	Firmware Version 2.82a4
+	http://www.emulex.com/downloads/oracle/sg-xpcie2fc-eb4-z/firmware-and-boot-code.html
+	SG-XPCIE2FC-ATCA-Z:
+	Firmware Version 2.82a4
+	http://www.emulex.com/downloads/oracle/sg-xpcie2fc-atca-z/firmware-and-boot-code.html
+	SG-XPCI1FC-EM2 SG-XPCI2FC-EM2:
+	Firmware Version 1.92a1
+	http://www.emulex.com/downloads/oracle/sg-xpci1fc-em2-and-sg-xpci2fc-em2/firmware-and-boot-code.html
+
+Display firmware for all Qlogic HBAs:
+
+	./goofball.rb -q all
+	SG-XPCIEFCGBE-Q8-Z:
+	8Gb/sec PCI Express Dual FC / Dual Gigabit Ethernet Host Adapter ExpressModule, QLogic Firmware Version 2.5.2
+	http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3
+	SG-XPCIE2FC-QB4-Z:
+	4Gb/sec PCI Express Dual Fibre Channel ExpressModule Host Adapter, QLogic FCode 2.01, BIOS 2.02
+	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=123305-04
+	SG-XPCIE2FCGBE-Q-Z:
+	4Gb/sec PCI Express Dual FC / Dual Gigabit Ethernet ExpressModule Host Adapter, QLogic FCode 2.01, BIOS 2.02
+	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=123305-04
+	SG-XPCI2FC-QF4-Z:
+	4Gb PCI-X Dual FC Host Adapter FCode 2.01, BIOS 2.02
+	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=123305-04
+	SG-XPCIE1FC-QF8-Z:
+	8Gigabit/Sec PCI Express Single FC Host Adapter Firmware Version 2.5.2
+	http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3
+	SG-XPCIE2FC-QF8-Z:
+	8Gigabit/Sec PCI Express Dual FC Host Adapter Firmware Version 2.5.2
+	http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3
+	SG-XPCI1FC-QF4-Z:
+	4Gb PCI-X Single FC Host Adapter FCode 2.01, BIOS 2.02
+	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=123305-04
+	SG-XPCIE1FC-QF4-Z:
+	4Gigabit/Sec PCI Express Single FC Host Adapter FCode 2.01, BIOS 2.02
+	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=123305-04
+	SG-XPCIE2FC-QF4-Z:
+	4Gigabit/Sec PCI Express Dual FC Host Adapter FCode 2.01, BIOS 2.02
+	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=123305-04
+
 Todo
 ====
 

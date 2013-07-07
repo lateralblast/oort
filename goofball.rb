@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.0.7
+# Version:      0.0.8
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -183,7 +183,8 @@ def get_patch_file(patch_no,output_file)
 end
 
 def open_patch_readme(patch_no)
-  output_file=""
+  patch_no=get_patch_full_id(patch_no)
+  output_file=$work_dir+"/README."+patch_no
   get_patch_readme(patch_no,output_file)
   doc=IO.readlines(output_file)
   return doc 
@@ -200,7 +201,7 @@ def get_patch_readme(patch_no,output_file)
 end
 
 def get_oracle_download(url,output_file)
-  if $verbose
+  if $verbose == 1
     puts "Fetching #{url} to #{output_file}"
   end
   if !File.exists?(output_file)
@@ -211,7 +212,7 @@ def get_oracle_download(url,output_file)
 end
 
 def open_patchdiag_xref()
-  output_file=""
+  output_file=$work_dir+"/patchdiag.xref"
   get_patchdiag_xref(output_file)
   doc=IO.readlines(output_file)
   return(doc)
