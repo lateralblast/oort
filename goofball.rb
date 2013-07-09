@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.0.9
+# Version:      0.1.0
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -52,9 +52,6 @@ def search_disk_firmware_page(search_model,url)
             end
             if patch_text.match(/[A-z]/) and model
               urls.push(patch_url)
-              txts.push(patch_text)
-              puts firmware_text
-              puts firmware_urls
               urls=[]
               txts=[]
             end

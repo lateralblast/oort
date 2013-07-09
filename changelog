@@ -16,3 +16,5 @@
 #               Fixed Qlogic HBA firmware support
 #               0.0.9 Sun  7 Jul 2013 12:33:40 EST
 #               Added -R switch
+#               0.1.0 Tue  9 Jul 2013 22:26:39 EST
+#               Removed debug code
