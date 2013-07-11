@@ -49,12 +49,17 @@ Usage
 	-V:          Display version information
 	-h:          Display usage information
 	-v:          Verbose output
-	-t:          Test mode (don't perform downloads)
+	-b:          Test mode (don't perform downloads)
 	-m all:      Display firmware information for all machines
+	-z all:      Display firmware zip file contents for all models
+	-t all:      Display TFTP file for all models
+	-M all:      Download firmware patch for all models from MOS (Requires Username and Password)
 	-d all:      Display firmware information for all disks
 	-e all:      Display firmware information for all Emulex HBAs
 	-q all:      Display firmware information for all Qlogic HBAs
 	-m MODEL:    Display firmware information for a specific model (eg. X2-4)
+	-z MODEL:    Display firmware zip file contents for a specific model (eg. X2-4)
+	-t MODEL:    Display TFTP file for a specfic model
 	-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)
 	-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)
 	-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)
@@ -68,10 +73,11 @@ Usage
 	-c:          Output in CSV format
 	-x:          Download patchdiag.xref
 	-l:          Only show latest firmware versions (used with -m)
-	-Z:          Update patch archive
+	-Y:          Update patch archive
 	-S RELEASE:  Set Solaris release (used with -Z)
 	-A RELEASE:  Set architecture (used with -Z)
 	-o FILE:     Open a file for writing (CSV mode)
+
 
 Examples
 ========

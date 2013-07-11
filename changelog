@@ -34,3 +34,9 @@
 #               Improved firmware download URL creation
 #               0.1.8 Thu 11 Jul 2013 19:41:35 EST
 #               Added support to create directories if the don't exist
+#               0.1.9 Thu 11 Jul 2013 21:37:27 EST
+#               Added functionality to list ZIP file contents and TFTP boot file
+#               0.2.0 Thu 11 Jul 2013 22:04:11 EST
+#               More handling for older firmware file naming inconsistencies
+#               0.2.1 Fri 12 Jul 2013 00:48:26 EST
+#               Bug fixes

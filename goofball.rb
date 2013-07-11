@@ -17,6 +17,7 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'getopt/std'
+require 'zipruby'
 
 $work_dir=Dir.home+"/.goofball"
 $verbose=0
@@ -355,6 +356,8 @@ def search_system_firmware_page(search_model,url)
         if node.content.to_s.match(/download/) 
           ch_text=node.content.to_s
           ch_text=ch_text.split(" download")[0].to_s
+        else
+          ch_text=""
         end
       end
     end
@@ -390,12 +393,17 @@ def print_usage()
   puts "-V:          Display version information"
   puts "-h:          Display usage information"
   puts "-v:          Verbose output"
-  puts "-t:          Test mode (don't perform downloads)"
+  puts "-b:          Test mode (don't perform downloads)"
   puts "-m all:      Display firmware information for all machines"
+  puts "-z all:      Display firmware zip file contents for all models"
+  puts "-t all:      Display TFTP file for all models"
+  puts "-M all:      Download firmware patch for all models from MOS (Requires Username and Password)"
   puts "-d all:      Display firmware information for all disks"
   puts "-e all:      Display firmware information for all Emulex HBAs"
   puts "-q all:      Display firmware information for all Qlogic HBAs"
   puts "-m MODEL:    Display firmware information for a specific model (eg. X2-4)"
+  puts "-z MODEL:    Display firmware zip file contents for a specific model (eg. X2-4)"
+  puts "-t MODEL:    Display TFTP file for a specfic model"
   puts "-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)"
   puts "-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)"
   puts "-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)"
@@ -409,7 +417,7 @@ def print_usage()
   puts "-c:          Output in CSV format"
   puts "-x:          Download patchdiag.xref"
   puts "-l:          Only show latest firmware versions (used with -m)"
-  puts "-Z:          Update patch archive"
+  puts "-Y:          Update patch archive"
   puts "-S RELEASE:  Set Solaris release (used with -Z)"
   puts "-A RELEASE:  Set architecture (used with -Z)"
   puts "-o FILE:     Open a file for writing (CSV mode)"  
@@ -423,7 +431,7 @@ def print_version()
   puts name+" v. "+version+" "+packager
 end
 
-def get_oracle_download_url(patch_text,patch_url)
+def get_oracle_download_url(model,patch_text,patch_url)
   base_url="https://getupdates.oracle.com/all_unsigned/"
   download_url=""
   head_url=""
@@ -435,7 +443,11 @@ def get_oracle_download_url(patch_text,patch_url)
       rev_text=patch_text.split(" ")[1].to_s
     else
       if patch_text.match(/Module/)
-        rev_text=patch_text.split("Module ")[1].to_s.gsub(/\./,'')
+        if !patch_text.match(/RAID/)
+          rev_text=patch_text.split("Module ")[1].to_s.gsub(/\./,'')
+        else
+          rev_text=patch_text.split("Module ")[2].to_s.gsub(/\./,'')
+        end
       else
         if patch_text.match(/Workstation/)
           rev_text=patch_text.split("Workstation ")[1].to_s.gsub(/\./,'')
@@ -456,7 +468,7 @@ def get_oracle_download_url(patch_text,patch_url)
       download_file=patch_no+".zip"
       download_url=base_url+download_file
     else
-      if !patch_text.match(/SysFW/) 
+      if !patch_text.match(/SysFW/) and !model.match(/U24|X4800|X2250|X2270M2|X6450|X6250|X6275/)
         if rev_text.length < 3
           rev_text=rev_text+"0"
         end
@@ -474,11 +486,64 @@ def download_firmware(model,firmware_urls,firmware_text,latest_only)
   firmware_text[model].each do
     patch_url=firmware_urls[model][counter]
     patch_text=firmware_text[model][counter]
-    (download_url,download_file)=get_oracle_download_url(patch_text,patch_url)
+    (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
     download_file=$work_dir+"/"+model.downcase+"/"+download_file
     get_oracle_download(download_url,download_file)
     if latest_only != 1
       counter=counter+1
+    end
+  end
+end
+
+def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type)
+  counter=0
+  download_file=""
+  firmware_text[model].each do
+    patch_url=firmware_urls[model][counter]
+    patch_text=firmware_text[model][counter]
+    (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
+    download_file=$work_dir+"/"+model.downcase+"/"+download_file
+    get_oracle_download(download_url,download_file)
+    if !File.exists?(download_file)
+      puts "File: "+download_file+" does not exist"
+      return
+    end
+    puts model+":"
+    Zip::Archive.open(download_file) do |archive|
+      entry_names=archive.map do |file|
+        if search_suffix.match(/[A-z]/)
+          if search_suffix.match(/pkg/)
+            if file.name.match(/pkg$|bin$|iso$|Ultra[0-9][0-9]$|[0-9][0-9][0-9][0-9]\.tar\.gz|[0-9][0-9][0-9]\.zip/)
+              tftp_name=File.basename(file.name)
+              if !tftp_name.match(/legal|remote|recovery|^fw|^q8|^firmware/)
+                tftp_file=File.dirname(download_file)
+                tftp_file=tftp_file+"/"+file.name
+                if output_type == "CSV"
+                  patch_text=patch_text.to_s.split(" ")
+                  if patch_text[0].match(/^ILOM/)
+                    puts model.downcase+","+patch_text[1]+","+tftp_name+","+patch_text[2]
+                  end
+                  if patch_text[0].match(/^Sun System Firmware/)
+                    pits model.downcase+","+patch_text[7]+","+tftp_name+","+patch_text[-1]
+                  end
+                  if patch_text[0].match(/^SysFW|^XCP/)
+                    if model.match(/[T,M][1-9][0-3][0,-][0-9]/)
+                      puts model.downcase+",,"+tftp_name+","+patch_text[-1]
+                    else
+                      puts model.downcase+","+patch_text[5].gsub(/\)/,'')+","+tftp_name+","+patch_text[1]
+                    end
+                  end
+                else
+                  puts "TFTP file: "+tftp_name
+                  puts "Location:  "+tftp_file
+                end
+              end
+            end
+          end
+        else
+          puts file.name
+        end
+      end
     end
   end
 end
@@ -490,6 +555,16 @@ def handle_download_firmware(model,firmware_urls,firmware_text,latest_only)
     end
   else
     download_firmware(model,firmware_urls,firmware_text,latest_only)
+  end
+end
+
+def handle_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type)
+  if model == "all"
+    firmware_text.each do |model, text|
+      list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type)
+    end
+  else
+    list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type)
   end
 end
 
@@ -510,7 +585,7 @@ def print_output(model,firmware_urls,firmware_text,output_type,output_file,lates
   firmware_text[model].each do
     patch_url=firmware_urls[model][counter]
     patch_text=firmware_text[model][counter]
-    (download_url,download_file)=get_oracle_download_url(patch_text,patch_url)
+    (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
     if output_type == "CSV"
       output_text=model+","+firmware_text[model][counter]+","+firmware_urls[model][counter]+","+download_url+"\n"
     else
@@ -594,7 +669,7 @@ def update_patch_archive(search_architecture,search_release)
 end
 
 begin
-  opt=Getopt::Std.getopts("ZV?chltvxA:M:P:R:S:d:e:i:m:o:p:q:r:w:")
+  opt=Getopt::Std.getopts("ZV?bchlvxA:M:P:R:S:d:e:i:m:o:p:q:r:t:w:z:")
 rescue
   print_version()
   print_usage()
@@ -621,7 +696,7 @@ if opt["v"]
   $verbose=1
 end
 
-if opt["t"]
+if opt["b"]
   $verbose=1
   $test_mode=1
 end
@@ -741,7 +816,24 @@ if opt["m"]
   handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
 
-if opt["Z"]
+if opt["z"] or opt["t"]
+  if opt["z"]
+    model=opt["z"]
+    search_suffix=""
+  end
+  if opt["t"]
+    model=opt["t"]
+    search_suffix="pkg"
+  end
+  if model != "all"
+    model=model.upcase
+    model=model.gsub(/K/,'000')
+  end    
+  (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
+  handle_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type)
+end
+
+if opt["Y"]
   if !opt["A"]
     search_architecture="all"
   else
