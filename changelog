@@ -40,3 +40,5 @@
 #               More handling for older firmware file naming inconsistencies
 #               0.2.1 Fri 12 Jul 2013 00:48:26 EST
 #               Bug fixes
+#		0.2.2 Fri 12 Jul 2013 07:00:11 ES
+#               Cleaned up zip file routine

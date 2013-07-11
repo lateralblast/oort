@@ -495,9 +495,10 @@ def download_firmware(model,firmware_urls,firmware_text,latest_only)
   end
 end
 
-def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type)
+def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file)
   counter=0
   download_file=""
+  output_text=""
   firmware_text[model].each do
     patch_url=firmware_urls[model][counter]
     patch_text=firmware_text[model][counter]
@@ -521,27 +522,45 @@ def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type)
                 if output_type == "CSV"
                   patch_text=patch_text.to_s.split(" ")
                   if patch_text[0].match(/^ILOM/)
-                    puts model.downcase+","+patch_text[1]+","+tftp_name+","+patch_text[2]
+                    output_text=model.downcase+","+patch_text[1]+","+tftp_name+","+patch_text[2]
                   end
                   if patch_text[0].match(/^Sun System Firmware/)
-                    pits model.downcase+","+patch_text[7]+","+tftp_name+","+patch_text[-1]
+                    output_text=model.downcase+","+patch_text[7]+","+tftp_name+","+patch_text[-1]
                   end
                   if patch_text[0].match(/^SysFW|^XCP/)
                     if model.match(/[T,M][1-9][0-3][0,-][0-9]/)
-                      puts model.downcase+",,"+tftp_name+","+patch_text[-1]
+                      output_text=model.downcase+",,"+tftp_name+","+patch_text[-1]
                     else
-                      puts model.downcase+","+patch_text[5].gsub(/\)/,'')+","+tftp_name+","+patch_text[1]
+                      output_text=model.downcase+","+patch_text[5].gsub(/\)/,'')+","+tftp_name+","+patch_text[1]
                     end
                   end
+                  if output_file.match(/[A-z,0-9]/)
+                    File.open(output_file, 'a') { |file| file.write(output_text) }
+                  else
+                    print output_text
+                  end
                 else
-                  puts "TFTP file: "+tftp_name
-                  puts "Location:  "+tftp_file
+                  output_text="TFTP file: "+tftp_name+"\n"+"Location:  "+tftp_file+"\n"
+                  if output_file.match(/[A-z,0-9]/)
+                    File.open(output_file, 'a') { |file| file.write(output_text) }
+                  else
+                    print output_text
+                  end
                 end
               end
             end
           end
         else
-          puts file.name
+          if output_type == "CSV"
+            output_text=model+","+file.name+"\n"
+          else
+            output_text=file.name+"\n"
+          end
+          if output_file.match(/[A-z,0-9]/)
+            File.open(output_file, 'a') { |file| file.write(output_text) }
+           else
+             print output_text
+           end
         end
       end
     end
@@ -558,13 +577,13 @@ def handle_download_firmware(model,firmware_urls,firmware_text,latest_only)
   end
 end
 
-def handle_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type)
+def handle_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file)
   if model == "all"
     firmware_text.each do |model, text|
-      list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type)
+      list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file)
     end
   else
-    list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type)
+    list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file)
   end
 end
 
@@ -830,7 +849,7 @@ if opt["z"] or opt["t"]
     model=model.gsub(/K/,'000')
   end    
   (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
-  handle_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type)
+  handle_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file)
 end
 
 if opt["Y"]
