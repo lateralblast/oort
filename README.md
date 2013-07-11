@@ -67,6 +67,7 @@ Usage
 	-w WORK_DIR: Set work directory (Default is ~/.goofball)
 	-c:          Output in CSV format
 	-x:          Download patchdiag.xref
+	-l:          Only show latest firmware versions (used with -m)
 	-Z:          Update patch archive
 	-S RELEASE:  Set Solaris release (used with -Z)
 	-A RELEASE:  Set architecture (used with -Z)

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.1.4
+# Version:      0.1.8
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -210,10 +210,22 @@ def get_oracle_download(url,output_file)
     puts "Destination: #{output_file}"
   end
   if !File.exists?(output_file)
+    output_dir=File.dirname(output_file)
+    if !Dir.exists?(output_dir)
+      Dir.mkdir(output_dir)
+    end
     (mos_username,mos_password)=get_mos_details()
     if $test_mode == 0
-      command="wget --http-user=\"#{mos_username}\" --http-passwd=\"#{mos_password}\" --no-check-certificate \"#{url}\" -q -O #{output_file}" 
+      if $verbose == 1
+        command="wget --http-user=\"#{mos_username}\" --http-passwd=\"#{mos_password}\" --no-check-certificate \"#{url}\" -O #{output_file}" 
+      else
+        command="wget --http-user=\"#{mos_username}\" --http-passwd=\"#{mos_password}\" --no-check-certificate \"#{url}\" -q -O #{output_file}" 
+      end
       system(command)
+    end
+  else
+    if $verbose == 1
+      puts "File: #{output_file} already exists" 
     end
   end
 end
@@ -235,6 +247,10 @@ def get_patchdiag_xref(output_file)
     # have tried all the TLS workarounds
     command="wget "+url+" -O "+output_file
     system(command)
+  else
+    if $verbose == 1
+      puts "File: output_file already exists" 
+    end
   end
 end
 
@@ -342,7 +358,7 @@ def search_system_firmware_page(search_model,url)
         end
       end
     end
-    if node.to_s.match(/http/)
+    if node.to_s.match(/http/) and !node.to_s.match(/index/)
       if node.css("a")[0]['href'].to_s.match(/http/)
         url=node.css("a")[0]['href'].to_s
       end
@@ -392,6 +408,7 @@ def print_usage()
   puts "-w WORK_DIR: Set work directory (Default is ~/.goofball)"
   puts "-c:          Output in CSV format"
   puts "-x:          Download patchdiag.xref"
+  puts "-l:          Only show latest firmware versions (used with -m)"
   puts "-Z:          Update patch archive"
   puts "-S RELEASE:  Set Solaris release (used with -Z)"
   puts "-A RELEASE:  Set architecture (used with -Z)"
@@ -419,6 +436,19 @@ def get_oracle_download_url(patch_text,patch_url)
     else
       if patch_text.match(/Module/)
         rev_text=patch_text.split("Module ")[1].to_s.gsub(/\./,'')
+      else
+        if patch_text.match(/Workstation/)
+          rev_text=patch_text.split("Workstation ")[1].to_s.gsub(/\./,'')
+        else
+          if patch_text.match(/Server/)
+            rev_text=patch_text.split("Server ")[1].to_s.gsub(/\./,'')
+          else
+            if patch_text.match(/SysFW/)
+              rev_text=patch_text.split("SysFW ")[1].to_s
+              rev_text=rev_text.split(".")[0]+rev_text.split(".")[1]
+            end
+          end
+        end
       end
     end
     patch_no=patch_url.split("=")[1].to_s
@@ -426,6 +456,11 @@ def get_oracle_download_url(patch_text,patch_url)
       download_file=patch_no+".zip"
       download_url=base_url+download_file
     else
+      if !patch_text.match(/SysFW/) 
+        if rev_text.length < 3
+          rev_text=rev_text+"0"
+        end
+      end
       download_file="p"+patch_no+"_"+rev_text+"_Generic.zip"
       download_url=base_url+download_file
     end
@@ -433,20 +468,37 @@ def get_oracle_download_url(patch_text,patch_url)
   return download_url,download_file
 end
 
-def download_firmware(model,firmware_urls,firmware_text)
+def download_firmware(model,firmware_urls,firmware_text,latest_only)
   counter=0
   download_file=""
   firmware_text[model].each do
     patch_url=firmware_urls[model][counter]
     patch_text=firmware_text[model][counter]
     (download_url,download_file)=get_oracle_download_url(patch_text,patch_url)
-    download_file=$work_dir+"/"+model+"/"+download_file
+    download_file=$work_dir+"/"+model.downcase+"/"+download_file
     get_oracle_download(download_url,download_file)
+    if latest_only != 1
+      counter=counter+1
+    end
   end
 end
 
-def print_output(model,firmware_urls,firmware_text,output_type,output_file)
+def handle_download_firmware(model,firmware_urls,firmware_text,latest_only)
+  if model == "all"
+    firmware_text.each do |model, text|
+      download_firmware(model,firmware_urls,firmware_text,latest_only)
+    end
+  else
+    download_firmware(model,firmware_urls,firmware_text,latest_only)
+  end
+end
+
+def print_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
   counter=0
+  if !firmware_text[model]
+    puts "Model: #{model} does not exist"
+    return
+  end
   if output_type != "CSV"
     output_text=model+":\n"
     if output_file.match(/[A-z,0-9]/)
@@ -469,17 +521,19 @@ def print_output(model,firmware_urls,firmware_text,output_type,output_file)
     else
       print output_text
     end
-    counter=counter+1
+    if latest_only != 1
+      counter=counter+1
+    end
   end
 end
 
-def handle_output(model,firmware_urls,firmware_text,output_type,output_file)
+def handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
   if model == "all"
     firmware_text.each do |model, text|
-      print_output(model,firmware_urls,firmware_text,output_type,output_file)
+      print_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
     end
   else
-    print_output(model,firmware_urls,firmware_text,output_type,output_file)
+    print_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
   end
 end
 
@@ -540,14 +594,14 @@ def update_patch_archive(search_architecture,search_release)
 end
 
 begin
-  opt=Getopt::Std.getopts("ZV?chtvxA:M:P:R:S:d:e:i:m:o:p:q:r:w:")
+  opt=Getopt::Std.getopts("ZV?chltvxA:M:P:R:S:d:e:i:m:o:p:q:r:w:")
 rescue
   print_version()
   print_usage()
   exit
 end
 
-if opt ["m"]
+if opt["m"] or opt["M"]
   url="http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
 else
   if opt["d"] or opt ["q"] 
@@ -557,6 +611,10 @@ else
       url="http://www.emulex.com/downloads/oracle.html"
     end
   end
+end
+
+if opt["l"]
+  latest_only=1
 end
 
 if opt["v"]
@@ -652,7 +710,7 @@ if opt["q"]
     model=model.upcase
   end    
   (firmware_urls,firmware_text)=search_qlogic_firmware_page(model,url)
-  handle_output(model,firmware_urls,firmware_text,output_type,output_file)
+  handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
 
 if opt["d"]
@@ -661,7 +719,7 @@ if opt["d"]
     model=model.upcase
   end    
   (firmware_urls,firmware_text)=search_disk_firmware_page(model,url)
-  handle_output(model,firmware_urls,firmware_text,output_type,output_file)
+  handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
 
 if opt["e"]
@@ -670,7 +728,7 @@ if opt["e"]
     model=model.upcase
   end    
   (firmware_urls,firmware_text)=search_emulex_firmware_page(model,url)  
-  handle_output(model,firmware_urls,firmware_text,output_type,output_file)
+  handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
 
 if opt["m"]
@@ -680,7 +738,7 @@ if opt["m"]
     model=model.gsub(/K/,'000')
   end    
   (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
-  handle_output(model,firmware_urls,firmware_text,output_type,output_file)
+  handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
 
 if opt["Z"]
@@ -711,5 +769,5 @@ if opt["M"]
     model=model.gsub(/K/,'000')
   end    
   (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
-  download_firmware(model,firmware_urls,firmware_text)
+  handle_download_firmware(model,firmware_urls,firmware_text,latest_only)
 end

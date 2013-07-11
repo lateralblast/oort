@@ -26,3 +26,11 @@
 #               Added test mode
 #               0.1.4 Thu 11 Jul 2013 16:48:52 EST
 #               Added archive code
+#               0.1.5 Thu 11 Jul 2013 18:27:19 EST
+#               Added handling to ignore non firmware URLs in output
+#               0.1.6 Thu 11 Jul 2013 19:13:54 EST
+#               Added handling for non existant model
+#               0.1.7 Thu 11 Jul 2013 19:25:03 EST
+#               Improved firmware download URL creation
+#               0.1.8 Thu 11 Jul 2013 19:41:35 EST
+#               Added support to create directories if the don't exist
