@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.1.0
+# Version:      0.1.4
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -20,6 +20,7 @@ require 'getopt/std'
 
 $work_dir=Dir.home+"/.goofball"
 $verbose=0
+$test_mode=0
 
 def search_disk_firmware_page(search_model,url)
   base_url="https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
@@ -169,6 +170,12 @@ def get_patch_full_id(patch_no)
   return(patch_no)
 end
 
+def search_patchdiag_ref(search_string)
+  doc=open_patchdiag_xref()
+  result=doc.grep(/#{search_string}/)
+  return(result)
+end
+
 def get_patch_file(patch_no,output_file)
   base_url="https://getupdates.oracle.com/all_unsigned/"
   patch_no=get_patch_full_id(patch_no)
@@ -199,12 +206,15 @@ end
 
 def get_oracle_download(url,output_file)
   if $verbose == 1
-    puts "Fetching #{url} to #{output_file}"
+    puts "Downloading: #{url}"
+    puts "Destination: #{output_file}"
   end
   if !File.exists?(output_file)
     (mos_username,mos_password)=get_mos_details()
-    command="wget --http-user=\"#{mos_username}\" --http-passwd=\"#{mos_password}\" --no-check-certificate \"#{url}\" -q -O #{output_file}" 
-    system(command)
+    if $test_mode == 0
+      command="wget --http-user=\"#{mos_username}\" --http-passwd=\"#{mos_password}\" --no-check-certificate \"#{url}\" -q -O #{output_file}" 
+      system(command)
+    end
   end
 end
 
@@ -298,6 +308,9 @@ def search_system_firmware_page(search_model,url)
   firmware_text={}
   new_model=""
   text=""
+  fw_text=""
+  ch_text=""
+  module_text=""  
   doc.css('div.pad5x10 p').each do |node|
     url=""
     if node.to_s.match(/name/)
@@ -317,10 +330,15 @@ def search_system_firmware_page(search_model,url)
       end
     else
       if node.content.to_s.match(/^[A-z]/) and !node.content.to_s.match(/download/) 
-        text=node.content.to_s.gsub(/\s+/,' ')
-        if text.match(/[0-9,A-z]\(/)
-          (head,tail)=text.split("(")
-          text=head+" ("+tail
+        fw_text=node.content.to_s.gsub(/\s+/,' ')
+        if fw_text.match(/[0-9,A-z]\(/)
+          (head,tail)=fw_text.split("(")
+          fw_text=head+" ("+tail
+        end
+      else
+        if node.content.to_s.match(/download/) 
+          ch_text=node.content.to_s
+          ch_text=ch_text.split(" download")[0].to_s
         end
       end
     end
@@ -331,9 +349,10 @@ def search_system_firmware_page(search_model,url)
       if search_model == "all" or new_model.match(/#{search_model}/)
         if url.match(/http/)
           urls.push(url)
-          if text.match(/[A-z]/)
+          if fw_text.match(/[A-z]/) or ch_text.match(/[A-z]/)
             if search_model == "all" or new_model.match(/#{search_model}/)
               if !txts.include?(text)
+                text=fw_text+" "+ch_text
                 txts.push(text)
               end
             end
@@ -350,25 +369,32 @@ def search_system_firmware_page(search_model,url)
 end
 
 def print_usage()
-  puts "Usage: "+$0+"-[h|V] -[q|m|d|e] [MODEL|all] -i [FILE] -o [FILE] -w [WORK_DIR]"
+  puts "Usage: "+$0+"-[h|V] -[q|m|d|e|M] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -t -v"
   puts
   puts "-V:          Display version information"
   puts "-h:          Display usage information"
+  puts "-v:          Verbose output"
+  puts "-t:          Test mode (don't perform downloads)"
   puts "-m all:      Display firmware information for all machines"
   puts "-d all:      Display firmware information for all disks"
   puts "-e all:      Display firmware information for all Emulex HBAs"
   puts "-q all:      Display firmware information for all Qlogic HBAs"
   puts "-m MODEL:    Display firmware information for a specific model (eg. X2-4)"
+  puts "-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)"
   puts "-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)"
   puts "-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)"
   puts "-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)"
   puts "-i FILE:     Open a locally saved HTML file for processing rather then fetching it"
-  puts "-p PATCH:    Get a patch from MOS (Requires Username and Password)"
-  puts "-r PATCH:    Get README for a patch from MOS (Requires Username and Password)"
-  puts "-R PATCH:    Get README for a patch from MOS (Requires Username and Password) and send to STDOUT"
+  puts "-p PATCH:    Download a patch from MOS (Requires Username and Password)"
+  puts "-r PATCH:    Download README for a patch from MOS (Requires Username and Password)"
+  puts "-R PATCH:    Download README for a patch from MOS (Requires Username and Password) and send to STDOUT"
+  puts "-P SEARCH:   Search patchdiag.xref"
   puts "-w WORK_DIR: Set work directory (Default is ~/.goofball)"
   puts "-c:          Output in CSV format"
-  puts "-x:          Get patchdiag.xref"
+  puts "-x:          Download patchdiag.xref"
+  puts "-Z:          Update patch archive"
+  puts "-S RELEASE:  Set Solaris release (used with -Z)"
+  puts "-A RELEASE:  Set architecture (used with -Z)"
   puts "-o FILE:     Open a file for writing (CSV mode)"  
 end
 
@@ -378,6 +404,45 @@ def print_version()
   packager=file_array.grep(/^# Packager/)[0].split(":")[1].gsub(/^\s+/,'').chomp
   name=file_array.grep(/^# Name/)[0].split(":")[1].gsub(/^\s+/,'').chomp
   puts name+" v. "+version+" "+packager
+end
+
+def get_oracle_download_url(patch_text,patch_url)
+  base_url="https://getupdates.oracle.com/all_unsigned/"
+  download_url=""
+  head_url=""
+  patch_no=""
+  rev_text=""
+  download_file=""
+  if !patch_url.match(/index/)
+    if patch_text.match(/XCP/)
+      rev_text=patch_text.split(" ")[1].to_s
+    else
+      if patch_text.match(/Module/)
+        rev_text=patch_text.split("Module ")[1].to_s.gsub(/\./,'')
+      end
+    end
+    patch_no=patch_url.split("=")[1].to_s
+    if patch_no.match(/\-/)
+      download_file=patch_no+".zip"
+      download_url=base_url+download_file
+    else
+      download_file="p"+patch_no+"_"+rev_text+"_Generic.zip"
+      download_url=base_url+download_file
+    end
+  end
+  return download_url,download_file
+end
+
+def download_firmware(model,firmware_urls,firmware_text)
+  counter=0
+  download_file=""
+  firmware_text[model].each do
+    patch_url=firmware_urls[model][counter]
+    patch_text=firmware_text[model][counter]
+    (download_url,download_file)=get_oracle_download_url(patch_text,patch_url)
+    download_file=$work_dir+"/"+model+"/"+download_file
+    get_oracle_download(download_url,download_file)
+  end
 end
 
 def print_output(model,firmware_urls,firmware_text,output_type,output_file)
@@ -391,10 +456,13 @@ def print_output(model,firmware_urls,firmware_text,output_type,output_file)
     end
   end
   firmware_text[model].each do
+    patch_url=firmware_urls[model][counter]
+    patch_text=firmware_text[model][counter]
+    (download_url,download_file)=get_oracle_download_url(patch_text,patch_url)
     if output_type == "CSV"
-      output_text=model+","+firmware_text[model][counter]+","+firmware_urls[model][counter]+"\n"
+      output_text=model+","+firmware_text[model][counter]+","+firmware_urls[model][counter]+","+download_url+"\n"
     else
-      output_text=firmware_text[model][counter]+"\n"+firmware_urls[model][counter]+"\n"
+      output_text=firmware_text[model][counter]+"\n"+firmware_urls[model][counter]+"\n"+download_url+"\n"
     end
     if output_file.match(/[A-z,0-9]/)
       File.open(output_file, 'a') { |file| file.write(output_text) }
@@ -421,8 +489,58 @@ def check_local_config
   end    
 end
 
+def update_patch_archive(search_architecture,search_release)
+  zip_file=""
+  readme_file=""
+  doc=open_patchdiag_xref()
+  doc.each do |line|
+    line.chomp
+    if line.match(/^[0-9]/)
+      (number,version,date,recommended,security,obsolete,bad,release,architecture,package,synopsis)=line.split("|")
+      patch_no=number+"-"+version
+      if !obsolete.match(/O/) and !bad.match(/[A-z]/) and !release.match(/Trusted/)
+        if release.match(/Unbundled/)
+          release="all"
+        end
+        if !architecture.match(/[A-z]/)
+          architecture="all"
+        end
+        if release.match(/x86/) or architecture.match(/i386/)
+          architecture="x86"
+          release=release.split("_")[0]
+        end
+        if architecture.match(/sparc/)
+          architecture="sparc"
+        end
+        if architecture.match(/#{search_architecture}/) or search_architecture.match(/all/)
+          if release.match(/#{search_release}/) or search_release.match(/all/)
+            zip_file=$work_dir+"/patches/"+architecture+"/"+release+"/"+patch_no+".zip"
+            readme_file=$work_dir+"/readmes/"+architecture+"/"+release+"/README."+patch_no
+            get_patch_readme(patch_no,readme_file)
+            get_patch_file(patch_no,zip_file)
+          end
+        end
+      else
+        if $verbose == 1
+          if obsolete.match(/O/)
+            puts "Ignoring obsolete patch: "+patch_no
+          else
+            if bad.match(/[A-z]/)
+              puts "Ignoring bad patch: "+patch_no
+            else
+              if release.match(/Trusted/)
+                puts "Ignoring Tusted Solaris patch: "+patch_no
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
 begin
-  opt=Getopt::Std.getopts("V?chvxR:d:e:i:m:o:p:q:r:w:")
+  opt=Getopt::Std.getopts("ZV?chtvxA:M:P:R:S:d:e:i:m:o:p:q:r:w:")
 rescue
   print_version()
   print_usage()
@@ -443,6 +561,11 @@ end
 
 if opt["v"]
   $verbose=1
+end
+
+if opt["t"]
+  $verbose=1
+  $test_mode=1
 end
 
 if opt["V"]
@@ -480,11 +603,6 @@ if opt["w"]
   $work_dir=opt["w"]
 end
 check_local_config()
-
-if !opt["m"] and !opt["d"] and !opt["e"] and !opt["q"] and !opt["r"] and !opt["x"] and !opt["p"] and !opt["R"]
-  print_usage
-  exit
-end
 
 if opt["x"]
   if opt["o"]
@@ -565,3 +683,33 @@ if opt["m"]
   handle_output(model,firmware_urls,firmware_text,output_type,output_file)
 end
 
+if opt["Z"]
+  if !opt["A"]
+    search_architecture="all"
+  else
+    search_architecture=opt["A"]
+  end
+  if !opt["S"]
+    search_release="all"
+  else
+    search_release=opt["S"]
+  end
+  update_patch_archive(search_architecture,search_release)
+end
+
+
+if opt["P"]
+  search_string=opt["P"]
+  search_result=search_patchdiag_ref(search_string)
+  puts search_result
+end
+
+if opt["M"]
+  model=opt["M"]
+  if model != "all"
+    model=model.upcase
+    model=model.gsub(/K/,'000')
+  end    
+  (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
+  download_firmware(model,firmware_urls,firmware_text)
+end

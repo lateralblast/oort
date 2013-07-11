@@ -18,3 +18,11 @@
 #               Added -R switch
 #               0.1.0 Tue  9 Jul 2013 22:26:39 EST
 #               Removed debug code
+#               0.1.1 Thu 11 Jul 2013 13:10:19 EST
+#               Added code to get Server Module / Chassis information
+#               0.1.2 Thu 11 Jul 2013 13:39:52 EST
+#               Added code to construct download URL from firmware information
+#               0.1.3 Thu 11 Jul 2013 14:25:37 EST
+#               Added test mode
+#               0.1.4 Thu 11 Jul 2013 16:48:52 EST
+#               Added archive code

@@ -148,8 +148,8 @@ Display firmware for all Qlogic HBAs:
 	4Gigabit/Sec PCI Express Dual FC Host Adapter FCode 2.01, BIOS 2.02
 	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=123305-04
 
-Todo
-====
+Download latest firmware for X6270M2:
 
-I plan to add the ability to download the firmware as well.
-This will obviously require a My Oracle Support account.
+	$ ./goofball.rb -M X6270M2
+	Downloading: https://getupdates.oracle.com/all_unsigned/p14568638_141_Generic.zip
+	Destination: /Users/spindler/.goofball/X6270M2/p14568638_141_Generic.zip
