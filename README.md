@@ -44,25 +44,32 @@ http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle
 Usage
 =====
 
-	./goofball.rb -[h|V] -[q|m|d|e] [MODEL|all] -[r|p] [PATCH] -i [FILE] -o [FILE] -w [WORK_DIR]
+	./goofball.rb-[h|V] -[q|m|d|e|M] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -t -v
 
 	-V:          Display version information
 	-h:          Display usage information
+	-v:          Verbose output
+	-t:          Test mode (don't perform downloads)
 	-m all:      Display firmware information for all machines
 	-d all:      Display firmware information for all disks
 	-e all:      Display firmware information for all Emulex HBAs
 	-q all:      Display firmware information for all Qlogic HBAs
 	-m MODEL:    Display firmware information for a specific model (eg. X2-4)
+	-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)
 	-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)
 	-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)
 	-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)
 	-i FILE:     Open a locally saved HTML file for processing rather then fetching it
-	-p PATCH:    Get a patch from MOS (Requires Username and Password)
-	-r PATCH:    Get README for a patch from MOS (Requires Username and Password)
-	-R PATCH:    Get README for a patch from MOS (Requires Username and Password) and send to STDOUT
+	-p PATCH:    Download a patch from MOS (Requires Username and Password)
+	-r PATCH:    Download README for a patch from MOS (Requires Username and Password)
+	-R PATCH:    Download README for a patch from MOS (Requires Username and Password) and send to STDOUT
+	-P SEARCH:   Search patchdiag.xref
 	-w WORK_DIR: Set work directory (Default is ~/.goofball)
 	-c:          Output in CSV format
-	-x:          Get patchdiag.xref
+	-x:          Download patchdiag.xref
+	-Z:          Update patch archive
+	-S RELEASE:  Set Solaris release (used with -Z)
+	-A RELEASE:  Set architecture (used with -Z)
 	-o FILE:     Open a file for writing (CSV mode)
 
 Examples
