@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.2.2
+# Version:      0.2.3
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -71,6 +71,7 @@ def search_qlogic_firmware_page(search_model,url)
   firmware_text={}
   firmware_urls={}
   qf8_firmware=""
+  # Fetch file and process locally
   if search_model.match(/all|8$/)
     doc=Nokogiri::HTML(open(qlogic_url))
     node=doc.search("[text()*='QF8']").each do |node|
@@ -262,7 +263,9 @@ def search_emulex_firmware_page(search_model,url)
   firmware_urls={}
   firmware_text={}
   if url.match(/http/)
-    doc=Nokogiri::HTML(open(url))
+    output_file=$work_dir+"/firmware.html"
+    get_oracle_download(url,output_file)
+    doc=Nokogiri::HTML(File.open(output_file))
   else
     doc=Nokogiri::HTML(File.open(url))
   end
@@ -695,7 +698,7 @@ rescue
   exit
 end
 
-if opt["m"] or opt["M"]
+if opt["m"] or opt["M"] or opt["t"]
   url="http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
 else
   if opt["d"] or opt ["q"] 

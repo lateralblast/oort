@@ -167,3 +167,10 @@ Download latest firmware for X6270M2:
 	$ ./goofball.rb -M X6270M2
 	Downloading: https://getupdates.oracle.com/all_unsigned/p14568638_141_Generic.zip
 	Destination: /Users/spindler/.goofball/X6270M2/p14568638_141_Generic.zip
+
+Display TFTP boot image information for X6270M2:
+
+	$ ./goofball.rb -t X6270M2
+	X6270M2:
+	TFTP file: ILOM-3_0_16_11_h_r75207-Sun_Blade_X6270M2.pkg
+	Location:  /Users/spindler/.goofball/x6270m2/ILOM_and_BIOS/ILOM-3_0_16_11_h_r75207-Sun_Blade_X6270M2.pkg
