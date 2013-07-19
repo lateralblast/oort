@@ -74,8 +74,8 @@ Usage
 	-x:          Download patchdiag.xref
 	-l:          Only show latest firmware versions (used with -m)
 	-Y:          Update patch archive
-	-S RELEASE:  Set Solaris release (used with -Z)
-	-A RELEASE:  Set architecture (used with -Z)
+	-S RELEASE:  Set Solaris release (used with -Y)
+	-A RELEASE:  Set architecture (used with -Y)
 	-o FILE:     Open a file for writing (CSV mode)
 
 
