@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.2.5
+# Version:      0.2.6
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -32,38 +32,37 @@ def search_disk_firmware_page(search_model,url)
   firmware_text={}
   doc=open_patchdiag_xref()
   if search_model == "all"
-    disk_info=doc.grep(/firmware$/)
+    disk_info=doc.grep(/Disk/)
   else
     disk_info=doc.grep(/#{search_model}/)
   end
   if disk_info.to_s.match(/[A-z]/)
     disk_info.each do |line|
-      if line.match(/drive |Disk/)
-        if line.match(/^[0-9]/)
-          line=line.split("|")
-          patch_no=line[0]+"-"+line[1]
-          patch_text=line[10].chomp
-          firmware_info=line[9]
-          if firmware_info.match(/:/)
-            firmware_info=firmware_info.split(/:/)[1].gsub(/\;/,'')
-          end
-          patch_url=base_url+patch_no
-          model=patch_text.split(/\s+/) 
-          if !model[-4].match(/6120/)
-            if !model[-3].match(/k$/)
-              model=model[-3]
-              model=model.gsub(/[a-z]/,'')
-            else
-              model=model[-5]
-            end
-            if patch_text.match(/[A-z]/) and model.match(/[A-z]|[0-9]/)
-              urls.push(patch_url)
-              patch_text=patch_text+" ("+firmware_info+")"
-              txts.push(patch_text)
-              firmware_urls[model]=urls
-              firmware_text[model]=txts 
-              urls=[]
-              txts=[]
+      line=line.split("|")
+      patch_no=line[0]+"-"+line[1]
+      doc=open_patch_readme(patch_no) 
+      doc.each do |readme_line|
+        patch_text=line[10].chomp
+        patch_url=base_url+patch_no
+        readme_line.chomp
+        if readme_line.match(/\.fw/)
+          readme_line=readme_line.gsub(/^\s+/,'')
+          readme_line=readme_line.gsub(/,/,'')
+          if readme_line.match(/\s+/)
+            firmware_info=readme_line.split(/\s+/)
+            if firmware_info[0].match(/fw$/) and firmware_info[0].match(/^[A-Z]/)
+              firmware_info=firmware_info[0].split(/\./)
+              model=firmware_info[0]
+              firmware_rev=firmware_info[1]
+              if patch_text.match(/[A-z]/) and model.match(/[A-z]|[0-9]/)
+                urls.push(patch_url)
+                patch_text=patch_text+" ("+firmware_rev+")"
+                txts.push(patch_text)
+                firmware_urls[model]=urls
+                firmware_text[model]=txts 
+                urls=[]
+                txts=[]
+              end
             end
           end
         end
@@ -174,8 +173,8 @@ def get_patch_full_id(patch_no)
   if !patch_no.match(/-/)
     doc=open_patchdiag_xref()
     patch_no=doc.grep(/^#{patch_no}/)
-    patch_no=patch_no.split("|")
-    patch_no=patch_no[0]+patch_no[1]
+    patch_no=patch_no.join.split("|")
+    patch_no=patch_no[0]+"-"+patch_no[1]
   end
   return(patch_no)
 end
