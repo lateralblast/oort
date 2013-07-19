@@ -46,3 +46,5 @@
 #               Fixed bug with TFTP boot image code and updated README.md
 #               0.2.4 Fri 19 Jul 2013 14:02:32 EST
 #               Fixed bug with disk firmware code
+#               0.2.5 Fri 19 Jul 2013 14:43:06 EST
+#               Improved disk firmware output
