@@ -44,3 +44,5 @@
 #               Cleaned up zip file routine
 #		0.2.3 Fri 12 Jul 2013 15:56:49 EST
 #               Fixed bug with TFTP boot image code and updated README.md
+#               0.2.4 Fri 19 Jul 2013 14:02:32 EST
+#               Fixed bug with disk firmware code

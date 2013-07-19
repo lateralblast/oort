@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.2.3
+# Version:      0.2.4
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -41,9 +41,9 @@ def search_disk_firmware_page(search_model,url)
       if line.match(/drive |Disk/)
         if line.match(/^[0-9]/)
           line=line.split("|")
-          patch_no=line[0]+line[1]
+          patch_no=line[0]+"-"+line[1]
           patch_text=line[10].chomp
-          patch_url=base_url+"-"+patch_no
+          patch_url=base_url+patch_no
           model=patch_text.split(/\s+/) 
           if !model[-4].match(/6120/)
             if !model[-3].match(/k$/)
@@ -52,8 +52,11 @@ def search_disk_firmware_page(search_model,url)
             else
               model=model[-5]
             end
-            if patch_text.match(/[A-z]/) and model
+            if patch_text.match(/[A-z]/) and model.match(/[A-z]|[0-9]/)
               urls.push(patch_url)
+              txts.push(patch_text)
+              firmware_urls[model]=urls
+              firmware_text[model]=txts 
               urls=[]
               txts=[]
             end
@@ -525,16 +528,16 @@ def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,out
                 if output_type == "CSV"
                   patch_text=patch_text.to_s.split(" ")
                   if patch_text[0].match(/^ILOM/)
-                    output_text=model.downcase+","+patch_text[1]+","+tftp_name+","+patch_text[2]
+                    output_text=model.downcase+","+patch_text[1]+","+tftp_name+","+patch_text[2]+"\n"
                   end
                   if patch_text[0].match(/^Sun System Firmware/)
-                    output_text=model.downcase+","+patch_text[7]+","+tftp_name+","+patch_text[-1]
+                    output_text=model.downcase+","+patch_text[7]+","+tftp_name+","+patch_text[-1]+"\n"
                   end
                   if patch_text[0].match(/^SysFW|^XCP/)
                     if model.match(/[T,M][1-9][0-3][0,-][0-9]/)
-                      output_text=model.downcase+",,"+tftp_name+","+patch_text[-1]
+                      output_text=model.downcase+",,"+tftp_name+","+patch_text[-1]+"\n"
                     else
-                      output_text=model.downcase+","+patch_text[5].gsub(/\)/,'')+","+tftp_name+","+patch_text[1]
+                      output_text=model.downcase+","+patch_text[5].gsub(/\)/,'')+","+tftp_name+","+patch_text[1]+"\n"
                     end
                   end
                   if output_file.match(/[A-z,0-9]/)
