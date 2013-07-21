@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.2.6
+# Version:      0.3.2
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -17,11 +17,152 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'getopt/std'
+require 'selenium-webdriver'
 require 'zipruby'
+
+class String
+  def strip()
+    self.chars.inject("") do |str, char|
+      if char.ascii_only? and char.ord.between?(32,126)
+        str << char
+      end
+      str
+    end
+  end
+end
 
 $work_dir=Dir.home+"/.goofball"
 $verbose=0
 $test_mode=0
+
+def search_xcp_firmware_page(search_xcp)
+  xcp_url="https://support.oracle.com/epmos/faces/DocContentDisplay?id=1002631.1"
+  output_file=$work_dir+"/xcp.html"
+  if !File.exists?(output_file)
+  puts "got here"
+    (mos_username,mos_password)=get_mos_details()
+    browser=Selenium::WebDriver.for :safari
+    browser.get xcp_url
+    wait=Selenium::WebDriver::Wait.new(:timeout => 5)
+    input=wait.until {
+      element=browser.find_element(:name, "ssousername")
+      element if element.displayed?
+    }
+    input.clear
+    input.send_keys(mos_username)
+    input=wait.until {
+      element=browser.find_element(:name, "password")
+      element if element.displayed?
+    }
+    input.send_keys(mos_password)
+    browser.find_element(:class,"blt-txt").click
+    wait.until {
+      element=browser.find_element(:name, "f1")
+    }
+    output_text=browser.page_source
+    browser.close
+    File.open(output_file, 'w') { |file| file.write(output_text) }
+  end
+  xcp_release=""
+  xcp_version=""
+  xcp_post=""
+  xcp_models=""
+  xcp_info=""
+  mseries=""
+  ["M3000","M4000","M5000","M8000","M9000"].each do |mseries|
+    eval("#{mseries}_txts=[]")
+    eval("#{mseries}_urls=[]")
+  end
+  doc=Nokogiri::HTML(File.open(output_file))
+  doc.css("td").each { |td| td.inner_html = td.inner_html.gsub(/\n/,'') }
+  doc.css("td").each { |td| td.inner_html = td.inner_html.gsub(/<br>/,' ') }
+  doc.css("td").each do |node|
+    if node.text
+      if node.text.match(/^XCP|^POST/)
+        xcp_text=""
+        xcp_info=node.text
+        xcp_info=xcp_info.split(/\n/)
+        xcp_info.each do |line|
+          line=line.gsub(/\s+/,' ')
+          line=line.gsub(/^\s+/,'')
+          line=line.chomp
+          line=line.strip
+          if line.match(/[A-z]|[0-9]/) 
+            if line.match(/^XCP/) and !line.match(/Release/) and !line.match(/XSCF/)
+              xcp_release=line
+              xcp_release=xcp_release.gsub(/ EOL/,'') 
+              xcp_release=xcp_release.gsub(/\s+/,'') 
+            else
+              if line.match(/^0[0-9]/)
+                xcp_version=line
+              else
+                if line.match(/^POST/) and line.match(/[0-9]/)
+                  xcp_post=line
+                else
+                  if line.match(/ 20[0-9][0-9]/)
+                    xcp_models=line
+                    xcp_models=xcp_models.gsub(/ \- /,'')
+                    xcp_models=xcp_models.gsub(/0M/,'0-M')
+                  else
+                    if xcp_version.match(/[0-9]/)
+                      xcp_text="#{xcp_release} #{xcp_version} #{xcp_post} #{xcp_models}"
+                      if xcp_text.match(/[A-z]/)
+                        xcp_text=xcp_text.gsub(/\s+/,' ')
+                        xcp_text=xcp_text.gsub(/\n/,'')
+                        if xcp_text.match(/M3000/) and !xcp_text.match(/M3000\-/)
+                          mseries="M3000"
+                          eval("#{mseries}_txts.push(xcp_text)")
+                          eval("#{mseries}_urls.push(xcp_url)")
+                        end
+                        if xcp_text.match(/M3000\-M9000/)
+                          ["M3000","M4000","M5000","M8000","M9000"].each do |mseries|
+                          eval("#{mseries}_txts.push(xcp_text)")
+                          eval("#{mseries}_urls.push(xcp_url)")
+                          end
+                        end
+                        if xcp_text.match(/M4000\-M9000/)
+                          ["M4000","M5000","M8000","M9000"].each do |mseries|
+                          eval("#{mseries}_txts.push(xcp_text)")
+                          eval("#{mseries}_urls.push(xcp_url)")
+                          end
+                        end
+                        if xcp_text.match(/M5000\-M9000/)
+                          ["M5000","M8000","M9000"].each do |mseries|
+                          eval("#{mseries}_txts.push(xcp_text)")
+                          eval("#{mseries}_urls.push(xcp_url)")
+                          end
+                        end
+                        if xcp_text.match(/M8000\-M9000/)
+                          ["M8000","M9000"].each do |mseries|
+                          eval("#{mseries}_txts.push(xcp_text)")
+                          eval("#{mseries}_urls.push(xcp_url)")
+                          end
+                        end
+                        xcp_release=""
+                        xcp_version=""
+                        xcp_post=""
+                        xcp_models=""
+                        xcp_info=""
+                        xcp_text=""
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  firmware_text={}
+  firmware_urls={}
+  ["M3000","M4000","M5000","M8000","M9000"].each do |mseries|
+    firmware_text[mseries]=eval("#{mseries}_txts")
+    firmware_urls[mseries]=eval("#{mseries}_urls")
+  end
+  return firmware_urls,firmware_text
+end
 
 def search_disk_firmware_page(search_model,url)
   base_url="https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
@@ -176,13 +317,13 @@ def get_patch_full_id(patch_no)
     patch_no=patch_no.join.split("|")
     patch_no=patch_no[0]+"-"+patch_no[1]
   end
-  return(patch_no)
+  return patch_no
 end
 
 def search_patchdiag_ref(search_string)
   doc=open_patchdiag_xref()
   result=doc.grep(/#{search_string}/)
-  return(result)
+  return result
 end
 
 def get_patch_file(patch_no,output_file)
@@ -237,13 +378,14 @@ def get_oracle_download(url,output_file)
       puts "File: #{output_file} already exists" 
     end
   end
+  return
 end
 
 def open_patchdiag_xref()
   output_file=$work_dir+"/patchdiag.xref"
   get_patchdiag_xref(output_file)
   doc=IO.readlines(output_file)
-  return(doc)
+  return doc
 end
 
 def get_patchdiag_xref(output_file)
@@ -261,6 +403,7 @@ def get_patchdiag_xref(output_file)
       puts "File: output_file already exists" 
     end
   end
+  return
 end
 
 def search_emulex_firmware_page(search_model,url)
@@ -287,36 +430,81 @@ def search_emulex_firmware_page(search_model,url)
       suburl=node[:href]
       suburl="http://www.emulex.com/"+suburl 
       urls.push(suburl)
-      firmware_urls[model]=urls
-      urls=[]
       text=""
+      new_text=""
       subdoc=Nokogiri::HTML(open(suburl))
       subdoc.css("div.tab-body-inner h1").each do |subnode|
-        if subnode.text.match(/Firmware/)
-          text=subnode.text
+        if subnode.text.match(/Firmware|Universal/) and subnode.text.match(/[0-9]/)
+          new_text=subnode.text
+          if !text.match(/#{new_text}/) and new_text.match(/[A-z]/)
+            if !text.match(/[A-z]/)
+              text=new_text
+            else
+              text=text+" "+new_text
+            end
+          end
         end
       end
       if !text.match(/[A-z]/)
         subdoc.css("div.tab-body-inner tbody p").each do |subnode|
-          if subnode.text.match(/Firmware/)
-            text=subnode.text
+          if subnode.text.match(/Firmware|Universal/) and subnode.text.match(/[0-9]/)
+            new_text=subnode.text
+            if !text.match(/#{new_text}/) and new_text.match(/[A-z]/)
+              if !text.match(/[A-z]/)
+                text=new_text
+              else
+                text=text+" "+new_text
+              end
+            end
           end
         end
       end
       if !text.match(/[A-z]/)
         subdoc.css("div.csc-textpic-text li").each do |subnode|
-          if subnode.text.match(/Firmware Version/)
-            text=subnode.text
-            text=text.split(/\s+/)
-            text=text[0]+" "+text[1]+" "+text[2]
-            text=text.gsub(/On/,'')
+          if subnode.text.match(/Firmware|Universal/) and subnode.text.match(/[0-9]/)
+            new_text=subnode.text
+            new_text=new_text.split(/\s+/)
+            new_text=new_text[0]+" "+new_text[1]+" "+new_text[2]
+            new_text=new_text.gsub(/On/,'')
+            if !text.match(/#{new_text}/) and new_text.match(/[A-z]/)
+              if !text.match(/[A-z]/)
+                text=new_text
+              else
+                text=text+" "+new_text
+              end
+            end
           end
         end
       end
+      text=text.gsub(/\s+/,' ')
+      text=text.gsub(/\s+$/,'')
       txts.push(text)
-      firmware_text[model]=txts
+      if !txts[0].match(/Firmware/)
+        txts[0]="Frimware Version Unknown"
+      end
+      if model.match(/ /)
+        model=model.split(/ /)
+        model.each do |new_model|
+          firmware_text[new_model]=txts
+          firmware_urls[new_model]=urls
+        end
+      else
+        if model.match(/[0-9]SG|ZSG/)
+          model=model.split(/SG/)
+          new_model="SG"+model[1]
+          firmware_text[new_model]=txts
+          firmware_urls[new_model]=urls
+          new_model="SG"+model[2]
+          firmware_text[new_model]=txts
+          firmware_urls[new_model]=urls
+        else
+          firmware_text[model]=txts
+          firmware_urls[model]=urls
+        end
+      end
       text=""
       txts=[]
+      urls=[]
     end
   end
   return firmware_urls,firmware_text
@@ -380,8 +568,12 @@ def search_system_firmware_page(search_model,url)
           urls.push(url)
           if fw_text.match(/[A-z]/) or ch_text.match(/[A-z]/)
             if search_model == "all" or new_model.match(/#{search_model}/)
-              if !txts.include?(text)
+              if fw_text == ch_text
+                text=fw_text
+              else
                 text=fw_text+" "+ch_text
+              end
+              if !txts.include?(text) and text.match(/[A-z]|[0-9]/)
                 txts.push(text)
               end
             end
@@ -391,8 +583,12 @@ def search_system_firmware_page(search_model,url)
     end
   end
   if search_model != "all"
-    firmware_urls["#{model}"]=urls
-    firmware_text["#{model}"]=txts
+    if urls.grep(/[A-z]|[0-9]/)
+      firmware_urls["#{model}"]=urls
+    end
+    if txts.grep(/[A-z]|[0-9]/)
+      firmware_text["#{model}"]=txts
+    end
   end 
   return firmware_urls,firmware_text
 end
@@ -411,6 +607,7 @@ def print_usage()
   puts "-d all:      Display firmware information for all disks"
   puts "-e all:      Display firmware information for all Emulex HBAs"
   puts "-q all:      Display firmware information for all Qlogic HBAs"
+  puts "-X all:      Display firmware information for all M Series"
   puts "-m MODEL:    Display firmware information for a specific model (eg. X2-4)"
   puts "-z MODEL:    Display firmware zip file contents for a specific model (eg. X2-4)"
   puts "-t MODEL:    Display TFTP file for a specfic model"
@@ -418,6 +615,7 @@ def print_usage()
   puts "-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)"
   puts "-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)"
   puts "-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)"
+  puts "-X MODEL:    Display firmware information for specific M Series model"
   puts "-i FILE:     Open a locally saved HTML file for processing rather then fetching it"
   puts "-p PATCH:    Download a patch from MOS (Requires Username and Password)"
   puts "-r PATCH:    Download README for a patch from MOS (Requires Username and Password)"
@@ -490,28 +688,22 @@ def get_oracle_download_url(model,patch_text,patch_url)
   return download_url,download_file
 end
 
-def download_firmware(model,firmware_urls,firmware_text,latest_only)
-  counter=0
+def download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
   download_file=""
-  firmware_text[model].each do
-    patch_url=firmware_urls[model][counter]
-    patch_text=firmware_text[model][counter]
-    (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
-    download_file=$work_dir+"/"+model.downcase+"/"+download_file
-    get_oracle_download(download_url,download_file)
-    if latest_only != 1
-      counter=counter+1
-    end
-  end
+  patch_url=firmware_urls[model][counter]
+  patch_text=firmware_text[model][counter]
+  (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
+  download_file=$work_dir+"/"+model.downcase+"/"+download_file
+  get_oracle_download(download_url,download_file)
+  return
 end
 
-def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file)
-  counter=0
+def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file,counter)
   download_file=""
   output_text=""
-  firmware_text[model].each do
-    patch_url=firmware_urls[model][counter]
-    patch_text=firmware_text[model][counter]
+  patch_url=firmware_urls[model][counter]
+  patch_text=firmware_text[model][counter]
+  if patch_url and patch_text
     (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
     download_file=$work_dir+"/"+model.downcase+"/"+download_file
     get_oracle_download(download_url,download_file)
@@ -575,26 +767,73 @@ def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,out
       end
     end
   end
+  return
 end
 
-def handle_download_firmware(model,firmware_urls,firmware_text,latest_only)
-  if model == "all"
+def handle_download_firmware(search_model,firmware_urls,firmware_text,latest_only)
+  counter=0
+  if search_model == "all"
     firmware_text.each do |model, text|
-      download_firmware(model,firmware_urls,firmware_text,latest_only)
+      if $verbose == 1
+        puts model+":"
+      end
+      if latest_only == 1
+        download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
+      else
+        counter=0
+        firmware_text[model].each do
+          download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
+          counter=counter+1
+        end
+      end
     end
   else
-    download_firmware(model,firmware_urls,firmware_text,latest_only)
+    if $verbose == 1
+      puts model+":"
+    end
+    if latest_only == 1
+      download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
+    else
+      firmware_text[search_model].each do
+        download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
+        counter=counter+1
+      end
+    end
   end
+  return
 end
 
-def handle_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file)
-  if model == "all"
+def handle_zipfile(search_model,firmware_urls,firmware_text,search_suffix,output_type,output_file,latest_only)
+  counter=0
+  if search_model == "all"
     firmware_text.each do |model, text|
-      list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file)
+      if $verbose == 1
+        puts model+":"
+      end
+      if latest_only == 1
+        list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file,counter)
+      else
+        counter=0
+        firmware_text[model].each do
+          list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file,counter)
+          counter=counter+1
+        end
+      end
     end
   else
-    list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file)
+    if $verbose == 1
+      puts search_model+":"
+    end
+    if latest_only == 1
+      list_zipfile(search_model,firmware_urls,firmware_text,search_suffix,output_type,output_file,counter)
+    else
+      firmware_text[search_model].each do
+        list_zipfile(search_model,firmware_urls,firmware_text,search_suffix,output_type,output_file,counter)
+        counter=counter+1
+      end
+    end
   end
+  return
 end
 
 def print_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
@@ -606,7 +845,7 @@ def print_output(model,firmware_urls,firmware_text,output_type,output_file,lates
   if output_type != "CSV"
     output_text=model+":\n"
     if output_file.match(/[A-z,0-9]/)
-      File.open(output_file, 'a') { |file| file.write(output_text) }
+      File.open(output_file, 'w') { |file| file.write(output_text) }
     else
       print output_text
     end
@@ -614,11 +853,19 @@ def print_output(model,firmware_urls,firmware_text,output_type,output_file,lates
   firmware_text[model].each do
     patch_url=firmware_urls[model][counter]
     patch_text=firmware_text[model][counter]
-    (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
+    if !patch_url.match(/emulex|1002631/)
+      (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
+    else
+      download_url=""
+    end
     if output_type == "CSV"
       output_text=model+","+firmware_text[model][counter]+","+firmware_urls[model][counter]+","+download_url+"\n"
     else
-      output_text=firmware_text[model][counter]+"\n"+firmware_urls[model][counter]+"\n"+download_url+"\n"
+      if download_url.match(/[A-z]/)
+        output_text=firmware_text[model][counter]+"\n"+firmware_urls[model][counter]+"\n"+download_url+"\n"
+      else
+        output_text=firmware_text[model][counter]+"\n"+firmware_urls[model][counter]+"\n"
+      end
     end
     if output_file.match(/[A-z,0-9]/)
       File.open(output_file, 'a') { |file| file.write(output_text) }
@@ -629,6 +876,7 @@ def print_output(model,firmware_urls,firmware_text,output_type,output_file,lates
       counter=counter+1
     end
   end
+  return
 end
 
 def handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
@@ -639,12 +887,14 @@ def handle_output(model,firmware_urls,firmware_text,output_type,output_file,late
   else
     print_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
   end
+  return
 end
 
 def check_local_config
   if !Dir.exists?($work_dir)
     Dir.mkdir($work_dir)
   end    
+  return
 end
 
 def update_patch_archive(search_architecture,search_release)
@@ -695,10 +945,11 @@ def update_patch_archive(search_architecture,search_release)
       end
     end
   end
+  return
 end
 
 begin
-  opt=Getopt::Std.getopts("ZV?bchlvxA:M:P:R:S:d:e:i:m:o:p:q:r:t:w:z:")
+  opt=Getopt::Std.getopts("VZ?bchlvxA:M:P:R:S:X:d:e:i:m:o:p:q:r:t:w:z:")
 rescue
   print_version()
   print_usage()
@@ -845,12 +1096,12 @@ if opt["m"]
   handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
 
-if opt["z"] or opt["t"]
+if opt["z"] or opt["t"] or opt["o"]
   if opt["z"]
     model=opt["z"]
     search_suffix=""
   end
-  if opt["t"]
+  if opt["t"] or opt["o"]
     model=opt["t"]
     search_suffix="pkg"
   end
@@ -859,7 +1110,7 @@ if opt["z"] or opt["t"]
     model=model.gsub(/K/,'000')
   end    
   (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
-  handle_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file)
+  handle_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file,latest_only)
 end
 
 if opt["Y"]
@@ -891,4 +1142,15 @@ if opt["M"]
   end    
   (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
   handle_download_firmware(model,firmware_urls,firmware_text,latest_only)
+end
+
+if opt["X"]
+  model=opt["X"]
+  if model != "all"
+    model=opt["X"]
+    model=model.upcase
+    model=model.gsub(/K/,'000')
+  end
+  (firmware_urls,firmware_text)=search_xcp_firmware_page(model)
+  handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end

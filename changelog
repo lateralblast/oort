@@ -50,3 +50,15 @@
 #               Improved disk firmware output
 #               0.2.6 Fri 19 Jul 2013 21:52:08 EST
 #               Futher improved disk firmware code
+#               0.2.7 Sat 20 Jul 2013 15:45:32 EST
+#               Fixed Emulex firmware output
+#               0.2.8 Sat 20 Jul 2013 16:37:50 EST
+#               Improved Emulex firmware output
+#               0.2.9 Sat 20 Jul 2013 21:15:33 EST
+#               Fixed bugs with listing zip files
+#		0.3.0 Sat 20 Jul 2013 21:43:29 EST
+#               Fixed buga with system firmware output
+#               0.3.1 Sun 21 Jul 2013 04:47:12 EST
+#               Added code to fetch XCP Document 
+#               0.3.2 Sun 21 Jul 2013 22:03:15 EST
+#               Added M Series XCP/XSCF firmware matrix processing
