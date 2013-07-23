@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.3.2
+# Version:      0.3.3
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -610,12 +610,12 @@ def print_usage()
   puts "-X all:      Display firmware information for all M Series"
   puts "-m MODEL:    Display firmware information for a specific model (eg. X2-4)"
   puts "-z MODEL:    Display firmware zip file contents for a specific model (eg. X2-4)"
-  puts "-t MODEL:    Display TFTP file for a specfic model"
+  puts "-t MODEL:    Display TFTP file for a specfic model (e.g. T5440)"
   puts "-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)"
   puts "-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)"
   puts "-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)"
   puts "-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)"
-  puts "-X MODEL:    Display firmware information for specific M Series model"
+  puts "-X MODEL:    Display firmware information for specific M Series model (e.g. M3000)"
   puts "-i FILE:     Open a locally saved HTML file for processing rather then fetching it"
   puts "-p PATCH:    Download a patch from MOS (Requires Username and Password)"
   puts "-r PATCH:    Download README for a patch from MOS (Requires Username and Password)"
@@ -1096,7 +1096,7 @@ if opt["m"]
   handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
 
-if opt["z"] or opt["t"] or opt["o"]
+if opt["z"] or opt["t"]
   if opt["z"]
     model=opt["z"]
     search_suffix=""
