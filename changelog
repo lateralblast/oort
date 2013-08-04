@@ -64,3 +64,5 @@
 #               Added M Series XCP/XSCF firmware matrix processing
 #               0.3.3 Tue 23 Jul 2013 09:59:27 EST
 #               Fixed CSV output for M Series
+#               0.3.4 Sun  4 Aug 2013 13:46:40 EST
+#               Removed debug code
