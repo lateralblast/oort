@@ -593,7 +593,7 @@ def search_system_firmware_page(search_model,url)
 end
 
 def print_usage()
-  puts "Usage: "+$0+"-[h|V] -[q|m|d|e|M] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -t -v"
+  puts "Usage: "+$0+" -[h|V] -[q|m|d|e|M] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -t -v"
   puts
   puts "-V:          Display version information"
   puts "-h:          Display usage information"
@@ -700,6 +700,7 @@ end
 def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file,counter)
   download_file=""
   output_text=""
+  firmware_data=""
   patch_url=firmware_urls[model][counter]
   patch_text=firmware_text[model][counter]
   if patch_url and patch_text
@@ -722,17 +723,34 @@ def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,out
                 tftp_file=tftp_file+"/"+file.name
                 if output_type == "CSV"
                   patch_text=patch_text.to_s.split(" ")
+                  puts model.downcase+patch_text[0]+"\n"
                   if patch_text[0].match(/^ILOM/)
-                    output_text=model.downcase+","+patch_text[1]+","+tftp_name+","+patch_text[2]+"\n"
+                    firmware_data=","+patch_text[1]+","+tftp_name+","+patch_text[2]
+                    case
+                    when model.downcase.match(/^x4150$/)
+                      output_text="x4150"+firmware_data+"\n"+"x4250"+firmware_data+"\n"
+                    else
+                      output_text=model.downcase+firmware_data+"\n"
+                    end
                   end
                   if patch_text[0].match(/^Sun System Firmware/)
-                    output_text=model.downcase+","+patch_text[7]+","+tftp_name+","+patch_text[-1]+"\n"
+                    firmware_data=","+patch_text[7]+","+tftp_name+","+patch_text[-1]
+                    output_text=model.downcase+firmware_data+"\n"
                   end
                   if patch_text[0].match(/^SysFW|^XCP/)
                     if model.match(/[T,M][1-9][0-3][0,-][0-9]/)
-                      output_text=model.downcase+",,"+tftp_name+","+patch_text[-1]+"\n"
+                      firmware_data=",,"+tftp_name+","+patch_text[-1]
+                      output_text=model.downcase+firmware_data+"\n"
                     else
-                      output_text=model.downcase+","+patch_text[5].gsub(/\)/,'')+","+tftp_name+","+patch_text[1]+"\n"
+                      firmware_data=","+patch_text[5].gsub(/\)/,'')+","+tftp_name+","+patch_text[1]
+                      case
+                      when model.downcase.match(/^t5220$/)
+                        output_text="t5120"+firmware_data+"\n"+"t5220"+firmware_data+"\n"
+                      when model.downcase.match(/^t5240$/)
+                        output_text="t5140"+firmware_data+"\n"+"t5240"+firmware_data+"\n"
+                      else
+                        output_text=model.downcase+firmware_data+"\n"
+                      end
                     end
                   end
                   if output_file.match(/[A-z,0-9]/)

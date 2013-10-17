@@ -5,11 +5,19 @@ Get Oracle OBP Firmware
 
 This script parses the Oracle firmware page to get firmware information.
 It returns the versions of firmware (top most is the current) and their
-URLs. The Oracle downloads require a support contract and a MOS account.
+URLs. 
+
+The Oracle downloads require a support contract and a MOS account.
+You can prevent the script from displaying your MOS username and password
+on the command line by creating a ~/.mospasswd file and putting your
+username and password in it on one line separated by a colon.
+
+	$ cat ~/.mospasswd
+	Firstname.Lastname@company.com:P@$$W0rd
 
 The Oracle downloads for patches and READMEs currently use wget as all
 the ruby web modules fail with the Oracle site. Similarly the code
-to download the XSCF uses Selenium and Safari due to poorly formatted
+to download the XSCF firmware uses Selenium and Safari due to poorly formatted
 html and hidden elements on the MOS login page. I've tried PhantomJS
 and it fails.
 
@@ -115,6 +123,10 @@ Display firmware information for the X2-4:
 	ILOM 3.0.14.20 r63740 BIOS vers. 16.01.01.18
 	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=12673454
 
+Output latest firmware TFTP information as CSV (Warning this will download the firmware also):
+
+	$ ./goofball.rb -t all -w /export/firmware -l -c -o firmware.txt
+
 Display firmware for all Emulex HBAs:
 
 	$ ./goofball.rb -e all
@@ -176,16 +188,16 @@ Display firmware for all Qlogic HBAs:
 
 Download latest firmware for X6270M2:
 
-	$ ./goofball.rb -M X6270M2
+	$ ./goofball.rb -M X6270M2 -w /export/firmware
 	Downloading: https://getupdates.oracle.com/all_unsigned/p14568638_141_Generic.zip
-	Destination: /Users/spindler/.goofball/X6270M2/p14568638_141_Generic.zip
+	Destination: /export/firmware/x6270m2/p14568638_141_Generic.zip
 
 Display TFTP boot image information for X6270M2:
 
-	$ ./goofball.rb -t X6270M2
+	$ ./goofball.rb -t X6270M2 -w /export/firmware
 	X6270M2:
 	TFTP file: ILOM-3_0_16_11_h_r75207-Sun_Blade_X6270M2.pkg
-	Location:  /Users/spindler/.goofball/x6270m2/ILOM_and_BIOS/ILOM-3_0_16_11_h_r75207-Sun_Blade_X6270M2.pkg
+	Location:  /export/firmware/x6270m2/ILOM_and_BIOS/ILOM-3_0_16_11_h_r75207-Sun_Blade_X6270M2.pkg
 
 Display all M3000 XSCF firmware history:
 
