@@ -69,3 +69,5 @@
 # Removed debug code
 # 0.3.5 Fri 18 Oct 2013 09:14:58 EST
 # Improved TFTP information to include members of the same family (e.g. T5120 and T5220)
+# 0.3.6 Fri 18 Oct 2013 10:11:01 EST
+# Added fix for members of same family so TFTP search does not fail

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.3.4
+# Version:      0.3.5
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -1120,6 +1120,14 @@ if opt["z"] or opt["t"]
   end
   if opt["t"] or opt["o"]
     model=opt["t"]
+    case
+    when model.downcase.match(/^t5120$/)
+      model="T5220"
+    when model.downcase.match(/^t5140$/)
+      model="T5240"
+    when search_model.downcase.match(/^x4250$/)
+      model="X4150"
+    end
     search_suffix="pkg"
   end
   if model != "all"
