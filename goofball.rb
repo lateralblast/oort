@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.3.5
+# Version:      0.3.7
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -19,6 +19,7 @@ require 'open-uri'
 require 'getopt/std'
 require 'selenium-webdriver'
 require 'zipruby'
+require 'fileutils'
 
 class String
   def strip()
@@ -292,20 +293,12 @@ def search_qlogic_firmware_page(search_model,url)
 end
 
 def get_mos_details()
-  mos_passwd_file=Dir.home+"/.mospasswd"
-  if !File.exists?(mos_passwd_file)
-    puts "Enter MOS Username:"
-    STDOUT.flush
-    mos_username=gets.chomp 
-    puts "Enter MOS Password:"
-    STDOUT.flush
-    mos_password=gets.chomp 
-  else
-    mos_details=IO.readlines(mos_passwd_file)
-    mos_details=mos_details[0].split(":")
-    mos_username=mos_details[0]
-    mos_password=mos_details[1].chomp
-  end
+  puts "Enter MOS Username:"
+  STDOUT.flush
+  mos_username=gets.chomp 
+  puts "Enter MOS Password:"
+  STDOUT.flush
+  mos_password=gets.chomp 
   return mos_username,mos_password
 end
 
@@ -353,6 +346,18 @@ def get_patch_readme(patch_no,output_file)
   get_oracle_download(url,output_file)
 end
 
+def create_mos_passwd_file(mos_username,mos_password)
+  FileUtils.touch(mos_passwd_file)
+  File.chmod(0700,mos_passwd_file)
+  output_text="http-user="+mos_username+"\n"
+  File.open(mos_passwd_file, 'a') { |file| file.write(output_text) }
+  output_text="http-passwd="+mos_password+"\n"
+  File.open(mos_passwd_file, 'a') { |file| file.write(output_text) }
+  output_text="check-certificate=off\n"
+  File.open(mos_passwd_file, 'a') { |file| file.write(output_text) }
+  File.close(mos_passwd_file)
+end
+
 def get_oracle_download(url,output_file)
   if $verbose == 1
     puts "Downloading: #{url}"
@@ -363,12 +368,16 @@ def get_oracle_download(url,output_file)
     if !Dir.exists?(output_dir)
       Dir.mkdir(output_dir)
     end
-    (mos_username,mos_password)=get_mos_details()
     if $test_mode == 0
+      mos_passwd_file=Dir.home+"/.mospasswd"
+      if !File.exists?(mos_passwd_file)
+        (mos_username,mos_password)=get_mos_details()
+        create_mos_passwd_file(mos_username,mos_password)
+      end
       if $verbose == 1
-        command="wget --http-user=\"#{mos_username}\" --http-passwd=\"#{mos_password}\" --no-check-certificate \"#{url}\" -O #{output_file}" 
+        command="export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+url+"\""+" -O "+"\""+output_file+"\"" 
       else
-        command="wget --http-user=\"#{mos_username}\" --http-passwd=\"#{mos_password}\" --no-check-certificate \"#{url}\" -q -O #{output_file}" 
+        command="export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+url+"\""+" -q -O "+"\""+output_file+"\"" 
       end
       system(command)
     end
@@ -649,22 +658,27 @@ def get_oracle_download_url(model,patch_text,patch_url)
     if patch_text.match(/XCP/)
       rev_text=patch_text.split(" ")[1].to_s
     else
-      if patch_text.match(/Module/)
-        if !patch_text.match(/RAID/)
-          rev_text=patch_text.split("Module ")[1].to_s.gsub(/\./,'')
-        else
-          rev_text=patch_text.split("Module ")[2].to_s.gsub(/\./,'')
-        end
+      if patch_text.match(/8000P Chassis Monitoring Module/)
+        rev_text=patch_text.split(" ")[-1].to_s
+        rev_text=rev_text.gsub(/\./,'')
       else
-        if patch_text.match(/Workstation/)
-          rev_text=patch_text.split("Workstation ")[1].to_s.gsub(/\./,'')
-        else
-          if patch_text.match(/Server/)
-            rev_text=patch_text.split("Server ")[1].to_s.gsub(/\./,'')
+        if patch_text.match(/Module/)
+          if !patch_text.match(/RAID/)
+            rev_text=patch_text.split("Module ")[1].to_s.gsub(/\./,'')
           else
-            if patch_text.match(/SysFW/)
-              rev_text=patch_text.split("SysFW ")[1].to_s
-              rev_text=rev_text.split(".")[0]+rev_text.split(".")[1]
+            rev_text=patch_text.split("Module ")[2].to_s.gsub(/\./,'')
+          end
+        else
+          if patch_text.match(/Workstation/)
+            rev_text=patch_text.split("Workstation ")[1].to_s.gsub(/\./,'')
+          else
+            if patch_text.match(/Server/)
+              rev_text=patch_text.split("Server ")[1].to_s.gsub(/\./,'')
+            else
+              if patch_text.match(/SysFW/)
+                rev_text=patch_text.split("SysFW ")[1].to_s
+                rev_text=rev_text.split(".")[0]+rev_text.split(".")[1]
+              end
             end
           end
         end
@@ -693,7 +707,9 @@ def download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
   patch_text=firmware_text[model][counter]
   (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
   download_file=$work_dir+"/"+model.downcase+"/"+download_file
-  get_oracle_download(download_url,download_file)
+  if !File.exists?(download_file)
+    get_oracle_download(download_url,download_file)
+  end
   return
 end
 

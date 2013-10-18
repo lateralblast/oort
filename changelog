@@ -71,3 +71,5 @@
 # Improved TFTP information to include members of the same family (e.g. T5120 and T5220)
 # 0.3.6 Fri 18 Oct 2013 10:11:01 EST
 # Added fix for members of same family so TFTP search does not fail
+# 0.3.7 Fri 18 Oct 2013 12:03:19 EST
+# Used WGETRC to remove possibility of username and password being displayed in wget command
