@@ -8,18 +8,23 @@ It returns the versions of firmware (top most is the current) and their
 URLs. 
 
 The Oracle downloads require a support contract and a MOS account.
-You can prevent the script from displaying your MOS username and password
-on the command line by creating a ~/.mospasswd file and putting your
-username and password in it on one line separated by a colon.
+To prevent the possibility of displaying username and password
+details the script sets the WGETRC environment variable to read
+them from a file. If the file does not exist it will ask you for
+the details and create a file. The files permission are set so
+only you can read it, e.g.
 
 	$ cat ~/.mospasswd
-	Firstname.Lastname@company.com:P@$$W0rd
+	http-user=Firstname.Lastname@company.com
+	http-password=P@$$w0r]
+	check-certificate=off
 
 The Oracle downloads for patches and READMEs currently use wget as all
 the ruby web modules fail with the Oracle site. Similarly the code
-to download the XSCF firmware uses Selenium and Safari due to poorly formatted
-html and hidden elements on the MOS login page. I've tried PhantomJS
-and it fails.
+to download the XSCF firmware uses Selenium and Safari due to poorly 
+formatted html and hidden elements on the MOS login page. I've tried 
+PhantomJS and it fails. Similarly adding certificate support is on the 
+list of things to do.
 
 Oracle Firmware URL:
 
