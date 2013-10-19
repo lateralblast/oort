@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.3.7
+# Version:      0.3.8
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -524,68 +524,81 @@ def search_system_firmware_page(search_model,url)
   else
     doc=Nokogiri::HTML(File.open(url))
   end
-  model=""
   urls=[]
   txts=[]
   firmware_urls={}
   firmware_text={}
-  new_model=""
   text=""
+  model=""
+  new_model=""
   fw_text=""
   ch_text=""
   module_text=""  
-  doc.css('div.pad5x10 p').each do |node|
+  rows=doc.css('table tr')
+  rows.each do |row|
+    info=""
     url=""
-    if node.to_s.match(/name/)
-      if node.css("a")[0]['name'].to_s.match(/[A-z]/)
-        new_model=node.css("a")[0]['name']
-        if search_model == "all" or node.css("a")[0]['name'].to_s.match(/#{search_model}/)
-          if new_model != model
-            if model.match(/[A-z]/)
-              firmware_urls[model]=urls
-              firmware_text[model]=txts
-              urls=[]
-              txts=[]
-            end
-            model=node.css("a")[0]['name'].to_s
-          end
-        end
+    name=row.css('a').map{|td| td[:name]}
+    if name[0]
+      if name[0].match(/[A-z]|[0-9]/)
+        new_model=name[0]
+      end
+    end
+    if !model.match(/[A-z]|[0-9]/)
+      model=new_model
+    end
+    text=row.content.to_s.split(/\s+ /)
+    #text=row.css('a').map{|td| td.content}
+    if text[2]
+      if text[2].match(/[A-z]|[0-9]/)
+        info=text[1]+" "+text[2]
       end
     else
-      if node.content.to_s.match(/^[A-z]/) and !node.content.to_s.match(/download/) 
-        fw_text=node.content.to_s.gsub(/\s+/,' ')
-        if fw_text.match(/[0-9,A-z]\(/)
-          (head,tail)=fw_text.split("(")
-          fw_text=head+" ("+tail
+      if text[1]
+        if text[1].match(/[A-z]|[0-9]/)
+          info=text[0]+" "+text[1]
         end
       else
-        if node.content.to_s.match(/download/) 
-          ch_text=node.content.to_s
-          ch_text=ch_text.split(" download")[0].to_s
-        else
-          ch_text=""
+        if text[0]
+          info=text[0]
         end
       end
     end
-    if node.to_s.match(/http/) and !node.to_s.match(/index/)
-      if node.css("a")[0]['href'].to_s.match(/http/)
-        url=node.css("a")[0]['href'].to_s
+    info=info.gsub(/ download/,'')
+    if info.match(/[0-9,A-z]\(/)
+      (head,tail)=info.split("(")
+      info=head+" ("+tail
+    end
+    links=row.css('a').map{|td| td[:href]}
+    if links[2]
+      if links[2].match(/http/)
+        url=links[2]
       end
-      if search_model == "all" or new_model.match(/#{search_model}/)
-        if url.match(/http/)
+    else
+      if links[0]
+        if links[0].match(/http/)
+          url=links[0]
+        end
+      end
+    end
+    if !url.match(/http/)
+      if links[1]
+        url=links[1]
+      end
+    end
+    if new_model.match(/[A-z]|[0-9]/)
+      if new_model != model
+        firmware_text[model]=txts
+        firmware_urls[model]=urls
+        txts=[]
+        urls=[]
+        txts.push(info)
+        urls.push(url)
+        model=new_model
+      else
+        if info.match(/[0-9]/)
+          txts.push(info)
           urls.push(url)
-          if fw_text.match(/[A-z]/) or ch_text.match(/[A-z]/)
-            if search_model == "all" or new_model.match(/#{search_model}/)
-              if fw_text == ch_text
-                text=fw_text
-              else
-                text=fw_text+" "+ch_text
-              end
-              if !txts.include?(text) and text.match(/[A-z]|[0-9]/)
-                txts.push(text)
-              end
-            end
-          end
         end
       end
     end
@@ -598,6 +611,44 @@ def search_system_firmware_page(search_model,url)
       firmware_text["#{model}"]=txts
     end
   end 
+  ['NT3-1BA','CP3010','CP3020','CP3060','CP3220','CP3250','CP3260','CP3270'].each do |member|
+    firmware_text[member]=firmware_text["CT900"]
+    firmware_urls[member]=firmware_urls["CT900"]
+  end
+  ['8000P','X8400','X8420','X8440','X8450'].each do |member|
+    firmware_text[member]=firmware_text["8000"]
+    firmware_urls[member]=firmware_urls["8000"]
+  end
+  ['X4240','X4440'].each do |member|
+    firmware_text[member]=firmware_text["X4140"]
+    firmware_urls[member]=firmware_urls["X4140"]
+  end
+  ['X4270','X4275'].each do |member|
+    firmware_text[member]=firmware_text["X4170"]
+    firmware_urls[member]=firmware_urls["X4170"]
+  end
+  firmware_text["T5120"]=firmware_text["T5220"]
+  firmware_urls["T5120"]=firmware_urls["T5220"]
+  firmware_text["T5140"]=firmware_text["T5240"]
+  firmware_urls["T5140"]=firmware_urls["T5240"]
+  firmware_text["X4200"]=firmware_text["X4100"]
+  firmware_urls["X4200"]=firmware_urls["X4100"]
+  firmware_text["X4200M2"]=firmware_text["X4100M2"]
+  firmware_urls["X4200M2"]=firmware_urls["X4100M2"]
+  firmware_text["X4170M3"]=firmware_text["X3-2"]
+  firmware_urls["X4170M3"]=firmware_urls["X3-2"]
+  firmware_text["X4270M3"]=firmware_text["X3-2L"]
+  firmware_urls["X4270M3"]=firmware_urls["X3-2L"]
+  firmware_text["X4470M2"]=firmware_text["X2-4"]
+  firmware_urls["X4470M2"]=firmware_urls["X2-4"]
+  firmware_text["X4800M2"]=firmware_text["X2-8"]
+  firmware_urls["X4800M2"]=firmware_urls["X2-8"]
+  firmware_text["X4270M3"]=firmware_text["X3-2"]
+  firmware_urls["X4270M3"]=firmware_urls["X3-2"]
+  firmware_text["X6270M3"]=firmware_text["X3-2B"]
+  firmware_urls["X6270M3"]=firmware_urls["X3-2B"]
+  firmware_text["NX6270M3"]=firmware_text["NX3-2B"]
+  firmware_urls["NX6270M3"]=firmware_urls["NX3-2B"]
   return firmware_urls,firmware_text
 end
 
@@ -871,9 +922,19 @@ end
 
 def print_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
   counter=0
+  txts=[]
+  urls=[]
   if !firmware_text[model]
     puts "Model: #{model} does not exist"
     return
+  end
+  if latest_only == 1
+    text=firmware_text[model][0]
+    txts.push(text)
+    firmware_text[model]=txts
+    link=firmware_urls[model][0]   
+    urls.push(link)
+    firmware_urls[model]=urls
   end
   if output_type != "CSV"
     output_text=model+":\n"
@@ -905,9 +966,7 @@ def print_output(model,firmware_urls,firmware_text,output_type,output_file,lates
     else
       print output_text
     end
-    if latest_only != 1
-      counter=counter+1
-    end
+    counter=counter+1
   end
   return
 end
@@ -991,12 +1050,21 @@ end
 
 if opt["m"] or opt["M"] or opt["t"]
   url="http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
+  if File.exists?(File.basename(url))
+    url=File.basename(url)
+  end
 else
   if opt["d"] or opt ["q"] 
     url="https://getupdates.oracle.com/reports/patchdiag.xref"
+    if File.exists?(File.basename(url))
+      url=File.basename(url)
+    end
   else
     if opt["e"]
       url="http://www.emulex.com/downloads/oracle.html"
+      if File.exists?(File.basename(url))
+        url=File.basename(url)
+      end
     end
   end
 end
@@ -1136,14 +1204,6 @@ if opt["z"] or opt["t"]
   end
   if opt["t"] or opt["o"]
     model=opt["t"]
-    case
-    when model.downcase.match(/^t5120$/)
-      model="T5220"
-    when model.downcase.match(/^t5140$/)
-      model="T5240"
-    when search_model.downcase.match(/^x4250$/)
-      model="X4150"
-    end
     search_suffix="pkg"
   end
   if model != "all"
