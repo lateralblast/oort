@@ -91,3 +91,5 @@
 # Improved patch URL determination
 # 0.4.6 Sat 19 Oct 2013 18:45:05 EST
 # Added support for obsoleted HW programmables patch
+# 0.4.7 Sat 19 Oct 2013 19:12:09 EST
+# Improved HTML processing

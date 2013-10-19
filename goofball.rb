@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.4.6
+# Version:      0.4.7
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -530,11 +530,8 @@ def search_system_firmware_page(search_model,url)
   txts=[]
   firmware_urls={}
   firmware_text={}
-  text=""
   model=""
   new_model=""
-  fw_text=""
-  ch_text=""
   counter=0
   module_text=""  
   rows=doc.css('table tr')
@@ -560,6 +557,9 @@ def search_system_firmware_page(search_model,url)
       (head,tail)=info.split("(")
       info=head+" ("+tail
     end
+    info=info.split(" ")
+    info=info.uniq
+    info=info.join(" ")
     links=row.css('a').map{|td| td[:href]}
     links.each do |link|
       if link
@@ -580,8 +580,12 @@ def search_system_firmware_page(search_model,url)
       else
         if info.match(/[0-9]/) and url.match(/http/) and !info.match(/HW Programmables 1.0.0/)
           if counter > 1
-            txts.push(info)
-            urls.push(url)
+            if !txts.grep(/#{info}/)
+              txts.push(info)
+            end
+            if !urls.grep(/#{info}/)
+              urls.push(url)
+            end
           end
         end
       end
@@ -691,7 +695,10 @@ def get_oracle_download_url(model,patch_text,patch_url)
   download_file=""
   if !patch_url.match(/index/)
     if patch_text.match(/XCP/)
-      rev_text=patch_text.split(" ")[1].to_s
+      rev_text=patch_text.split("XCP ")[1].to_s
+      if rev_text.match(/ /)
+        rev_text=rev_text.split(" ")[0]
+      end
     else
       if patch_text.match(/8000P Chassis Monitoring Module/)
         rev_text=patch_text.split(" ")[-1].to_s
