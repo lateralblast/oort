@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.4.5
+# Version:      0.4.6
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -578,7 +578,7 @@ def search_system_firmware_page(search_model,url)
         urls.push(url)
         model=new_model
       else
-        if info.match(/[0-9]/) and url.match(/http/)
+        if info.match(/[0-9]/) and url.match(/http/) and !info.match(/HW Programmables 1.0.0/)
           if counter > 1
             txts.push(info)
             urls.push(url)
