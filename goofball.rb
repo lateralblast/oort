@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.4.3
+# Version:      0.4.5
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -707,12 +707,16 @@ def get_oracle_download_url(model,patch_text,patch_url)
           if patch_text.match(/Workstation/)
             rev_text=patch_text.split("Workstation ")[1].to_s.gsub(/\./,'')
           else
-            if patch_text.match(/Server/)
+            if patch_text.match(/Server/) and !patch_text.match(/SysFW/)
               rev_text=patch_text.split("Server ")[1].to_s.gsub(/\./,'')
             else
               if patch_text.match(/SysFW/)
                 rev_text=patch_text.split("SysFW ")[1].to_s
                 rev_text=rev_text.split(".")[0]+rev_text.split(".")[1]
+              else
+                if patch_text.match(/LSI/)
+                  rev_text=patch_text.split(" ")[3].gsub(/\./,'')
+                end
               end
             end
           end
