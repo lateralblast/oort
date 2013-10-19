@@ -21,6 +21,7 @@ require 'selenium-webdriver'
 require 'zipruby'
 require 'fileutils'
 require 'find'
+require 'pathname'
 
 class String
   def strip()
@@ -534,6 +535,7 @@ def search_system_firmware_page(search_model,url)
   new_model=""
   fw_text=""
   ch_text=""
+  counter=0
   module_text=""  
   rows=doc.css('table tr')
   rows.each do |row|
@@ -543,54 +545,27 @@ def search_system_firmware_page(search_model,url)
     if name[0]
       if name[0].match(/[A-z]|[0-9]/)
         new_model=name[0]
+        counter=counter+1
       end
     end
     if !model.match(/[A-z]|[0-9]/)
       model=new_model
     end
-    text=row.content.to_s.split(/\s+ /)
-    #text=row.css('a').map{|td| td.content}
-    if text[2]
-      if text[2].match(/[A-z]|[0-9]/)
-        info=text[1]+" "+text[2]
-      end
-    else
-      if text[1]
-        if text[1].match(/[A-z]|[0-9]/)
-          info=text[0]+" "+text[1]
-        end
-      else
-        if text[0]
-          info=text[0]
-        end
-      end
-    end
+    info=row.content.to_s
+    info=info.gsub(/\s+ /,' ')
+    info=info.gsub(/^\s+ /,'')
+    info=info.gsub(/ $/,'')
     info=info.gsub(/ download/,'')
     if info.match(/[0-9,A-z]\(/)
       (head,tail)=info.split("(")
       info=head+" ("+tail
     end
     links=row.css('a').map{|td| td[:href]}
-    if links[3]
-      if links[3].match(/http/)
-        url=links[3]
-      end
-    else
-      if links[2]
-        if links[2].match(/http/)
-          url=links[2]
+    links.each do |link|
+      if link
+        if link.match(/http/) and link.match(/[0-9]/)
+          url=link
         end
-      else
-        if links[0]
-          if links[0].match(/http/)
-            url=links[0]
-          end
-        end
-      end
-    end
-    if !url.match(/http/)
-      if links[1]
-        url=links[1]
       end
     end
     if new_model.match(/[A-z]|[0-9]/)
@@ -603,9 +578,11 @@ def search_system_firmware_page(search_model,url)
         urls.push(url)
         model=new_model
       else
-        if info.match(/[0-9]/)
-          txts.push(info)
-          urls.push(url)
+        if info.match(/[0-9]/) and url.match(/http/)
+          if counter > 1
+            txts.push(info)
+            urls.push(url)
+          end
         end
       end
     end
@@ -773,6 +750,11 @@ def download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
       if $verbose == 1
         puts "Found "+existing_file+"\n"
         puts "Symlinking "+existing_file+" to "+download_file+"\n"
+      end
+      dir_name=Pathname.new(download_file)
+      dir_name=dir_name.dirname
+      if !Dir.exists?(dir_name)
+        Dir.mkdir(dir_name)
       end
       File.symlink(existing_file,download_file)
     else 
