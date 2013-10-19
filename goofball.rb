@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.4.1
+# Version:      0.4.2
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -1003,7 +1003,17 @@ end
 def check_local_config
   if !Dir.exists?($work_dir)
     Dir.mkdir($work_dir)
-  end    
+  end
+  $file_list.each do |file_name|
+    if File.exists?(file_name)
+      if File.size(file_name) == 0
+        if $verbose == 1
+          puts "Deleting empty file "+file_name+"\n"
+        end
+        File.delete(file_name)
+      end
+    end
+  end
   return
 end
 
