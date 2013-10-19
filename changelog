@@ -79,3 +79,5 @@
 # Improved Oracle firmware web page parsing
 # 0.4.0 Sat 19 Oct 2013 14:54:47 EST
 # Fixed firmare download for individual models
+# 0.4.1 Sat 19 Oct 2013 16:23:22 EST
+# Added code to check local repository and symlink files if they exist elsewhere

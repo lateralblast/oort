@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.4.0
+# Version:      0.4.1
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -20,6 +20,7 @@ require 'getopt/std'
 require 'selenium-webdriver'
 require 'zipruby'
 require 'fileutils'
+require 'find'
 
 class String
   def strip()
@@ -570,14 +571,20 @@ def search_system_firmware_page(search_model,url)
       info=head+" ("+tail
     end
     links=row.css('a').map{|td| td[:href]}
-    if links[2]
-      if links[2].match(/http/)
-        url=links[2]
+    if links[3]
+      if links[3].match(/http/)
+        url=links[3]
       end
     else
-      if links[0]
-        if links[0].match(/http/)
-          url=links[0]
+      if links[2]
+        if links[2].match(/http/)
+          url=links[2]
+        end
+      else
+        if links[0]
+          if links[0].match(/http/)
+            url=links[0]
+          end
         end
       end
     end
@@ -754,12 +761,23 @@ end
 
 def download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
   download_file=""
+  wrong_file=""
   patch_url=firmware_urls[model][counter]
   patch_text=firmware_text[model][counter]
-  (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
-  download_file=$work_dir+"/"+model.downcase+"/"+download_file
+  (download_url,file_name)=get_oracle_download_url(model,patch_text,patch_url)
+  download_file=$work_dir+"/"+model.downcase+"/"+file_name
   if !File.exists?(download_file)
-    get_oracle_download(download_url,download_file)
+    existing_file=$file_list.select {|existing_file| existing_file =~ /#{file_name}/}
+    if existing_file[0]
+      existing_file=existing_file[0]
+      if $verbose == 1
+        puts "Found "+existing_file+"\n"
+        puts "Symlinking "+existing_file+" to "+download_file+"\n"
+      end
+      File.symlink(existing_file,download_file)
+    else 
+      get_oracle_download(download_url,download_file)
+    end
   end
   return
 end
@@ -1048,6 +1066,15 @@ rescue
   exit
 end
 
+if opt["w"]
+  $work_dir=opt["w"]
+end
+
+if opt["M"]
+  $file_list=[]
+  Find.find($work_dir) {|file_name| $file_list.push(file_name) if File.file?(file_name)}
+end
+
 if opt["m"] or opt["M"] or opt["t"]
   url="http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
   if File.exists?(File.basename(url))
@@ -1113,9 +1140,6 @@ else
   output_type="TXT"
 end
 
-if opt["w"]
-  $work_dir=opt["w"]
-end
 check_local_config()
 
 if opt["x"]
