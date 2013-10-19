@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.3.9
+# Version:      0.4.0
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -873,13 +873,13 @@ def handle_download_firmware(search_model,firmware_urls,firmware_text,latest_onl
     end
   else
     if $verbose == 1
-      puts model+":"
+      puts search_model+":"
     end
     if latest_only == 1
-      download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
+      download_firmware(search_model,firmware_urls,firmware_text,latest_only,counter)
     else
       firmware_text[search_model].each do
-        download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
+        download_firmware(search_model,firmware_urls,firmware_text,latest_only,counter)
         counter=counter+1
       end
     end

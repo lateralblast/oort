@@ -77,3 +77,5 @@
 # Added code to check for local copy of html file
 # 0.3.9 Sat 19 Oct 2013 14:45:02 EST
 # Improved Oracle firmware web page parsing
+# 0.4.0 Sat 19 Oct 2013 14:54:47 EST
+# Fixed firmare download for individual models
