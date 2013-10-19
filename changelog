@@ -83,3 +83,5 @@
 # Added code to check local repository and symlink files if they exist elsewhere
 # 0.4.2 Sat 19 Oct 2013 16:37:28 EST
 # Added code to delete empty files from repository
+# 0.4.3 Sat 19 Oct 2013 16:45:17 EST
+# Fixed local repository check

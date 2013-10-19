@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.4.2
+# Version:      0.4.3
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -1000,10 +1000,7 @@ def handle_output(model,firmware_urls,firmware_text,output_type,output_file,late
   return
 end
 
-def check_local_config
-  if !Dir.exists?($work_dir)
-    Dir.mkdir($work_dir)
-  end
+def check_repository
   $file_list.each do |file_name|
     if File.exists?(file_name)
       if File.size(file_name) == 0
@@ -1013,6 +1010,12 @@ def check_local_config
         File.delete(file_name)
       end
     end
+  end
+end
+
+def check_local_config
+  if !Dir.exists?($work_dir)
+    Dir.mkdir($work_dir)
   end
   return
 end
@@ -1083,6 +1086,7 @@ end
 if opt["M"]
   $file_list=[]
   Find.find($work_dir) {|file_name| $file_list.push(file_name) if File.file?(file_name)}
+  check_repository()
 end
 
 if opt["m"] or opt["M"] or opt["t"]
