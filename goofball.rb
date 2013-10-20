@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.4.9
+# Version:      0.5.1
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -706,7 +706,7 @@ def get_oracle_download_url(model,patch_text,patch_url)
       if patch_text.match(/ILOM|SP|ELOM|BIOS|CR/) and !patch_text.match(/CMM Software /) and !patch_text.match(/SysFW/)
         ['Chassis ','Server ', 'Workstation '].each do |search_string|
           if patch_text.match(/#{search_string}/)
-            if patch_text.match(/\(/) and !patch_text.match(/formerly|only/)
+            if patch_text.match(/\(/) and !patch_text.match(/[0-9]$/)
               rev_text=patch_text.split(" ")[-2].gsub(/\./,'')
             else
               rev_text=patch_text.split(" ")[-1].gsub(/\./,'')
