@@ -111,22 +111,30 @@ Display firmware information for the X2-4:
 
 	$./goofball -m x2-4
 	X2-4:
-	ILOM 3.1.2.24.c r81341 BIOS vers. 16.04.02.00
-	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=16978905
-	ILOM 3.1.2.24.b r79266 BIOS vers. 16.04.02.00
+	Sun Server X2-4 (formerly Fire X4470 M2 Server) ILOM 3.1.2.24.c r81341 BIOS vers. 16.04.02.00 1.4.1
+	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=17023411
+	https://getupdates.oracle.com/all_unsigned/p17023411_141_Generic.zip
+	ILOM 3.1.2.24.b r79266 BIOS vers. 16.04.02.00 Server 1.4 (21-May-2013)
 	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=16404931
-	ILOM 3.1.2.24.a r75561 BIOS vers. 16.04.01.05
+	https://getupdates.oracle.com/all_unsigned/p16404931_140_Generic.zip
+	ILOM 3.1.2.24.a r75561 BIOS vers. 16.04.01.05 Server 1.3.1 (02-Oct-2012)
 	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=14579071
-	ILOM 3.1.2.24 r73820 BIOS vers. 16.04.01.02
+	https://getupdates.oracle.com/all_unsigned/p14579071_131_Generic.zip
+	ILOM 3.1.2.24 r73820 BIOS vers. 16.04.01.02 Server 1.3 (07-Jul-2012)
 	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=14099616
-	ILOM 3.0.16.12.a r70287 BIOS vers. 16.03.01.03
+	https://getupdates.oracle.com/all_unsigned/p14099616_130_Generic.zip
+	ILOM 3.0.16.12.a r70287 BIOS vers. 16.03.01.03 Server 1.2 (08-Feb-2012)
 	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=13648432
-	ILOM 3.0.16.12 r65661 BIOS vers. 16.02.01.01
+	https://getupdates.oracle.com/all_unsigned/p13648432_120_Generic.zip
+	ILOM 3.0.16.12 r65661 BIOS vers. 16.02.01.01 Server 1.1 (13-Sep-2011)
 	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=12886608
-	ILOM 3.0.14.20.a r64405 BIOS vers. 16.01.01.19 (only required on Windows with 1Tb configuration)
+	https://getupdates.oracle.com/all_unsigned/p12886608_110_Generic.zip
+	ILOM 3.0.14.20.a r64405 BIOS vers. 16.01.01.19 (only required on Windows with 1Tb configuration) Server 1.0.1
 	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=12677099
-	ILOM 3.0.14.20 r63740 BIOS vers. 16.01.01.18
+	https://getupdates.oracle.com/all_unsigned/p12677099_Server_Generic.zip
+	ILOM 3.0.14.20 r63740 BIOS vers. 16.01.01.18 Server 1.0 (22-Jun-2011)
 	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=12673454
+	https://getupdates.oracle.com/all_unsigned/p12673454_100_Generic.zip
 
 Output latest firmware TFTP information as CSV (Warning this will download the firmware also):
 
