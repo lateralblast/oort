@@ -693,6 +693,12 @@ def get_oracle_download_url(model,patch_text,patch_url)
   patch_no=""
   rev_text=""
   download_file=""
+  if !patch_url
+    if $verbose == 1
+      puts "No patch URL found for "+model+" ["+patch_text+"] \n"
+    end
+    return
+  end
   if !patch_url.match(/index/)
     if patch_text.match(/Sun Blade 6048 Chassis|Sun Ultra 24 Workstation|Sun Fire X4450 Server/)
       rev_text=patch_text.split(" ")[-2].gsub(/\./,'')
@@ -748,6 +754,9 @@ def download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
   patch_url=firmware_urls[model][counter]
   patch_text=firmware_text[model][counter]
   (download_url,file_name)=get_oracle_download_url(model,patch_text,patch_url)
+  if !download_url
+    return
+  end
   download_file=$work_dir+"/"+model.downcase+"/"+file_name
   if !File.exists?(download_file)
     existing_file=$file_list.select {|existing_file| existing_file =~ /#{file_name}/}
@@ -871,9 +880,11 @@ def handle_download_firmware(search_model,firmware_urls,firmware_text,latest_onl
         download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
       else
         counter=0
-        firmware_text[model].each do
-          download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
-          counter=counter+1
+        if firmware_text[model]
+          firmware_text[model].each do
+            download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
+            counter=counter+1
+          end
         end
       end
     end

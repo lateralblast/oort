@@ -97,3 +97,5 @@
 # Improved patch URL determination
 # 0.4.9 Mon 21 Oct 2013 09:46:32 EST
 # More patch URL determination improvements
+# 0.5.0 Mon 21 Oct 2013 10:29:21 EST
+# Added error handling for empty patch URLs and text
