@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.4.7
+# Version:      0.4.8
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -570,32 +570,32 @@ def search_system_firmware_page(search_model,url)
     end
     if new_model.match(/[A-z]|[0-9]/)
       if new_model != model
-        firmware_text[model]=txts
-        firmware_urls[model]=urls
+        txts=txts.uniq
+        urls=urls.uniq
+        if urls.grep(/[A-z]|[0-9]/) and txts.grep(/[A-z]|[0-9]/)
+          firmware_text[model]=txts
+          firmware_urls[model]=urls
+        end
         txts=[]
         urls=[]
-        txts.push(info)
-        urls.push(url)
+        if info.match(/[0-9]/) and url.match(/http/) and !info.match(/Programmables 1.0.0/)
+          txts.push(info)
+          urls.push(url)
+        end
         model=new_model
       else
-        if info.match(/[0-9]/) and url.match(/http/) and !info.match(/HW Programmables 1.0.0/)
+        if info.match(/[0-9]/) and url.match(/http/) and !info.match(/Programmables 1.0.0/)
           if counter > 1
-            if !txts.grep(/#{info}/)
-              txts.push(info)
-            end
-            if !urls.grep(/#{info}/)
-              urls.push(url)
-            end
+            txts.push(info)
+            urls.push(url)
           end
         end
       end
     end
   end
   if search_model != "all"
-    if urls.grep(/[A-z]|[0-9]/)
+    if urls.grep(/[A-z]|[0-9]/) and txts.grep(/[A-z]|[0-9]/)
       firmware_urls["#{model}"]=urls
-    end
-    if txts.grep(/[A-z]|[0-9]/)
       firmware_text["#{model}"]=txts
     end
   end 
@@ -694,40 +694,35 @@ def get_oracle_download_url(model,patch_text,patch_url)
   rev_text=""
   download_file=""
   if !patch_url.match(/index/)
-    if patch_text.match(/XCP/)
-      rev_text=patch_text.split("XCP ")[1].to_s
-      if rev_text.match(/ /)
-        rev_text=rev_text.split(" ")[0]
-      end
+    if patch_text.match(/Sun Blade 6048 Chassis|Sun Ultra 24 Workstation|Sun Fire X4450 Server/)
+      rev_text=patch_text.split(" ")[-2].gsub(/\./,'')
     else
-      if patch_text.match(/8000P Chassis Monitoring Module/)
-        rev_text=patch_text.split(" ")[-1].to_s
-        rev_text=rev_text.gsub(/\./,'')
-      else
-        if patch_text.match(/Module/)
-          if !patch_text.match(/RAID/)
-            rev_text=patch_text.split("Module ")[1].to_s.gsub(/\./,'')
-          else
-            rev_text=patch_text.split("Module ")[2].to_s.gsub(/\./,'')
-          end
-        else
-          if patch_text.match(/Workstation/)
-            rev_text=patch_text.split("Workstation ")[1].to_s.gsub(/\./,'')
-          else
-            if patch_text.match(/Server/) and !patch_text.match(/SysFW/)
-              rev_text=patch_text.split("Server ")[1].to_s.gsub(/\./,'')
+      if patch_text.match(/ILOM|SP|ELOM/) and !patch_text.match(/CMM Software /) and !patch_text.match(/SysFW/)
+        ['Chassis ','Server '].each do |search_string|
+          if patch_text.match(/#{search_string}/)
+            if patch_text.match(/\(/) and !patch_text.match(/formerly/)
+              rev_text=patch_text.split(" ")[-2].gsub(/\./,'')
             else
-              if patch_text.match(/SysFW/)
-                rev_text=patch_text.split("SysFW ")[1].to_s
-                rev_text=rev_text.split(".")[0]+rev_text.split(".")[1]
-              else
-                if patch_text.match(/LSI/)
-                  rev_text=patch_text.split(" ")[3].gsub(/\./,'')
-                end
-              end
+              rev_text=patch_text.split(" ")[-1].gsub(/\./,'')
             end
           end
         end
+      else
+        ['Box ','CMM Software ','System Firmware ','Module ', 'Programmables ','XCP ','Workstation '].each do |search_string|
+          if patch_text.match(/#{search_string}/)
+            rev_text=patch_text.split("#{search_string}")[1].to_s
+            rev_text=rev_text.split(" ")[0].gsub(/\./,'')
+            if patch_text.match(/System Firmware /)
+              rev_text=rev_text[0..1]
+            end
+          end
+        end
+      end
+    end
+    [' FW '].each do |search_string|
+      if patch_text.match(/#{search_string}/) and !patch_text.match(/RAID|InfiniBand|ConnectX|LSI|CR/)
+        rev_text=patch_text.split("#{search_string}")[0]
+        rev_text=rev_text.split(" ")[-1].gsub(/\./,'')
       end
     end
     patch_no=patch_url.split("=")[1].to_s
@@ -735,7 +730,7 @@ def get_oracle_download_url(model,patch_text,patch_url)
       download_file=patch_no+".zip"
       download_url=base_url+download_file
     else
-      if !patch_text.match(/SysFW/) and !model.match(/U24|X4800|X2250|X2270M2|X6450|X6250|X6275/)
+      if !patch_text.match(/SysFW|System Firmware|Hardware Programmables/) and !model.match(/U24|X4800|X2250|X2270M2|X6450|X6250|X6275/)
         if rev_text.length < 3
           rev_text=rev_text+"0"
         end
@@ -956,28 +951,32 @@ def print_output(model,firmware_urls,firmware_text,output_type,output_file,lates
     end
   end
   firmware_text[model].each do
-    patch_url=firmware_urls[model][counter]
-    patch_text=firmware_text[model][counter]
-    if !patch_url.match(/emulex|1002631/)
-      (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
-    else
-      download_url=""
-    end
-    if output_type == "CSV"
-      output_text=model+","+firmware_text[model][counter]+","+firmware_urls[model][counter]+","+download_url+"\n"
-    else
-      if download_url.match(/[A-z]/)
-        output_text=firmware_text[model][counter]+"\n"+firmware_urls[model][counter]+"\n"+download_url+"\n"
+    patch_url=""
+    patch_text=""
+    if firmware_urls[model][counter]
+      patch_url=firmware_urls[model][counter]
+      patch_text=firmware_text[model][counter]
+      if !patch_url.match(/emulex|1002631/)
+        (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
       else
-        output_text=firmware_text[model][counter]+"\n"+firmware_urls[model][counter]+"\n"
+        download_url=""
       end
+      if output_type == "CSV"
+        output_text=model+","+firmware_text[model][counter]+","+firmware_urls[model][counter]+","+download_url+"\n"
+      else
+        if download_url.match(/[A-z]/)
+          output_text=firmware_text[model][counter]+"\n"+firmware_urls[model][counter]+"\n"+download_url+"\n"
+        else
+          output_text=firmware_text[model][counter]+"\n"+firmware_urls[model][counter]+"\n"
+        end
+      end
+      if output_file.match(/[A-z,0-9]/)
+        File.open(output_file, 'a') { |file| file.write(output_text) }
+      else
+        print output_text
+      end
+      counter=counter+1
     end
-    if output_file.match(/[A-z,0-9]/)
-      File.open(output_file, 'a') { |file| file.write(output_text) }
-    else
-      print output_text
-    end
-    counter=counter+1
   end
   return
 end
