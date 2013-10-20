@@ -95,3 +95,5 @@
 # Improved HTML processing
 # 0.4.8 Sun 20 Oct 2013 13:48:54 EST
 # Improved patch URL determination
+# 0.4.9 Mon 21 Oct 2013 09:46:32 EST
+# More patch URL determination improvements

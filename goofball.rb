@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.4.8
+# Version:      0.4.9
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -697,10 +697,10 @@ def get_oracle_download_url(model,patch_text,patch_url)
     if patch_text.match(/Sun Blade 6048 Chassis|Sun Ultra 24 Workstation|Sun Fire X4450 Server/)
       rev_text=patch_text.split(" ")[-2].gsub(/\./,'')
     else
-      if patch_text.match(/ILOM|SP|ELOM/) and !patch_text.match(/CMM Software /) and !patch_text.match(/SysFW/)
-        ['Chassis ','Server '].each do |search_string|
+      if patch_text.match(/ILOM|SP|ELOM|BIOS|CR/) and !patch_text.match(/CMM Software /) and !patch_text.match(/SysFW/)
+        ['Chassis ','Server ', 'Workstation '].each do |search_string|
           if patch_text.match(/#{search_string}/)
-            if patch_text.match(/\(/) and !patch_text.match(/formerly/)
+            if patch_text.match(/\(/) and !patch_text.match(/formerly|only/)
               rev_text=patch_text.split(" ")[-2].gsub(/\./,'')
             else
               rev_text=patch_text.split(" ")[-1].gsub(/\./,'')
@@ -708,7 +708,7 @@ def get_oracle_download_url(model,patch_text,patch_url)
           end
         end
       else
-        ['Box ','CMM Software ','System Firmware ','Module ', 'Programmables ','XCP ','Workstation '].each do |search_string|
+        ['CMM Software ','Module ', 'Programmables ','XCP ','Firmware ','Box '].each do |search_string|
           if patch_text.match(/#{search_string}/)
             rev_text=patch_text.split("#{search_string}")[1].to_s
             rev_text=rev_text.split(" ")[0].gsub(/\./,'')
@@ -730,7 +730,7 @@ def get_oracle_download_url(model,patch_text,patch_url)
       download_file=patch_no+".zip"
       download_url=base_url+download_file
     else
-      if !patch_text.match(/SysFW|System Firmware|Hardware Programmables/) and !model.match(/U24|X4800|X2250|X2270M2|X6450|X6250|X6275/)
+      if !patch_text.match(/SysFW|System Firmware|Hardware Programmables/) 
         if rev_text.length < 3
           rev_text=rev_text+"0"
         end
