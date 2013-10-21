@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.5.2
+# Version:      0.5.3
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -794,8 +794,20 @@ def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,out
   download_file=""
   output_text=""
   firmware_data=""
+  if !firmware_urls[model]
+    if $verbose == 1
+      puts "No download URLs for "+model+"\n"
+    end
+    return
+  end
   patch_url=firmware_urls[model][counter]
   patch_text=firmware_text[model][counter]
+  if model.match(/U24|U27/)
+    if $verbose == 1
+      puts "TFTP update not supported for "+model+"\n"
+    end
+    return
+  end
   if patch_url and patch_text
     (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
     download_file=$work_dir+"/"+model.downcase+"/"+download_file
@@ -816,7 +828,6 @@ def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,out
                 tftp_file=tftp_file+"/"+file.name
                 if output_type == "CSV"
                   patch_text=patch_text.to_s.split(" ")
-                  puts model.downcase+patch_text[0]+"\n"
                   if patch_text[0].match(/^ILOM/)
                     firmware_data=","+patch_text[1]+","+tftp_name+","+patch_text[2]
                     case
