@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.5.1
+# Version:      0.5.2
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -361,11 +361,11 @@ def create_mos_passwd_file(mos_username,mos_password)
 end
 
 def get_oracle_download(url,output_file)
-  if $verbose == 1
-    puts "Downloading: #{url}"
-    puts "Destination: #{output_file}"
-  end
   if !File.exists?(output_file)
+    if $verbose == 1
+      puts "Downloading: #{url}"
+      puts "Destination: #{output_file}"
+    end
     output_dir=File.dirname(output_file)
     if !Dir.exists?(output_dir)
       Dir.mkdir(output_dir)
@@ -731,12 +731,15 @@ def get_oracle_download_url(model,patch_text,patch_url)
         rev_text=rev_text.split(" ")[-1].gsub(/\./,'')
       end
     end
+    if model.match(/N6000/)
+      rev_text="100"
+    end
     patch_no=patch_url.split("=")[1].to_s
     if patch_no.match(/\-/)
       download_file=patch_no+".zip"
       download_url=base_url+download_file
     else
-      if !patch_text.match(/SysFW|System Firmware|Hardware Programmables/) 
+      if !patch_text.match(/SysFW|System Firmware|Hardware Programmables|Workstation|SW|3\.4 /) and !model.match(/X6275|X6270M2|X6270$|X2250|X4200|X4470|X4800|X2-8/)
         if rev_text.length < 3
           rev_text=rev_text+"0"
         end
@@ -751,6 +754,12 @@ end
 def download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
   download_file=""
   wrong_file=""
+  if !firmware_urls[model]
+    if $verbose == 1
+      puts "No download URLs for "+model+"\n"
+    end
+    return
+  end
   patch_url=firmware_urls[model][counter]
   patch_text=firmware_text[model][counter]
   (download_url,file_name)=get_oracle_download_url(model,patch_text,patch_url)
@@ -762,16 +771,18 @@ def download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
     existing_file=$file_list.select {|existing_file| existing_file =~ /#{file_name}/}
     if existing_file[0]
       existing_file=existing_file[0]
-      if $verbose == 1
-        puts "Found "+existing_file+"\n"
-        puts "Symlinking "+existing_file+" to "+download_file+"\n"
-      end
       dir_name=Pathname.new(download_file)
       dir_name=dir_name.dirname
       if !Dir.exists?(dir_name)
         Dir.mkdir(dir_name)
       end
-      File.symlink(existing_file,download_file)
+      if existing_file != download_file
+        if $verbose == 1
+          puts "Found "+existing_file+"\n"
+          puts "Symlinking "+existing_file+" to "+download_file+"\n"
+        end
+        File.symlink(existing_file,download_file)
+      end
     else 
       get_oracle_download(download_url,download_file)
     end

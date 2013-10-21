@@ -101,3 +101,5 @@
 # Added error handling for empty patch URLs and text
 # 1.5.1 Mon 21 Oct 2013 10:43:21 EST
 # Fixed patch URL handling
+# 1.5.2 Mon 21 Oct 2013 12:12:03 EST
+# More URL handling fixes
