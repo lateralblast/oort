@@ -50,9 +50,10 @@ Oracle patchdiag.xref URL:
 
 https://getupdates.oracle.com/reports/patchdiag.xref
 
-Emulex Firmware URL:
+Emulex Firmware URLs:
 
-http://www.emulex.com/downloads/oracle.html
+http://www.emulex.com/products/fibre-channel-hbas/oracle-branded/selection-guide/
+http://www.emulex.com/interoperability/results/matrix-action/Interop/by-partner/?tx_elxinterop_interop%5Bpartner%5D=Oracle%20%28Sun%29&tx_elxinterop_interop%5Bsegment%5D=Servers&cHash=4f24beefa24e0dbfa5f76d523d29ffb7
 
 Qlogic Firmware URLs:
 
