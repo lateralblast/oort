@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.5.3
+# Version:      0.5.4
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -220,14 +220,8 @@ def search_qlogic_firmware_page(search_model,url)
   qlogic_url="http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3"
   firmware_text={}
   firmware_urls={}
-  qf8_firmware=""
-  # Fetch file and process locally
-  if search_model.match(/all|8$/)
-    doc=Nokogiri::HTML(open(qlogic_url))
-    node=doc.search("[text()*='QF8']").each do |node|
-      qf8_firmware=node.previous_element.text
-    end
-  end
+  firmware_version=""
+  qf8_file="qlogic.html"
   # Information from Sun System Handbook
   hba_info={}
   hba_info["SG-XPCIEFCGBE-Q8-Z"] = "8Gb/sec PCI Express Dual FC / Dual Gigabit Ethernet Host Adapter ExpressModule, QLogic"
@@ -281,7 +275,21 @@ def search_qlogic_firmware_page(search_model,url)
         text=text+" "+fcode_info
       end
     else
-      text=text+" Firmware Version "+qf8_firmware
+      # Fetch file and process locally
+      if search_model.match(/all|8$/)
+        if File.exists?(qf8_file) 
+          doc=Nokogiri::HTML(File.open(qf8_file))
+        else 
+          doc=Nokogiri::HTML(open(qlogic_url))
+        end 
+        #node=doc.search("[text()*='QF8']").each do |node|
+        node=doc.css('table tr').each do |node|
+          if node.text.match(/#{model}/)
+            firmware_version=node.text.split(/This Preload Table/)[0].split(/\s+/)[-1]
+          end
+        end
+      end
+      text=text+" Firmware Version "+firmware_version
       patch_url=qlogic_url
     end
     txts.push(text)
