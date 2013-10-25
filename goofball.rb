@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.5.5
+# Version:      0.5.6
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -23,6 +23,8 @@ require 'fileutils'
 require 'find'
 require 'pathname'
 
+# Extend string class to strip out control characters
+
 class String
   def strip()
     self.chars.inject("") do |str, char|
@@ -34,9 +36,18 @@ class String
   end
 end
 
+# Create some defaults
+# - Work directory
+# - Verbose comments (-v sets to 1)
+# - Test mode (does not download, -b sets this to 1)
+
 $work_dir=Dir.home+"/.goofball"
 $verbose=0
 $test_mode=0
+
+# Search the M Series firmware page for information
+# This requires the use of selenium and a web browser as none of the ruby
+# modules seem to work with the MOS site
 
 def search_xcp_firmware_page(search_xcp)
   xcp_url="https://support.oracle.com/epmos/faces/DocContentDisplay?id=1002631.1"
@@ -166,6 +177,8 @@ def search_xcp_firmware_page(search_xcp)
   return firmware_urls,firmware_text
 end
 
+# Code to search patchdiag.xref for disk firmware information
+
 def search_disk_firmware_page(search_model,url)
   base_url="https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
   urls=[]
@@ -214,6 +227,10 @@ def search_disk_firmware_page(search_model,url)
   end
   return firmware_urls,firmware_text
 end
+
+# This code searches two places for firmware information:
+# - Qlogic site (later 8Gb models)
+# - patchdiag.xref for older HBAs
 
 def search_qlogic_firmware_page(search_model,url)
   base_url="https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
@@ -299,6 +316,8 @@ def search_qlogic_firmware_page(search_model,url)
   return firmware_urls,firmware_text
 end
 
+# If a ~/,mospasswd doesn't exist ask for details
+
 def get_mos_details()
   puts "Enter MOS Username:"
   STDOUT.flush
@@ -308,6 +327,8 @@ def get_mos_details()
   mos_password=gets.chomp 
   return mos_username,mos_password
 end
+
+# Search patchdiag.xref for latest version of patch
 
 def get_patch_full_id(patch_no)
   if !patch_no.match(/-/)
@@ -319,11 +340,15 @@ def get_patch_full_id(patch_no)
   return patch_no
 end
 
+# Search patchdiag.xref
+
 def search_patchdiag_ref(search_string)
   doc=open_patchdiag_xref()
   result=doc.grep(/#{search_string}/)
   return result
 end
+
+# If given a patch number generate the URL and download it
 
 def get_patch_file(patch_no,output_file)
   base_url="https://getupdates.oracle.com/all_unsigned/"
@@ -332,8 +357,10 @@ def get_patch_file(patch_no,output_file)
     output_file=$work_dir+"/"+patch_no+".zip"
   end
   url=base_url+patch_no+".zip"
-  get_oracle_download(url,output_file)
+  get_download(url,output_file)
 end
+
+# Open a patch README and put it into an array
 
 def open_patch_readme(patch_no)
   patch_no=get_patch_full_id(patch_no)
@@ -343,6 +370,8 @@ def open_patch_readme(patch_no)
   return doc 
 end
 
+# If given a patch generate the URL for the README and download it
+
 def get_patch_readme(patch_no,output_file)
   base_url="https://getupdates.oracle.com/readme/"
   patch_no=get_patch_full_id(patch_no)
@@ -350,12 +379,14 @@ def get_patch_readme(patch_no,output_file)
     output_file=$work_dir+"/README."+patch_no
   end
   url=base_url+patch_no
-  get_oracle_download(url,output_file)
+  get_download(url,output_file)
 end
+
+# If MOS password file doesn't exist create it and give it appropriate permissions
 
 def create_mos_passwd_file(mos_username,mos_password)
   FileUtils.touch(mos_passwd_file)
-  File.chmod(0700,mos_passwd_file)
+  File.chmod(0600,mos_passwd_file)
   output_text="http-user="+mos_username+"\n"
   File.open(mos_passwd_file, 'a') { |file| file.write(output_text) }
   output_text="http-passwd="+mos_password+"\n"
@@ -364,6 +395,9 @@ def create_mos_passwd_file(mos_username,mos_password)
   File.open(mos_passwd_file, 'a') { |file| file.write(output_text) }
   File.close(mos_passwd_file)
 end
+
+# Check the file age, if greateer that 30 days, delete it
+# This is useful for making sure local cached copies of URLs are up to date
 
 def check_file_age(output_file)
   if File.exists?(output_file)
@@ -374,6 +408,8 @@ def check_file_age(output_file)
     end
   end
 end
+
+# Download URL and store a local cached copy to speed up processing
 
 def get_url(url,output_file)
   check_file_age(output_file)
@@ -389,7 +425,12 @@ def get_url(url,output_file)
   return
 end
 
-def get_oracle_download(url,output_file)
+# Code to download a file using wget
+# I tried using a ruby module but non of them seem to work reliably with
+# Oracle site and/or Akamai redirects so it just uses wget for the moment
+# If the URL cotains oracle, include MOS handling
+
+def get_download(url,output_file)
   if !File.exists?(output_file)
     if $verbose == 1
       puts "Downloading: #{url}"
@@ -400,15 +441,23 @@ def get_oracle_download(url,output_file)
       Dir.mkdir(output_dir)
     end
     if $test_mode == 0
-      mos_passwd_file=Dir.home+"/.mospasswd"
-      if !File.exists?(mos_passwd_file)
-        (mos_username,mos_password)=get_mos_details()
-        create_mos_passwd_file(mos_username,mos_password)
-      end
-      if $verbose == 1
-        command="export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+url+"\""+" -O "+"\""+output_file+"\"" 
+      if url.match(/oracle/)
+        mos_passwd_file=Dir.home+"/.mospasswd"
+        if !File.exists?(mos_passwd_file)
+          (mos_username,mos_password)=get_mos_details()
+          create_mos_passwd_file(mos_username,mos_password)
+        end
+        if $verbose == 1
+          command="export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+url+"\""+" -O "+"\""+output_file+"\"" 
+        else
+          command="export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+url+"\""+" -q -O "+"\""+output_file+"\"" 
+        end
       else
-        command="export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+url+"\""+" -q -O "+"\""+output_file+"\"" 
+        if $verbose == 1
+          command="wget "+"\""+url+"\""+" -O "+"\""+output_file+"\"" 
+        else
+          command="wget "+"\""+url+"\""+" -q -O "+"\""+output_file+"\"" 
+        end
       end
       system(command)
     end
@@ -420,12 +469,16 @@ def get_oracle_download(url,output_file)
   return
 end
 
+# Open patchdiag,xref and read it into an array
+
 def open_patchdiag_xref()
   output_file=$work_dir+"/patchdiag.xref"
   get_patchdiag_xref(output_file)
   doc=IO.readlines(output_file)
   return doc
 end
+
+# Get patchdiag.xref
 
 def get_patchdiag_xref(output_file)
   url="https://getupdates.oracle.com/reports/patchdiag.xref"
@@ -445,6 +498,12 @@ def get_patchdiag_xref(output_file)
   end
   return
 end
+
+# Code to search the Emulex pages(s) for HBA firmware information
+# This is a two stage process:
+# First it fetches the page with a list of Oracle supported HBAs
+# Second it follow the links of that page for each of the HBAs
+# to get firmware information
 
 def search_emulex_firmware_page(search_model,url)
   urls=[]
@@ -534,6 +593,12 @@ def search_emulex_firmware_page(search_model,url)
   end
   return firmware_urls,firmware_text
 end
+
+# Process Oracle's system firmware page
+# This code makes copies of hashes for similar models which
+# use the same firmware so that it is searchable
+# The web page will only have HTML tags (name) for one model
+# E.g, the information for the T5220 is copied to the T5120
 
 def search_system_firmware_page(search_model,url)
   if url.match(/http/)
@@ -655,6 +720,8 @@ def search_system_firmware_page(search_model,url)
   return firmware_urls,firmware_text
 end
 
+# If given -h switch print usage information
+
 def print_usage()
   puts "Usage: "+$0+" -[h|V] -[q|m|d|e|M] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -t -v"
   puts
@@ -663,19 +730,21 @@ def print_usage()
   puts "-v:          Verbose output"
   puts "-b:          Test mode (don't perform downloads)"
   puts "-m all:      Display firmware information for all machines"
+  puts "-M all:      Download firmware patch for all models from MOS (Requires Username and Password)"
   puts "-z all:      Display firmware zip file contents for all models"
   puts "-t all:      Display TFTP file for all models"
-  puts "-M all:      Download firmware patch for all models from MOS (Requires Username and Password)"
   puts "-d all:      Display firmware information for all disks"
   puts "-e all:      Display firmware information for all Emulex HBAs"
+  puts "-E all:      Download firmware patch for all Emulex HBAs"
   puts "-q all:      Display firmware information for all Qlogic HBAs"
   puts "-X all:      Display firmware information for all M Series"
   puts "-m MODEL:    Display firmware information for a specific model (eg. X2-4)"
+  puts "-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)"
   puts "-z MODEL:    Display firmware zip file contents for a specific model (eg. X2-4)"
   puts "-t MODEL:    Display TFTP file for a specfic model (e.g. T5440)"
-  puts "-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)"
   puts "-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)"
   puts "-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)"
+  puts "-E MODEL:    Download firmware patch for a specific model of Emulex HBA"
   puts "-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)"
   puts "-X MODEL:    Display firmware information for specific M Series model (e.g. M3000)"
   puts "-i FILE:     Open a locally saved HTML file for processing rather then fetching it"
@@ -693,6 +762,8 @@ def print_usage()
   puts "-o FILE:     Open a file for writing (CSV mode)"  
 end
 
+# if given -V print version information
+
 def print_version()
   file_array=IO.readlines $0
   version=file_array.grep(/^# Version/)[0].split(":")[1].gsub(/^\s+/,'').chomp
@@ -700,6 +771,11 @@ def print_version()
   name=file_array.grep(/^# Name/)[0].split(":")[1].gsub(/^\s+/,'').chomp
   puts name+" v. "+version+" "+packager
 end
+
+# This code takes a model and the information gathered from the system firmware
+# page and crafts a URL for the patch download
+# There seems to be some vague consistency for the patch file names,
+# however it does change from one model to another
 
 def get_oracle_download_url(model,patch_text,patch_url)
   base_url="https://getupdates.oracle.com/all_unsigned/"
@@ -766,6 +842,10 @@ def get_oracle_download_url(model,patch_text,patch_url)
   return download_url,download_file
 end
 
+# Code to download firmware
+# If it finds a copy elsewhere locally it will attempt to symlink it rather
+# than download another copy
+
 def download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
   download_file=""
   wrong_file=""
@@ -799,11 +879,15 @@ def download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
         File.symlink(existing_file,download_file)
       end
     else 
-      get_oracle_download(download_url,download_file)
+      get_download(download_url,download_file)
     end
   end
   return
 end
+
+# Code to list the contents of a downloaded zip file
+# This is useful for determining the name of the firmware update file
+# for creating information for TFTP and other services
 
 def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file,counter)
   download_file=""
@@ -826,7 +910,7 @@ def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,out
   if patch_url and patch_text
     (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
     download_file=$work_dir+"/"+model.downcase+"/"+download_file
-    get_oracle_download(download_url,download_file)
+    get_download(download_url,download_file)
     if !File.exists?(download_file)
       puts "File: "+download_file+" does not exist"
       return
@@ -906,6 +990,8 @@ def list_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,out
   return
 end
 
+# Traverse the firmware information hashes and get download information
+
 def handle_download_firmware(search_model,firmware_urls,firmware_text,latest_only)
   counter=0
   if search_model == "all"
@@ -941,6 +1027,8 @@ def handle_download_firmware(search_model,firmware_urls,firmware_text,latest_onl
   return
 end
 
+# Traverse the firmware information hashes and get zip file information
+
 def handle_zipfile(search_model,firmware_urls,firmware_text,search_suffix,output_type,output_file,latest_only)
   counter=0
   if search_model == "all"
@@ -973,6 +1061,9 @@ def handle_zipfile(search_model,firmware_urls,firmware_text,search_suffix,output
   end
   return
 end
+
+# Traverse the firmware information hashes and output information to the console
+# Some support exists for creating a comma delimited CSV file
 
 def print_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
   counter=0
@@ -1029,6 +1120,8 @@ def print_output(model,firmware_urls,firmware_text,output_type,output_file,lates
   return
 end
 
+# Traverse the firmware information hashes and output information
+
 def handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
   if model == "all"
     firmware_text.each do |model, text|
@@ -1039,6 +1132,9 @@ def handle_output(model,firmware_urls,firmware_text,output_type,output_file,late
   end
   return
 end
+
+# Check local repository for zero length files (e.g. incorrect downloads)
+# and delete them
 
 def check_repository
   $file_list.each do |file_name|
@@ -1053,12 +1149,17 @@ def check_repository
   end
 end
 
+# Check local configuration
+
 def check_local_config
   if !Dir.exists?($work_dir)
     Dir.mkdir($work_dir)
   end
   return
 end
+
+# Code to create and update a local Oracle system patch archive
+# Currently only relevant to Solaris 10 or older
 
 def update_patch_archive(search_architecture,search_release)
   zip_file=""
@@ -1111,23 +1212,35 @@ def update_patch_archive(search_architecture,search_release)
   return
 end
 
+# Get commandline switches of print help if none given
+
 begin
-  opt=Getopt::Std.getopts("VZ?bchlvxA:M:P:R:S:X:d:e:i:m:o:p:q:r:t:w:z:")
+  opt=Getopt::Std.getopts("VZ?bchlvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:t:w:z:")
 rescue
   print_version()
   print_usage()
   exit
 end
 
+# If given -w switch set work directory
+
 if opt["w"]
   $work_dir=opt["w"]
 end
 
-if opt["M"]
+# If given a -M, -E, -P, or -R which involve local downloads get a list of the
+# local repository so that duplicate files can be symlinked rather than
+# downloaded again
+
+if opt["M"] or opt["E"] or opt["R"]
   $file_list=[]
   Find.find($work_dir) {|file_name| $file_list.push(file_name) if File.file?(file_name)}
   check_repository()
 end
+
+# If given a -m of -M or -t set the URL to be the Oracle System firmware page
+# If given a -q set the URL to the Qlogic firmware page
+# If given a -e or -E set the URL to the Emulex firmware page
 
 if opt["m"] or opt["M"] or opt["t"]
   url="http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
@@ -1141,34 +1254,39 @@ else
       url=File.basename(url)
     end
   else
-    if opt["e"]
-      #url="http://www.emulex.com/downloads/oracle.html"
-      #url="http://www.emulex.com/products/fibre-channel-hbas/oracle-branded/selection-guide/"
+    if opt["e"] or opt['E']
       url="http://www.emulex.com/interoperability/results/matrix-action/Interop/by-partner/?tx_elxinterop_interop%5Bpartner%5D=Oracle%20%28Sun%29&tx_elxinterop_interop%5Bsegment%5D=Servers&cHash=4f24beefa24e0dbfa5f76d523d29ffb7"
-      #if File.exists?(File.basename(url))
-      #  url=File.basename(url)
-      #end
     end
   end
 end
+
+# If given a -l only handle the latest revision of the firmware
 
 if opt["l"]
   latest_only=1
 end
 
+# If given a -v provide verbose output
+
 if opt["v"]
   $verbose=1
 end
+
+# If given a -b provide verbose output and run in test mode (no downloads)
 
 if opt["b"]
   $verbose=1
   $test_mode=1
 end
 
+# If given a -V print version information
+
 if opt["V"]
   print_version()
   exit
 end
+
+# If given a -h or -? print help information
 
 if opt["h"] or opt["?"]
   print_version()
@@ -1176,11 +1294,15 @@ if opt["h"] or opt["?"]
   exit
 end
 
+# If given a -o output to a file (currently only for CSV output)
+
 if opt["o"]
   output_file=opt["o"]
 else
   output_file=""
 end
+
+# If given a -i load url from a local file
 
 if opt["i"]
   url=opt["i"] 
@@ -1190,6 +1312,8 @@ if opt["i"]
   end
 end
 
+# If given a -c output in CSV format
+
 if opt["c"]
   output_type="CSV"
 else
@@ -1197,6 +1321,8 @@ else
 end
 
 check_local_config()
+
+# If given -x get patchdiag.xref
 
 if opt["x"]
   if opt["o"]
@@ -1207,6 +1333,8 @@ if opt["x"]
   end
   get_patchdiag_xref(output_file)
 end
+
+# if given a -r -p or -R handle patch or README URLs
 
 if opt["r"] or opt["p"] or opt["R"]
   if opt["p"]
@@ -1240,6 +1368,8 @@ if opt["r"] or opt["p"] or opt["R"]
   end
 end
 
+# If given a -q process Qlogic firmware information
+
 if opt["q"]
   model=opt["q"]
   if model != "all"
@@ -1248,6 +1378,8 @@ if opt["q"]
   (firmware_urls,firmware_text)=search_qlogic_firmware_page(model,url)
   handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
+
+# If given a -d process disk firmware information
 
 if opt["d"]
   model=opt["d"]
@@ -1258,6 +1390,8 @@ if opt["d"]
   handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
 
+# If given a -e process Emulex firmware information
+
 if opt["e"]
   model=opt["e"]
   if model != "all"
@@ -1266,6 +1400,19 @@ if opt["e"]
   (firmware_urls,firmware_text)=search_emulex_firmware_page(model,url)  
   handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
+
+# If given a -E process Emulex firmware downloads
+
+if opt["E"]
+  model=opt["e"]
+  if model != "all"
+    model=model.upcase
+  end    
+  (firmware_urls,firmware_text)=search_emulex_firmware_page(model,url)  
+  handle_download_firmware(model,firmware_urls,firmware_text,latest_only)
+end
+
+# If given a -m process M series firmware information
 
 if opt["m"]
   model=opt["m"]
@@ -1276,6 +1423,20 @@ if opt["m"]
   (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
   handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
+
+# If given a -m process M series firmware downloads
+
+if opt["M"]
+  model=opt["M"]
+  if model != "all"
+    model=model.upcase
+    model=model.gsub(/K/,'000')
+  end    
+  (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
+  handle_download_firmware(model,firmware_urls,firmware_text,latest_only)
+end
+
+# If given a -z or -t process zip files in repository
 
 if opt["z"] or opt["t"]
   if opt["z"]
@@ -1294,6 +1455,8 @@ if opt["z"] or opt["t"]
   handle_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file,latest_only)
 end
 
+# If given a -Y process local patch repository
+
 if opt["Y"]
   if !opt["A"]
     search_architecture="all"
@@ -1308,6 +1471,7 @@ if opt["Y"]
   update_patch_archive(search_architecture,search_release)
 end
 
+# If given a -P search patchdiag.xref
 
 if opt["P"]
   search_string=opt["P"]
@@ -1315,15 +1479,7 @@ if opt["P"]
   puts search_result
 end
 
-if opt["M"]
-  model=opt["M"]
-  if model != "all"
-    model=model.upcase
-    model=model.gsub(/K/,'000')
-  end    
-  (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
-  handle_download_firmware(model,firmware_urls,firmware_text,latest_only)
-end
+# if given a -X output M Series XCP information
 
 if opt["X"]
   model=opt["X"]
