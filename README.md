@@ -68,26 +68,28 @@ https://support.oracle.com/epmos/faces/DocContentDisplay?id=1002631.1
 Usage
 =====
 
-	$ goofball.rb-[h|V] -[q|m|d|e|M] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -t -v
+	$ goofball.rb-[h|V] -[q|m|d|e|E|M|X] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -[t|z] -[v|b] -c
 
 	-V:          Display version information
 	-h:          Display usage information
 	-v:          Verbose output
 	-b:          Test mode (don't perform downloads)
 	-m all:      Display firmware information for all machines
+	-M all:      Download firmware patch for all models from MOS (Requires Username and Password)
 	-z all:      Display firmware zip file contents for all models
 	-t all:      Display TFTP file for all models
-	-M all:      Download firmware patch for all models from MOS (Requires Username and Password)
 	-d all:      Display firmware information for all disks
 	-e all:      Display firmware information for all Emulex HBAs
+	-E all:      Download firmware patch for all Emulex HBAs
 	-q all:      Display firmware information for all Qlogic HBAs
 	-X all:      Display firmware information for all M Series
 	-m MODEL:    Display firmware information for a specific model (eg. X2-4)
+	-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)
 	-z MODEL:    Display firmware zip file contents for a specific model (eg. X2-4)
 	-t MODEL:    Display TFTP file for a specfic model (e.g. T5440)
-	-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)
 	-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)
 	-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)
+	-E MODEL:    Download firmware patch for a specific model of Emulex HBA
 	-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)
 	-X MODEL:    Display firmware information for specific M Series model (e.g. M3000)
 	-i FILE:     Open a locally saved HTML file for processing rather then fetching it
@@ -100,8 +102,8 @@ Usage
 	-x:          Download patchdiag.xref
 	-l:          Only show latest firmware versions (used with -m)
 	-Y:          Update patch archive
-	-S RELEASE:  Set Solaris release (used with -Y)
-	-A RELEASE:  Set architecture (used with -Y)
+	-S RELEASE:  Set Solaris release (used with -Z)
+	-A RELEASE:  Set architecture (used with -Z)
 	-o FILE:     Open a file for writing (CSV mode)
 
 
