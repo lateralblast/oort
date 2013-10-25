@@ -68,7 +68,7 @@ https://support.oracle.com/epmos/faces/DocContentDisplay?id=1002631.1
 Usage
 =====
 
-	./goofball.rb-[h|V] -[q|m|d|e|M] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -t -v
+	$ goofball.rb-[h|V] -[q|m|d|e|M] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -t -v
 
 	-V:          Display version information
 	-h:          Display usage information
