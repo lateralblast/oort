@@ -111,3 +111,5 @@
 # Fixed Emulex support for updated website
 # 0.5.6 Sat 26 Oct 2013 08:26:29 EST
 # Added some code documentation and added initial support for Emulex firmware downloads
+# 0.5.7 Sat 26 Oct 2013 09:12:41 ES
+# Fixed Emulex firmware downloads

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.5.6
+# Version:      0.5.7
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -857,7 +857,12 @@ def download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
   end
   patch_url=firmware_urls[model][counter]
   patch_text=firmware_text[model][counter]
-  (download_url,file_name)=get_oracle_download_url(model,patch_text,patch_url)
+  if patch_url.match(/oracle/)
+    (download_url,file_name)=get_oracle_download_url(model,patch_text,patch_url)
+  else
+    download_url=patch_url
+    file_name=File.basename(patch_url)
+  end
   if !download_url
     return
   end
@@ -1404,7 +1409,7 @@ end
 # If given a -E process Emulex firmware downloads
 
 if opt["E"]
-  model=opt["e"]
+  model=opt["E"]
   if model != "all"
     model=model.upcase
   end    
