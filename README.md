@@ -110,7 +110,7 @@ Examples
 
 Display firmware information for the X2-4:
 
-	$./goofball -m x2-4
+	$ goofball -m x2-4
 	X2-4:
 	Sun Server X2-4 (formerly Fire X4470 M2 Server) ILOM 3.1.2.24.c r81341 BIOS vers. 16.04.02.00 1.4.1
 	https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=17023411
@@ -139,39 +139,57 @@ Display firmware information for the X2-4:
 
 Output latest firmware TFTP information as CSV (Warning this will download the firmware also):
 
-	$ ./goofball.rb -t all -w /export/firmware -l -c -o firmware.txt
+	$ goofball.rb -t all -w /export/firmware -l -c -o firmware.txt
 
 Display firmware for all Emulex HBAs:
 
-	$ ./goofball.rb -e all
-	SG-XPCIEFCGBE-E8-Z:
-	Firmware Version 1.11a5
-	http://www.emulex.com/downloads/oracle/sg-xpciefcgbe-e8-z/firmware-and-boot-code.html
-	SG-XPCIE1FC-EM8-ZSG-XPCIE2FC-EM8-Z:
-	Firmware Version 1.11a5
-	http://www.emulex.com/downloads/oracle/sg-xpcie1fc-em8-z-and-sg-xpcie2fc-em8-z/firmware-and-boot-code.html
-	SG-XPCIE1FC-EM4SG-XPCIE2FC-EM4:
-	Firmware version 2.82a4
-	http://www.emulex.com/downloads/oracle/sg-xpcie1fc-em4-and-sg-xpcie2fc-em4/firmware-and-boot-code.html
-	SG-XPCI1FC-EM4-Z SG-XPCI2FC-EM4-Z:
-	Firmware version 2.82a3
-	http://www.emulex.com/downloads/oracle/sg-xpci1fc-em4-z-and-sg-xpci2fc-em4-z/firmware-and-boot-code.html
-	SG-XPCIE20FC-NEM-Z:
-	Firmware Version 2.82a4 
-	http://www.emulex.com/downloads/oracle/sg-xpcie20fc-nem-z.html
-	SG-XPCIE2FC-EB4-Z:
-	Firmware Version 2.82a4
-	http://www.emulex.com/downloads/oracle/sg-xpcie2fc-eb4-z/firmware-and-boot-code.html
-	SG-XPCIE2FC-ATCA-Z:
-	Firmware Version 2.82a4
-	http://www.emulex.com/downloads/oracle/sg-xpcie2fc-atca-z/firmware-and-boot-code.html
-	SG-XPCI1FC-EM2 SG-XPCI2FC-EM2:
-	Firmware Version 1.92a1
-	http://www.emulex.com/downloads/oracle/sg-xpci1fc-em2-and-sg-xpci2fc-em2/firmware-and-boot-code.html
+	$ goofball.rp -e all
+	LP21000:
+	LP21000 Version 3.10a3
+	http://www-dl.emulex.com/support/hardware/lp21000/ob/310a3/ao310a3.zip
+	LP21002:
+	LP21002 Version 3.10a3
+	http://www-dl.emulex.com/support/hardware/lp21000/ob/310a3/ao310a3.zip
+	SG-XPCIE1FC-EM8-Z:
+	LPE12000 (SG-XPCIE1FC-EM8-Z) Version 3.10a6
+	http://www-dl.emulex.com/support/elx/rt960/b12/firmware/LPe12000/uo310a6.zip
+	LPE12000:
+	LPE12000 (SG-XPCIE1FC-EM8-Z) Version 3.10a6
+	http://www-dl.emulex.com/support/elx/rt960/b12/firmware/LPe12000/uo310a6.zip
+	SG-XPCIE2FC-EM8-Z:
+	LPE12002 (SG-XPCIE2FC-EM8-Z) Version 3.10a6
+	http://www-dl.emulex.com/support/elx/rt960/b12/firmware/LPe12000/uo310a6.zip
+	LPE12002:
+	LPE12002 (SG-XPCIE2FC-EM8-Z) Version 3.10a6
+	http://www-dl.emulex.com/support/elx/rt960/b12/firmware/LPe12000/uo310a6.zip
+	SG-XPCI1FC-EM4-Z:
+	LP11000 (SG-XPCI1FC-EM4-Z) Version 3.10a6
+	http://www-dl.emulex.com/support/elx/rt960/b12/firmware/LP11000/bo310a6.zip
+	LP11000:
+	LP11000 (SG-XPCI1FC-EM4-Z) Version 3.10a6
+	http://www-dl.emulex.com/support/elx/rt960/b12/firmware/LP11000/bo310a6.zip
+	SG-XPCI2FC-EM4-Z:
+	LP11002 (SG-XPCI2FC-EM4-Z) Version 3.10a6
+	http://www-dl.emulex.com/support/elx/rt960/b12/firmware/LP11000/bo310a6.zip
+	LP11002:
+	LP11002 (SG-XPCI2FC-EM4-Z) Version 3.10a6
+	http://www-dl.emulex.com/support/elx/rt960/b12/firmware/LP11000/bo310a6.zip
+	SG-XPCIe1FC-EM4:
+	LPE11000 (SG-XPCIe1FC-EM4) Version 3.10a6
+	http://www-dl.emulex.com/support/elx/rt960/b12/firmware/LPe11000/zo310a6.zip
+	LPE11000:
+	LPE11000 (SG-XPCIe1FC-EM4) Version 3.10a6
+	http://www-dl.emulex.com/support/elx/rt960/b12/firmware/LPe11000/zo310a6.zip
+	SG-XPCIe2FC-EM4:
+	LPE11002 (SG-XPCIe2FC-EM4) Version 3.10a6
+	http://www-dl.emulex.com/support/elx/rt960/b12/firmware/LPe11000/zo310a6.zip
+	LPE11002:
+	LPE11002 (SG-XPCIe2FC-EM4) Version 3.10a6
+	http://www-dl.emulex.com/support/elx/rt960/b12/firmware/LPe11000/zo310a6.zip
 
 Display firmware for all Qlogic HBAs:
 
-	./goofball.rb -q all
+	$ goofball.rb -q all
 	SG-XPCIEFCGBE-Q8-Z:
 	8Gb/sec PCI Express Dual FC / Dual Gigabit Ethernet Host Adapter ExpressModule, QLogic Firmware Version 2.5.2
 	http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3
@@ -202,20 +220,20 @@ Display firmware for all Qlogic HBAs:
 
 Download latest firmware for X6270M2:
 
-	$ ./goofball.rb -M X6270M2 -w /export/firmware
+	$ goofball.rb -M X6270M2 -w /export/firmware
 	Downloading: https://getupdates.oracle.com/all_unsigned/p14568638_141_Generic.zip
 	Destination: /export/firmware/x6270m2/p14568638_141_Generic.zip
 
 Display TFTP boot image information for X6270M2:
 
-	$ ./goofball.rb -t X6270M2 -w /export/firmware
+	$ goofball.rb -t X6270M2 -w /export/firmware
 	X6270M2:
 	TFTP file: ILOM-3_0_16_11_h_r75207-Sun_Blade_X6270M2.pkg
 	Location:  /export/firmware/x6270m2/ILOM_and_BIOS/ILOM-3_0_16_11_h_r75207-Sun_Blade_X6270M2.pkg
 
 Display all M3000 XSCF firmware history:
 
-	$ ./goofball.rb -X M3000
+	$ goofball.rb -X M3000
 	M3000:
 	XCP1115 02.32.0000 01.11.0005 POST 2.17.0 4.33.5.d M3000-M9000 April 2013
 	https://support.oracle.com/epmos/faces/DocContentDisplay?id=1002631.1
