@@ -107,3 +107,5 @@
 # Minor bug fixes
 # 0.5.4 Thu 24 Oct 2013 22:01:21 EST
 # Fixed Qlogic Firmware routine
+# 0.5.5 Fri 25 Oct 2013 11:36:51 EST
+# Fixed Emulex support for updated website

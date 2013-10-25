@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.5.4
+# Version:      0.5.5
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -217,11 +217,11 @@ end
 
 def search_qlogic_firmware_page(search_model,url)
   base_url="https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
-  qlogic_url="http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3"
+  qf8_url="http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3"
   firmware_text={}
   firmware_urls={}
   firmware_version=""
-  qf8_file="qlogic.html"
+  qf8_file="qf8.html"
   # Information from Sun System Handbook
   hba_info={}
   hba_info["SG-XPCIEFCGBE-Q8-Z"] = "8Gb/sec PCI Express Dual FC / Dual Gigabit Ethernet Host Adapter ExpressModule, QLogic"
@@ -277,11 +277,8 @@ def search_qlogic_firmware_page(search_model,url)
     else
       # Fetch file and process locally
       if search_model.match(/all|8$/)
-        if File.exists?(qf8_file) 
-          doc=Nokogiri::HTML(File.open(qf8_file))
-        else 
-          doc=Nokogiri::HTML(open(qlogic_url))
-        end 
+        get_url(qf8_url,qf8_file)
+        doc=Nokogiri::HTML(File.open(qf8_file))
         #node=doc.search("[text()*='QF8']").each do |node|
         node=doc.css('table tr').each do |node|
           if node.text.match(/#{model}/)
@@ -290,7 +287,7 @@ def search_qlogic_firmware_page(search_model,url)
         end
       end
       text=text+" Firmware Version "+firmware_version
-      patch_url=qlogic_url
+      patch_url=qf8_url
     end
     txts.push(text)
     urls.push(patch_url)
@@ -368,6 +365,30 @@ def create_mos_passwd_file(mos_username,mos_password)
   File.close(mos_passwd_file)
 end
 
+def check_file_age(output_file)
+  if File.exists?(output_file)
+    age=Time.now-File.mtime(output_file)
+    age=(age/(24*60*60)).to_i
+    if (age > 30)
+      File.delete(output_file)
+    end
+  end
+end
+
+def get_url(url,output_file)
+  check_file_age(output_file)
+  if !File.exists?(output_file)
+    if $verbose == 1
+      puts "Caching "+url+" to "+output_file
+    end
+    url_content=open(url).read
+    output_file=File.open(output_file,"w")
+    output_file.write(url_content)
+    output_file.close
+  end
+  return
+end
+
 def get_oracle_download(url,output_file)
   if !File.exists?(output_file)
     if $verbose == 1
@@ -411,6 +432,7 @@ def get_patchdiag_xref(output_file)
   if !output_file.match(/[A-z]/)
     output_file=$work_dir+"/patchdiag.xref"
   end
+  check_file_age(output_file)
   if !File.exists?(output_file)
     # have to use wget as all modules break with akamai redirect
     # have tried all the TLS workarounds
@@ -418,7 +440,7 @@ def get_patchdiag_xref(output_file)
     system(command)
   else
     if $verbose == 1
-      puts "File: output_file already exists" 
+      puts "File: "+output_file+" already exists" 
     end
   end
   return
@@ -428,101 +450,86 @@ def search_emulex_firmware_page(search_model,url)
   urls=[]
   txts=[]
   model=""
+  sun_model=""
   firmware_urls={}
   firmware_text={}
-  if url.match(/http/)
-    output_file=$work_dir+"/firmware.html"
-    get_oracle_download(url,output_file)
-    doc=Nokogiri::HTML(File.open(output_file))
+  output_file="emulex.html"
+  get_url(url,output_file)
+  doc=Nokogiri::HTML(File.open(output_file))
+  firmware_urls={}
+  firmware_text={}
+  hba_model={}
+  hba_model['SG-XPCIE1FC-EM8-Z']="LPe12000"
+  hba_model['SG-XPCIE2FC-EM8-Z']="LPe12002"
+  hba_model['SG-XPCIE1FC-EM8-Z']="LPe12000"
+  hba_model['SG-XPCIEFCGBE-E8-Z']="LPem12002E-S"
+  hba_model['SG-XPCIE20FC-NEM-Z']="LPe11020-S"
+  hba_model['SG-XPCIE2FC-EB4-Z']="LPem11002-S"
+  hba_model['SG-XPCIE2FCGBE-E-Z']="LPem11002E-S"
+  hba_model['SG-XPCIE2FC-ATCA-Z']="LPeA11002-S"
+  hba_model['SG-XPCI1FC-EM4-Z']="LP11000"
+  hba_model['SG-XPCI2FC-EM4-Z']="LP11002"
+  hba_model['SG-XPCIe1FC-EM4']="LPe11000"
+  hba_model['SG-XPCIe2FC-EM4']="LPe11002"
+  if search_model.match(/^SG/) 
+    search_model=hba_model[search_model]
   else
-    doc=Nokogiri::HTML(File.open(url))
+    if search_model != "all"
+      search_model=search_model.gsub(/PEM/,'Pem')
+      search_model=search_model.gsub(/PE/,'Pe')
+    end
   end
-  urls=[]
-  txts=[]
-  firmware_urls={}
-  firmware_text={}
-  doc.css("table td a").each do |node|
-    model=""
-    model=node.text
-    if model.match(/#{search_model}/) or search_model == "all"
-      suburl=node[:href]
-      suburl="http://www.emulex.com/"+suburl 
-      urls.push(suburl)
-      text=""
-      new_text=""
-      subdoc=Nokogiri::HTML(open(suburl))
-      subdoc.css("div.tab-body-inner h1").each do |subnode|
-        if subnode.text.match(/Firmware|Universal/) and subnode.text.match(/[0-9]/)
-          new_text=subnode.text
-          if !text.match(/#{new_text}/) and new_text.match(/[A-z]/)
-            if !text.match(/[A-z]/)
-              text=new_text
-            else
-              text=text+" "+new_text
-            end
-          end
-        end
-      end
-      if !text.match(/[A-z]/)
-        subdoc.css("div.tab-body-inner tbody p").each do |subnode|
-          if subnode.text.match(/Firmware|Universal/) and subnode.text.match(/[0-9]/)
-            new_text=subnode.text
-            if !text.match(/#{new_text}/) and new_text.match(/[A-z]/)
-              if !text.match(/[A-z]/)
-                text=new_text
-              else
-                text=text+" "+new_text
-              end
-            end
-          end
-        end
-      end
-      if !text.match(/[A-z]/)
-        subdoc.css("div.csc-textpic-text li").each do |subnode|
-          if subnode.text.match(/Firmware|Universal/) and subnode.text.match(/[0-9]/)
-            new_text=subnode.text
-            new_text=new_text.split(/\s+/)
-            new_text=new_text[0]+" "+new_text[1]+" "+new_text[2]
-            new_text=new_text.gsub(/On/,'')
-            if !text.match(/#{new_text}/) and new_text.match(/[A-z]/)
-              if !text.match(/[A-z]/)
-                text=new_text
-              else
-                text=text+" "+new_text
-              end
-            end
-          end
-        end
-      end
-      text=text.gsub(/\s+/,' ')
-      text=text.gsub(/\s+$/,'')
-      txts.push(text)
-      if !txts[0].match(/Firmware/)
-        txts[0]="Frimware Version Unknown"
-      end
-      if model.match(/ /)
-        model=model.split(/ /)
-        model.each do |new_model|
-          firmware_text[new_model]=txts
-          firmware_urls[new_model]=urls
-        end
-      else
-        if model.match(/[0-9]SG|ZSG/)
-          model=model.split(/SG/)
-          new_model="SG"+model[1]
-          firmware_text[new_model]=txts
-          firmware_urls[new_model]=urls
-          new_model="SG"+model[2]
-          firmware_text[new_model]=txts
-          firmware_urls[new_model]=urls
+  lc_model=search_model.downcase
+  boot_url="firmware-and-boot-code"
+  doc.css("table tr a").each do |node|
+    urls=[]
+    txts=[]
+    if node.text.match(/^LP/)
+      model=node.text.upcase
+    end
+    if node.text.match(/^SG/)
+      sun_model=node.text
+    end
+    suburl=node[:href]
+    if suburl.match(/firmware/)
+        doc_url=suburl.gsub(/drivers/,boot_url)
+        if sun_model.match(/^SG/)
+          firmware_info=model+" ("+sun_model+")"
         else
-          firmware_text[model]=txts
-          firmware_urls[model]=urls
+          firmware_info=model
+        end
+        output_file=model+".html"
+        get_url(doc_url,output_file)
+        subdoc=Nokogiri::HTML(File.open(output_file))
+        subdoc.css("table tr").each do |subnode|
+        if subnode.text.match(/Open Boot/)
+          zip_url=subnode.css("td a").to_s.split(/"/)[1]
+          if firmware_info.match(/SG/)
+            firmware_version=subnode.text.split(/\s+/)[5..6].join(" ")
+          else
+            firmware_version=subnode.text.split(/\s+/)[4..5].join(" ").gsub(/Platform:/,'')
+          end
+          firmware_info=firmware_info+" "+firmware_version
+          txts.push(firmware_info)
+          if zip_url
+            if zip_url.to_s.match(/http/)
+              urls.push(zip_url)
+            else
+              urls.push(doc_url)
+            end
+          else
+            urls.push(doc_url)
+          end
+          if model == search_model.upcase or search_model == "all"
+            if sun_model.match(/^SG/)
+              firmware_text[sun_model]=txts
+              firmware_urls[sun_model]=urls
+            end
+            firmware_text[model]=txts
+            firmware_urls[model]=urls
+          end
         end
       end
-      text=""
-      txts=[]
-      urls=[]
     end
   end
   return firmware_urls,firmware_text
@@ -997,7 +1004,7 @@ def print_output(model,firmware_urls,firmware_text,output_type,output_file,lates
     if firmware_urls[model][counter]
       patch_url=firmware_urls[model][counter]
       patch_text=firmware_text[model][counter]
-      if !patch_url.match(/emulex|1002631/)
+      if !patch_url.match(/emulex|1002631|qlogic/)
         (download_url,download_file)=get_oracle_download_url(model,patch_text,patch_url)
       else
         download_url=""
@@ -1135,10 +1142,12 @@ else
     end
   else
     if opt["e"]
-      url="http://www.emulex.com/downloads/oracle.html"
-      if File.exists?(File.basename(url))
-        url=File.basename(url)
-      end
+      #url="http://www.emulex.com/downloads/oracle.html"
+      #url="http://www.emulex.com/products/fibre-channel-hbas/oracle-branded/selection-guide/"
+      url="http://www.emulex.com/interoperability/results/matrix-action/Interop/by-partner/?tx_elxinterop_interop%5Bpartner%5D=Oracle%20%28Sun%29&tx_elxinterop_interop%5Bsegment%5D=Servers&cHash=4f24beefa24e0dbfa5f76d523d29ffb7"
+      #if File.exists?(File.basename(url))
+      #  url=File.basename(url)
+      #end
     end
   end
 end
