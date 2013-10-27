@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.5.8
+# Version:      0.5.9
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -50,7 +50,7 @@ $test_mode=0
 
 def search_xcp_firmware_page(search_xcp)
   xcp_url="https://support.oracle.com/epmos/faces/DocContentDisplay?id=1002631.1"
-  output_file=$work_dir+"/xcp.html"
+  output_file="xcp.html"
   if !File.exists?(output_file)
     puts "Download "+xcp_url+" to "+output_file
     puts "and rerun script"
