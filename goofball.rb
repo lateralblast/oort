@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.5.7
+# Version:      0.5.8
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -17,7 +17,6 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'getopt/std'
-require 'selenium-webdriver'
 require 'zipruby'
 require 'fileutils'
 require 'find'
@@ -53,28 +52,9 @@ def search_xcp_firmware_page(search_xcp)
   xcp_url="https://support.oracle.com/epmos/faces/DocContentDisplay?id=1002631.1"
   output_file=$work_dir+"/xcp.html"
   if !File.exists?(output_file)
-    (mos_username,mos_password)=get_mos_details()
-    browser=Selenium::WebDriver.for :safari
-    browser.get xcp_url
-    wait=Selenium::WebDriver::Wait.new(:timeout => 5)
-    input=wait.until {
-      element=browser.find_element(:name, "ssousername")
-      element if element.displayed?
-    }
-    input.clear
-    input.send_keys(mos_username)
-    input=wait.until {
-      element=browser.find_element(:name, "password")
-      element if element.displayed?
-    }
-    input.send_keys(mos_password)
-    browser.find_element(:class,"blt-txt").click
-    wait.until {
-      element=browser.find_element(:name, "f1")
-    }
-    output_text=browser.page_source
-    browser.close
-    File.open(output_file, 'w') { |file| file.write(output_text) }
+    puts "Download "+xcp_url+" to "+output_file
+    puts "and rerun script"
+    exit
   end
   xcp_release=""
   xcp_version=""
@@ -319,12 +299,27 @@ end
 # If a ~/,mospasswd doesn't exist ask for details
 
 def get_mos_details()
-  puts "Enter MOS Username:"
-  STDOUT.flush
-  mos_username=gets.chomp 
-  puts "Enter MOS Password:"
-  STDOUT.flush
-  mos_password=gets.chomp 
+  mos_passwd_file=Dir.home+"/.mospasswd"
+  if !File.exists?(mos_passwd_file)
+    puts "Enter MOS Username:"
+    STDOUT.flush
+    mos_username=gets.chomp 
+    puts "Enter MOS Password:"
+    STDOUT.flush
+    mos_password=gets.chomp 
+    create_mos_passwd_file(mos_username,mos_password)
+  else
+    mos_data=File.readlines(mos_passwd_file)
+    mos_data.each do |line|
+      line.chomp
+      if line.match(/http-user/)
+        mos_username=line.split(/\=/)[1]
+      end
+      if line.match(/http-password/)
+        mos_password=line.split(/\=/)[1]
+      end
+    end
+  end
   return mos_username,mos_password
 end
 
@@ -1220,11 +1215,15 @@ end
 # Get commandline switches of print help if none given
 
 begin
-  opt=Getopt::Std.getopts("VZ?bchlvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:t:w:z:")
+  opt=Getopt::Std.getopts("VZ?abchlvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:t:w:z:")
 rescue
   print_version()
   print_usage()
   exit
+end
+
+if opt["a"]
+  model="all"
 end
 
 # If given -w switch set work directory

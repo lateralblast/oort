@@ -113,3 +113,5 @@
 # Added some code documentation and added initial support for Emulex firmware downloads
 # 0.5.7 Sat 26 Oct 2013 09:12:41 ES
 # Fixed Emulex firmware downloads
+# 0.5.8 Sun 27 Oct 2013 21:40:41 EST
+# Added message to download XCP file manually if local copy is not available
