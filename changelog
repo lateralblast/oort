@@ -117,3 +117,5 @@
 # Added message to download XCP file manually if local copy is not available
 # 0.5.9 Mon 28 Oct 2013 02:14:23 EST
 # Fixed location of xcp.html to be the same as script
+# 0.6.0 Thu 31 Oct 2013 13:33:28 EST
+# Fixed issue with MOS password routine

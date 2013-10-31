@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.5.9
+# Version:      0.6.0
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -380,6 +380,7 @@ end
 # If MOS password file doesn't exist create it and give it appropriate permissions
 
 def create_mos_passwd_file(mos_username,mos_password)
+  mos_passwd_file=Dir.home+"/.mospasswd"
   FileUtils.touch(mos_passwd_file)
   File.chmod(0600,mos_passwd_file)
   output_text="http-user="+mos_username+"\n"
