@@ -34,7 +34,7 @@ Features:
 - Get a list of firmware for disks(s)
 - Extract version information from system firmware download
   - Useful for documentation
-  - Can be used in conjunction with [https://github.com/lateralblast/sice](sice) script to update firmware
+  - Can be used in conjunction with [sice](https://github.com/lateralblast/sice) script to update firmware
 - Search Oracle Solaris patchdiag.xref patch list (Solaris 10 and earlier)
 - Create a local repository of patches
 
