@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 
-# Name:         goofball (Grep Oracle OBP Firmware)
-# Version:      0.6.0
+# Name:         firith (Firmeare Information Right In The Hand)
+# Version:      0.6.1
 # Release:      1
-# License:      Open Source
+# License:      CC-BA (Creative Commons By Attrbution)
+#               http://creativecommons.org/licenses/by/4.0/legalcode
 # Group:        System
 # Source:       N/A
 # URL:          http://lateralblast.com.au/
@@ -80,11 +81,11 @@ def search_xcp_firmware_page(search_xcp)
           line=line.gsub(/^\s+/,'')
           line=line.chomp
           line=line.strip
-          if line.match(/[A-z]|[0-9]/) 
+          if line.match(/[A-z]|[0-9]/)
             if line.match(/^XCP/) and !line.match(/Release/) and !line.match(/XSCF/)
               xcp_release=line
-              xcp_release=xcp_release.gsub(/ EOL/,'') 
-              xcp_release=xcp_release.gsub(/\s+/,'') 
+              xcp_release=xcp_release.gsub(/ EOL/,'')
+              xcp_release=xcp_release.gsub(/\s+/,'')
             else
               if line.match(/^0[0-9]/)
                 xcp_version=line
@@ -176,7 +177,7 @@ def search_disk_firmware_page(search_model,url)
     disk_info.each do |line|
       line=line.split("|")
       patch_no=line[0]+"-"+line[1]
-      doc=open_patch_readme(patch_no) 
+      doc=open_patch_readme(patch_no)
       doc.each do |readme_line|
         patch_text=line[10].chomp
         patch_url=base_url+patch_no
@@ -195,7 +196,7 @@ def search_disk_firmware_page(search_model,url)
                 patch_text=patch_text+" ("+firmware_rev+")"
                 txts.push(patch_text)
                 firmware_urls[model]=urls
-                firmware_text[model]=txts 
+                firmware_text[model]=txts
                 urls=[]
                 txts=[]
               end
@@ -264,7 +265,7 @@ def search_qlogic_firmware_page(search_model,url)
         patch_info=doc.grep(/^#{patch_no}/)
         patch_info=patch_info[0].split("|")
         patch_no=patch_info[0]+"-"+patch_info[1]
-        doc=open_patch_readme(patch_no) 
+        doc=open_patch_readme(patch_no)
         fcode_info=doc.grep(/Unbundled Release/)
         fcode_info=fcode_info[0].split(": ")
         fcode_info=fcode_info[1].gsub(%r{</?[^>]+?>}, '').chomp
@@ -303,10 +304,10 @@ def get_mos_details()
   if !File.exists?(mos_passwd_file)
     puts "Enter MOS Username:"
     STDOUT.flush
-    mos_username=gets.chomp 
+    mos_username=gets.chomp
     puts "Enter MOS Password:"
     STDOUT.flush
-    mos_password=gets.chomp 
+    mos_password=gets.chomp
     create_mos_passwd_file(mos_username,mos_password)
   else
     mos_data=File.readlines(mos_passwd_file)
@@ -362,7 +363,7 @@ def open_patch_readme(patch_no)
   output_file=$work_dir+"/README."+patch_no
   get_patch_readme(patch_no,output_file)
   doc=IO.readlines(output_file)
-  return doc 
+  return doc
 end
 
 # If given a patch generate the URL for the README and download it
@@ -444,22 +445,22 @@ def get_download(url,output_file)
           create_mos_passwd_file(mos_username,mos_password)
         end
         if $verbose == 1
-          command="export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+url+"\""+" -O "+"\""+output_file+"\"" 
+          command="export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+url+"\""+" -O "+"\""+output_file+"\""
         else
-          command="export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+url+"\""+" -q -O "+"\""+output_file+"\"" 
+          command="export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+url+"\""+" -q -O "+"\""+output_file+"\""
         end
       else
         if $verbose == 1
-          command="wget "+"\""+url+"\""+" -O "+"\""+output_file+"\"" 
+          command="wget "+"\""+url+"\""+" -O "+"\""+output_file+"\""
         else
-          command="wget "+"\""+url+"\""+" -q -O "+"\""+output_file+"\"" 
+          command="wget "+"\""+url+"\""+" -q -O "+"\""+output_file+"\""
         end
       end
       system(command)
     end
   else
     if $verbose == 1
-      puts "File: #{output_file} already exists" 
+      puts "File: #{output_file} already exists"
     end
   end
   return
@@ -489,7 +490,7 @@ def get_patchdiag_xref(output_file)
     system(command)
   else
     if $verbose == 1
-      puts "File: "+output_file+" already exists" 
+      puts "File: "+output_file+" already exists"
     end
   end
   return
@@ -526,7 +527,7 @@ def search_emulex_firmware_page(search_model,url)
   hba_model['SG-XPCI2FC-EM4-Z']="LP11002"
   hba_model['SG-XPCIe1FC-EM4']="LPe11000"
   hba_model['SG-XPCIe2FC-EM4']="LPe11002"
-  if search_model.match(/^SG/) 
+  if search_model.match(/^SG/)
     search_model=hba_model[search_model]
   else
     if search_model != "all"
@@ -609,7 +610,7 @@ def search_system_firmware_page(search_model,url)
   model=""
   new_model=""
   counter=0
-  module_text=""  
+  module_text=""
   rows=doc.css('table tr')
   rows.each do |row|
     info=""
@@ -674,7 +675,7 @@ def search_system_firmware_page(search_model,url)
       firmware_urls["#{model}"]=urls
       firmware_text["#{model}"]=txts
     end
-  end 
+  end
   ['NT3-1BA','CP3010','CP3020','CP3060','CP3220','CP3250','CP3260','CP3270'].each do |member|
     firmware_text[member]=firmware_text["CT900"]
     firmware_urls[member]=firmware_urls["CT900"]
@@ -719,6 +720,7 @@ end
 # If given -h switch print usage information
 
 def print_usage()
+  puts
   puts "Usage: "+$0+" -[h|V] -[q|m|d|e|M] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -t -v"
   puts
   puts "-V:          Display version information"
@@ -755,7 +757,8 @@ def print_usage()
   puts "-Y:          Update patch archive"
   puts "-S RELEASE:  Set Solaris release (used with -Z)"
   puts "-A RELEASE:  Set architecture (used with -Z)"
-  puts "-o FILE:     Open a file for writing (CSV mode)"  
+  puts "-o FILE:     Open a file for writing (CSV mode)"
+  puts
 end
 
 # if given -V print version information
@@ -879,7 +882,7 @@ def download_firmware(model,firmware_urls,firmware_text,latest_only,counter)
         end
         File.symlink(existing_file,download_file)
       end
-    else 
+    else
       get_download(download_url,download_file)
     end
   end
@@ -1078,7 +1081,7 @@ def print_output(model,firmware_urls,firmware_text,output_type,output_file,lates
     text=firmware_text[model][0]
     txts.push(text)
     firmware_text[model]=txts
-    link=firmware_urls[model][0]   
+    link=firmware_urls[model][0]
     urls.push(link)
     firmware_urls[model]=urls
   end
@@ -1218,7 +1221,6 @@ end
 begin
   opt=Getopt::Std.getopts("VZ?abchlvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:t:w:z:")
 rescue
-  print_version()
   print_usage()
   exit
 end
@@ -1253,7 +1255,7 @@ if opt["m"] or opt["M"] or opt["t"]
     url=File.basename(url)
   end
 else
-  if opt["d"] or opt ["q"] 
+  if opt["d"] or opt ["q"]
     url="https://getupdates.oracle.com/reports/patchdiag.xref"
     if File.exists?(File.basename(url))
       url=File.basename(url)
@@ -1294,7 +1296,6 @@ end
 # If given a -h or -? print help information
 
 if opt["h"] or opt["?"]
-  print_version()
   print_usage()
   exit
 end
@@ -1310,7 +1311,7 @@ end
 # If given a -i load url from a local file
 
 if opt["i"]
-  url=opt["i"] 
+  url=opt["i"]
   if !File.exist?(url)
     puts "File "+url+" does not exist"
     exit
@@ -1379,7 +1380,7 @@ if opt["q"]
   model=opt["q"]
   if model != "all"
     model=model.upcase
-  end    
+  end
   (firmware_urls,firmware_text)=search_qlogic_firmware_page(model,url)
   handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
@@ -1390,7 +1391,7 @@ if opt["d"]
   model=opt["d"]
   if model != "all"
     model=model.upcase
-  end    
+  end
   (firmware_urls,firmware_text)=search_disk_firmware_page(model,url)
   handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
@@ -1401,8 +1402,8 @@ if opt["e"]
   model=opt["e"]
   if model != "all"
     model=model.upcase
-  end    
-  (firmware_urls,firmware_text)=search_emulex_firmware_page(model,url)  
+  end
+  (firmware_urls,firmware_text)=search_emulex_firmware_page(model,url)
   handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
 
@@ -1412,8 +1413,8 @@ if opt["E"]
   model=opt["E"]
   if model != "all"
     model=model.upcase
-  end    
-  (firmware_urls,firmware_text)=search_emulex_firmware_page(model,url)  
+  end
+  (firmware_urls,firmware_text)=search_emulex_firmware_page(model,url)
   handle_download_firmware(model,firmware_urls,firmware_text,latest_only)
 end
 
@@ -1424,7 +1425,7 @@ if opt["m"]
   if model != "all"
     model=model.upcase
     model=model.gsub(/K/,'000')
-  end    
+  end
   (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
   handle_output(model,firmware_urls,firmware_text,output_type,output_file,latest_only)
 end
@@ -1436,7 +1437,7 @@ if opt["M"]
   if model != "all"
     model=model.upcase
     model=model.gsub(/K/,'000')
-  end    
+  end
   (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
   handle_download_firmware(model,firmware_urls,firmware_text,latest_only)
 end
@@ -1455,7 +1456,7 @@ if opt["z"] or opt["t"]
   if model != "all"
     model=model.upcase
     model=model.gsub(/K/,'000')
-  end    
+  end
   (firmware_urls,firmware_text)=search_system_firmware_page(model,url)
   handle_zipfile(model,firmware_urls,firmware_text,search_suffix,output_type,output_file,latest_only)
 end

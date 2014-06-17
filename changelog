@@ -1,121 +1,123 @@
-# Changes:     
-# 0.0.1 
+# Changes:
+# 0.0.1:
 # Initial version
-# 0.0.2 Wed  3 Jul 2013 21:12:03 EST
+# 0.0.2: Wed  3 Jul 2013 21:12:03 EST
 # Added option to read from file
-# 0.0.3 Thu  4 Jul 2013 10:38:09 EST
+# 0.0.3: Thu  4 Jul 2013 10:38:09 EST
 # Added CSV support, updated change log and version number
-# 0.0.5 Fri  5 Jul 2013 14:07:09 EST
+# 0.0.5: Fri  5 Jul 2013 14:07:09 EST
 # Added disk firmware support
-# 0.0.5 Sat  6 Jul 2013 08:27:53 EST
+# 0.0.5: Sat  6 Jul 2013 08:27:53 EST
 # Added Emulex HBA support
-# 0.0.6 Sat  6 Jul 2013 23:46:59 EST
+# 0.0.6: Sat  6 Jul 2013 23:46:59 EST
 # Added Qlogic HBA support
-# 0.0.7 Sun  7 Jul 2013 09:51:40 EST
+# 0.0.7: Sun  7 Jul 2013 09:51:40 EST
 # Added support to download Patches, README, and patchdiag.xref independently
-# 0.0.8 Sun  7 Jul 2013 11:53:09 ES
+# 0.0.8: Sun  7 Jul 2013 11:53:09 ES
 # Fixed Qlogic HBA firmware support
-# 0.0.9 Sun  7 Jul 2013 12:33:40 EST
+# 0.0.9: Sun  7 Jul 2013 12:33:40 EST
 # Added -R switch
-# 0.1.0 Tue  9 Jul 2013 22:26:39 EST
+# 0.1.0: Tue  9 Jul 2013 22:26:39 EST
 # Removed debug code
-# 0.1.1 Thu 11 Jul 2013 13:10:19 EST
+# 0.1.1: Thu 11 Jul 2013 13:10:19 EST
 # Added code to get Server Module / Chassis information
-# 0.1.2 Thu 11 Jul 2013 13:39:52 EST
+# 0.1.2: Thu 11 Jul 2013 13:39:52 EST
 # Added code to construct download URL from firmware information
-# 0.1.3 Thu 11 Jul 2013 14:25:37 EST
+# 0.1.3: Thu 11 Jul 2013 14:25:37 EST
 # Added test mode
-# 0.1.4 Thu 11 Jul 2013 16:48:52 EST
+# 0.1.4: Thu 11 Jul 2013 16:48:52 EST
 # Added archive code
-# 0.1.5 Thu 11 Jul 2013 18:27:19 EST
+# 0.1.5: Thu 11 Jul 2013 18:27:19 EST
 # Added handling to ignore non firmware URLs in output
-# 0.1.6 Thu 11 Jul 2013 19:13:54 EST
+# 0.1.6: Thu 11 Jul 2013 19:13:54 EST
 # Added handling for non existant model
-# 0.1.7 Thu 11 Jul 2013 19:25:03 EST
+# 0.1.7: Thu 11 Jul 2013 19:25:03 EST
 # Improved firmware download URL creation
-# 0.1.8 Thu 11 Jul 2013 19:41:35 EST
+# 0.1.8: Thu 11 Jul 2013 19:41:35 EST
 # Added support to create directories if the don't exist
-# 0.1.9 Thu 11 Jul 2013 21:37:27 EST
+# 0.1.9: Thu 11 Jul 2013 21:37:27 EST
 # Added functionality to list ZIP file contents and TFTP boot file
-# 0.2.0 Thu 11 Jul 2013 22:04:11 EST
+# 0.2.0: Thu 11 Jul 2013 22:04:11 EST
 # More handling for older firmware file naming inconsistencies
-# 0.2.1 Fri 12 Jul 2013 00:48:26 EST
+# 0.2.1: Fri 12 Jul 2013 00:48:26 EST
 # Bug fixes
-# 0.2.2 Fri 12 Jul 2013 07:00:11 ES
+# 0.2.2: Fri 12 Jul 2013 07:00:11 ES
 # Cleaned up zip file routine
-# 0.2.3 Fri 12 Jul 2013 15:56:49 EST
+# 0.2.3: Fri 12 Jul 2013 15:56:49 EST
 # Fixed bug with TFTP boot image code and updated README.md
-# 0.2.4 Fri 19 Jul 2013 14:02:32 EST
+# 0.2.4: Fri 19 Jul 2013 14:02:32 EST
 # Fixed bug with disk firmware code
-# 0.2.5 Fri 19 Jul 2013 14:43:06 EST
+# 0.2.5: Fri 19 Jul 2013 14:43:06 EST
 # Improved disk firmware output
-# 0.2.6 Fri 19 Jul 2013 21:52:08 EST
+# 0.2.6: Fri 19 Jul 2013 21:52:08 EST
 # Futher improved disk firmware code
-# 0.2.7 Sat 20 Jul 2013 15:45:32 EST
+# 0.2.7: Sat 20 Jul 2013 15:45:32 EST
 # Fixed Emulex firmware output
-# 0.2.8 Sat 20 Jul 2013 16:37:50 EST
+# 0.2.8: Sat 20 Jul 2013 16:37:50 EST
 # Improved Emulex firmware output
-# 0.2.9 Sat 20 Jul 2013 21:15:33 EST
+# 0.2.9: Sat 20 Jul 2013 21:15:33 EST
 # Fixed bugs with listing zip files
-# 0.3.0 Sat 20 Jul 2013 21:43:29 EST
+# 0.3.0: Sat 20 Jul 2013 21:43:29 EST
 # Fixed buga with system firmware output
-# 0.3.1 Sun 21 Jul 2013 04:47:12 EST
-# Added code to fetch XCP Document 
-# 0.3.2 Sun 21 Jul 2013 22:03:15 EST
+# 0.3.1: Sun 21 Jul 2013 04:47:12 EST
+# Added code to fetch XCP Document
+# 0.3.2: Sun 21 Jul 2013 22:03:15 EST
 # Added M Series XCP/XSCF firmware matrix processing
-# 0.3.3 Tue 23 Jul 2013 09:59:27 EST
+# 0.3.3: Tue 23 Jul 2013 09:59:27 EST
 # Fixed CSV output for M Series
-# 0.3.4 Sun  4 Aug 2013 13:46:40 EST
+# 0.3.4: Sun  4 Aug 2013 13:46:40 EST
 # Removed debug code
-# 0.3.5 Fri 18 Oct 2013 09:14:58 EST
+# 0.3.5: Fri 18 Oct 2013 09:14:58 EST
 # Improved TFTP information to include members of the same family (e.g. T5120 and T5220)
-# 0.3.6 Fri 18 Oct 2013 10:11:01 EST
+# 0.3.6: Fri 18 Oct 2013 10:11:01 EST
 # Added fix for members of same family so TFTP search does not fail
-# 0.3.7 Fri 18 Oct 2013 12:03:19 EST
+# 0.3.7: Fri 18 Oct 2013 12:03:19 EST
 # Used WGETRC to remove possibility of username and password being displayed in wget command
-# 0.3.8 Fri 18 Oct 2013 19:43:09 EST
+# 0.3.8: Fri 18 Oct 2013 19:43:09 EST
 # Added code to check for local copy of html file
-# 0.3.9 Sat 19 Oct 2013 14:45:02 EST
+# 0.3.9: Sat 19 Oct 2013 14:45:02 EST
 # Improved Oracle firmware web page parsing
-# 0.4.0 Sat 19 Oct 2013 14:54:47 EST
+# 0.4.0: Sat 19 Oct 2013 14:54:47 EST
 # Fixed firmare download for individual models
-# 0.4.1 Sat 19 Oct 2013 16:23:22 EST
+# 0.4.1: Sat 19 Oct 2013 16:23:22 EST
 # Added code to check local repository and symlink files if they exist elsewhere
-# 0.4.2 Sat 19 Oct 2013 16:37:28 EST
+# 0.4.2: Sat 19 Oct 2013 16:37:28 EST
 # Added code to delete empty files from repository
-# 0.4.3 Sat 19 Oct 2013 16:45:17 EST
+# 0.4.3: Sat 19 Oct 2013 16:45:17 EST
 # Fixed local repository check
-# 0.4.4 Sat 19 Oct 2013 17:42:31 EST
+# 0.4.4: Sat 19 Oct 2013 17:42:31 EST
 # Fixed processing of first record in HTML table
-# 0.4.5 Sat 19 Oct 2013 18:41:34 EST
+# 0.4.5: Sat 19 Oct 2013 18:41:34 EST
 # Improved patch URL determination
-# 0.4.6 Sat 19 Oct 2013 18:45:05 EST
+# 0.4.6: Sat 19 Oct 2013 18:45:05 EST
 # Added support for obsoleted HW programmables patch
-# 0.4.7 Sat 19 Oct 2013 19:12:09 EST
+# 0.4.7: Sat 19 Oct 2013 19:12:09 EST
 # Improved HTML processing
-# 0.4.8 Sun 20 Oct 2013 13:48:54 EST
+# 0.4.8: Sun 20 Oct 2013 13:48:54 EST
 # Improved patch URL determination
-# 0.4.9 Mon 21 Oct 2013 09:46:32 EST
+# 0.4.9: Mon 21 Oct 2013 09:46:32 EST
 # More patch URL determination improvements
-# 0.5.0 Mon 21 Oct 2013 10:29:21 EST
+# 0.5.0: Mon 21 Oct 2013 10:29:21 EST
 # Added error handling for empty patch URLs and text
-# 0.5.1 Mon 21 Oct 2013 10:43:21 EST
+# 0.5.1: Mon 21 Oct 2013 10:43:21 EST
 # Fixed patch URL handling
-# 0.5.2 Mon 21 Oct 2013 12:12:03 EST
+# 0.5.2: Mon 21 Oct 2013 12:12:03 EST
 # More URL handling fixes
-# 0.5.3 Mon 21 Oct 2013 12:36:19 EST
+# 0.5.3: Mon 21 Oct 2013 12:36:19 EST
 # Minor bug fixes
-# 0.5.4 Thu 24 Oct 2013 22:01:21 EST
+# 0.5.4: Thu 24 Oct 2013 22:01:21 EST
 # Fixed Qlogic Firmware routine
-# 0.5.5 Fri 25 Oct 2013 11:36:51 EST
+# 0.5.5: Fri 25 Oct 2013 11:36:51 EST
 # Fixed Emulex support for updated website
-# 0.5.6 Sat 26 Oct 2013 08:26:29 EST
+# 0.5.6: Sat 26 Oct 2013 08:26:29 EST
 # Added some code documentation and added initial support for Emulex firmware downloads
-# 0.5.7 Sat 26 Oct 2013 09:12:41 ES
+# 0.5.7: Sat 26 Oct 2013 09:12:41 ES
 # Fixed Emulex firmware downloads
-# 0.5.8 Sun 27 Oct 2013 21:40:41 EST
+# 0.5.8: Sun 27 Oct 2013 21:40:41 EST
 # Added message to download XCP file manually if local copy is not available
-# 0.5.9 Mon 28 Oct 2013 02:14:23 EST
+# 0.5.9: Mon 28 Oct 2013 02:14:23 EST
 # Fixed location of xcp.html to be the same as script
-# 0.6.0 Thu 31 Oct 2013 13:33:28 EST
+# 0.6.0: Thu 31 Oct 2013 13:33:28 EST
 # Fixed issue with MOS password routine
+# 0.6.1: Tue 17 Jun 2014 18:59:02 EST
+# Updated documentation and license
