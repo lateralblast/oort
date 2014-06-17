@@ -24,6 +24,20 @@ This script parses the Oracle (and in the future other) firmware pages to get
 firmware information. It returns the versions of firmware (top most is the current)
 and their URLs. It can also download the firmware to a local repository if needed.
 
+Features:
+
+- Get a list of available system firmware for particular model(s)
+- Get a list of available XCF firmware for particular M series model(s)
+- Download system firmware for particular model(s)
+- Download XCF firmware for particular M series model(s)
+- Get a list of firware for Emulex or QLogic Fibre Channel adaptor(s)
+- Get a list of firmware for disks(s)
+- Extract version information from system firmware download
+  - Useful for documentation
+  - Can be used in conjunction with [https://github.com/lateralblast/sice](sice) script to update firmware
+- Search Oracle Solaris patchdiag.xref patch list (Solaris 10 and earlier)
+- Create a local repository of patches
+
 License
 -------
 
