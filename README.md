@@ -1,20 +1,16 @@
 ![alt tag](https://raw.githubusercontent.com/lateralblast/firith/master/firith.jpg)
 
-> “And you, Ring-bearer,’ she said, turning to Frodo. ‘I come to you last who
+> “And you, Ring-bearer,’ she said, turning to Frodo. ‘I come to you last who are not last in my thoughts.
 <br>
-> are not last in my thoughts. For you I have prepared this.’ She held up a
+> For you I have prepared this.’ She held up a small crystal phial: it glittered as she moved it, and rays
 <br>
-> small crystal phial: it glittered as she moved it, and rays of white light
+> of white light sprang from her hand. ‘In this phial,’ she said, ‘is caught the light of Eärendil’s star,
 <br>
-> sprang from her hand. ‘In this phial,’ she said, ‘is caught the light of
+> set amid the waters of my fountain. It will shine still brighter when night is about you.
 <br>
-> Eärendil’s star, set amid the waters of my fountain. It will shine still
-<br>
-> brighter when night is about you. May it be a light to you in dark places,
-<br>
-> when night is about you. May it be a light to you in dark places, when all
-<br>
-> all other lights go out.
+> May it be a light to you in dark places, when night is about you.
+<br><br>
+> May it be a light to you in dark places, when all other lights go out.
 
 FIRITH
 ======
