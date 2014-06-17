@@ -17,8 +17,8 @@ FIRITH
 
 Firmware Information Right In The Hand
 
-Information
------------
+Introduction
+------------
 
 This script parses the Oracle (and in the future other) firmware pages to get
 firmware information. It returns the versions of firmware (top most is the current)
@@ -45,8 +45,8 @@ This software is licensed as CC-BA (Creative Commons By Attrbution)
 
 http://creativecommons.org/licenses/by/4.0/legalcode
 
-Usage
------
+Information
+-----------
 
 The Oracle downloads require a support contract and a MOS account. To prevent
 the possibility of displaying username and password details the script sets the
@@ -101,7 +101,7 @@ M Series XSCF web page:
 https://support.oracle.com/epmos/faces/DocContentDisplay?id=1002631.1
 
 Usage
-=====
+-----
 
 ```
 $ firith.rb -[h|V] -[q|m|d|e|E|M|X] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -[t|z] -[v|b] -c
@@ -145,7 +145,13 @@ $ firith.rb -[h|V] -[q|m|d|e|E|M|X] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w 
 
 
 Examples
-========
+--------
+
+Create a CSV firmware list for use with [sice](https://github.com/lateralblast/sice) script to update firmware:
+
+```
+$ firith.rb -m all -o firmware.txt -c
+```
 
 Display firmware information for the X2-4:
 
