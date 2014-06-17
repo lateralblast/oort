@@ -94,7 +94,7 @@ Usage
 =====
 
 ```
-$ firith.rb-[h|V] -[q|m|d|e|E|M|X] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -[t|z] -[v|b] -c
+$ firith.rb -[h|V] -[q|m|d|e|E|M|X] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -[t|z] -[v|b] -c
 
 -V:          Display version information
 -h:          Display usage information
@@ -140,7 +140,7 @@ Examples
 Display firmware information for the X2-4:
 
 ```
-$ firith -m x2-4
+$ firith.rb -m x2-4
 X2-4:
 Sun Server X2-4 (formerly Fire X4470 M2 Server) ILOM 3.1.2.24.c r81341 BIOS vers. 16.04.02.00 1.4.1
 https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=17023411
