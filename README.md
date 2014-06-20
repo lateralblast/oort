@@ -78,16 +78,16 @@ check-certificate=off
 Resources
 ---------
 
-[Oracle firmware and patch resources](https://github.com/lateralblast/firith/wiki/Resources)
+[Oracle firmware and patch resources](https://github.com/lateralblast/firith/wiki/3.-Resources)
 
 Usage
 -----
 
-[Information on usage](https://github.com/lateralblast/firith/wiki/Usage)
+[Information on usage](https://github.com/lateralblast/firith/wiki/1.-Usage)
 
 
 Examples
 --------
 
-[Examples of usage](https://github.com/lateralblast/firith/wiki/Usage)
+[Examples of usage](https://github.com/lateralblast/firith/wiki/2.-Examples)
 
