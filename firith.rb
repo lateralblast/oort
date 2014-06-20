@@ -663,11 +663,11 @@ end
 
 # Print SRU info
 
-def print_sru_info(patch_no,patch_info,patch_url,down_url)
+def print_sru_info(patch_no,patch_info,patch_url,download_url)
   puts patch_no+":"
   puts patch_info
   puts patch_url
-  puts down_url
+  puts download_url
   return
 end
 
@@ -698,7 +698,7 @@ def search_oracle_sru_page(search_string,latest_only,url)
   latest_sru  = ""
   sru_info.each do |patch_no, patch_info|
     patch_url = sru_urls[patch_no][0]
-    down_url  = sru_urls[patch_no][1]
+    download_url  = sru_urls[patch_no][1]
     if !search_string.match(/all/)
       if patch_info.match(/#{search_string}/)
         if latest_only == 1
@@ -709,7 +709,7 @@ def search_oracle_sru_page(search_string,latest_only,url)
             latest_sru = compare_sru_vers(current_sru,latest_sru)
           end
         else
-          print_sru_info(patch_no,patch_info,patch_url,down_url)
+          print_sru_info(patch_no,patch_info,patch_url,download_url)
         end
       end
     else
@@ -721,15 +721,16 @@ def search_oracle_sru_page(search_string,latest_only,url)
           latest_sru = compare_sru_vers(current_sru,latest_sru)
         end
       else
-        print_sru_info(patch_no,patch_info,patch_url,down_url)
+        print_sru_info(patch_no,patch_info,patch_url,download_url)
       end
     end
   end
   if latest_only == 1
     sru_info.each do |patch_no, patch_info|
-      patch_url = sru_urls[patch_no]
+      patch_url     = sru_urls[patch_no][0]
+      download_url  = sru_urls[patch_no][1]
       if patch_info.match(/#{latest_sru}/)
-        print_sru_info(patch_no,patch_info,patch_url,down_url)
+        print_sru_info(patch_no,patch_info,patch_url,download_url)
       end
     end
   end
