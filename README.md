@@ -91,3 +91,18 @@ Examples
 
 [Examples of usage](https://github.com/lateralblast/firith/wiki/2.-Examples)
 
+Requirements
+------------
+
+Required Ruby Gems:
+
+- rubygems
+- nokogiri
+- open-uri
+- getopt/std
+- fileutils
+- find
+- pathname
+- selenium-webdriver
+- phantomjs
+- mechanize
