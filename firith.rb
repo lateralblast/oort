@@ -869,7 +869,7 @@ end
 
 def print_usage(options)
   puts
-  puts "Usage: "+$0+" "+options
+  puts "Usage: "+$0+" -["+options+"]"
   puts
   puts "-V:          Display version information"
   puts "-h:          Display usage information"
