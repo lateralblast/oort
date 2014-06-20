@@ -129,3 +129,7 @@
 # Removed zipruby gem due to incompatibility with selenium-webdriver
 # 0.6.5: Fri 20 Jun 2014 12:55:59 EST
 # Added ininital code for processes SRUs
+# 0.6.6: Fri 20 Jun 2014 14:44:54 EST
+# Replaced wget/curl with Mechanize::Download
+# 0.6.7: Fri 20 Jun 2014 15:17:55 EST
+# Bug fixes

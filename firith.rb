@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         firith (Firmeare Information Right In The Hand)
-# Version:      0.6.5
+# Version:      0.6.7
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -23,6 +23,7 @@ require 'find'
 require 'pathname'
 require 'selenium-webdriver'
 require 'phantomjs'
+require 'mechanize'
 
 # Extend string class to strip out control characters
 
@@ -47,7 +48,7 @@ $work_dir  = Dir.home+"/."+$script
 $verbose   = 0
 $test_mode = 0
 $html_dir  = $work_dir+"/html"
-options    = "HV?abchluvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:s:t:w:z:"
+options    = "HV?abchlvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:s:t:w:z:"
 
 # Search the M Series firmware page for information
 # This requires the use of selenium and a web browser as none of the ruby
@@ -69,7 +70,7 @@ def search_xcp_fw_page(search_xcp)
     eval("#{mseries}_txts=[]")
     eval("#{mseries}_urls=[]")
   end
-  doc=Nokogiri::HTML(File.open(output_file))
+  doc = Nokogiri::HTML(File.open(output_file))
   doc.css("td").each { |td| td.inner_html = td.inner_html.gsub(/\n/,'') }
   doc.css("td").each { |td| td.inner_html = td.inner_html.gsub(/<br>/,' ') }
   doc.css("td").each do |node|
@@ -180,27 +181,29 @@ def search_disk_fw_page(search_model,url)
       line     = line.split("|")
       patch_no = line[0]+"-"+line[1]
       doc      = open_patch_readme(patch_no)
-      doc.each do |readme_line|
-        patch_text = line[10].chomp
-        patch_url  = base_url+patch_no
-        readme_line.chomp
-        if readme_line.match(/\.fw/)
-          readme_line = readme_line.gsub(/^\s+/,'')
-          readme_line = readme_line.gsub(/,/,'')
-          if readme_line.match(/\s+/)
-            fw_info = readme_line.split(/\s+/)
-            if fw_info[0].match(/fw$/) and fw_info[0].match(/^[A-Z]/)
-              fw_info = fw_info[0].split(/\./)
-              model   = fw_info[0]
-              fw_rev  = fw_info[1]
-              if patch_text.match(/[A-z]/) and model.match(/[A-z]|[0-9]/)
-                urls.push(patch_url)
-                patch_text = patch_text+" ("+fw_rev+")"
-                txts.push(patch_text)
-                fw_urls[model] = urls
-                fw_text[model] = txts
-                urls = []
-                txts = []
+      if doc[1]
+        doc.each do |readme_line|
+          patch_text = line[10].chomp
+          patch_url  = base_url+patch_no
+          readme_line.chomp
+          if readme_line.match(/\.fw/)
+            readme_line = readme_line.gsub(/^\s+/,'')
+            readme_line = readme_line.gsub(/,/,'')
+            if readme_line.match(/\s+/)
+              fw_info = readme_line.split(/\s+/)
+              if fw_info[0].match(/fw$/) and fw_info[0].match(/^[A-Z]/)
+                fw_info = fw_info[0].split(/\./)
+                model   = fw_info[0]
+                fw_rev  = fw_info[1]
+                if patch_text.match(/[A-z]/) and model.match(/[A-z]|[0-9]/)
+                  urls.push(patch_url)
+                  patch_text = patch_text+" ("+fw_rev+")"
+                  txts.push(patch_text)
+                  fw_urls[model] = urls
+                  fw_text[model] = txts
+                  urls = []
+                  txts = []
+                end
               end
             end
           end
@@ -361,10 +364,17 @@ end
 # Open a patch README and put it into an array
 
 def open_patch_readme(patch_no)
+  doc = ""
   patch_no    = get_patch_full_id(patch_no)
   output_file = $work_dir+"/README."+patch_no
   get_patch_readme(patch_no,output_file)
-  doc = IO.readlines(output_file)
+  if File.exist?(output_file)
+    doc = IO.readlines(output_file)
+  else
+    if $verbose == 1
+      puts "README does not exist for: "+patch_no
+    end
+  end
   return doc
 end
 
@@ -430,6 +440,7 @@ end
 # If the URL cotains oracle, include MOS handling
 
 def get_download(url,output_file)
+  check_file_type(output_file)
   if !File.exists?(output_file)
     if $verbose == 1
       puts "Downloading: #{url}"
@@ -446,23 +457,46 @@ def get_download(url,output_file)
           (mos_username,mos_password) = get_mos_details()
           create_mos_passwd_file(mos_username,mos_password)
         end
-        if $verbose == 1
-          command = "export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+url+"\""+" -O "+"\""+output_file+"\""
-        else
-          command = "export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+url+"\""+" -q -O "+"\""+output_file+"\""
+        orig_url = url
+        new_url  = url.gsub(/https\/\/:/,"https://#{mos_username}:#{mos_passwd_file}@")
+        agent = Mechanize.new
+        agent.redirect_ok = true
+        agent.pluggable_parser.default = Mechanize::Download
+        begin
+          agent.get(new_url).save(output_file)
+        rescue
+          if $verbose == 1
+            puts "Error fetching: "+new_url
+          end
         end
       else
-        if $verbose == 1
-          command = "wget "+"\""+url+"\""+" -O "+"\""+output_file+"\""
-        else
-          command = "wget "+"\""+url+"\""+" -q -O "+"\""+output_file+"\""
+        agent = Mechanize.new
+        agent.redirect_ok = true
+        agent.pluggable_parser.default = Mechanize::Download
+        begin
+          agent.get(url).save(output_file)
+        rescue
+          if $verbose == 1
+            puts "Error fetching: "+url
+          end
         end
       end
-      system(command)
     end
   else
     if $verbose == 1
       puts "File: #{output_file} already exists"
+    end
+  end
+  return
+end
+
+# Check file type
+
+def check_file_type(file_name)
+  if File.exist?(file_name)
+    file_check = %x[file #{file_name}].chomp
+    if file_check.match(/empty/)
+      File.delete(file_name)
     end
   end
   return
@@ -473,7 +507,7 @@ end
 def open_patchdiag_xref()
   output_file = $work_dir+"/patchdiag.xref"
   get_patchdiag_xref(output_file)
-  doc= I O.readlines(output_file)
+  doc = IO.readlines(output_file)
   return doc
 end
 
@@ -485,11 +519,18 @@ def get_patchdiag_xref(output_file)
     output_file = $work_dir+"/patchdiag.xref"
   end
   check_file_age(output_file)
+  check_file_type(output_file)
   if !File.exists?(output_file)
-    # have to use wget as all modules break with akamai redirect
-    # have tried all the TLS workarounds
-    command = "wget "+url+" -O "+output_file
-    system(command)
+    agent = Mechanize.new
+    agent.redirect_ok = true
+    agent.pluggable_parser.default = Mechanize::Download
+    begin
+      agent.get(url).save(output_file)
+    rescue
+    if $verbose == 1
+      puts "Error fetching: "+url
+    end
+    end
   else
     if $verbose == 1
       puts "File: "+output_file+" already exists"
@@ -615,7 +656,7 @@ def get_mos_url(mos_url,local_file)
   doc.find_element(:link => "Sign In").click
   doc.get(mos_url)
   file = File.open(local_file,"w")
-  file.write(doc)
+  file.write(doc.page_source)
   file.close
   return
 end
@@ -656,7 +697,7 @@ def search_oracle_sru_page(search_string,latest_only,url)
   latest_sru  = ""
   sru_info.each do |patch_no, patch_info|
     patch_url = sru_urls[patch_no]
-    if search_string
+    if !search_string.match(/all/)
       if patch_info.match(/#{search_string}/)
         if latest_only == 1
           current_sru = get_current_sru_no(patch_info)
@@ -884,7 +925,7 @@ def print_usage(options)
   puts "-E all:      Download firmware patch for all Emulex HBAs"
   puts "-q all:      Display firmware information for all Qlogic HBAs"
   puts "-X all:      Display firmware information for all M Series"
-  puts "-s TERM:     Search for a term"
+  puts "-s all:      Display all Solaris 11 SRUs"
   puts "-m MODEL:    Display firmware information for a specific model (eg. X2-4)"
   puts "-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)"
   puts "-z MODEL:    Display firmware zip file contents for a specific model (eg. X2-4)"
@@ -894,6 +935,7 @@ def print_usage(options)
   puts "-E MODEL:    Download firmware patch for a specific model of Emulex HBA"
   puts "-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)"
   puts "-X MODEL:    Display firmware information for specific M Series model (e.g. M3000)"
+  puts "-s TERM:     Search Solaris 11 SRUs for a term"
   puts "-i FILE:     Open a locally saved HTML file for processing rather then fetching it"
   puts "-p PATCH:    Download a patch from MOS (Requires Username and Password)"
   puts "-r PATCH:    Download README for a patch from MOS (Requires Username and Password)"
@@ -907,7 +949,6 @@ def print_usage(options)
   puts "-S RELEASE:  Set Solaris release (used with -Y)"
   puts "-A ARCH:     Set architecture (used with -Y)"
   puts "-o FILE:     Open a file for writing"
-  puts "-u:          Process SRU Information (Solaris 11)"
   puts "-H:          Delete temporary HTML files"
   puts
 end
@@ -1542,7 +1583,7 @@ end
 
 # If given -u process Oracle Solaris 11 SRU information
 
-if opt["u"]
+if opt["s"]
   url = "https://support.oracle.com/epmos/faces/PatchSearchResults?searchdata=%3Ccontext+type%3D%22ADVANCED%22+search%3D%22%26lt%3BSearch%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Bproduct_family%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3Btrue%26quot%3B%2F%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Bproduct%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3B3-VFE6B2%26quot%3B%2F%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Brelease%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3B400000110000%26quot%3B%2F%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Bexclude_superseded%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3Bfalse%26quot%3B%2F%26gt%3B%0A%26lt%3B%2FSearch%26gt%3B%22%2F%3E"
   search_oracle_sru_page(search_string,latest_only,url)
 end
