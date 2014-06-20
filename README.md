@@ -73,48 +73,10 @@ http-password=P@$$w0r]
 check-certificate=off
 ```
 
-Oracle Firmware URL:
+Resources
+---------
 
-http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html
-
-Oracle README URL:
-
-https://getupdates.oracle.com/readme/PATCH_NO-PATCH_REV
-
-Eg:
-
-https://getupdates.oracle.com/readme/119255-01
-
-Oracle Patch URL:
-
-https://getupdates.oracle.com/all_unsigned/PATCH_NO-PATCH_REV
-
-Eg:
-
-https://getupdates.oracle.com/all_unsigned/119255-01.zip
-
-Oracle patchdiag.xref URL:
-
-https://getupdates.oracle.com/reports/patchdiag.xref
-
-Emulex Firmware URLs:
-
-http://www.emulex.com/products/fibre-channel-hbas/oracle-branded/selection-guide/
-http://www.emulex.com/interoperability/results/matrix-action/Interop/by-partner/?tx_elxinterop_interop%5Bpartner%5D=Oracle%20%28Sun%29&tx_elxinterop_interop%5Bsegment%5D=Servers&cHash=4f24beefa24e0dbfa5f76d523d29ffb7
-
-Qlogic Firmware URLs:
-
-http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=1
-http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=2
-http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3
-
-M Series XSCF web page:
-
-https://support.oracle.com/epmos/faces/DocContentDisplay?id=1002631.1
-
-Solaris 11 SRU page:
-
-https://support.oracle.com/epmos/faces/PatchSearchResults?searchdata=%3Ccontext+type%3D%22ADVANCED%22+search%3D%22%26lt%3BSearch%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Bproduct_family%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3Btrue%26quot%3B%2F%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Bproduct%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3B3-VFE6B2%26quot%3B%2F%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Brelease%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3B400000110000%26quot%3B%2F%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Bexclude_superseded%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3Bfalse%26quot%3B%2F%26gt%3B%0A%26lt%3B%2FSearch%26gt%3B%22%2F%3E
+[Oracle firmware and patch resources](https://github.com/lateralblast/firith/wiki/Resources)
 
 Usage
 -----
