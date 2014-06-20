@@ -1,8 +1,10 @@
 ![alt tag](https://raw.githubusercontent.com/lateralblast/firith/master/firith.jpg)
 
-> Firith was the Sindarin name for the season in the Calendar of Imladris which > corresponds with a period
+> Firith was the Sindarin name for the season in the Calendar of Imladris which corresponds with a period
+<br>
 > between autumn and winter, known as fading.
-> -- <cite>J. R. R. Tolkien</cite>
+<br>
+> -- <cite>The Lord of The Rings by J. R. R. Tolkien</cite>
 
 > “And you, Ring-bearer,’ she said, turning to Frodo. ‘I come to you last who are not last in my thoughts.
 <br>
@@ -13,8 +15,9 @@
 > set amid the waters of my fountain. It will shine still brighter when night is about you.
 <br>
 > May it be a light to you in dark places, when night is about you.
-<br><br>
+<br>
 > May it be a light to you in dark places, when all other lights go out.
+<br>
 > -- <cite>Galadriel</cite>
 
 FIRITH
