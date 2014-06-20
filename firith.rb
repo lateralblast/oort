@@ -704,6 +704,7 @@ def download_oracle_sru(sru_info,sru_urls)
     if !File.exist?(output_file)
       download_url(download_url,output_file)
     end
+  end
   return
 end
 
