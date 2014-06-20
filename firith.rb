@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         firith (Firmeare Information Right In The Hand)
-# Version:      0.6.1
+# Version:      0.6.5
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -18,10 +18,11 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'getopt/std'
-require 'zipruby'
 require 'fileutils'
 require 'find'
 require 'pathname'
+require 'selenium-webdriver'
+require 'phantomjs'
 
 # Extend string class to strip out control characters
 
@@ -41,9 +42,12 @@ end
 # - Verbose comments (-v sets to 1)
 # - Test mode (does not download, -b sets this to 1)
 
-$work_dir  = Dir.home+"/.goofball"
+$script    = File.basename($0,".rb").chomp
+$work_dir  = Dir.home+"/."+$script
 $verbose   = 0
 $test_mode = 0
+$html_dir  = $work_dir+"/html"
+options    = "HV?abchluvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:s:t:w:z:"
 
 # Search the M Series firmware page for information
 # This requires the use of selenium and a web browser as none of the ruby
@@ -51,11 +55,9 @@ $test_mode = 0
 
 def search_xcp_fw_page(search_xcp)
   xcp_url     = "https://support.oracle.com/epmos/faces/DocContentDisplay?id=1002631.1"
-  output_file = "xcp.html"
+  output_file = $html_dir+"/xcp.html"
   if !File.exists?(output_file)
-    puts "Download "+xcp_url+" to "+output_file
-    puts "and rerun script"
-    exit
+    get_mos_url(xcp_url,output_file)
   end
   xcp_release = ""
   xcp_version = ""
@@ -386,7 +388,7 @@ def create_mos_passwd_file(mos_username,mos_password)
   File.chmod(0600,mos_passwd_file)
   output_text = "http-user="+mos_username+"\n"
   File.open(mos_passwd_file, 'a') { |file| file.write(output_text) }
-  output_text = "http-passwd="+mos_password+"\n"
+  output_text = "http-password="+mos_password+"\n"
   File.open(mos_passwd_file, 'a') { |file| file.write(output_text) }
   output_text = "check-certificate=off\n"
   File.open(mos_passwd_file, 'a') { |file| file.write(output_text) }
@@ -509,7 +511,7 @@ def search_emulex_fw_page(search_model,url)
   sun_model   = ""
   fw_urls     = {}
   fw_text     = {}
-  output_file = "emulex.html"
+  output_file = $html_dir+"/emulex.html"
   get_url(url,output_file)
   doc       = Nokogiri::HTML(File.open(output_file))
   fw_urls   = {}
@@ -589,6 +591,152 @@ def search_emulex_fw_page(search_model,url)
     end
   end
   return fw_urls,fw_text
+end
+
+# Get a MOS page
+
+def get_mos_url(mos_url,local_file)
+  mos_passwd_file = Dir.home+"/.mospasswd"
+  if !File.exists?(mos_passwd_file)
+    (mos_username,mos_password) = get_mos_details()
+    create_mos_passwd_file(mos_username,mos_password)
+  else
+    mos_details  = %x[cat #{mos_passwd_file}].split("\n")
+    mos_username = mos_details.grep(/http-user/)[0].split("=")[1..-1].join
+    mos_password = mos_details.grep(/http-password/)[0].split("=")[1..-1].join
+  end
+  cap = Selenium::WebDriver::Remote::Capabilities.phantomjs('phantomjs.page.settings.userAgent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10) AppleWebKit/538.39.41 (KHTML, like Gecko) Version/8.0 Safari/538.39.41')
+  doc = Selenium::WebDriver.for :phantomjs, :desired_capabilities => cap
+  mos = "https://supporthtml.oracle.com"
+  doc.get(mos)
+  doc.find_element(:id => "pt1:gl3").click
+  doc.find_element(:id => "Mssousername").send_keys(mos_username)
+  doc.find_element(:id => "Mssopassword").send_keys(mos_password)
+  doc.find_element(:link => "Sign In").click
+  doc.get(mos_url)
+  file = File.open(local_file,"w")
+  file.write(doc)
+  file.close
+  return
+end
+
+# Print SRU info
+
+def print_sru_info(patch_no,patch_info,patch_url)
+  puts patch_no+":"
+  puts patch_info
+  puts patch_url
+  return
+end
+
+# Get current SRU number from patch informtation
+
+def get_current_sru_no(patch_info)
+  if patch_info.match(/EXA/)
+    current_sru = patch_info.split(/ /)[3].split(/-/)[0]
+  else
+    current_sru = patch_info.split(/ /)[2]
+  end
+  return current_sru
+end
+
+# Compare SRU Numbers
+
+def compare_sru_vers(current_sru,latest_sru)
+  versions = [ current_sru, latest_sru ]
+  latest_sru = versions.map{ |v| (v.split '.').collect(&:to_i) }.max.join '.'
+  return latest_sru
+end
+
+# Search Oracle's SRU page
+
+def search_oracle_sru_page(search_string,latest_only,url)
+  (sru_info,sru_urls)=process_oracle_sru_page(url)
+  current_sru = ""
+  latest_sru  = ""
+  sru_info.each do |patch_no, patch_info|
+    patch_url = sru_urls[patch_no]
+    if search_string
+      if patch_info.match(/#{search_string}/)
+        if latest_only == 1
+          current_sru = get_current_sru_no(patch_info)
+          if !latest_sru.match(/[0-9]/)
+            latest_sru = current_sru
+          else
+            latest_sru = compare_sru_vers(current_sru,latest_sru)
+          end
+        else
+          print_sru_info(patch_no,patch_info,patch_url)
+        end
+      end
+    else
+      if latest_only == 1
+        current_sru = get_current_sru_no(patch_info)
+        if !latest_sru.match(/[0-9]/)
+          latest_sru = current_sru
+        else
+          latest_sru = compare_sru_vers(current_sru,latest_sru)
+        end
+      else
+        print_sru_info(patch_no,patch_info,patch_url)
+      end
+    end
+  end
+  if latest_only == 1
+    sru_info.each do |patch_no, patch_info|
+      patch_url = sru_urls[patch_no]
+      if patch_info.match(/#{latest_sru}/)
+        print_sru_info(patch_no,patch_info,patch_url)
+      end
+    end
+  end
+  return
+end
+
+# Process Oracle's SRU page
+
+def process_oracle_sru_page(url)
+  base_url = "https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
+  sru_file = $html_dir+"/sru.html"
+  sru_info = {}
+  sru_urls = {}
+  if !File.exist?(sru_file)
+    get_mos_url(url,sru_file)
+  end
+  doc        = Nokogiri::HTML(File.open(sru_file))
+  rows       = doc.css('table tr').xpath("//td[contains(@class,'x10t')]")
+  patch_no   = ""
+  patch_info = ""
+  patch_url  = ""
+  rows.each do |row|
+    if !row.text.match(/More.../)
+      if row.to_s.match(/xfe/)
+        if patch_no.match(/[0-9]/)
+          patch_url = base_url+patch_no
+          sru_info[patch_no] = patch_info
+          sru_urls[patch_no] = patch_url
+          patch_no   = row.text
+          patch_info = ""
+        else
+          patch_no   = row.text
+          patch_info = ""
+        end
+      else
+        text = row.text
+        if !text.match(/^General$|^Operating System$/) and text.match(/[A-z]/)
+          text = text.gsub(/^\s+|\s+$/,"")
+          if patch_info.match(/[A-z]/)
+            patch_info = patch_info+" "+text
+          else
+            patch_info = text
+          end
+        end
+      end
+    end
+  end
+  sru_info[patch_no] = patch_info
+  sru_urls[patch_no] = patch_url
+  return sru_info,sru_urls
 end
 
 # Process Oracle's system firmware page
@@ -719,9 +867,9 @@ end
 
 # If given -h switch print usage information
 
-def print_usage()
+def print_usage(options)
   puts
-  puts "Usage: "+$0+" -[h|V] -[q|m|d|e|M] [MODEL|all] -[p|r] [PATCH] -[i|o] [FILE] -w [WORK_DIR] -t -v"
+  puts "Usage: "+$0+" "+options
   puts
   puts "-V:          Display version information"
   puts "-h:          Display usage information"
@@ -736,6 +884,7 @@ def print_usage()
   puts "-E all:      Download firmware patch for all Emulex HBAs"
   puts "-q all:      Display firmware information for all Qlogic HBAs"
   puts "-X all:      Display firmware information for all M Series"
+  puts "-s TERM:     Search for a term"
   puts "-m MODEL:    Display firmware information for a specific model (eg. X2-4)"
   puts "-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)"
   puts "-z MODEL:    Display firmware zip file contents for a specific model (eg. X2-4)"
@@ -749,15 +898,17 @@ def print_usage()
   puts "-p PATCH:    Download a patch from MOS (Requires Username and Password)"
   puts "-r PATCH:    Download README for a patch from MOS (Requires Username and Password)"
   puts "-R PATCH:    Download README for a patch from MOS (Requires Username and Password) and send to STDOUT"
-  puts "-P SEARCH:   Search patchdiag.xref"
+  puts "-P SEARCH:   Search patchdiag.xref (Solaris 10 and earlier)"
   puts "-w WORK_DIR: Set work directory (Default is ~/.goofball)"
   puts "-c:          Output in CSV format (default text)"
   puts "-x:          Download patchdiag.xref"
-  puts "-l:          Only show latest firmware versions (used with -m)"
+  puts "-l:          Only show latest firmware versions (used with -m and -u)"
   puts "-Y:          Update patch archive"
-  puts "-S RELEASE:  Set Solaris release (used with -Z)"
-  puts "-A RELEASE:  Set architecture (used with -Z)"
+  puts "-S RELEASE:  Set Solaris release (used with -Y)"
+  puts "-A ARCH:     Set architecture (used with -Y)"
   puts "-o FILE:     Open a file for writing"
+  puts "-u:          Process SRU Information (Solaris 11)"
+  puts "-H:          Delete temporary HTML files"
   puts
 end
 
@@ -920,15 +1071,16 @@ def list_zipfile(model,fw_urls,fw_text,search_suffix,output_type,output_file,cou
       return
     end
     puts model+":"
-    Zip::Archive.open(download_file) do |archive|
-      entry_names = archive.map do |file|
+    archive_list = %x[unzip -l "#{download_file}" |awk '{print $4}'].split("\n")
+    archive_list.each do |file_name|
+      if file_name.match(/[A-z]|[0-9]/)
         if search_suffix.match(/[A-z]/)
           if search_suffix.match(/pkg/)
-            if file.name.match(/pkg$|bin$|iso$|Ultra[0-9][0-9]$|[0-9][0-9][0-9][0-9]\.tar\.gz|[0-9][0-9][0-9]\.zip/)
-              tftp_name = File.basename(file.name)
+            if file_name.match(/pkg$|bin$|iso$|Ultra[0-9][0-9]$|[0-9][0-9][0-9][0-9]\.tar\.gz|[0-9][0-9][0-9]\.zip/)
+              tftp_name = File.basename(file_name)
               if !tftp_name.match(/legal|remote|recovery|^fw|^q8|^firmware/)
                 tftp_file = File.dirname(download_file)
-                tftp_file = tftp_file+"/"+file.name
+                tftp_file = tftp_file+"/"+file_name
                 if output_type == "CSV"
                   patch_text = patch_text.to_s.split(" ")
                   if patch_text[0].match(/^ILOM/)
@@ -978,9 +1130,9 @@ def list_zipfile(model,fw_urls,fw_text,search_suffix,output_type,output_file,cou
           end
         else
           if output_type == "CSV"
-            output_text = model+","+file.name+"\n"
+            output_text = model+","+file_name+"\n"
           else
-            output_text = file.name+"\n"
+            output_text = file_name+"\n"
           end
           if output_file.match(/[A-z,0-9]/)
             File.open(output_file, 'a') { |file| file.write(output_text) }
@@ -1161,6 +1313,9 @@ def check_local_config
   if !Dir.exists?($work_dir)
     Dir.mkdir($work_dir)
   end
+  if !Dir.exists?($html_dir)
+    Dir.mkdir($html_dir)
+  end
   return
 end
 
@@ -1170,7 +1325,7 @@ end
 def update_patch_archive(search_architecture,search_release)
   zip_file    = ""
   readme_file = ""
-  doc=open_patchdiag_xref()
+  doc = open_patchdiag_xref()
   doc.each do |line|
     line.chomp
     if line.match(/^[0-9]/)
@@ -1221,9 +1376,9 @@ end
 # Get commandline switches of print help if none given
 
 begin
-  opt = Getopt::Std.getopts("VZ?abchlvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:t:w:z:")
+  opt = Getopt::Std.getopts(options)
 rescue
-  print_usage()
+  print_usage(options)
   exit
 end
 
@@ -1235,6 +1390,12 @@ end
 
 if opt["w"]
   $work_dir = opt["w"]
+end
+
+# If given a -s set Search term (Only used with SRU information at the moment)
+
+if opt["s"]
+  search_string = opt["s"]
 end
 
 # If given a -M, -E, -P, or -R which involve local downloads get a list of the
@@ -1298,7 +1459,7 @@ end
 # If given a -h or -? print help information
 
 if opt["h"] or opt["?"]
-  print_usage()
+  print_usage(options)
   exit
 end
 
@@ -1379,6 +1540,14 @@ if opt["r"] or opt["p"] or opt["R"]
   end
 end
 
+# If given -u process Oracle Solaris 11 SRU information
+
+if opt["u"]
+  url = "https://support.oracle.com/epmos/faces/PatchSearchResults?searchdata=%3Ccontext+type%3D%22ADVANCED%22+search%3D%22%26lt%3BSearch%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Bproduct_family%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3Btrue%26quot%3B%2F%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Bproduct%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3B3-VFE6B2%26quot%3B%2F%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Brelease%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3B400000110000%26quot%3B%2F%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Bexclude_superseded%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3Bfalse%26quot%3B%2F%26gt%3B%0A%26lt%3B%2FSearch%26gt%3B%22%2F%3E"
+  search_oracle_sru_page(search_string,latest_only,url)
+end
+
+
 # If given a -q process Qlogic firmware information
 
 if opt["q"]
@@ -1445,6 +1614,15 @@ if opt["M"]
   end
   (fw_urls,fw_text) = search_system_fw_page(model,url)
   handle_download_firmware(model,fw_urls,fw_text,latest_only)
+end
+
+# If given -H cleanup html directory
+
+if opt["H"]
+  if File.directory($html_dir)
+    %x[rm $html_dir/*.html]
+  end
+  exit
 end
 
 # If given a -z or -t process zip files in repository

@@ -123,3 +123,9 @@
 # Updated documentation and license
 # 0.6.2: Tue 17 Jun 2014 20:26:41 EST
 # Code cleanup and minor fixes
+# 0.6.3: Wed 18 Jun 2014 11:27:34 EST
+# Added initial SRU support code
+# 0.6.4: Thu 19 Jun 2014 13:57:09 EST
+# Removed zipruby gem due to incompatibility with selenium-webdriver
+# 0.6.5: Fri 20 Jun 2014 12:55:59 EST
+# Added ininital code for processes SRUs
