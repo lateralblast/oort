@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         firith (Firmeare Information Right In The Hand)
-# Version:      0.6.7
+# Version:      0.6.8
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -663,10 +663,11 @@ end
 
 # Print SRU info
 
-def print_sru_info(patch_no,patch_info,patch_url)
+def print_sru_info(patch_no,patch_info,patch_url,down_url)
   puts patch_no+":"
   puts patch_info
   puts patch_url
+  puts down_url
   return
 end
 
@@ -696,7 +697,8 @@ def search_oracle_sru_page(search_string,latest_only,url)
   current_sru = ""
   latest_sru  = ""
   sru_info.each do |patch_no, patch_info|
-    patch_url = sru_urls[patch_no]
+    patch_url = sru_urls[patch_no][0]
+    down_url  = sru_urls[patch_no][1]
     if !search_string.match(/all/)
       if patch_info.match(/#{search_string}/)
         if latest_only == 1
@@ -707,7 +709,7 @@ def search_oracle_sru_page(search_string,latest_only,url)
             latest_sru = compare_sru_vers(current_sru,latest_sru)
           end
         else
-          print_sru_info(patch_no,patch_info,patch_url)
+          print_sru_info(patch_no,patch_info,patch_url,down_url)
         end
       end
     else
@@ -719,7 +721,7 @@ def search_oracle_sru_page(search_string,latest_only,url)
           latest_sru = compare_sru_vers(current_sru,latest_sru)
         end
       else
-        print_sru_info(patch_no,patch_info,patch_url)
+        print_sru_info(patch_no,patch_info,patch_url,down_url)
       end
     end
   end
@@ -727,7 +729,7 @@ def search_oracle_sru_page(search_string,latest_only,url)
     sru_info.each do |patch_no, patch_info|
       patch_url = sru_urls[patch_no]
       if patch_info.match(/#{latest_sru}/)
-        print_sru_info(patch_no,patch_info,patch_url)
+        print_sru_info(patch_no,patch_info,patch_url,down_url)
       end
     end
   end
@@ -749,13 +751,18 @@ def process_oracle_sru_page(url)
   patch_no   = ""
   patch_info = ""
   patch_url  = ""
+  model      = "OS"
   rows.each do |row|
     if !row.text.match(/More.../)
       if row.to_s.match(/xfe/)
         if patch_no.match(/[0-9]/)
           patch_url = base_url+patch_no
+          (download_url,file_name) = get_oracle_download_url(model,patch_info,patch_url)
           sru_info[patch_no] = patch_info
-          sru_urls[patch_no] = patch_url
+          patch_urls = []
+          patch_urls.push(patch_url)
+          patch_urls.push(download_url)
+          sru_urls[patch_no] = patch_urls
           patch_no   = row.text
           patch_info = ""
         else
@@ -775,8 +782,11 @@ def process_oracle_sru_page(url)
       end
     end
   end
-  sru_info[patch_no] = patch_info
-  sru_urls[patch_no] = patch_url
+  (download_url,file_name) = get_oracle_download_url(model,patch_info,patch_url)
+  patch_urls = []
+  patch_urls.push(patch_url)
+  patch_urls.push(download_url)
+  sru_urls[patch_no] = patch_urls
   return sru_info,sru_urls
 end
 
@@ -982,6 +992,16 @@ def get_oracle_download_url(model,patch_text,patch_url)
     return
   end
   if !patch_url.match(/index/)
+    if model == "OS"
+      rev_text = "1100"
+      if patch_text.match(/x86/)
+        suffix = "Solaris86-64"
+      else
+        suffix = "SOLARIS64"
+      end
+    else
+      suffix = "Generic"
+    end
     if patch_text.match(/Sun Blade 6048 Chassis|Sun Ultra 24 Workstation|Sun Fire X4450 Server/)
       rev_text = patch_text.split(" ")[-2].gsub(/\./,'')
     else
@@ -1026,7 +1046,7 @@ def get_oracle_download_url(model,patch_text,patch_url)
           rev_text = rev_text+"0"
         end
       end
-      download_file = "p"+patch_no+"_"+rev_text+"_Generic.zip"
+      download_file = "p"+patch_no+"_"+rev_text+"_"+suffix+".zip"
       download_url  = base_url+download_file
     end
   end

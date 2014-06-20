@@ -133,3 +133,5 @@
 # Replaced wget/curl with Mechanize::Download
 # 0.6.7: Fri 20 Jun 2014 15:17:55 EST
 # Bug fixes
+# 0.6.8: Fri 20 Jun 2014 19:48:12 EST
+# Added code to generate download URLs for SRUs
