@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         firith (Firmeare Information Right In The Hand)
-# Version:      0.6.8
+# Version:      0.6.9
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -690,6 +690,23 @@ def compare_sru_vers(current_sru,latest_sru)
   return latest_sru
 end
 
+# Download Oracle SRUs
+
+def download_oracle_sru(sru_info,sru_urls)
+  sru_urls.each do |patch_no, patch_urls|
+    download_url = patch_urls[1]
+    output_file  = File.basename(download_url)
+    output_dir   = $work_dir+"/srus"
+    output_file  = output_dir+"/"+output_file
+    if !File.directory?(output_dir)
+      Dir.mkdir(output_dir)
+    end
+    if !File.exist?(output_file)
+      download_url(download_url,output_file)
+    end
+  return
+end
+
 # Search Oracle's SRU page
 
 def search_oracle_sru_page(search_string,latest_only,url)
@@ -734,7 +751,7 @@ def search_oracle_sru_page(search_string,latest_only,url)
       end
     end
   end
-  return
+  return sru_info,sru_urls
 end
 
 # Process Oracle's SRU page
@@ -936,7 +953,8 @@ def print_usage(options)
   puts "-E all:      Download firmware patch for all Emulex HBAs"
   puts "-q all:      Display firmware information for all Qlogic HBAs"
   puts "-X all:      Display firmware information for all M Series"
-  puts "-s all:      Display all Solaris 11 SRUs"
+  puts "-u all:      Display all Solaris 11 SRUs"
+  puts "-u TERM:     Search all Solaris 11 SRUs for a term"
   puts "-m MODEL:    Display firmware information for a specific model (eg. X2-4)"
   puts "-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)"
   puts "-z MODEL:    Display firmware zip file contents for a specific model (eg. X2-4)"
@@ -946,7 +964,7 @@ def print_usage(options)
   puts "-E MODEL:    Download firmware patch for a specific model of Emulex HBA"
   puts "-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)"
   puts "-X MODEL:    Display firmware information for specific M Series model (e.g. M3000)"
-  puts "-s TERM:     Search Solaris 11 SRUs for a term"
+  puts "-U TERM:     Download Solaris 11 SRUs associated with a term"
   puts "-i FILE:     Open a locally saved HTML file for processing rather then fetching it"
   puts "-p PATCH:    Download a patch from MOS (Requires Username and Password)"
   puts "-r PATCH:    Download README for a patch from MOS (Requires Username and Password)"
@@ -1454,12 +1472,6 @@ if opt["w"]
   $work_dir = opt["w"]
 end
 
-# If given a -s set Search term (Only used with SRU information at the moment)
-
-if opt["s"]
-  search_string = opt["s"]
-end
-
 # If given a -M, -E, -P, or -R which involve local downloads get a list of the
 # local repository so that duplicate files can be symlinked rather than
 # downloaded again
@@ -1604,9 +1616,12 @@ end
 
 # If given -u process Oracle Solaris 11 SRU information
 
-if opt["s"]
+if opt["u"] or opt["U"]
   url = "https://support.oracle.com/epmos/faces/PatchSearchResults?searchdata=%3Ccontext+type%3D%22ADVANCED%22+search%3D%22%26lt%3BSearch%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Bproduct_family%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3Btrue%26quot%3B%2F%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Bproduct%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3B3-VFE6B2%26quot%3B%2F%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Brelease%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3B400000110000%26quot%3B%2F%26gt%3B%0A%26lt%3BFilter+name%3D%26quot%3Bexclude_superseded%26quot%3B+op%3D%26quot%3Bis%26quot%3B+value%3D%26quot%3Bfalse%26quot%3B%2F%26gt%3B%0A%26lt%3B%2FSearch%26gt%3B%22%2F%3E"
-  search_oracle_sru_page(search_string,latest_only,url)
+  (sru_info,sru_urls) = search_oracle_sru_page(search_string,latest_only,url)
+  if opt["U"]
+    download_oracle_sru(sru_info,sru_urls)
+  end
 end
 
 
