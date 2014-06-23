@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         firith (Firmeare Information Right In The Hand)
-# Version:      0.6.9
+# Version:      0.7.0
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -55,17 +55,22 @@ options    = "HV?abchlvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:s:t:w:z:"
 # modules seem to work with the MOS site
 
 def search_xcp_fw_page(search_xcp)
+  base_url    = "https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
   xcp_url     = "https://support.oracle.com/epmos/faces/DocContentDisplay?id=1002631.1"
   output_file = $html_dir+"/xcp.html"
   if !File.exists?(output_file)
     get_mos_url(xcp_url,output_file)
   end
-  xcp_release = ""
-  xcp_version = ""
-  xcp_post    = ""
-  xcp_models  = ""
-  xcp_info    = ""
-  mseries     = ""
+  xcp_rel   = ""
+  xcp_post  = ""
+  obp_post  = ""
+  xcp_date  = ""
+  mseries   = ""
+  obp_prom  = ""
+  xcp_prom  = ""
+  patch_url = ""
+  xcp_model = ""
+  xcp_done  = []
   ["M3000","M4000","M5000","M8000","M9000"].each do |mseries|
     eval("#{mseries}_txts=[]")
     eval("#{mseries}_urls=[]")
@@ -75,75 +80,73 @@ def search_xcp_fw_page(search_xcp)
   doc.css("td").each { |td| td.inner_html = td.inner_html.gsub(/<br>/,' ') }
   doc.css("td").each do |node|
     if node.text
-      if node.text.match(/^XCP|^POST/)
-        xcp_text = ""
-        xcp_info = node.text
-        xcp_info = xcp_info.split(/\n/)
-        xcp_info.each do |line|
-          line = line.gsub(/\s+/,' ')
-          line = line.gsub(/^\s+/,'')
-          line = line.chomp
-          line = line.strip
-          if line.match(/[A-z]|[0-9]/)
-            if line.match(/^XCP/) and !line.match(/Release/) and !line.match(/XSCF/)
-              xcp_release = line
-              xcp_release = xcp_release.gsub(/ EOL/,'')
-              xcp_release = xcp_release.gsub(/\s+/,'')
-            else
-              if line.match(/^0[0-9]/)
-                xcp_version = line
-              else
-                if line.match(/^POST/) and line.match(/[0-9]/)
-                  xcp_post = line
-                else
-                  if line.match(/ 20[0-9][0-9]/)
-                    xcp_models = line
-                    xcp_models = xcp_models.gsub(/ \- /,'')
-                    xcp_models = xcp_models.gsub(/0M/,'0-M')
-                  else
-                    if xcp_version.match(/[0-9]/)
-                      xcp_text="#{xcp_release} #{xcp_version} #{xcp_post} #{xcp_models}"
-                      if xcp_text.match(/[A-z]/)
-                        xcp_text = xcp_text.gsub(/\s+/,' ')
-                        xcp_text = xcp_text.gsub(/\n/,'')
-                        if xcp_text.match(/M3000/) and !xcp_text.match(/M3000\-/)
-                          mseries = "M3000"
-                          eval("#{mseries}_txts.push(xcp_text)")
-                          eval("#{mseries}_urls.push(xcp_url)")
-                        end
-                        if xcp_text.match(/M3000\-M9000/)
-                          ["M3000","M4000","M5000","M8000","M9000"].each do |mseries|
-                          eval("#{mseries}_txts.push(xcp_text)")
-                          eval("#{mseries}_urls.push(xcp_url)")
-                          end
-                        end
-                        if xcp_text.match(/M4000\-M9000/)
-                          ["M4000","M5000","M8000","M9000"].each do |mseries|
-                          eval("#{mseries}_txts.push(xcp_text)")
-                          eval("#{mseries}_urls.push(xcp_url)")
-                          end
-                        end
-                        if xcp_text.match(/M5000\-M9000/)
-                          ["M5000","M8000","M9000"].each do |mseries|
-                          eval("#{mseries}_txts.push(xcp_text)")
-                          eval("#{mseries}_urls.push(xcp_url)")
-                          end
-                        end
-                        if xcp_text.match(/M8000\-M9000/)
-                          ["M8000","M9000"].each do |mseries|
-                          eval("#{mseries}_txts.push(xcp_text)")
-                          eval("#{mseries}_urls.push(xcp_url)")
-                          end
-                        end
-                        xcp_release = ""
-                        xcp_version = ""
-                        xcp_post    = ""
-                        xcp_models  = ""
-                        xcp_info    = ""
-                        xcp_text    = ""
-                      end
-                    end
+      lines = node.text.split(/\n(XCP)/)
+      lines.each do |line|
+        if !line.match(/XCP\.tar|Release|Matrix|^XCP$/)
+          line = line.gsub(/\n/," ").gsub(/\s+/," ").gsub(/^ /,"").gsub(/EOL /,"").gsub(/POST /,"").gsub(/ - /,"-")
+          if line.match(/^[0-9][0-9][0-9][0-9]/)
+            xcp_info  = line.split(/ /)
+            xcp_rel   = "XCP"+xcp_info[0]
+            xcp_post  = xcp_info[3]
+            obp_post  = xcp_info[4]
+            obp_prom  = xcp_info[1]
+            xcp_prom  = xcp_info[2]
+            xcp_month = xcp_info[6]
+            xcp_year  = xcp_info[7]
+            xcp_date  = xcp_info[6..7].join(" ")
+            if line.match(/Patch/)
+              if !xcp_done.to_s.match(/#{xcp_rel}/)
+                model_info = line.split(/ #{xcp_year} /)[1]
+                model_info = model_info.split(/ Bug /)[0]
+                model_info = model_info.split(/M/)
+                model_info.each do |patch_info|
+                  if patch_info.match(/ Patch /)
+                    (mseries,patch_no) = patch_info.split(/ Patch /)
+                    mseries   = "M"+mseries
+                    patch_no  = patch_no.gsub(/ /,"")
+                    patch_url = base_url+patch_no
+                    xcp_text  = xcp_rel+" "+obp_prom+" "+xcp_prom+" POST "+xcp_post+" "+obp_post+" "+mseries+" "+xcp_date
+                    xcp_text  = xcp_text.gsub(/\s+/," ").gsub(/ $/,"")
+                    eval("#{mseries}_txts.push(xcp_text)")
+                    eval("#{mseries}_urls.push(patch_url)")
                   end
+                end
+                xcp_done.push(xcp_rel)
+              end
+            else
+              xcp_model = xcp_info[5]
+              if !xcp_done.to_s.match(/#{xcp_rel}/) and line.match(/-/)
+                xcp_text  = xcp_rel+" "+obp_prom+" "+xcp_prom+" POST "+xcp_post+" "+obp_post+" "+xcp_model+" "+xcp_date
+                xcp_text  = xcp_text.gsub(/\s+/," ").gsub(/ $/,"")
+                if xcp_model.match(/M3000/) and !xcp_model.match(/M3000\-/)
+                  mseries = "M3000"
+                  eval("#{mseries}_txts.push(xcp_text)")
+                  eval("#{mseries}_urls.push(xcp_url)")
+                end
+                if xcp_model.match(/M3000\-M9000/)
+                  ["M3000","M4000","M5000","M8000","M9000"].each do |mseries|
+                    eval("#{mseries}_txts.push(xcp_text)")
+                    eval("#{mseries}_urls.push(xcp_url)")
+                  end
+                end
+                if xcp_model.match(/M4000\-M9000/)
+                  ["M4000","M5000","M8000","M9000"].each do |mseries|
+                    eval("#{mseries}_txts.push(xcp_text)")
+                    eval("#{mseries}_urls.push(xcp_url)")
+                  end
+                end
+                if xcp_model.match(/M5000\-M9000/)
+                  ["M5000","M8000","M9000"].each do |mseries|
+                    eval("#{mseries}_txts.push(xcp_text)")
+                    eval("#{mseries}_urls.push(xcp_url)")
+                  end
+                end
+                if xcp_model.match(/M8000\-M9000/)
+                  ["M8000","M9000"].each do |mseries|
+                    eval("#{mseries}_txts.push(xcp_text)")
+                    eval("#{mseries}_urls.push(xcp_url)")
+                  end
+                  xcp_done.push(xcp_rel)
                 end
               end
             end
