@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         firith (Firmeare Information Right In The Hand)
-# Version:      0.7.0
+# Version:      0.7.1
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -555,6 +555,7 @@ def search_emulex_fw_page(search_model,url)
   sun_model   = ""
   fw_urls     = {}
   fw_text     = {}
+  url         = "http://www.emulex.com/products/fibre-channel-hbas/oracle-branded/selection-guide/"
   output_file = $html_dir+"/emulex.html"
   get_url(url,output_file)
   doc       = Nokogiri::HTML(File.open(output_file))
@@ -573,64 +574,86 @@ def search_emulex_fw_page(search_model,url)
   hba_model['SG-XPCI2FC-EM4-Z']   = "LP11002"
   hba_model['SG-XPCIe1FC-EM4']    = "LPe11000"
   hba_model['SG-XPCIe2FC-EM4']    = "LPe11002"
-  if search_model.match(/^SG/)
-    search_model = hba_model[search_model]
-  else
-    if search_model != "all"
-      search_model = search_model.gsub(/PEM/,'Pem')
-      search_model = search_model.gsub(/PE/,'Pe')
+
+  if search_model.match(/^LP|^7/)
+    hba_model.each do |orace_part_no, emulex_part_no|
+      if emulex_part_no.downcase == search_model.downcase
+        search_model = orace_part_no
+      end
     end
   end
   lc_model = search_model.downcase
   boot_url = "firmware-and-boot-code"
-  doc.css("table tr a").each do |node|
-    urls = []
-    txts = []
-    if node.text.match(/^LP/)
-      model = node.text.upcase
-    end
-    if node.text.match(/^SG/)
-      sun_model = node.text
-    end
-    suburl = node[:href]
-    if suburl.match(/firmware/)
-        doc_url = suburl.gsub(/drivers/,boot_url)
-        if sun_model.match(/^SG/)
-          fw_info = model+" ("+sun_model+")"
+  doc.css("li a").each do |node|
+    sub_url = node[:href]
+    if sub_url
+      if sub_url.match(/#{boot_url}/)
+        if search_model.match(/all/) or sub_url.match(/#{lc_model}/)
+          part_no = sub_url.split(/\//)[3].to_s
+          doc_url = sub_url.gsub(/features/,boot_url)
+          fw_info = part_no.upcase.gsub(/-AND-/," ")
+          fw_file = $work_dir+"/html/"+part_no+".html"
+          doc_url = "http://www.emulex.com/"+doc_url
+          get_url(doc_url,fw_file)
+          subdoc = Nokogiri::HTML(File.open(fw_file))
+          subdoc.css("tbody").each do |subnode|
+            if subnode.text.match(/BootCode|Firmware Version|OpenBoot/)
+              subnode.css("tr").each do |info|
+                zip_url = ""
+                fw_info = info.text
+                fw_info = fw_info.gsub(/\s+/," ")
+                fw_info = fw_info.gsub(/^\s+/,"")
+                fw_info = fw_info.gsub(/DownloadDescriptionDocumentation /,"")
+                if !fw_info.match(/^SG|^SC/)
+                  if fw_info.match(/^Universal/)
+                    if fw_info.match(/Contains: /)
+                      fw_head = fw_info.split(/ Download Contains: /)[0]
+                      fw_tail = fw_info.split(/ Download Contains: /)[1].split(/ Boot Code/)[0]
+                      fw_info = fw_head+" "+fw_tail
+                      zip_url = subnode.to_s.split(/href="/)[1].split(/"/)[0]
+                    end
+                  else
+                    if fw_info.match(/^Firmware/)
+                      if fw_info.match(/ Product/)
+                        zip_url = info.to_s.split(/"/)[3]
+                        fw_info = fw_info.split(/ Product/)[0]
+                      else
+                        if fw_info.match(/ Download/)
+                          zip_url = subnode.to_s.split(/href="/)[3].split(/"/)[0]
+                          fw_info = fw_info.split(/ Download/)[0]
+                        else
+                          if fw_info.match(/Oracle VM Server/)
+                            zip_url = info.to_s.split(/"/)[3]
+                            fw_info = fw_info.split(/ Use /)[0]
+                          end
+                        end
+                      end
+                    end
+                  end
+                  if !zip_url.match(/http/)
+                    zip_url = subnode.to_s.split(/href="/)[1].split(/"/)[0]
+                  end
+                  urls.push(zip_url)
+                  if !fw_info.to_s.match(/DownloadDescriptionDocumentation|^Note/)
+                    txts.push(fw_info)
+                  end
+                end
+              end
+            end
+          end
+        end
+        if part_no.match(/-and-/)
+          part_nos = part_no.split(/-and-/)
+          part_nos.each do |part_no|
+            fw_text[part_no.upcase] = txts
+            fw_urls[part_no.upcase] = urls
+          end
         else
-          fw_info = model
+          fw_text[part_no.upcase] = txts
+          fw_urls[part_no.upcase] = urls
         end
-        output_file = model+".html"
-        get_url(doc_url,output_file)
-        subdoc = Nokogiri::HTML(File.open(output_file))
-        subdoc.css("table tr").each do |subnode|
-        if subnode.text.match(/Open Boot/)
-          zip_url = subnode.css("td a").to_s.split(/"/)[1]
-          if fw_info.match(/SG/)
-            fw_version = subnode.text.split(/\s+/)[5..6].join(" ")
-          else
-            fw_version = subnode.text.split(/\s+/)[4..5].join(" ").gsub(/Platform:/,'')
-          end
-          fw_info = fw_info+" "+fw_version
-          txts.push(fw_info)
-          if zip_url
-            if zip_url.to_s.match(/http/)
-              urls.push(zip_url)
-            else
-              urls.push(doc_url)
-            end
-          else
-            urls.push(doc_url)
-          end
-          if model == search_model.upcase or search_model == "all"
-            if sun_model.match(/^SG/)
-              fw_text[sun_model] = txts
-              fw_urls[sun_model] = urls
-            end
-            fw_text[model] = txts
-            fw_urls[model] = urls
-          end
-        end
+        txts = []
+        urls = []
       end
     end
   end
@@ -1039,12 +1062,19 @@ def get_oracle_download_url(model,patch_text,patch_url)
           end
         end
       else
-        ['CMM Software ','Module ', 'Programmables ','XCP ','Firmware ','Box '].each do |search_string|
-          if patch_text.match(/#{search_string}/)
-            rev_text = patch_text.split("#{search_string}")[1].to_s
-            rev_text = rev_text.split(" ")[0].gsub(/\./,'')
-            if patch_text.match(/System Firmware /)
-              rev_text = rev_text[0..1]
+        if patch_text.match(/^XCP[0-9]/)
+          rev_text = patch_text.split(/ /)[0].gsub(/XCP/,"")
+          if rev_text.match(/1117/)
+            rev_text = rev_text+"00"
+          end
+        else
+          ['CMM Software ','Module ', 'Programmables ','XCP ','Firmware ','Box '].each do |search_string|
+            if patch_text.match(/#{search_string}/)
+              rev_text = patch_text.split("#{search_string}")[1].to_s
+              rev_text = rev_text.split(" ")[0].gsub(/\./,'')
+              if patch_text.match(/System Firmware /)
+                rev_text = rev_text[0..1]
+              end
             end
           end
         end
@@ -1064,7 +1094,7 @@ def get_oracle_download_url(model,patch_text,patch_url)
       download_file = patch_no+".zip"
       download_url  = base_url+download_file
     else
-      if !patch_text.match(/SysFW|System Firmware|Hardware Programmables|Workstation|SW|3\.4 /) and !model.match(/X6275|X6270M2|X6270$|X2250|X4200|X4470|X4800|X2-8/)
+      if !patch_text.match(/SysFW|System Firmware|Hardware Programmables|Workstation|SW|3\.4 |^XCP[0-9]/) and !model.match(/X6275|X6270M2|X6270$|X2250|X4200|X4470|X4800|X2-8/)
         if rev_text.length < 3
           rev_text = rev_text+"0"
         end

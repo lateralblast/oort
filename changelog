@@ -139,3 +139,5 @@
 # Added code to download SRUs
 # 0.7.0: Mon 23 Jun 2014 16:05:59 EST
 # Improved processing of XSCF information
+# 0.7.1: Wed 25 Jun 2014 15:14:55 EST
+# Fixed Emulex firmare reporting
