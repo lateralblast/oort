@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         firith (Firmeare Information Right In The Hand)
-# Version:      0.7.1
+# Version:      0.7.2
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -574,7 +574,12 @@ def search_emulex_fw_page(search_model,url)
   hba_model['SG-XPCI2FC-EM4-Z']   = "LP11002"
   hba_model['SG-XPCIe1FC-EM4']    = "LPe11000"
   hba_model['SG-XPCIe2FC-EM4']    = "LPe11002"
-
+  # Populate older card information (Emulex page no longer works)
+  fw_text["LP21000"] = [ "Version 3.10a3" ]
+  fw_text["LP21002"] = [ "Version 3.10a3" ]
+  fw_urls["LP21000"] = [ "http://www-dl.emulex.com/support/hardware/lp21000/ob/310a3/ao310a3.zip" ]
+  fw_urls["LP21002"] = [ "http://www-dl.emulex.com/support/hardware/lp21000/ob/310a3/ao310a3.zip" ]
+  #
   if search_model.match(/^LP|^7/)
     hba_model.each do |orace_part_no, emulex_part_no|
       if emulex_part_no.downcase == search_model.downcase
@@ -647,10 +652,20 @@ def search_emulex_fw_page(search_model,url)
           part_nos.each do |part_no|
             fw_text[part_no.upcase] = txts
             fw_urls[part_no.upcase] = urls
+            if hba_model[part_no.upcase]
+              lp_part_no = hba_model[part_no.upcase]
+              fw_text[lp_part_no.upcase] = txts
+              fw_urls[lp_part_no.upcase] = urls
+            end
           end
         else
           fw_text[part_no.upcase] = txts
           fw_urls[part_no.upcase] = urls
+          if hba_model[part_no.upcase]
+            lp_part_no = hba_model[part_no.upcase]
+            fw_text[lp_part_no.upcase] = txts
+            fw_urls[lp_part_no.upcase] = urls
+          end
         end
         txts = []
         urls = []
@@ -997,7 +1012,7 @@ def print_usage(options)
   puts "-r PATCH:    Download README for a patch from MOS (Requires Username and Password)"
   puts "-R PATCH:    Download README for a patch from MOS (Requires Username and Password) and send to STDOUT"
   puts "-P SEARCH:   Search patchdiag.xref (Solaris 10 and earlier)"
-  puts "-w WORK_DIR: Set work directory (Default is ~/.goofball)"
+  puts "-w WORK_DIR: Set work directory (Default is ~/.firith)"
   puts "-c:          Output in CSV format (default text)"
   puts "-x:          Download patchdiag.xref"
   puts "-l:          Only show latest firmware versions (used with -m and -u)"
@@ -1088,6 +1103,9 @@ def get_oracle_download_url(model,patch_text,patch_url)
     end
     if model.match(/N6000/)
       rev_text = "100"
+    end
+    if model.match(/M10-/)
+      rev_text = rev_text+"00"
     end
     patch_no = patch_url.split("=")[1].to_s
     if patch_no.match(/\-/)

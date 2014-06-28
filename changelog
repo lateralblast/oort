@@ -141,3 +141,5 @@
 # Improved processing of XSCF information
 # 0.7.1: Wed 25 Jun 2014 15:14:55 EST
 # Fixed Emulex firmare reporting
+# 0.7.2: Sat 28 Jun 2014 11:12:36 EST
+# Fixed M10* firmware download URL determination
