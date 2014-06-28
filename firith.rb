@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         firith (Firmeare Information Right In The Hand)
-# Version:      0.7.2
+# Version:      0.7.4
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -322,10 +322,10 @@ def get_mos_details()
     mos_data.each do |line|
       line.chomp
       if line.match(/http-user/)
-        mos_username = line.split(/\=/)[1]
+        mos_username = line.split(/\=/)[1].chomp
       end
       if line.match(/http-password/)
-        mos_password = line.split(/\=/)[1]
+        mos_password = line.split(/\=/)[1].chomp
       end
     end
   end
@@ -454,24 +454,9 @@ def get_download(url,output_file)
       Dir.mkdir(output_dir)
     end
     if $test_mode == 0
-      if url.match(/oracle/)
-        mos_passwd_file = Dir.home+"/.mospasswd"
-        if !File.exists?(mos_passwd_file)
-          (mos_username,mos_password) = get_mos_details()
-          create_mos_passwd_file(mos_username,mos_password)
-        end
-        orig_url = url
-        new_url  = url.gsub(/https\/\/:/,"https://#{mos_username}:#{mos_passwd_file}@")
-        agent = Mechanize.new
-        agent.redirect_ok = true
-        agent.pluggable_parser.default = Mechanize::Download
-        begin
-          agent.get(new_url).save(output_file)
-        rescue
-          if $verbose == 1
-            puts "Error fetching: "+new_url
-          end
-        end
+      if url.match(/Orion|getupdates/)
+        (mos_username,mos_password) = get_mos_details()
+        get_mos_url(url,output_file)
       else
         agent = Mechanize.new
         agent.redirect_ok = true
@@ -678,27 +663,32 @@ end
 # Get a MOS page
 
 def get_mos_url(mos_url,local_file)
-  mos_passwd_file = Dir.home+"/.mospasswd"
-  if !File.exists?(mos_passwd_file)
-    (mos_username,mos_password) = get_mos_details()
-    create_mos_passwd_file(mos_username,mos_password)
-  else
-    mos_details  = %x[cat #{mos_passwd_file}].split("\n")
-    mos_username = mos_details.grep(/http-user/)[0].split("=")[1..-1].join
-    mos_password = mos_details.grep(/http-password/)[0].split("=")[1..-1].join
-  end
+  (mos_username,mos_password) = get_mos_details()
   cap = Selenium::WebDriver::Remote::Capabilities.phantomjs('phantomjs.page.settings.userAgent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10) AppleWebKit/538.39.41 (KHTML, like Gecko) Version/8.0 Safari/538.39.41')
   doc = Selenium::WebDriver.for :phantomjs, :desired_capabilities => cap
   mos = "https://supporthtml.oracle.com"
   doc.get(mos)
+  doc.manage.timeouts.implicit_wait = 20
   doc.find_element(:id => "pt1:gl3").click
   doc.find_element(:id => "Mssousername").send_keys(mos_username)
   doc.find_element(:id => "Mssopassword").send_keys(mos_password)
   doc.find_element(:link => "Sign In").click
-  doc.get(mos_url)
-  file = File.open(local_file,"w")
-  file.write(doc.page_source)
-  file.close
+  if !mos_url.match(/zip$/)
+    doc.get(mos_url)
+    file = File.open(local_file,"w")
+    file.write(doc.page_source)
+    file.close
+  else
+    agent = Mechanize.new
+    agent.redirect_ok = true
+    agent.pluggable_parser.default = Mechanize::Download
+    begin
+      agent.get(mos_url).save(local_file)
+    rescue
+      puts "Error fetching: "+mos_url
+      exit
+    end
+  end
   return
 end
 
@@ -896,6 +886,7 @@ def search_system_fw_page(search_model,url)
     info  = info.split(" ")
     info  = info.uniq
     info  = info.join(" ")
+    info  = info.gsub(/SPARC #{new_model} /,"Sun ")
     links = row.css('a').map{|td| td[:href]}
     links.each do |link|
       if link
@@ -1034,13 +1025,28 @@ def print_version()
   puts name+" v. "+version+" "+packager
 end
 
+# Get an aru number (required for download)
+
+def get_aru_no(patch_url)
+  base_url   = "https://updates.oracle.com/Orion/Services/download/"
+  patch_no   = patch_url.split(/\=/)[1]
+  patch_file = $html_dir+"/"+patch_no+".html"
+  if !File.exist?(patch_file)
+    get_mos_url(patch_url,patch_file)
+  end
+  file_array = IO.readlines(patch_file)
+  aru_no     = file_array.grep(/aru\=/)[0].split(/aru\=/)[1].split(/"|'/)[0]
+  return aru_no
+end
+
 # This code takes a model and the information gathered from the system firmware
 # page and crafts a URL for the patch download
 # There seems to be some vague consistency for the patch file names,
 # however it does change from one model to another
 
 def get_oracle_download_url(model,patch_text,patch_url)
-  base_url      = "https://getupdates.oracle.com/all_unsigned/"
+  old_base_url  = "https://getupdates.oracle.com/all_unsigned/"
+  base_url      = "https://updates.oracle.com/Orion/Services/download/"
   download_url  = ""
   head_url      = ""
   patch_no      = ""
@@ -1063,6 +1069,7 @@ def get_oracle_download_url(model,patch_text,patch_url)
     else
       suffix = "Generic"
     end
+    aru_no = get_aru_no(patch_url)
     if patch_text.match(/Sun Blade 6048 Chassis|Sun Ultra 24 Workstation|Sun Fire X4450 Server/)
       rev_text = patch_text.split(" ")[-2].gsub(/\./,'')
     else
@@ -1118,7 +1125,7 @@ def get_oracle_download_url(model,patch_text,patch_url)
         end
       end
       download_file = "p"+patch_no+"_"+rev_text+"_"+suffix+".zip"
-      download_url  = base_url+download_file
+      download_url  = base_url+"/download?type=patch&aru="+aru_no
     end
   end
   return download_url,download_file

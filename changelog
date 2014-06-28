@@ -143,3 +143,7 @@
 # Fixed Emulex firmare reporting
 # 0.7.2: Sat 28 Jun 2014 11:12:36 EST
 # Fixed M10* firmware download URL determination
+# 0.7.3: Sat 28 Jun 2014 12:32:46 ES
+# Added implicit timeout to page loads to deal with slow login/javascript
+# 0.7.4: Sat 28 Jun 2014 14:02:55 EST
+# Fixed download URL determination and cleaned up patch information output

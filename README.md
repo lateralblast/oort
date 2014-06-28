@@ -52,6 +52,13 @@ Features:
   - Can be used in conjunction with [sice](https://github.com/lateralblast/sice) script to update firmware
 - Create a local repository of patches
 
+Issues:
+
+- MOS login is slow (up to 20s) as it has to wait for javascript
+  - Where possible files are cached locally so they don't need to be fetched each time
+- To determine the download URL for firmware patches a MOS login is required
+  - This is because the ARU number needs to be retrieved in order to generate the URL
+
 License
 -------
 
