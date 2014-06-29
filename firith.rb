@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         firith (Firmeare Information Right In The Hand)
-# Version:      0.7.6
+# Version:      0.7.9
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -43,13 +43,14 @@ end
 # - Verbose comments (-v sets to 1)
 # - Test mode (does not download, -b sets this to 1)
 
-$script     = File.basename($0,".rb").chomp
-$work_dir   = Dir.home+"/."+$script
-$verbose    = 0
-$test_mode  = 0
-$html_dir   = $work_dir+"/html"
-$readme_dir = $work_dir+"/readme"
-options     = "HV?abchlvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:s:t:w:x:z:"
+$script       = File.basename($0,".rb").chomp
+$work_dir     = Dir.home+"/."+$script
+$verbose      = 0
+$test_mode    = 0
+$html_dir     = $work_dir+"/html"
+$readme_dir   = $work_dir+"/readme"
+$firmware_dir = $work_dir+"/firmware"
+options       = "HV?abchlvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:s:t:w:x:z:"
 
 # Search the M Series firmware page for information
 # This requires the use of selenium and a web browser as none of the ruby
@@ -370,7 +371,7 @@ end
 def open_patch_readme(patch_no)
   doc = ""
   patch_no    = get_patch_full_id(patch_no)
-  output_file = $work_dir+"/README."+patch_no
+  output_file = $readme_dir+"/README."+patch_no
   get_patch_readme(patch_no,output_file)
   if File.exist?(output_file)
     doc = IO.readlines(output_file)
@@ -388,7 +389,7 @@ def get_patch_readme(patch_no,output_file)
   base_url = "https://getupdates.oracle.com/readme/"
   patch_no = get_patch_full_id(patch_no)
   if !output_file.match(/[A-z]/)
-    output_file = $work_dir+"/README."+patch_no
+    output_file = $readme_dir+"/README."+patch_no
   end
   url = base_url+patch_no
   get_download(url,output_file)
@@ -438,11 +439,6 @@ def get_url(url,output_file)
   return
 end
 
-# Code to download a file using wget
-# I tried using a ruby module but non of them seem to work reliably with
-# Oracle site and/or Akamai redirects so it just uses wget for the moment
-# If the URL cotains oracle, include MOS handling
-
 def get_download(url,output_file)
   check_file_type(output_file)
   if !File.exists?(output_file)
@@ -485,6 +481,12 @@ def check_file_type(file_name)
   if File.exist?(file_name)
     file_check = %x[file #{file_name}].chomp
     if file_check.match(/empty/)
+      File.delete(file_name)
+    end
+  end
+  if File.exists?(file_name) and file_name.match(/zip$/)
+    file_check = %x[file "#{file_name}"].chomp
+    if file_check.match(/HTML/)
       File.delete(file_name)
     end
   end
@@ -664,31 +666,33 @@ end
 # Get a MOS page
 
 def get_mos_url(mos_url,local_file)
-  (mos_username,mos_password) = get_mos_details()
-  cap = Selenium::WebDriver::Remote::Capabilities.phantomjs('phantomjs.page.settings.userAgent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10) AppleWebKit/538.39.41 (KHTML, like Gecko) Version/8.0 Safari/538.39.41')
-  doc = Selenium::WebDriver.for :phantomjs, :desired_capabilities => cap
-  mos = "https://supporthtml.oracle.com"
-  doc.get(mos)
-  doc.manage.timeouts.implicit_wait = 20
-  doc.find_element(:id => "pt1:gl3").click
-  doc.find_element(:id => "Mssousername").send_keys(mos_username)
-  doc.find_element(:id => "Mssopassword").send_keys(mos_password)
-  doc.find_element(:link => "Sign In").click
-  if !mos_url.match(/zip$/)
+  if mos_url.match(/patch_file/)
+    mos_passwd_file = Dir.home+"/.mospasswd"
+    if !File.exists?(mos_passwd_file)
+      (mos_username,mos_password)=get_mos_details()
+      create_mos_passwd_file(mos_username,mos_password)
+    end
+    if $verbose == 1
+      command="export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+mos_url+"\""+" -O "+"\""+local_file+"\""
+    else
+      command="export WGETRC="+mos_passwd_file+"; wget --no-check-certificate "+"\""+mos_url+"\""+" -q -O "+"\""+local_file+"\""
+    end
+    system(command)
+  else
+    (mos_username,mos_password) = get_mos_details()
+    cap = Selenium::WebDriver::Remote::Capabilities.phantomjs('phantomjs.page.settings.userAgent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10) AppleWebKit/538.39.41 (KHTML, like Gecko) Version/8.0 Safari/538.39.41')
+    doc = Selenium::WebDriver.for :phantomjs, :desired_capabilities => cap
+    mos = "https://supporthtml.oracle.com"
+    doc.get(mos)
+    doc.manage.timeouts.implicit_wait = 20
+    doc.find_element(:id => "pt1:gl3").click
+    doc.find_element(:id => "Mssousername").send_keys(mos_username)
+    doc.find_element(:id => "Mssopassword").send_keys(mos_password)
+    doc.find_element(:link => "Sign In").click
     doc.get(mos_url)
     file = File.open(local_file,"w")
     file.write(doc.page_source)
     file.close
-  else
-    agent = Mechanize.new
-    agent.redirect_ok = true
-    agent.pluggable_parser.default = Mechanize::Download
-    begin
-      agent.get(mos_url).save(local_file)
-    rescue
-      puts "Error fetching: "+mos_url
-      exit
-    end
   end
   return
 end
@@ -1077,7 +1081,7 @@ end
 
 def get_oracle_readme_url(patch_url)
   aru_no     = get_aru_no(patch_url)
-  base_url   = "https://updates.oracle.com/Orion/Services/download/"
+  base_url   = "https://updates.oracle.com/Orion/Services"
   readme_url = base_url+"/download?type=readme&aru="+aru_no
   return readme_url
 end
@@ -1089,7 +1093,7 @@ end
 
 def get_oracle_download_url(model,patch_text,patch_url)
   old_base_url  = "https://getupdates.oracle.com/all_unsigned/"
-  base_url      = "https://updates.oracle.com/Orion/Services/download/"
+  base_url      = "https://updates.oracle.com/Orion/Services/download"
   download_url  = ""
   head_url      = ""
   patch_no      = ""
@@ -1168,7 +1172,7 @@ def get_oracle_download_url(model,patch_text,patch_url)
         end
       end
       download_file = "p"+patch_no+"_"+rev_text+"_"+suffix+".zip"
-      download_url  = base_url+"/download?type=patch&aru="+aru_no
+      download_url  = base_url+"/"+download_file+"?aru="+aru_no+"&patch_file="+download_file
     end
   end
   return download_url,download_file
@@ -1198,7 +1202,8 @@ def download_firmware(model,fw_urls,fw_text,latest_only,counter)
   if !download_url
     return
   end
-  download_file = $work_dir+"/"+model.downcase+"/"+file_name
+  download_file = $firmware_dir+"/"+model.downcase+"/"+file_name
+  check_file_type(download_file)
   if !File.exists?(download_file) and !File.symlink?(download_file)
     existing_file = $file_list.select {|existing_file| existing_file =~ /#{file_name}/}
     if existing_file[0]
@@ -1534,7 +1539,7 @@ end
 # Check local configuration
 
 def check_local_config
-  [ $work_dir, $html_dir, $readme_dir ].each do |test_dir|
+  [ $work_dir, $html_dir, $readme_dir, $firmware_dir ].each do |test_dir|
     if !Dir.exists?(test_dir)
       Dir.mkdir(test_dir)
     end

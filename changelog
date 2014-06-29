@@ -151,3 +151,9 @@
 # Added code to get OBP from patch README
 # 0.7.6: Sun 29 Jun 2014 11:21:59 EST
 # Added architecture search capability for system firmware
+# 0.7.7: Sun 29 Jun 2014 12:23:15 EST
+# Fixed download location for firmware and readme files
+# 0.7.8: Sun 29 Jun 2014 12:51:50 EST
+# Fixed download URL for Oracle firmware
+# 0.7.9: Sun 29 Jun 2014 15:00:47 EST
+# Fixed download for Oracle firmware
