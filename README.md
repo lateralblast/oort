@@ -5,13 +5,20 @@ OORT
 
 Oracle OBP Reporting/Retrieval Tool
 
-
 Introduction
 ------------
 
 This script parses the Oracle (and in the future other) firmware pages to get
 firmware information. It returns the versions of firmware (top most is the current)
 and their URLs. It can also download the firmware to a local repository if needed.
+
+```
+$ oort.rb -m t5-4 -l
+T5-4:
+SPARC T5-4 Server Sun System Firmware 9.2.0.a (based on ILOM 3.2.1) SysFW (24-Apr-2014) OBP 4.36.0
+https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=18544280
+https://updates.oracle.com/Orion/Services/download/p18544280_92_Generic.zip?aru=17568338&patch_file=p18544280_92_Generic.zip
+```
 
 Long term this script will hopefully slowly bring the various firmware information
 tools I have into one script.
@@ -34,6 +41,7 @@ Features:
 Issues:
 
 - MOS login is slow (up to 20s) as it has to wait for javascript
+  - As such the script may take a while to run
   - Where possible files are cached locally so they don't need to be fetched each time
 - To determine the download URL for firmware patches a MOS login is required
   - This is because the ARU number needs to be retrieved in order to generate the URL
