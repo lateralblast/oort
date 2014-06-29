@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# Name:         firith (Firmeare Information Right In The Hand)
+# Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
 # Version:      0.7.9
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)

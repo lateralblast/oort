@@ -1,31 +1,10 @@
-![alt tag](https://raw.githubusercontent.com/lateralblast/firith/master/firith.jpg)
+![alt tag](https://raw.githubusercontent.com/lateralblast/oort/master/OracleSunBoxes.jpg)
 
-> Firith was the Sindarin name for the season in the Calendar of Imladris which corresponds with a period
-<br>
-> between autumn and winter, known as fading.
-<br>
-> -- <cite>The Lord of The Rings by J. R. R. Tolkien</cite>
+OORT
+====
 
+Oracle OBP Reporting/Retrieval Tool
 
-
-> “And you, Ring-bearer,’ she said, turning to Frodo. ‘I come to you last who are not last in my thoughts.
-<br>
-> For you I have prepared this.’ She held up a small crystal phial: it glittered as she moved it, and rays
-<br>
-> of white light sprang from her hand. ‘In this phial,’ she said, ‘is caught the light of Eärendil’s star,
-<br>
-> set amid the waters of my fountain. It will shine still brighter when night is about you.
-<br>
-> May it be a light to you in dark places, when night is about you.
-<br>
-> May it be a light to you in dark places, when all other lights go out.
-<br>
-> -- <cite>Galadriel</cite>
-
-FIRITH
-======
-
-Firmware Information Right In The Hand
 
 Introduction
 ------------
@@ -85,18 +64,18 @@ check-certificate=off
 Resources
 ---------
 
-[Oracle firmware and patch resources](https://github.com/lateralblast/firith/wiki/3.-Resources)
+[Oracle firmware and patch resources](https://github.com/lateralblast/oort/wiki/3.-Resources)
 
 Usage
 -----
 
-[Information on usage](https://github.com/lateralblast/firith/wiki/1.-Usage)
+[Information on usage](https://github.com/lateralblast/oort/wiki/1.-Usage)
 
 
 Examples
 --------
 
-[Examples of usage](https://github.com/lateralblast/firith/wiki/2.-Examples)
+[Examples of usage](https://github.com/lateralblast/oort/wiki/2.-Examples)
 
 Requirements
 ------------
