@@ -157,3 +157,5 @@
 # Fixed download URL for Oracle firmware
 # 0.7.9: Sun 29 Jun 2014 15:00:47 EST
 # Fixed download for Oracle firmware
+# 0.8.0: Mon 30 Jun 2014 08:43:43 EST
+# Added support for V series and older machines

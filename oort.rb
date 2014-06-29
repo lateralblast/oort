@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.7.9
+# Version:      0.8.0
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -50,7 +50,7 @@ $test_mode    = 0
 $html_dir     = $work_dir+"/html"
 $readme_dir   = $work_dir+"/readme"
 $firmware_dir = $work_dir+"/firmware"
-options       = "HV?abchlvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:s:t:w:x:z:"
+options       = "HV?abchlvxA:E:M:N:P:R:S:X:d:e:i:m:n:o:p:q:r:s:t:w:x:z:"
 
 # Search the M Series firmware page for information
 # This requires the use of selenium and a web browser as none of the ruby
@@ -166,6 +166,107 @@ def search_xcp_fw_page(search_xcp)
   return fw_urls,fw_text
 end
 
+# Code to search patchdiag.xref for older V series (and other) firmware information
+
+def search_prom_fw_page(search_model,url)
+  base_url   = "https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
+  urls       = []
+  txts       = []
+  model      = ""
+  fw_urls    = {}
+  fw_text    = {}
+  model_list = [ "CT900", "CP3220", "CP3250", "CP3260", "CP3270", "T3-1BA",
+                 "V440", "V445", "V440", "V480", "V490", "V880", "V890", "V125",
+                 "U45", "U25", "T6320", "T6340", "B2500", "B1500", "T6300",
+                 "T5120", "T5220", "T5240", "T1000", "T2000", "V215", "V245",
+                 "V210", "V240", "E6900", "E4900", "E2900", "E6800", "E4800",
+                 "E4810", "E3800", "V1280", "V100", "X1", "U1", "U2",
+                 "U1E", "U30", "U5", "U80", "E220R", "E280R", "E250", "E450",
+                 "T1", "E420R", "X1", "B100", "B150" ]
+  doc=open_patchdiag_xref()
+  if search_model == "all"
+    prom_info = doc.grep(/PROM:/)
+  else
+    prom_info = doc.grep(/#{search_model}/).grep(/PROM:/)
+  end
+  if prom_info.to_s.match(/[A-z]/)
+    prom_info.each do |line|
+      if !line.downcase.match(/withdrawn|obsolete|cpld|fem/)
+        line       = line.chomp
+        line       = line.split("|")
+        patch_no   = line[0]+"-"+line[1]
+        patch_text = line[10].split(/PROM: /)[1..-1].join
+        patch_text = patch_text.gsub(/t1 /,"T1 ")
+        patch_text = patch_text.gsub(/6800\/4800\/4810i\/3800/,"E6800 E4800 E4810 E3800 ")
+        patch_text = patch_text.gsub(/Sun Blade 100\/150 /,"B100 B150 ")
+        patch_text = patch_text.gsub(/Sun Blade 1500 /,"B1500 ")
+        patch_text = patch_text.gsub(/Sun Blade 2500 /,"B2500 ")
+        patch_text = patch_text.gsub(/Ultra 2 /,"U2 ")
+        patch_text = patch_text.gsub(/Enterprise 450 /,"E450 ")
+        patch_text = patch_text.gsub(/Enterprise 250 /,"E250 ")
+        patch_text = patch_text.gsub(/Ultra 25 /,"U25 ")
+        patch_text = patch_text.gsub(/Ultra 45 /,"U45 ")
+        patch_text = patch_text.gsub(/Ultra 1E /,"U1E ")
+        patch_text = patch_text.gsub(/Ultra 1 /,"U1 ")
+        patch_text = patch_text.gsub(/Ultra 30 /,"U30 ")
+        patch_text = patch_text.gsub(/Ultra 60 /,"U60 ")
+        patch_text = patch_text.gsub(/Ultra 80 /,"U80 ")
+        model_info = patch_text
+        patch_url  = base_url+patch_no
+        if search_model == "all" or patch_text.downcase.match(/#{search_model.downcase}/)
+          doc = open_patch_readme(patch_no)
+          if doc[1]
+            doc.each do |readme_line|
+              check_strings = [ "ILOM", "Hostconfig", "Hypervisor", "OpenBoot",
+                                "POST", "OBP", "System Firmware", "ScApp",
+                                "PROM", "RTOS" ]
+              readme_line   = readme_line.chomp
+              readme_line   = readme_line.lstrip
+              check_strings.each do |check_string|
+                if readme_line.match(/#{check_string} /) and readme_line.match(/[0-9]\.[0-9]/)
+                  check_info = readme_line.split(/#{check_string} /)[1]
+                  if check_info.match(/ /)
+                    check_info = check_info.split(/ /)[0]
+                  end
+                end
+                if readme_line.match(/#{check_string}_/) and readme_line.match(/[0-9]\.[0-9]/)
+                  check_info = readme_line.split(/#{check_string}_/)[1]
+                  if check_info.match(/,/)
+                    check_info = check_info.split(/,/)[0]
+                  end
+                end
+                if readme_line.match(/#{check_string}:/) and readme_line.match(/[0-9]\.[0-9]/)
+                  check_info = readme_line.split(/#{check_string}:/)[1]
+                  if check_info.match(/,/)
+                    check_info = check_info.split(/,/)[0]
+                  end
+                end
+                if check_info
+                  if !patch_text.match(/#{check_string}/) and check_info.match(/[0-9]\.[0-9]/)
+                    patch_text = patch_text+" "+check_string+" "+check_info
+                  end
+                end
+              end
+            end
+            urls.push(patch_url)
+            txts.push(patch_text)
+            model_list.each do |model_no|
+              if patch_text.match(/#{model_no} /)
+                fw_urls[model_no] = urls
+                fw_text[model_no] = txts
+              end
+            end
+            urls   = []
+            txts   = []
+            models = []
+          end
+        end
+      end
+    end
+  end
+  return fw_urls,fw_text
+end
+
 # Code to search patchdiag.xref for disk firmware information
 
 def search_disk_fw_page(search_model,url)
@@ -188,9 +289,9 @@ def search_disk_fw_page(search_model,url)
       doc      = open_patch_readme(patch_no)
       if doc[1]
         doc.each do |readme_line|
-          patch_text = line[10].chomp
-          patch_url  = base_url+patch_no
-          readme_line.chomp
+          patch_text  = line[10].chomp
+          patch_url   = base_url+patch_no
+          readme_line = readme_line.chomp
           if readme_line.match(/\.fw/)
             readme_line = readme_line.gsub(/^\s+/,'')
             readme_line = readme_line.gsub(/,/,'')
@@ -666,6 +767,9 @@ end
 # Get a MOS page
 
 def get_mos_url(mos_url,local_file)
+  if $verbose == 1
+    puts "Downloading "+mos_url+" to "+local_file
+  end
   if mos_url.match(/patch_file/)
     mos_passwd_file = Dir.home+"/.mospasswd"
     if !File.exists?(mos_passwd_file)
@@ -1010,12 +1114,18 @@ def print_usage(options)
   puts "-t MODEL:    Display TFTP file for a specfic model (e.g. T5440)"
   puts "-d all:      Display firmware information for all disks"
   puts "-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)"
+  puts "-D all:      Download firmware information for all disks"
+  puts "-D MODEL:    Download firmware information for a specific model of disk (eg. MAW3300FC)"
   puts "-e all:      Display firmware information for all Emulex HBAs"
   puts "-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)"
   puts "-E all:      Download firmware patch for all Emulex HBAs"
   puts "-E MODEL:    Download firmware patch for a specific model of Emulex HBA"
   puts "-q all:      Display firmware information for all Qlogic HBAs"
   puts "-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)"
+  puts "-n all:      Display firmware information for all older V Series"
+  puts "-n MODEL:    Display firmware information for specific old V Series"
+  puts "-N all:      Download firmware information for all older V Series"
+  puts "-N MODEL:    Download firmware information for specific old V Series"
   puts "-x all:      Display firmware information for all older M Series (M3000 - M5000"
   puts "-x MODEL:    Display firmware information for specific old M Series model (M3000-M9000)"
   puts "-X all:      Download firmware information for all older M Series (M3000 - M5000"
@@ -1096,7 +1206,7 @@ def get_oracle_download_url(model,patch_text,patch_url)
   base_url      = "https://updates.oracle.com/Orion/Services/download"
   download_url  = ""
   head_url      = ""
-  patch_no      = ""
+  patch_no      = patch_url.split("=")[1].to_s
   rev_text      = ""
   download_file = ""
   if !patch_url
@@ -1116,7 +1226,9 @@ def get_oracle_download_url(model,patch_text,patch_url)
     else
       suffix = "Generic"
     end
-    aru_no  = get_aru_no(patch_url)
+    if !patch_no.match(/\-/)
+      aru_no  = get_aru_no(patch_url)
+    end
     if patch_text.match(/Sun Blade 6048 Chassis|Sun Ultra 24 Workstation|Sun Fire X4450 Server/)
       rev_text = patch_text.split(" ")[-2].gsub(/\./,'')
     else
@@ -1161,10 +1273,9 @@ def get_oracle_download_url(model,patch_text,patch_url)
     if model.match(/M10-/)
       rev_text = rev_text+"00"
     end
-    patch_no = patch_url.split("=")[1].to_s
     if patch_no.match(/\-/)
       download_file = patch_no+".zip"
-      download_url  = base_url+download_file
+      download_url  = old_base_url+download_file
     else
       if !patch_text.match(/SysFW|System Firmware|Hardware Programmables|Workstation|SW|3\.4 |^XCP[0-9]/) and !model.match(/X6275|X6270M2|X6270$|X2250|X4200|X4470|X4800|X2-8/)
         if rev_text.length < 3
@@ -1462,8 +1573,8 @@ def print_output(model,fw_urls,fw_text,output_type,output_file,latest_only,searc
       patch_text = fw_text[model][counter]
       if !patch_url.match(/emulex|1002631|qlogic/)
         (download_url,download_file) = get_oracle_download_url(model,patch_text,patch_url)
-        if model.match(/^T|^M|^V|^NT|^U25|^U45/)
-          obp_ver    = get_obp_ver(patch_url)
+        if model.match(/^T|^M|^V|^NT|^U25|^U45/) and !patch_text.match(/OBP [0-9]\.[0-9]|ScApp/)
+          obp_ver = get_obp_ver(patch_url)
           if obp_ver
             patch_text = patch_text+" OBP "+obp_ver
           end
@@ -1801,6 +1912,39 @@ if opt["d"]
   end
   (fw_urls,fw_text) = search_disk_fw_page(model,url)
   handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
+end
+
+# If given a -D process disk firmware downloads
+
+if opt["D"]
+  model = opt["D"]
+  if model != "all"
+    model = model.upcase
+  end
+  (fw_urls,fw_text) = search_disk_fw_page(model,url)
+  handle_download_firmware(model,fw_urls,fw_text,latest_only,search_arch)
+end
+
+# If give -v process V series and other older hardware firmware
+
+if opt["n"]
+  model = opt["n"]
+  if model != "all"
+    model = model.upcase
+  end
+  (fw_urls,fw_text) = search_prom_fw_page(model,url)
+  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
+end
+
+# If given a -V process V series and older hardware firmware downloads
+
+if opt["N"]
+  model = opt["N"]
+  if model != "all"
+    model = model.upcase
+  end
+  (fw_urls,fw_text) = search_prom_fw_page(model,url)
+  handle_download_firmware(model,fw_urls,fw_text,latest_only,search_arch)
 end
 
 # If given a -e process Emulex firmware information
