@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         firith (Firmeare Information Right In The Hand)
-# Version:      0.7.4
+# Version:      0.7.6
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -43,12 +43,13 @@ end
 # - Verbose comments (-v sets to 1)
 # - Test mode (does not download, -b sets this to 1)
 
-$script    = File.basename($0,".rb").chomp
-$work_dir  = Dir.home+"/."+$script
-$verbose   = 0
-$test_mode = 0
-$html_dir  = $work_dir+"/html"
-options    = "HV?abchlvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:s:t:w:z:"
+$script     = File.basename($0,".rb").chomp
+$work_dir   = Dir.home+"/."+$script
+$verbose    = 0
+$test_mode  = 0
+$html_dir   = $work_dir+"/html"
+$readme_dir = $work_dir+"/readme"
+options     = "HV?abchlvxA:E:M:P:R:S:X:d:e:i:m:o:p:q:r:s:t:w:x:z:"
 
 # Search the M Series firmware page for information
 # This requires the use of selenium and a web browser as none of the ruby
@@ -886,7 +887,9 @@ def search_system_fw_page(search_model,url)
     info  = info.split(" ")
     info  = info.uniq
     info  = info.join(" ")
-    info  = info.gsub(/SPARC #{new_model} /,"Sun ")
+    if !info.match(/#{new_model}/)
+      info = new_model+" "+info
+    end
     links = row.css('a').map{|td| td[:href]}
     links.each do |link|
       if link
@@ -977,41 +980,43 @@ def print_usage(options)
   puts "-h:          Display usage information"
   puts "-v:          Verbose output"
   puts "-b:          Test mode (don't perform downloads)"
-  puts "-m all:      Display firmware information for all machines"
-  puts "-M all:      Download firmware patch for all models from MOS (Requires Username and Password)"
-  puts "-z all:      Display firmware zip file contents for all models"
-  puts "-t all:      Display TFTP file for all models"
-  puts "-d all:      Display firmware information for all disks"
-  puts "-e all:      Display firmware information for all Emulex HBAs"
-  puts "-E all:      Download firmware patch for all Emulex HBAs"
-  puts "-q all:      Display firmware information for all Qlogic HBAs"
-  puts "-X all:      Display firmware information for all M Series"
-  puts "-u all:      Display all Solaris 11 SRUs"
+  puts "-c:          Output in CSV format (default text)"
+  puts "-x:          Download patchdiag.xref"
   puts "-u TERM:     Search all Solaris 11 SRUs for a term"
-  puts "-m MODEL:    Display firmware information for a specific model (eg. X2-4)"
-  puts "-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)"
-  puts "-z MODEL:    Display firmware zip file contents for a specific model (eg. X2-4)"
-  puts "-t MODEL:    Display TFTP file for a specfic model (e.g. T5440)"
-  puts "-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)"
-  puts "-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)"
-  puts "-E MODEL:    Download firmware patch for a specific model of Emulex HBA"
-  puts "-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)"
-  puts "-X MODEL:    Display firmware information for specific M Series model (e.g. M3000)"
   puts "-U TERM:     Download Solaris 11 SRUs associated with a term"
-  puts "-i FILE:     Open a locally saved HTML file for processing rather then fetching it"
   puts "-p PATCH:    Download a patch from MOS (Requires Username and Password)"
   puts "-r PATCH:    Download README for a patch from MOS (Requires Username and Password)"
   puts "-R PATCH:    Download README for a patch from MOS (Requires Username and Password) and send to STDOUT"
   puts "-P SEARCH:   Search patchdiag.xref (Solaris 10 and earlier)"
   puts "-w WORK_DIR: Set work directory (Default is ~/.firith)"
-  puts "-c:          Output in CSV format (default text)"
-  puts "-x:          Download patchdiag.xref"
-  puts "-l:          Only show latest firmware versions (used with -m and -u)"
-  puts "-Y:          Update patch archive"
   puts "-S RELEASE:  Set Solaris release (used with -Y)"
-  puts "-A ARCH:     Set architecture (used with -Y)"
+  puts "-A ARCH:     Set architecture (e.g. SPARC, or x86, used with -Y, -m and -M)"
   puts "-o FILE:     Open a file for writing"
   puts "-H:          Delete temporary HTML files"
+  puts "-Y:          Update patch archive"
+  puts "-i FILE:     Open a locally saved HTML file for processing rather then fetching it"
+  puts "-l:          Only show (or download) latest firmware versions (can be used in combination with the following options)"
+  puts "-m all:      Display firmware information for all machines"
+  puts "-m MODEL:    Display firmware information for a specific model (eg. X2-4)"
+  puts "-M all:      Download firmware patch for all models from MOS (Requires Username and Password)"
+  puts "-M MODEL:    Download firmware patch for a specific model (eg. X2-4) from MOS (Requires Username and Password)"
+  puts "-z all:      Display firmware zip file contents for all models"
+  puts "-z MODEL:    Display firmware zip file contents for a specific model (eg. X2-4)"
+  puts "-t all:      Display TFTP file for all models"
+  puts "-t MODEL:    Display TFTP file for a specfic model (e.g. T5440)"
+  puts "-d all:      Display firmware information for all disks"
+  puts "-d MODEL:    Display firmware information for a specific model of disk (eg. MAW3300FC)"
+  puts "-e all:      Display firmware information for all Emulex HBAs"
+  puts "-e MODEL:    Display firmware information for a specific model of Emulex HBA (eg. SG-XPCIEFCGBE-E8-Z)"
+  puts "-E all:      Download firmware patch for all Emulex HBAs"
+  puts "-E MODEL:    Download firmware patch for a specific model of Emulex HBA"
+  puts "-q all:      Display firmware information for all Qlogic HBAs"
+  puts "-q MODEL:    Display firmware information for a specific model of Qlogic HBA (eg. SG-XPCIEFCGBE-Q8-Z)"
+  puts "-x all:      Display firmware information for all older M Series (M3000 - M5000"
+  puts "-x MODEL:    Display firmware information for specific old M Series model (M3000-M9000)"
+  puts "-X all:      Download firmware information for all older M Series (M3000 - M5000"
+  puts "-X MODEL:    Download firmware information for specific old M Series model (M3000-M9000)"
+  puts "-u all:      Display all Solaris 11 SRUs"
   puts
 end
 
@@ -1028,6 +1033,7 @@ end
 # Get an aru number (required for download)
 
 def get_aru_no(patch_url)
+  aru_no     = ""
   base_url   = "https://updates.oracle.com/Orion/Services/download/"
   patch_no   = patch_url.split(/\=/)[1]
   patch_file = $html_dir+"/"+patch_no+".html"
@@ -1035,8 +1041,45 @@ def get_aru_no(patch_url)
     get_mos_url(patch_url,patch_file)
   end
   file_array = IO.readlines(patch_file)
-  aru_no     = file_array.grep(/aru\=/)[0].split(/aru\=/)[1].split(/"|'/)[0]
+  if file_array.to_s.match(/aru\=/)
+    aru_no = file_array.grep(/aru\=/)[0].split(/aru\=/)[1].split(/"|'/)[0]
+  end
   return aru_no
+end
+
+# Get OBP version
+
+def get_obp_ver(patch_url)
+  obp_ver     = ""
+  patch_no    = patch_url.split(/\=/)[1]
+  readme_file = $readme_dir+"/"+patch_no+".readme"
+  if !File.exist?(readme_file)
+    readme_url = get_oracle_readme_url(patch_url)
+    get_mos_url(readme_url,readme_file)
+  end
+  file_array = IO.readlines(readme_file)
+  if file_array.to_s.match(/OpenBoot|OBP/)
+    if readme_file.match(/-/)
+      obp_ver = file_array.grep(/OpenBoot/)[0]
+      if !obp_ver.match(/[0-9]\.[0-9]/)
+        obp_ver = file_array.grep(/OBP/)[-1].split(/OBP /)[1].split(/ /)[0]
+      else
+        obp_ver = obp_ver.split(/OpenBoot /)[1].split(/ /)[0]
+      end
+    else
+      obp_ver = file_array.grep(/OpenBoot/)[1].split(/OpenBoot /)[1].split(/ /)[0]
+    end
+  end
+  return obp_ver
+end
+
+# Get README URL
+
+def get_oracle_readme_url(patch_url)
+  aru_no     = get_aru_no(patch_url)
+  base_url   = "https://updates.oracle.com/Orion/Services/download/"
+  readme_url = base_url+"/download?type=readme&aru="+aru_no
+  return readme_url
 end
 
 # This code takes a model and the information gathered from the system firmware
@@ -1069,7 +1112,7 @@ def get_oracle_download_url(model,patch_text,patch_url)
     else
       suffix = "Generic"
     end
-    aru_no = get_aru_no(patch_url)
+    aru_no  = get_aru_no(patch_url)
     if patch_text.match(/Sun Blade 6048 Chassis|Sun Ultra 24 Workstation|Sun Fire X4450 Server/)
       rev_text = patch_text.split(" ")[-2].gsub(/\./,'')
     else
@@ -1156,7 +1199,7 @@ def download_firmware(model,fw_urls,fw_text,latest_only,counter)
     return
   end
   download_file = $work_dir+"/"+model.downcase+"/"+file_name
-  if !File.exists?(download_file)
+  if !File.exists?(download_file) and !File.symlink?(download_file)
     existing_file = $file_list.select {|existing_file| existing_file =~ /#{file_name}/}
     if existing_file[0]
       existing_file = existing_file[0]
@@ -1174,6 +1217,10 @@ def download_firmware(model,fw_urls,fw_text,latest_only,counter)
       end
     else
       get_download(download_url,download_file)
+    end
+  else
+    if $verbose == 1
+      puts "File "+download_file+" already exists"
     end
   end
   return
@@ -1287,35 +1334,51 @@ end
 
 # Traverse the firmware information hashes and get download information
 
-def handle_download_firmware(search_model,fw_urls,fw_text,latest_only)
-  counter = 0
-  if search_model == "all"
-    fw_text.each do |model, text|
-      if $verbose == 1
-        puts model+":"
-      end
-      if latest_only == 1
-        download_firmware(model,fw_urls,fw_text,latest_only,counter)
-      else
-        counter = 0
-        if fw_text[model]
-          fw_text[model].each do
-            download_firmware(model,fw_urls,fw_text,latest_only,counter)
-            counter = counter+1
+def handle_download_firmware(search_model,fw_urls,fw_text,latest_only,search_arch)
+  counter   = 0
+  do_output = 0
+  if search_arch.match(/all/)
+    do_output = 1
+  end
+  if search_arch.downcase.match(/sparc/)
+    if model.match(/^T|^M|^V/)
+      do_output = 1
+    end
+  end
+  if search_arch.downcase.match(/x86|i386/)
+    if model.match(/^X|^B|^8|^6|^NX|^U24|^U27/)
+      do_output = 1
+    end
+  end
+  if do_output == 1
+    if search_model == "all"
+      fw_text.each do |model, text|
+        if $verbose == 1
+          puts model+":"
+        end
+        if latest_only == 1
+          download_firmware(model,fw_urls,fw_text,latest_only,counter)
+        else
+          counter = 0
+          if fw_text[model]
+            fw_text[model].each do
+              download_firmware(model,fw_urls,fw_text,latest_only,counter)
+              counter = counter+1
+            end
           end
         end
       end
-    end
-  else
-    if $verbose == 1
-      puts search_model+":"
-    end
-    if latest_only == 1
-      download_firmware(search_model,fw_urls,fw_text,latest_only,counter)
     else
-      fw_text[search_model].each do
+      if $verbose == 1
+        puts search_model+":"
+      end
+      if latest_only == 1
         download_firmware(search_model,fw_urls,fw_text,latest_only,counter)
-        counter = counter+1
+      else
+        fw_text[search_model].each do
+          download_firmware(search_model,fw_urls,fw_text,latest_only,counter)
+          counter = counter+1
+        end
       end
     end
   end
@@ -1360,7 +1423,7 @@ end
 # Traverse the firmware information hashes and output information to the console
 # Some support exists for creating a comma delimited CSV file
 
-def print_output(model,fw_urls,fw_text,output_type,output_file,latest_only)
+def print_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
   counter = 0
   txts    = []
   urls    = []
@@ -1394,22 +1457,44 @@ def print_output(model,fw_urls,fw_text,output_type,output_file,latest_only)
       patch_text = fw_text[model][counter]
       if !patch_url.match(/emulex|1002631|qlogic/)
         (download_url,download_file) = get_oracle_download_url(model,patch_text,patch_url)
+        if model.match(/^T|^M|^V|^NT|^U25|^U45/)
+          obp_ver    = get_obp_ver(patch_url)
+          if obp_ver
+            patch_text = patch_text+" OBP "+obp_ver
+          end
+        end
       else
         download_url = ""
       end
       if output_type == "CSV"
-        output_text = model+","+fw_text[model][counter]+","+fw_urls[model][counter]+","+download_url+"\n"
+        output_text = model+","+patch_text+","+patch_url+","+download_url+"\n"
       else
         if download_url.match(/[A-z]/)
-          output_text = fw_text[model][counter]+"\n"+fw_urls[model][counter]+"\n"+download_url+"\n"
+          output_text = patch_text+"\n"+patch_url+"\n"+download_url+"\n"
         else
-          output_text = fw_text[model][counter]+"\n"+fw_urls[model][counter]+"\n"
+          output_text = patch_text+"\n"+patch_url+"\n"
         end
       end
-      if output_file.match(/[A-z,0-9]/)
-        File.open(output_file, 'a') { |file| file.write(output_text) }
-      else
-        print output_text
+      do_output = 0
+      if search_arch.match(/all/)
+        do_output = 1
+      end
+      if search_arch.downcase.match(/sparc/)
+        if model.match(/^T|^M|^V/)
+          do_output = 1
+        end
+      end
+      if search_arch.downcase.match(/x86|i386/)
+        if model.match(/^X|^B|^8|^6|^NX|^U24|^U27/)
+          do_output = 1
+        end
+      end
+      if do_output == 1
+        if output_file.match(/[A-z,0-9]/)
+          File.open(output_file, 'a') { |file| file.write(output_text) }
+        else
+          print output_text
+        end
       end
       counter = counter+1
     end
@@ -1419,13 +1504,13 @@ end
 
 # Traverse the firmware information hashes and output information
 
-def handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only)
+def handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
   if model == "all"
     fw_text.each do |model, text|
-      print_output(model,fw_urls,fw_text,output_type,output_file,latest_only)
+      print_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
     end
   else
-    print_output(model,fw_urls,fw_text,output_type,output_file,latest_only)
+    print_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
   end
   return
 end
@@ -1449,11 +1534,10 @@ end
 # Check local configuration
 
 def check_local_config
-  if !Dir.exists?($work_dir)
-    Dir.mkdir($work_dir)
-  end
-  if !Dir.exists?($html_dir)
-    Dir.mkdir($html_dir)
+  [ $work_dir, $html_dir, $readme_dir ].each do |test_dir|
+    if !Dir.exists?(test_dir)
+      Dir.mkdir(test_dir)
+    end
   end
   return
 end
@@ -1461,7 +1545,7 @@ end
 # Code to create and update a local Oracle system patch archive
 # Currently only relevant to Solaris 10 or older
 
-def update_patch_archive(search_architecture,search_release)
+def update_patch_archive(search_arch,search_rel)
   zip_file    = ""
   readme_file = ""
   doc = open_patchdiag_xref()
@@ -1484,8 +1568,8 @@ def update_patch_archive(search_architecture,search_release)
         if architecture.match(/sparc/)
           architecture = "sparc"
         end
-        if architecture.match(/#{search_architecture}/) or search_architecture.match(/all/)
-          if release.match(/#{search_release}/) or search_release.match(/all/)
+        if architecture.match(/#{search_arch}/) or search_arch.match(/all/)
+          if release.match(/#{search_rel}/) or search_rel.match(/all/)
             zip_file    = $work_dir+"/patches/"+architecture+"/"+release+"/"+patch_no+".zip"
             readme_file = $work_dir+"/readmes/"+architecture+"/"+release+"/README."+patch_no
             get_patch_readme(patch_no,readme_file)
@@ -1535,7 +1619,7 @@ end
 # local repository so that duplicate files can be symlinked rather than
 # downloaded again
 
-if opt["M"] or opt["E"] or opt["R"]
+if opt["M"] or opt["E"] or opt["R"] or opt["X"]
   $file_list = []
   Find.find($work_dir) {|file_name| $file_list.push(file_name) if File.file?(file_name)}
   check_repository()
@@ -1561,6 +1645,14 @@ else
       url = "http://www.emulex.com/interoperability/results/matrix-action/Interop/by-partner/?tx_elxinterop_interop%5Bpartner%5D=Oracle%20%28Sun%29&tx_elxinterop_interop%5Bsegment%5D=Servers&cHash=4f24beefa24e0dbfa5f76d523d29ffb7"
     end
   end
+end
+
+# Set search architecture
+
+if opt["A"]
+  search_arch = opt["A"]
+else
+  search_arch = "all"
 end
 
 # If given a -l only handle the latest revision of the firmware
@@ -1692,7 +1784,7 @@ if opt["q"]
     model = model.upcase
   end
   (fw_urls,fw_text) = search_qlogic_fw_page(model,url)
-  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only)
+  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
 
 # If given a -d process disk firmware information
@@ -1703,7 +1795,7 @@ if opt["d"]
     model = model.upcase
   end
   (fw_urls,fw_text) = search_disk_fw_page(model,url)
-  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only)
+  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
 
 # If given a -e process Emulex firmware information
@@ -1714,7 +1806,7 @@ if opt["e"]
     model = model.upcase
   end
   (fw_urls,fw_text) = search_emulex_fw_page(model,url)
-  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only)
+  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
 
 # If given a -E process Emulex firmware downloads
@@ -1725,7 +1817,7 @@ if opt["E"]
     model = model.upcase
   end
   (fw_urls,fw_text) = search_emulex_fw_page(model,url)
-  handle_download_firmware(model,fw_urls,fw_text,latest_only)
+  handle_download_firmware(model,fw_urls,fw_text,latest_only,search_arch)
 end
 
 # If given a -m process M series firmware information
@@ -1737,10 +1829,10 @@ if opt["m"]
     model = model.gsub(/K/,'000')
   end
   (fw_urls,fw_text) = search_system_fw_page(model,url)
-  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only)
+  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
 
-# If given a -m process M series firmware downloads
+# If given a -M process M series firmware downloads
 
 if opt["M"]
   model = opt["M"]
@@ -1749,7 +1841,7 @@ if opt["M"]
     model = model.gsub(/K/,'000')
   end
   (fw_urls,fw_text) = search_system_fw_page(model,url)
-  handle_download_firmware(model,fw_urls,fw_text,latest_only)
+  handle_download_firmware(model,fw_urls,fw_text,latest_only,search_arch)
 end
 
 # If given -H cleanup html directory
@@ -1784,16 +1876,16 @@ end
 
 if opt["Y"]
   if !opt["A"]
-    search_architecture = "all"
+    search_arch = "all"
   else
-    search_architecture = opt["A"]
+    search_arch = opt["A"]
   end
   if !opt["S"]
-    search_release = "all"
+    search_rel = "all"
   else
-    search_release = opt["S"]
+    search_rel = opt["S"]
   end
-  update_patch_archive(search_architecture,search_release)
+  update_patch_archive(search_arch,search_rel)
 end
 
 # If given a -P search patchdiag.xref
@@ -1804,7 +1896,7 @@ if opt["P"]
   puts search_result
 end
 
-# if given a -X output M Series XCP information
+# if given a -x output M Series XCP information
 
 if opt["X"]
   model = opt["X"]
@@ -1815,4 +1907,16 @@ if opt["X"]
   end
   (fw_urls,fw_text) = search_xcp_fw_page(model)
   handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only)
+end
+
+# If given a -m process M series firmware downloads
+
+if opt["X"]
+  model = opt["X"]
+  if model != "all"
+    model = model.upcase
+    model = model.gsub(/K/,'000')
+  end
+  (fw_urls,fw_text) = search_xcp_fw_page(model)
+  handle_download_firmware(model,fw_urls,fw_text,latest_only,search_arch)
 end
