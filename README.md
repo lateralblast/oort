@@ -12,6 +12,8 @@ This script parses the Oracle (and in the future other) firmware pages to get
 firmware information. It returns the versions of firmware (top most is the current)
 and their URLs. It can also download the firmware to a local repository if needed.
 
+For example to find the latest version of system firmware available for the T5-4:
+
 ```
 $ oort.rb -m t5-4 -l
 T5-4:
