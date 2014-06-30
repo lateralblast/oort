@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.8.0
+# Version:      0.8.1
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -549,7 +549,12 @@ def get_download(url,output_file)
     end
     output_dir = File.dirname(output_file)
     if !Dir.exists?(output_dir)
-      Dir.mkdir(output_dir)
+      begin
+        Dir.mkdir(output_dir)
+      rescue
+        puts "Cannot creating directory "+output_dir
+        exit
+      end
     end
     if $test_mode == 0
       if url.match(/Orion|getupdates/)
@@ -770,7 +775,7 @@ def get_mos_url(mos_url,local_file)
   if $verbose == 1
     puts "Downloading "+mos_url+" to "+local_file
   end
-  if mos_url.match(/patch_file/)
+  if mos_url.match(/patch_file|zip$/)
     mos_passwd_file = Dir.home+"/.mospasswd"
     if !File.exists?(mos_passwd_file)
       (mos_username,mos_password)=get_mos_details()
@@ -839,7 +844,12 @@ def download_oracle_sru(sru_info,sru_urls)
     output_dir   = $work_dir+"/srus"
     output_file  = output_dir+"/"+output_file
     if !File.directory?(output_dir)
-      Dir.mkdir(output_dir)
+      begin
+        Dir.mkdir(output_dir)
+      rescue
+        puts "Cannot create directory "+output_dir
+        exit
+      end
     end
     if !File.exist?(output_file)
       download_url(download_url,output_file)
@@ -1090,13 +1100,13 @@ def print_usage(options)
   puts "-b:          Test mode (don't perform downloads)"
   puts "-c:          Output in CSV format (default text)"
   puts "-x:          Download patchdiag.xref"
+  puts "-w WORK_DIR: Set work directory (Default is ~/.firith)"
   puts "-u TERM:     Search all Solaris 11 SRUs for a term"
   puts "-U TERM:     Download Solaris 11 SRUs associated with a term"
   puts "-p PATCH:    Download a patch from MOS (Requires Username and Password)"
   puts "-r PATCH:    Download README for a patch from MOS (Requires Username and Password)"
   puts "-R PATCH:    Download README for a patch from MOS (Requires Username and Password) and send to STDOUT"
   puts "-P SEARCH:   Search patchdiag.xref (Solaris 10 and earlier)"
-  puts "-w WORK_DIR: Set work directory (Default is ~/.firith)"
   puts "-S RELEASE:  Set Solaris release (used with -Y)"
   puts "-A ARCH:     Set architecture (e.g. SPARC, or x86, used with -Y, -m and -M)"
   puts "-o FILE:     Open a file for writing"
@@ -1296,6 +1306,7 @@ end
 def download_firmware(model,fw_urls,fw_text,latest_only,counter)
   download_file = ""
   wrong_file    = ""
+  existing_file = []
   if !fw_urls[model]
     if $verbose == 1
       puts "No download URLs for "+model+"\n"
@@ -1316,13 +1327,20 @@ def download_firmware(model,fw_urls,fw_text,latest_only,counter)
   download_file = $firmware_dir+"/"+model.downcase+"/"+file_name
   check_file_type(download_file)
   if !File.exists?(download_file) and !File.symlink?(download_file)
-    existing_file = $file_list.select {|existing_file| existing_file =~ /#{file_name}/}
+    if $file_list
+      existing_file = $file_list.select {|existing_file| existing_file =~ /#{file_name}/}
+    end
     if existing_file[0]
       existing_file = existing_file[0]
       dir_name      = Pathname.new(download_file)
       dir_name      = dir_name.dirname
       if !Dir.exists?(dir_name)
-        Dir.mkdir(dir_name)
+        begin
+          Dir.mkdir(dir_name)
+        rescue
+          puts "Cannot create directory "+dir_name
+          exit
+        end
       end
       if existing_file != download_file
         if $verbose == 1
@@ -1332,7 +1350,11 @@ def download_firmware(model,fw_urls,fw_text,latest_only,counter)
         File.symlink(existing_file,download_file)
       end
     else
-      get_download(download_url,download_file)
+      if download_url.match(/oracle/) and download_url.match(/zip$/)
+        get_mos_url(download_url,download_file)
+      else
+        get_download(download_url,download_file)
+      end
     end
   else
     if $verbose == 1
@@ -1652,7 +1674,12 @@ end
 def check_local_config
   [ $work_dir, $html_dir, $readme_dir, $firmware_dir ].each do |test_dir|
     if !Dir.exists?(test_dir)
-      Dir.mkdir(test_dir)
+      begin
+        Dir.mkdir(test_dir)
+      rescue
+        puts "Cannot create directory "+test_dir
+        exit
+      end
     end
   end
   return
@@ -1735,7 +1762,7 @@ end
 # local repository so that duplicate files can be symlinked rather than
 # downloaded again
 
-if opt["M"] or opt["E"] or opt["R"] or opt["X"]
+if opt["M"] or opt["E"] or opt["R"] or opt["X"] or opt["V"]
   $file_list = []
   Find.find($work_dir) {|file_name| $file_list.push(file_name) if File.file?(file_name)}
   check_repository()

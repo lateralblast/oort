@@ -159,3 +159,5 @@
 # Fixed download for Oracle firmware
 # 0.8.0: Mon 30 Jun 2014 08:43:43 EST
 # Added support for V series and older machines
+# 0.8.1: Mon 30 Jun 2014 10:20:17 EST
+# Added handling for errors creating directories
