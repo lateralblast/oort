@@ -161,3 +161,5 @@
 # Added support for V series and older machines
 # 0.8.1: Mon 30 Jun 2014 10:20:17 EST
 # Added handling for errors creating directories
+# 0.8.2: Mon 30 Jun 2014 10:54:01 EST
+# Added handling for TFTP images for V series

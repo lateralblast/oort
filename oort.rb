@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.8.1
+# Version:      0.8.2
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -60,7 +60,7 @@ def search_xcp_fw_page(search_xcp)
   base_url    = "https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
   xcp_url     = "https://support.oracle.com/epmos/faces/DocContentDisplay?id=1002631.1"
   output_file = $html_dir+"/xcp.html"
-  if !File.exists?(output_file)
+  if !File.exist?(output_file)
     get_mos_url(xcp_url,output_file)
   end
   xcp_rel   = ""
@@ -412,7 +412,7 @@ end
 
 def get_mos_details()
   mos_passwd_file = Dir.home+"/.mospasswd"
-  if !File.exists?(mos_passwd_file)
+  if !File.exist?(mos_passwd_file)
     puts "Enter MOS Username:"
     STDOUT.flush
     mos_username = gets.chomp
@@ -515,7 +515,7 @@ end
 # This is useful for making sure local cached copies of URLs are up to date
 
 def check_file_age(output_file)
-  if File.exists?(output_file)
+  if File.exist?(output_file)
     age = Time.now-File.mtime(output_file)
     age = (age/(24*60*60)).to_i
     if (age > 30)
@@ -528,7 +528,7 @@ end
 
 def get_url(url,output_file)
   check_file_age(output_file)
-  if !File.exists?(output_file)
+  if !File.exist?(output_file)
     if $verbose == 1
       puts "Caching "+url+" to "+output_file
     end
@@ -542,13 +542,13 @@ end
 
 def get_download(url,output_file)
   check_file_type(output_file)
-  if !File.exists?(output_file)
+  if !File.exist?(output_file)
     if $verbose == 1
       puts "Downloading: #{url}"
       puts "Destination: #{output_file}"
     end
     output_dir = File.dirname(output_file)
-    if !Dir.exists?(output_dir)
+    if !Dir.exist?(output_dir)
       begin
         Dir.mkdir(output_dir)
       rescue
@@ -590,7 +590,7 @@ def check_file_type(file_name)
       File.delete(file_name)
     end
   end
-  if File.exists?(file_name) and file_name.match(/zip$/)
+  if File.exist?(file_name) and file_name.match(/zip$/)
     file_check = %x[file "#{file_name}"].chomp
     if file_check.match(/HTML/)
       File.delete(file_name)
@@ -617,7 +617,7 @@ def get_patchdiag_xref(output_file)
   end
   check_file_age(output_file)
   check_file_type(output_file)
-  if !File.exists?(output_file)
+  if !File.exist?(output_file)
     agent = Mechanize.new
     agent.redirect_ok = true
     agent.pluggable_parser.default = Mechanize::Download
@@ -777,7 +777,7 @@ def get_mos_url(mos_url,local_file)
   end
   if mos_url.match(/patch_file|zip$/)
     mos_passwd_file = Dir.home+"/.mospasswd"
-    if !File.exists?(mos_passwd_file)
+    if !File.exist?(mos_passwd_file)
       (mos_username,mos_password)=get_mos_details()
       create_mos_passwd_file(mos_username,mos_password)
     end
@@ -1326,7 +1326,7 @@ def download_firmware(model,fw_urls,fw_text,latest_only,counter)
   end
   download_file = $firmware_dir+"/"+model.downcase+"/"+file_name
   check_file_type(download_file)
-  if !File.exists?(download_file) and !File.symlink?(download_file)
+  if !File.exist?(download_file) and !File.symlink?(download_file)
     if $file_list
       existing_file = $file_list.select {|existing_file| existing_file =~ /#{file_name}/}
     end
@@ -1334,7 +1334,7 @@ def download_firmware(model,fw_urls,fw_text,latest_only,counter)
       existing_file = existing_file[0]
       dir_name      = Pathname.new(download_file)
       dir_name      = dir_name.dirname
-      if !Dir.exists?(dir_name)
+      if !Dir.exist?(dir_name)
         begin
           Dir.mkdir(dir_name)
         rescue
@@ -1390,7 +1390,7 @@ def list_zipfile(model,fw_urls,fw_text,search_suffix,output_type,output_file,cou
     (download_url,download_file) = get_oracle_download_url(model,patch_text,patch_url)
     download_file                = $work_dir+"/"+model.downcase+"/"+download_file
     get_download(download_url,download_file)
-    if !File.exists?(download_file)
+    if !File.exist?(download_file)
       puts "File: "+download_file+" does not exist"
       return
     end
@@ -1400,7 +1400,7 @@ def list_zipfile(model,fw_urls,fw_text,search_suffix,output_type,output_file,cou
       if file_name.match(/[A-z]|[0-9]/)
         if search_suffix.match(/[A-z]/)
           if search_suffix.match(/pkg/)
-            if file_name.match(/pkg$|bin$|iso$|Ultra[0-9][0-9]$|[0-9][0-9][0-9][0-9]\.tar\.gz|[0-9][0-9][0-9]\.zip/)
+            if file_name.match(/pkg$|bin$|iso$|Ultra[0-9][0-9]$|[0-9][0-9][0-9][0-9]\.tar\.gz|[0-9][0-9][0-9]\.zip|flash-update/) and !file_name.match(/sh$|README/)
               tftp_name = File.basename(file_name)
               if !tftp_name.match(/legal|remote|recovery|^fw|^q8|^firmware/)
                 tftp_file = File.dirname(download_file)
@@ -1658,7 +1658,7 @@ end
 
 def check_repository
   $file_list.each do |file_name|
-    if File.exists?(file_name)
+    if File.exist?(file_name)
       if File.size(file_name) == 0
         if $verbose == 1
           puts "Deleting empty file "+file_name+"\n"
@@ -1673,7 +1673,7 @@ end
 
 def check_local_config
   [ $work_dir, $html_dir, $readme_dir, $firmware_dir ].each do |test_dir|
-    if !Dir.exists?(test_dir)
+    if !Dir.exist?(test_dir)
       begin
         Dir.mkdir(test_dir)
       rescue
@@ -1774,13 +1774,13 @@ end
 
 if opt["m"] or opt["M"] or opt["t"]
   url = "http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
-  if File.exists?(File.basename(url))
+  if File.exist?(File.basename(url))
     url = File.basename(url)
   end
 else
   if opt["d"] or opt ["q"]
     url = "https://getupdates.oracle.com/reports/patchdiag.xref"
-    if File.exists?(File.basename(url))
+    if File.exist?(File.basename(url))
       url = File.basename(url)
     end
   else
@@ -2044,7 +2044,11 @@ if opt["z"] or opt["t"]
     model = model.upcase
     model = model.gsub(/K/,'000')
   end
-  (fw_urls,fw_text) = search_system_fw_page(model,url)
+  if model.downcase.match(/^v|^e|^b|^u/)
+    (fw_urls,fw_text) = search_prom_fw_page(model,url)
+  else
+    (fw_urls,fw_text) = search_system_fw_page(model,url)
+  end
   handle_zipfile(model,fw_urls,fw_text,search_suffix,output_type,output_file,latest_only)
 end
 
