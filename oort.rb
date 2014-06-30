@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.8.2
+# Version:      0.8.3
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -50,7 +50,7 @@ $test_mode    = 0
 $html_dir     = $work_dir+"/html"
 $readme_dir   = $work_dir+"/readme"
 $firmware_dir = $work_dir+"/firmware"
-options       = "HV?abchlvxA:E:M:N:P:R:S:X:d:e:i:m:n:o:p:q:r:s:t:w:x:z:"
+options       = "HV?abchlvxA:E:F:M:N:P:R:S:X:d:e:f:i:m:n:o:p:q:r:s:t:w:x:z:"
 
 # Search the M Series firmware page for information
 # This requires the use of selenium and a web browser as none of the ruby
@@ -1772,7 +1772,7 @@ end
 # If given a -q set the URL to the Qlogic firmware page
 # If given a -e or -E set the URL to the Emulex firmware page
 
-if opt["m"] or opt["M"] or opt["t"]
+if opt["m"] or opt["M"] or opt["t"] or opt["f"]
   url = "http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
   if File.exist?(File.basename(url))
     url = File.basename(url)
@@ -1954,8 +1954,12 @@ end
 
 # If give -v process V series and other older hardware firmware
 
-if opt["n"]
-  model = opt["n"]
+if opt["n"] or opt["f"]
+  if opt["n"]
+    model = opt["n"]
+  else
+    model = opt["f"]
+  end
   if model != "all"
     model = model.upcase
   end
@@ -1965,8 +1969,12 @@ end
 
 # If given a -V process V series and older hardware firmware downloads
 
-if opt["N"]
-  model = opt["N"]
+if opt["N"] or opt["F"]
+  if opt["N"]
+    model = opt["N"]
+  else
+    model = opt["F"]
+  end
   if model != "all"
     model = model.upcase
   end
@@ -1998,8 +2006,12 @@ end
 
 # If given a -m process M series firmware information
 
-if opt["m"]
-  model = opt["m"]
+if opt["m"] or opt["f"]
+  if opt["m"]
+    model = opt["m"]
+  else
+    model = opt["f"]
+  end
   if model != "all"
     model = model.upcase
     model = model.gsub(/K/,'000')
@@ -2010,8 +2022,12 @@ end
 
 # If given a -M process M series firmware downloads
 
-if opt["M"]
-  model = opt["M"]
+if opt["M"] or opt["F"]
+  if opt["M"]
+    model = opt["M"]
+  else
+    model = opt["F"]
+  end
   if model != "all"
     model = model.upcase
     model = model.gsub(/K/,'000')
