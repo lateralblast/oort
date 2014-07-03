@@ -165,3 +165,7 @@
 # Added handling for TFTP images for V series
 # 0.8.3: Mon 30 Jun 2014 11:15:31 EST
 # Added -f option to do all M series and V series firmware
+# 0.8.4: Mon 30 Jun 2014 11:25:14 EST
+# Aded support for 480R
+# 0.8.5: Thu  3 Jul 2014 10:17:48 EST
+# Fixed bug with Emulex model numbers

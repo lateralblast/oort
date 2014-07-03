@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.8.3
+# Version:      0.8.5
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -225,23 +225,23 @@ def search_prom_fw_page(search_model,url)
               check_strings.each do |check_string|
                 if readme_line.match(/#{check_string} /) and readme_line.match(/[0-9]\.[0-9]/)
                   check_info = readme_line.split(/#{check_string} /)[1]
-                  if check_info.match(/ /)
-                    check_info = check_info.split(/ /)[0]
-                  end
                 end
                 if readme_line.match(/#{check_string}_/) and readme_line.match(/[0-9]\.[0-9]/)
                   check_info = readme_line.split(/#{check_string}_/)[1]
-                  if check_info.match(/,/)
-                    check_info = check_info.split(/,/)[0]
-                  end
                 end
                 if readme_line.match(/#{check_string}:/) and readme_line.match(/[0-9]\.[0-9]/)
                   check_info = readme_line.split(/#{check_string}:/)[1]
+                end
+                if check_info
                   if check_info.match(/,/)
                     check_info = check_info.split(/,/)[0]
                   end
-                end
-                if check_info
+                  if check_info.match(/:/)
+                    check_info = check_info.split(/:/)[0]
+                  end
+                  if check_info.match(/ /)
+                    check_info = check_info.split(/ /)[0]
+                  end
                   if !patch_text.match(/#{check_string}/) and check_info.match(/[0-9]\.[0-9]/)
                     patch_text = patch_text+" "+check_string+" "+check_info
                   end
@@ -252,6 +252,10 @@ def search_prom_fw_page(search_model,url)
             txts.push(patch_text)
             model_list.each do |model_no|
               if patch_text.match(/#{model_no} /)
+                if model_no.match(/V480/)
+                  fw_urls["480R"] = urls
+                  fw_text["480R"] = txts
+                end
                 fw_urls[model_no] = urls
                 fw_text[model_no] = txts
               end
@@ -388,7 +392,6 @@ def search_qlogic_fw_page(search_model,url)
       if search_model.match(/all|8$/)
         get_url(qf8_url,qf8_file)
         doc   = Nokogiri::HTML(File.open(qf8_file))
-        #node = doc.search("[text()*='QF8']").each do |node|
         node  = doc.css('table tr').each do |node|
           if node.text.match(/#{model}/)
             fw_version = node.text.split(/This Preload Table/)[0].split(/\s+/)[-1]
@@ -666,8 +669,8 @@ def search_emulex_fw_page(search_model,url)
   hba_model['SG-XPCIE2FC-ATCA-Z'] = "LPeA11002-S"
   hba_model['SG-XPCI1FC-EM4-Z']   = "LP11000"
   hba_model['SG-XPCI2FC-EM4-Z']   = "LP11002"
-  hba_model['SG-XPCIe1FC-EM4']    = "LPe11000"
-  hba_model['SG-XPCIe2FC-EM4']    = "LPe11002"
+  hba_model['SG-XPCIE1FC-EM4']    = "LPe11000"
+  hba_model['SG-XPCIE2FC-EM4']    = "LPe11002"
   # Populate older card information (Emulex page no longer works)
   fw_text["LP21000"] = [ "Version 3.10a3" ]
   fw_text["LP21002"] = [ "Version 3.10a3" ]
@@ -1184,7 +1187,7 @@ def get_obp_ver(patch_url)
   file_array = IO.readlines(readme_file)
   if file_array.to_s.match(/OpenBoot|OBP/)
     if readme_file.match(/-/)
-      obp_ver = file_array.grep(/OpenBoot/)[0]
+      obp_ver = file_array.grep(/OpenBoot [0-9]/)[0]
       if !obp_ver.match(/[0-9]\.[0-9]/)
         obp_ver = file_array.grep(/OBP/)[-1].split(/OBP /)[1].split(/ /)[0]
       else
