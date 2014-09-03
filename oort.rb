@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.8.6
+# Version:      0.8.7
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -1218,15 +1218,17 @@ def get_obp_ver(patch_url)
   end
   file_array = IO.readlines(readme_file)
   if file_array.to_s.match(/OpenBoot|OBP/)
-    if readme_file.match(/-/)
-      obp_ver = file_array.grep(/OpenBoot [0-9]/)[0]
-      if !obp_ver
-        obp_ver = file_array.grep(/OBP/)[-1].split(/OBP /)[1].split(/ /)[0]
-      else
-        obp_ver = obp_ver.split(/OpenBoot /)[1].split(/ /)[0]
+    obp_info = file_array.grep(/OpenBoot|OBP/).join(" ").gsub(/\n/,"").gsub(/^\s+/,"")
+    if obp_info.match(/OpenBoot [0-9]|OBP [0-9]/)
+      obp_info = obp_info.split(/OpenBoot |OBP /)
+      obp_info.each do |info|
+        if info.match(/[0-9]\.|[0-9][0-9]\./)
+          info = info.split(/\s+/)[0]
+          if info.match(/[0-9]\.|[0-9][0-9]\./)
+            obp_ver = info
+          end
+        end
       end
-    else
-      obp_ver = file_array.grep(/OpenBoot/)[1].split(/OpenBoot /)[1].split(/ /)[0]
     end
   end
   return obp_ver

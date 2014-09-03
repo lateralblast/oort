@@ -171,3 +171,5 @@
 # Fixed bug with Emulex model numbers
 # 0.8.6: Wed  3 Sep 2014 15:15:52 AEST
 # Fixed bug with OBP determination and added support for LSI patches
+# 0.8.7: Thu  4 Sep 2014 09:04:11 AEST
+# Improved OBP version determination
