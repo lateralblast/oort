@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.8.5
+# Version:      0.8.6
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -44,13 +44,28 @@ end
 # - Test mode (does not download, -b sets this to 1)
 
 $script       = File.basename($0,".rb").chomp
-$work_dir     = Dir.home+"/."+$script
+$work_dir     = ""
 $verbose      = 0
 $test_mode    = 0
-$html_dir     = $work_dir+"/html"
-$readme_dir   = $work_dir+"/readme"
-$firmware_dir = $work_dir+"/firmware"
 options       = "HV?abchlvxA:E:F:M:N:P:R:S:X:d:e:f:i:m:n:o:p:q:r:s:t:w:x:z:"
+
+# Set Work Directory
+
+def set_work_dir()
+  if !$work_dir.match(/\//)
+    if $0.match(/^\./)
+      $work_dir = Dir.pwd+"/data"
+    else
+      $work_dir = File.dirname($0)+"/data"
+    end
+  end
+  $html_dir     = $work_dir+"/html"
+  $readme_dir   = $work_dir+"/readme"
+  $firmware_dir = $work_dir+"/firmware"
+  return
+end
+
+set_work_dir()
 
 # Search the M Series firmware page for information
 # This requires the use of selenium and a web browser as none of the ruby
@@ -1103,7 +1118,7 @@ def print_usage(options)
   puts "-b:          Test mode (don't perform downloads)"
   puts "-c:          Output in CSV format (default text)"
   puts "-x:          Download patchdiag.xref"
-  puts "-w WORK_DIR: Set work directory (Default is ~/.firith)"
+  puts "-w WORK_DIR: Set work directory (Default is "+$work_dir+")"
   puts "-u TERM:     Search all Solaris 11 SRUs for a term"
   puts "-U TERM:     Download Solaris 11 SRUs associated with a term"
   puts "-p PATCH:    Download a patch from MOS (Requires Username and Password)"
@@ -1174,6 +1189,23 @@ def get_aru_no(patch_url)
   return aru_no
 end
 
+# Get LSI version
+
+def get_lsi_ver(patch_url)
+  lsi_ver     = ""
+  patch_no    = patch_url.split(/\=/)[1]
+  readme_file = $readme_dir+"/"+patch_no+".readme"
+  if !File.exist?(readme_file)
+    readme_url = get_oracle_readme_url(patch_url)
+    get_mos_url(readme_url,readme_file)
+  end
+  file_array = IO.readlines(readme_file)
+  if file_array.to_s.match(/Unbundled Release/)
+    lsi_ver = file_array.grep(/Unbundled Release/)[0].split(/: /)[1].gsub(/\<\/b\>/,"").gsub(/\<br\>/,"").chomp
+  end
+  return lsi_ver
+end
+
 # Get OBP version
 
 def get_obp_ver(patch_url)
@@ -1188,7 +1220,7 @@ def get_obp_ver(patch_url)
   if file_array.to_s.match(/OpenBoot|OBP/)
     if readme_file.match(/-/)
       obp_ver = file_array.grep(/OpenBoot [0-9]/)[0]
-      if !obp_ver.match(/[0-9]\.[0-9]/)
+      if !obp_ver
         obp_ver = file_array.grep(/OBP/)[-1].split(/OBP /)[1].split(/ /)[0]
       else
         obp_ver = obp_ver.split(/OpenBoot /)[1].split(/ /)[0]
@@ -1599,9 +1631,16 @@ def print_output(model,fw_urls,fw_text,output_type,output_file,latest_only,searc
       if !patch_url.match(/emulex|1002631|qlogic/)
         (download_url,download_file) = get_oracle_download_url(model,patch_text,patch_url)
         if model.match(/^T|^M|^V|^NT|^U25|^U45/) and !patch_text.match(/OBP [0-9]\.[0-9]|ScApp/)
-          obp_ver = get_obp_ver(patch_url)
-          if obp_ver
-            patch_text = patch_text+" OBP "+obp_ver
+          if patch_text.match(/LSI/)
+            lsi_ver = get_lsi_ver(patch_url)
+            if lsi_ver
+              patch_text = patch_text+" FW "+lsi_ver
+            end
+          else
+            obp_ver = get_obp_ver(patch_url)
+            if obp_ver
+              patch_text = patch_text+" OBP "+obp_ver
+            end
           end
         end
       else
@@ -2105,7 +2144,7 @@ if opt["X"]
     model = model.gsub(/K/,'000')
   end
   (fw_urls,fw_text) = search_xcp_fw_page(model)
-  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only)
+  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
 
 # If given a -m process M series firmware downloads

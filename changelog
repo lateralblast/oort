@@ -169,3 +169,5 @@
 # Aded support for 480R
 # 0.8.5: Thu  3 Jul 2014 10:17:48 EST
 # Fixed bug with Emulex model numbers
+# 0.8.6: Wed  3 Sep 2014 15:15:52 AEST
+# Fixed bug with OBP determination and added support for LSI patches
