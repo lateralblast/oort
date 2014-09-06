@@ -175,3 +175,5 @@
 # Improved OBP version determination
 # 0.8.8: Sat  6 Sep 2014 11:34:28 AEST
 # Fixed XCF information
+# 0.8.9: Sat  6 Sep 2014 12:18:24 AEST
+# Cleaned up output

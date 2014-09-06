@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.8.8
+# Version:      0.8.9
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -1636,12 +1636,16 @@ def print_output(model,fw_urls,fw_text,output_type,output_file,latest_only,searc
           if patch_text.match(/LSI/)
             lsi_ver = get_lsi_ver(patch_url)
             if lsi_ver
-              patch_text = patch_text+" FW "+lsi_ver
+              if lsi_ver.match(/[0-9]/)
+                patch_text = patch_text+" FW "+lsi_ver
+              end
             end
           else
             obp_ver = get_obp_ver(patch_url)
             if obp_ver
-              patch_text = patch_text+" OBP "+obp_ver
+              if obp_ver.match(/[0-9]/)
+                patch_text = patch_text+" OBP "+obp_ver
+              end
             end
           end
         end
