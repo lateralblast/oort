@@ -173,3 +173,5 @@
 # Fixed bug with OBP determination and added support for LSI patches
 # 0.8.7: Thu  4 Sep 2014 09:04:11 AEST
 # Improved OBP version determination
+# 0.8.8: Sat  6 Sep 2014 11:34:28 AEST
+# Fixed XCF information

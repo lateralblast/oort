@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.8.7
+# Version:      0.8.8
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -47,7 +47,7 @@ $script       = File.basename($0,".rb").chomp
 $work_dir     = ""
 $verbose      = 0
 $test_mode    = 0
-options       = "HV?abchlvxA:E:F:M:N:P:R:S:X:d:e:f:i:m:n:o:p:q:r:s:t:w:x:z:"
+options       = "HV?abcghlvA:E:F:M:N:P:R:S:X:d:e:f:i:m:n:o:p:q:r:s:t:w:x:z:"
 
 # Set Work Directory
 
@@ -1117,7 +1117,7 @@ def print_usage(options)
   puts "-v:          Verbose output"
   puts "-b:          Test mode (don't perform downloads)"
   puts "-c:          Output in CSV format (default text)"
-  puts "-x:          Download patchdiag.xref"
+  puts "-g:          Download patchdiag.xref"
   puts "-w WORK_DIR: Set work directory (Default is "+$work_dir+")"
   puts "-u TERM:     Search all Solaris 11 SRUs for a term"
   puts "-U TERM:     Download Solaris 11 SRUs associated with a term"
@@ -1908,7 +1908,7 @@ check_local_config()
 
 # If given -x get patchdiag.xref
 
-if opt["x"]
+if opt["g"]
   if opt["o"]
     $verbose    = 1
     output_file = opt["o"]
@@ -2138,8 +2138,8 @@ end
 
 # if given a -x output M Series XCP information
 
-if opt["X"]
-  model = opt["X"]
+if opt["x"]
+  model = opt["x"]
   if model != "all"
     model = opt["X"]
     model = model.upcase
@@ -2149,7 +2149,7 @@ if opt["X"]
   handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
 
-# If given a -m process M series firmware downloads
+# If given a -X process M series firmware downloads
 
 if opt["X"]
   model = opt["X"]
