@@ -179,3 +179,5 @@
 # Cleaned up output
 # 0.9.0: Wed 10 Sep 2014 15:41:38 AEST
 # Added Handbook parser
+# 0.9.1: Wed 10 Sep 2014 20:50:03 AEST
+# Cleaned up code to determine Handbook URLs

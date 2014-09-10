@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.9.0
+# Version:      0.9.1
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -49,7 +49,7 @@ $work_dir     = ""
 $verbose      = 0
 $test_mode    = 0
 $output_mode  = "text"
-options       = "HV?abcghlvA:E:F:I:M:N:P:R:S:X:d:e:f:i:m:n:o:p:q:r:s:t:w:x:z:"
+options       = "HV?abcghlvA:E:F:I:M:N:P:R:S:X:d:e:f:i:j:m:n:o:p:q:r:s:t:w:x:z:"
 
 # Set Work Directory
 
@@ -525,13 +525,15 @@ end
 def get_handbook_header(model)
   model = model.gsub(/M2$/,"_M2")
   case model
+  when /X[2,4][0-9][0-9][0-9]/
+    header = "SunFire"+model
   when /^N/
     header = "Netra_"+model.gsub(/^N/,"")
-  when /^V/
+  when /^V|K$/
     header = "SunFire"+model
   when /[X6,X8,T6][0-9][0-9][0-9]/
     header = "SunBlade"+model
-  when /T[3,4][-,_]|M[10,5,6][-,_]/
+  when /T[3,4,5][-,_]|M[10,5,6][-,_]/
     header = "SPARC_"+model
   when /X[3,4][-,_]/
     header = "Sun_Server_"+model
@@ -539,6 +541,8 @@ def get_handbook_header(model)
     header = "ODA_"+model.gsub(/^O/,"X")
   when /ULTRA[0-9]/
     header = "U"+model
+  when /E[3,4,6]8[1,0]0/
+    header = "SunFire"+model.gsub(/E/,"")
   when /SUNBLADE[0-9]/
     header = "SunBlade"+model.gsub(/SUNBLADE/,"")
   when /B[0-9]/
@@ -746,7 +750,8 @@ def process_handbook_list_file(list_file)
     if notes[0]
       notes.each do |note|
         if note.match(/^[0-9] |[0-9][0-9] /)
-          note = note.gsub(/^\n/,"")
+          note = note.gsub(/^\n/,"").gsub(/\.\s+$/,".")
+          note = note.gsub(/\./,".\n").gsub(/^\n/,"")
           handle_output("#{note}")
         end
       end
@@ -756,32 +761,104 @@ def process_handbook_list_file(list_file)
   return
 end
 
+# Get server list from html
+
+def get_model_list_from_html(file_name,model_list)
+  if File.exist?(file_name)
+    doc   = Nokogiri::HTML(File.open(file_name))
+    nodes = doc.css("table").css("a")
+    nodes.each do |node|
+      text  = node.text
+      if text.match(/SPARC|Server|Blade|Netra|Appliance|Machine|modular|Sun|Oracle/) and !text.match(/SPARCcenter|[S,s]torage|StorEdge|[S,s]tation|Netra [i,s,f,c,x,C,t]|Ultra 1\/|Tek|Ray|Cobalt|ETL|Gate/)
+        text  = text.gsub(/ M2/,"M2").gsub(/ M3/,"M3")
+        if text.match(/\n|\(/)
+          text = text.split(/\n/)[0]
+          text = text.split(/\(/)[0]
+        end
+        info  = text.split(/\s+/)
+        model = info.grep(/[0-9]/)[0]
+        if model
+          if model.match(/[A-Z]|[0-9]/)
+            if text.match(/Blade|modular/)
+              if !model.match(/^[A-Z]/)
+                model = "B"+model
+              end
+            end
+            if text.match(/Sun Fire|Enterprise/)
+              if !model.match(/^[A-Z]/)
+                if model.match(/^[3,4,5,6][5,8,9][0,1]0|10000/)
+                  model = "E"+model
+                end
+              end
+            end
+            if text.match(/Netra/)
+              if !model.match(/^N/)
+                model = "N"+model
+              end
+            end
+            model = model.gsub(/\//,"").gsub(/T31B/,"T3-1B").gsub(/T41B/,"T4-1B").gsub(/Enterprise/,"")
+            if !model.match(/^A|^C|^N[0-9][0-9]$|Sun-/)
+              model_list.push(model)
+            end
+          end
+        end
+      end
+    end
+  end
+  return model_list
+end
+
+# Get handbook model list
+
+def get_handbook_model_list()
+  model_list   = []
+  current_url  = "https://support.oracle.com/handbook_private/Systems/index.html"
+  current_file = $handbook_dir+"/current.html"
+  legacy_url   = "https://support.oracle.com/handbook_private/Systems/eolSystemList.html"
+  legacy_file  = $handbook_dir+"/legacy.html"
+  get_download(current_url,current_file)
+  get_download(legacy_url,legacy_file)
+  model_list = get_model_list_from_html(current_file,model_list)
+  model_list = get_model_list_from_html(legacy_file,model_list)
+  return model_list
+end
+
 # Process handbook
 
-def process_oracle_handbook(model)
-  model  = model.upcase
-  header = get_handbook_header(model)
+def process_oracle_handbook(model,download_only)
   if !File.directory?($handbook_dir) and !File.symlink?($handbook_dir)
     Dir.mkdir($handbook_dir)
   end
-  model_dir = $handbook_dir+"/"+header
-  if !File.directory?(model_dir)
-    Dir.mkdir(model_dir)
+  model_list = []
+  if model == "all"
+    model_list = get_handbook_model_list()
+  else
+    model_list[0] = model
   end
-  base_url  = "https://support.oracle.com/handbook_private/Systems"
-  model_url = base_url+"/"+header
-  info_file = model_dir+"/"+header+".html"
-  info_url  = model_url+"/"+header+".html"
-  spec_file = model_dir+"/spec.html"
-  spec_url  = model_url+"/spec.html"
-  list_file = model_dir+"/components.html"
-  list_url  = model_url+"/components.html"
-  get_download(info_url,info_file)
-  get_download(spec_url,spec_file)
-  get_download(list_url,list_file)
-  process_handbook_info_file(info_file)
-  process_handbook_spec_file(spec_file)
-  process_handbook_list_file(list_file)
+  model_list.each do |model|
+    model     = model.upcase
+    header    = get_handbook_header(model)
+    model_dir = $handbook_dir+"/"+header
+    if !File.directory?(model_dir)
+      Dir.mkdir(model_dir)
+    end
+    base_url  = "https://support.oracle.com/handbook_private/Systems"
+    model_url = base_url+"/"+header
+    info_file = model_dir+"/"+header+".html"
+    info_url  = model_url+"/"+header+".html"
+    spec_file = model_dir+"/spec.html"
+    spec_url  = model_url+"/spec.html"
+    list_file = model_dir+"/components.html"
+    list_url  = model_url+"/components.html"
+    get_download(info_url,info_file)
+    get_download(spec_url,spec_file)
+    get_download(list_url,list_file)
+    if download_only == "no"
+      process_handbook_info_file(info_file)
+      process_handbook_spec_file(spec_file)
+      process_handbook_list_file(list_file)
+    end
+  end
   return
 end
 
@@ -1403,7 +1480,8 @@ def print_usage(options)
   puts "-b:          Test mode (don't perform downloads)"
   puts "-c:          Output in CSV format (default text)"
   puts "-g:          Download patchdiag.xref"
-  puts "-I MODEL     View System Handbook for a model"
+  puts "-i MODEL:    View System Handbook for a model"
+  puts "-I MODEL:    Download System Handbook for a model"
   puts "-w WORK_DIR: Set work directory (Default is "+$work_dir+")"
   puts "-u TERM:     Search all Solaris 11 SRUs for a term"
   puts "-U TERM:     Download Solaris 11 SRUs associated with a term"
@@ -1416,7 +1494,7 @@ def print_usage(options)
   puts "-o FILE:     Open a file for writing"
   puts "-H:          Delete temporary HTML files"
   puts "-Y:          Update patch archive"
-  puts "-i FILE:     Open a locally saved HTML file for processing rather then fetching it"
+  puts "-j FILE:     Open a locally saved HTML file for processing rather then fetching it"
   puts "-l:          Only show (or download) latest firmware versions (can be used in combination with the following options)"
   puts "-m all:      Display firmware information for all machines"
   puts "-m MODEL:    Display firmware information for a specific model (eg. X2-4)"
@@ -2178,8 +2256,8 @@ end
 
 # If given a -i load url from a local file
 
-if opt["i"]
-  url = opt["i"]
+if opt["j"]
+  url = opt["j"]
   if !File.exist?(url)
     puts "File "+url+" does not exist"
     exit
@@ -2450,9 +2528,15 @@ if opt["X"]
   handle_download_firmware(model,fw_urls,fw_text,latest_only,search_arch)
 end
 
-# If given a -I process handbook information
+# If given a -I or -i process handbook information
 
-if opt["I"]
-  model = opt["I"]
-  process_oracle_handbook(model)
+if opt["I"] or opt["i"]
+  if opt["I"]
+    model = opt["I"]
+    download_only = "yes"
+  else
+    model = opt["i"]
+    download_only = "no"
+  end
+  process_oracle_handbook(model,download_only)
 end
