@@ -177,3 +177,5 @@
 # Fixed XCF information
 # 0.8.9: Sat  6 Sep 2014 12:18:24 AEST
 # Cleaned up output
+# 0.9.0: Wed 10 Sep 2014 15:41:38 AEST
+# Added Handbook parser

@@ -29,16 +29,24 @@ Features:
 
 - Get a list of available system firmware for particular model(s)
 - Get a list of available XCF firmware for particular M series model(s)
+  - Requires MOS login
 - Get a list of available SRUs for Solaris 11
+  - Requires MOS login
 - Search Oracle Solaris patchdiag.xref patch list (Solaris 10 and earlier)
 - Download system firmware for particular model(s)
+  - Requires MOS login
 - Download XCF firmware for particular M series model(s)
+  - Requires MOS login
 - Get a list of firware for Emulex or QLogic Fibre Channel adaptor(s)
 - Get a list of firmware for disks(s)
+- Download disk firmware patches
+  = Requires MOS login
 - Extract version information from system firmware download
   - Useful for documentation
   - Can be used in conjunction with [sice](https://github.com/lateralblast/sice) script to update firmware
 - Create a local repository of patches
+- Print handbook information for a model
+  - Requires MOS login
 
 Issues:
 

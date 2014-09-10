@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.8.9
+# Version:      0.9.0
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -24,6 +24,7 @@ require 'pathname'
 require 'selenium-webdriver'
 require 'phantomjs'
 require 'mechanize'
+require 'terminal-table'
 
 # Extend string class to strip out control characters
 
@@ -47,7 +48,8 @@ $script       = File.basename($0,".rb").chomp
 $work_dir     = ""
 $verbose      = 0
 $test_mode    = 0
-options       = "HV?abcghlvA:E:F:M:N:P:R:S:X:d:e:f:i:m:n:o:p:q:r:s:t:w:x:z:"
+$output_mode  = "text"
+options       = "HV?abcghlvA:E:F:I:M:N:P:R:S:X:d:e:f:i:m:n:o:p:q:r:s:t:w:x:z:"
 
 # Set Work Directory
 
@@ -62,10 +64,26 @@ def set_work_dir()
   $html_dir     = $work_dir+"/html"
   $readme_dir   = $work_dir+"/readme"
   $firmware_dir = $work_dir+"/firmware"
+  $handbook_dir = $work_dir+"/handbook"
   return
 end
 
 set_work_dir()
+
+# Handle output routine
+
+def handle_output(output)
+  if $output_mode == "text"
+    print output
+  end
+  if $output_mode == "file"
+    file = File.open($output_file,"a")
+    file.write(output)
+    file.write("\n")
+    file.close()
+  end
+  return
+end
 
 # Search the M Series firmware page for information
 # This requires the use of selenium and a web browser as none of the ruby
@@ -502,6 +520,271 @@ def open_patch_readme(patch_no)
   return doc
 end
 
+# Get header for handbook file
+
+def get_handbook_header(model)
+  model = model.gsub(/M2$/,"_M2")
+  case model
+  when /^N/
+    header = "Netra_"+model.gsub(/^N/,"")
+  when /^V/
+    header = "SunFire"+model
+  when /[X6,X8,T6][0-9][0-9][0-9]/
+    header = "SunBlade"+model
+  when /T[3,4][-,_]|M[10,5,6][-,_]/
+    header = "SPARC_"+model
+  when /X[3,4][-,_]/
+    header = "Sun_Server_"+model
+  when /O[3,4][-,_]/
+    header = "ODA_"+model.gsub(/^O/,"X")
+  when /ULTRA[0-9]/
+    header = "U"+model
+  when /SUNBLADE[0-9]/
+    header = "SunBlade"+model.gsub(/SUNBLADE/,"")
+  when /B[0-9]/
+    header = "SunBlade"+model.gsub(/B/,"")
+  when /T[1,2,5][0-9][0-9][0-9]/
+    header = "SE_"+model
+  when /X2-4/
+    header = "SunFireX4470_M2"
+  when /X3-4/
+    header = "SunFireX4470_M3"
+  when /X3-2$/
+    header = "SunFireX4170_M3"
+  when /X3-2L/
+    header = "SunFireX4270_M3"
+  else
+    header = model
+  end
+  header = header.gsub(/-/,"_")
+  return header
+end
+
+# Handle handbook info file
+
+def process_handbook_info_file(info_file)
+  if File.exist?(info_file)
+    doc    = Nokogiri::HTML(File.open(info_file))
+    facts  = doc.css("table")[3]
+    info   = facts.css("tr")[4..-1]
+    title  = ""
+    items  = {}
+    titles = []
+    info.each do |node|
+      if node.to_s.match(/\<b\>[A-z]/) and !node.to_s.match(/Quick Facts/)
+        title = node.css("b").text.gsub(/\n/,"").gsub(/\s+/," ").gsub(/\[tm\]/,"").gsub(/Operating Environment Versions/,"")
+        titles.push(title)
+        items[title] = []
+        if title
+          if node.to_s.match(/http/)
+            url = node.css("a").to_s.split(/"/)[1]
+            items[title].push(url)
+          else
+            text = node.css("td")[1..-1].text.gsub(/^\n/,"").gsub(/^\s+|\s+$/,"").gsub(/ \s+/," ").gsub(/Oracle /,"")
+
+            items[title].push(text)
+          end
+        end
+      end
+    end
+    table   = Terminal::Table.new :title => "Support Information", :headings => ['Item', 'Value']
+    length  = titles.length
+    index   = 0
+    titles.each_with_index do |title,index|
+      content = ""
+      items[title].each do |item|
+        content = items[title].join(" ")
+      end
+      row = [ title, content ]
+      table.add_row(row)
+      if index < length-1
+        table.add_separator
+      end
+    end
+    handle_output(table)
+    handle_output("\n")
+    handle_output("\n")
+  end
+  return
+end
+
+# Handle handbook spec file
+
+def process_handbook_spec_file(spec_file)
+  if File.exist?(spec_file)
+    doc    = Nokogiri::HTML(File.open(spec_file))
+    facts  = doc.css("table")[3]
+    info   = facts.css("tr")
+    title  = ""
+    items  = {}
+    titles = []
+    info.each do |node|
+      if node.to_s.match(/name/)
+        title = node.css("b").text.gsub(/^\n/,"").gsub(/:/,"").gsub(/\s+/," ").gsub(/\n/," ")
+        titles.push(title)
+        items[title] = []
+      else
+        if title
+          if node.text.match(/[A-z]|[0-9]/)
+            items[title].push(node.text)
+          end
+        end
+      end
+    end
+    titles.each do |title|
+      table  = Terminal::Table.new :title => title, :headings => ['Item', 'Value']
+      length = items[title].length
+      items[title].each_with_index do |item,index|
+        data   = item.split("\n")
+        header = data[1].gsub(/^\s+/,"")
+        first  = data[2].gsub(/^\s+/,"")
+        if !first.match(/[A-z]|[0-9]/)
+          first = data[3].gsub(/^\s+/,"")
+          if !first.match(/[A-z]|[0-9]/)
+            first = data[4].gsub(/^\s+/,"")
+            info  = data[4..-1]
+          else
+            info = data[3..-1]
+          end
+        else
+          info = data[2..-1]
+        end
+        if !header.match(/Slot #/)
+          row = [header,first]
+          table.add_row(row)
+          info.each do |cell|
+            cell = cell.gsub(/\n/," ").gsub(/^\s+/,"")
+            if cell.match(/[0-9]|[A-z]/) and cell != first
+              if header.match(/PCI Expansion/)
+                if !cell.match(/^Slot #$|^Physical$|^Electrical$|[0-9]$/)
+                  row  = [ "", cell ]
+                  table.add_row(row)
+                end
+              else
+                row  = [ "", cell ]
+                table.add_row(row)
+              end
+            end
+          end
+          if index < length-1
+            table.add_separator
+          end
+        end
+      end
+      handle_output(table)
+      handle_output("\n")
+      handle_output("\n")
+    end
+    handle_output("\n")
+  end
+  return
+end
+
+# Process handbook components file
+
+def process_handbook_list_file(list_file)
+  if File.exist?(list_file)
+    doc    = Nokogiri::HTML(File.open(list_file))
+    tables = doc.css("table")
+    title  = ""
+    items  = {}
+    titles = []
+    notes  = []
+    tables.each do |table|
+      nodes = table.css("tr")
+      nodes.each do |node|
+        if node.to_s.match(/name/)
+          title = node.css("a").text
+          if !title.match(/Oracle System Handbook|Cancel|Table Legend/) and title.match(/[A-z]/)
+            titles.push(title)
+            items[title] = []
+          end
+        else
+          if title
+            if !title.match(/Oracle System Handbook|Cancel|Table Legend/) and title.match(/[A-z]/)
+              node.css("td").each do |cell|
+                if !cell.text.match(/^Code$|^PreviousPart #$|^Manufacturing Part#$|^Description$/)
+                  if !cell.to_s.match(/ssh_note|colspan|ssh_exp/)
+                    if cell.to_s.match(/\<li\>/) and !cell.previous_element.to_s.match(/\<li\>/)
+                      items[title].push("-")
+                      items[title].push(cell.text)
+                    else
+                      items[title].push(cell.text)
+                    end
+                  else
+                    if cell.to_s.match(/colspan/)
+                      notes.push(cell.text)
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+    titles.each do |title|
+      table = Terminal::Table.new :title => title, :headings => ['Option Part', 'Manufacturing Part', 'Description', 'Previous Part']
+      counter = 0
+      row     = []
+      items[title].each do |item|
+        if !item.match(/^\[F\]/)
+          item = item.gsub(/\n/,"")
+          item = item.gsub(/^\s+|\s+$/,"")
+          row.push(item)
+          counter = counter+1
+          if counter % 4 == 0
+            table.add_row(row)
+            row = []
+          end
+        end
+      end
+      handle_output(table)
+      handle_output("\n")
+      handle_output("\n")
+    end
+    if notes[0]
+      notes.each do |note|
+        if note.match(/^[0-9] |[0-9][0-9] /)
+          note = note.gsub(/^\n/,"")
+          handle_output("#{note}")
+        end
+      end
+      handle_output("\n")
+    end
+  end
+  return
+end
+
+# Process handbook
+
+def process_oracle_handbook(model)
+  model  = model.upcase
+  header = get_handbook_header(model)
+  if !File.directory?($handbook_dir) and !File.symlink?($handbook_dir)
+    Dir.mkdir($handbook_dir)
+  end
+  model_dir = $handbook_dir+"/"+header
+  if !File.directory?(model_dir)
+    Dir.mkdir(model_dir)
+  end
+  base_url  = "https://support.oracle.com/handbook_private/Systems"
+  model_url = base_url+"/"+header
+  info_file = model_dir+"/"+header+".html"
+  info_url  = model_url+"/"+header+".html"
+  spec_file = model_dir+"/spec.html"
+  spec_url  = model_url+"/spec.html"
+  list_file = model_dir+"/components.html"
+  list_url  = model_url+"/components.html"
+  get_download(info_url,info_file)
+  get_download(spec_url,spec_file)
+  get_download(list_url,list_file)
+  process_handbook_info_file(info_file)
+  process_handbook_spec_file(spec_file)
+  process_handbook_list_file(list_file)
+  return
+end
+
 # If given a patch generate the URL for the README and download it
 
 def get_patch_readme(patch_no,output_file)
@@ -558,6 +841,8 @@ def get_url(url,output_file)
   return
 end
 
+# Get download
+
 def get_download(url,output_file)
   check_file_type(output_file)
   if !File.exist?(output_file)
@@ -575,7 +860,7 @@ def get_download(url,output_file)
       end
     end
     if $test_mode == 0
-      if url.match(/Orion|getupdates/)
+      if url.match(/Orion|getupdates|handbook_private/)
         (mos_username,mos_password) = get_mos_details()
         get_mos_url(url,output_file)
       else
@@ -1118,6 +1403,7 @@ def print_usage(options)
   puts "-b:          Test mode (don't perform downloads)"
   puts "-c:          Output in CSV format (default text)"
   puts "-g:          Download patchdiag.xref"
+  puts "-I MODEL     View System Handbook for a model"
   puts "-w WORK_DIR: Set work directory (Default is "+$work_dir+")"
   puts "-u TERM:     Search all Solaris 11 SRUs for a term"
   puts "-U TERM:     Download Solaris 11 SRUs associated with a term"
@@ -1690,7 +1976,7 @@ end
 
 # Traverse the firmware information hashes and output information
 
-def handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
+def handle_fw_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
   if model == "all"
     fw_text.each do |model, text|
       print_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
@@ -1966,7 +2252,6 @@ if opt["u"] or opt["U"]
   end
 end
 
-
 # If given a -q process Qlogic firmware information
 
 if opt["q"]
@@ -1975,7 +2260,7 @@ if opt["q"]
     model = model.upcase
   end
   (fw_urls,fw_text) = search_qlogic_fw_page(model,url)
-  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
+  handle_fw_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
 
 # If given a -d process disk firmware information
@@ -1986,7 +2271,7 @@ if opt["d"]
     model = model.upcase
   end
   (fw_urls,fw_text) = search_disk_fw_page(model,url)
-  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
+  handle_fw_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
 
 # If given a -D process disk firmware downloads
@@ -2012,7 +2297,7 @@ if opt["n"] or opt["f"]
     model = model.upcase
   end
   (fw_urls,fw_text) = search_prom_fw_page(model,url)
-  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
+  handle_fw_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
 
 # If given a -V process V series and older hardware firmware downloads
@@ -2038,7 +2323,7 @@ if opt["e"]
     model = model.upcase
   end
   (fw_urls,fw_text) = search_emulex_fw_page(model,url)
-  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
+  handle_fw_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
 
 # If given a -E process Emulex firmware downloads
@@ -2065,7 +2350,7 @@ if opt["m"] or opt["f"]
     model = model.gsub(/K/,'000')
   end
   (fw_urls,fw_text) = search_system_fw_page(model,url)
-  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
+  handle_fw_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
 
 # If given a -M process M series firmware downloads
@@ -2150,7 +2435,7 @@ if opt["x"]
     model = model.gsub(/K/,'000')
   end
   (fw_urls,fw_text) = search_xcp_fw_page(model)
-  handle_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
+  handle_fw_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
 
 # If given a -X process M series firmware downloads
@@ -2163,4 +2448,11 @@ if opt["X"]
   end
   (fw_urls,fw_text) = search_xcp_fw_page(model)
   handle_download_firmware(model,fw_urls,fw_text,latest_only,search_arch)
+end
+
+# If given a -I process handbook information
+
+if opt["I"]
+  model = opt["I"]
+  process_oracle_handbook(model)
 end
