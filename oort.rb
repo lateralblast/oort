@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.9.1
+# Version:      0.9.2
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -547,7 +547,7 @@ def get_handbook_header(model)
     header = "SunBlade"+model.gsub(/SUNBLADE/,"")
   when /B[0-9]/
     header = "SunBlade"+model.gsub(/B/,"")
-  when /T[1,2,5][0-9][0-9][0-9]/
+  when /T[1,2,5][0-9][0-9][0-9]|M[3,4,5,8,9]000/
     header = "SE_"+model
   when /X2-4/
     header = "SunFireX4470_M2"
