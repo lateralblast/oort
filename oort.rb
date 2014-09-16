@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.9.3
+# Version:      0.9.4
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -531,9 +531,9 @@ def get_handbook_header(model)
     header = "Netra_"+model.gsub(/^N/,"")
   when /^V|K$/
     header = "SunFire"+model
-  when /[X6,X8,T6][0-9][0-9][0-9]/
+  when /X6[0-9][0-9][0-9]|X8[0-9][0-9][0-9]|T6[0-9][0-9][0-9]/
     header = "SunBlade"+model
-  when /T[3,4,5][-,_]|M[10,5,6][-,_]/
+  when /T3-|T4-|T5-|M10-|M5-|M6-/
     header = "SPARC_"+model
   when /X[3,4][-,_]/
     header = "Sun_Server_"+model
@@ -875,9 +875,29 @@ def process_oracle_handbook(model,download_only)
     spec_url  = model_url+"/spec.html"
     list_file = model_dir+"/components.html"
     list_url  = model_url+"/components.html"
+    small_image_url  = model_url+"/images/"+header+".jpg"
+    small_image_file = model_dir+"/"+header+".jpg"
+    front_thumb_url  = model_url+"/images/"+header+"_front_thumb.jpg"
+    front_thumb_file = model_dir+"/"+header+"_front_thumb.jpg"
+    top_thumb_url    = model_url+"/images/"+header+"_top_thumb.jpg"
+    top_thumb_file   = model_dir+"/"+header+"_top_thumb.jpg"
+    rear_thumb_url   = model_url+"/images/"+header+"_rear_thumb.jpg"
+    rear_thumb_file  = model_dir+"/"+header+"_rear_thumb.jpg"
+    front_zoom_url   = model_url+"/images/"+header+"_front_zoom.jpg"
+    front_zoom_file  = model_dir+"/"+header+"_front_zoom.jpg"
+    rear_zoom_url    = model_url+"/images/"+header+"_rear_zoom.jpg"
+    rear_zoom_file   = model_dir+"/"+header+"_rear_zoom.jpg"
+    top_zoom_url     = model_url+"/images/"+header+"_top_zoom.jpg"
+    top_zoom_file    = model_dir+"/"+header+"_top_zoom.jpg"
     get_download(info_url,info_file)
     get_download(spec_url,spec_file)
     get_download(list_url,list_file)
+    get_download(small_image_url,small_image_file)
+    get_download(front_thumb_url,top_thumb_file)
+    get_download(rear_thumb_url,rear_thumb_file)
+    get_download(front_zoom_url,front_zoom_file)
+    get_download(rear_zoom_url,rear_zoom_file)
+    get_download(top_zoom_url,top_zoom_file)
     if download_only == "no"
       process_handbook_info_file(info_file)
       process_handbook_spec_file(spec_file)
@@ -948,10 +968,6 @@ end
 def get_download(url,output_file)
   check_file_type(output_file)
   if !File.exist?(output_file)
-    if $verbose == 1
-      puts "Downloading: #{url}"
-      puts "Destination: #{output_file}"
-    end
     output_dir = File.dirname(output_file)
     if !Dir.exist?(output_dir)
       begin
@@ -962,10 +978,14 @@ def get_download(url,output_file)
       end
     end
     if $test_mode == 0
-      if url.match(/Orion|getupdates|handbook_private/)
+      if url.match(/Orion|getupdates|handbook_private/) and !url.match(/jpg$/)
         (mos_username,mos_password) = get_mos_details()
         get_mos_url(url,output_file)
       else
+        if $verbose == 1
+          puts "Downloading: #{url}"
+          puts "Destination: #{output_file}"
+        end
         agent = Mechanize.new
         agent.redirect_ok = true
         agent.pluggable_parser.default = Mechanize::Download
@@ -995,7 +1015,7 @@ def check_file_type(file_name)
       File.delete(file_name)
     end
   end
-  if File.exist?(file_name) and file_name.match(/zip$/)
+  if File.exist?(file_name) and file_name.match(/zip$|jpg$/)
     file_check = %x[file "#{file_name}"].chomp
     if file_check.match(/HTML/)
       File.delete(file_name)
@@ -1178,7 +1198,8 @@ end
 
 def get_mos_url(mos_url,local_file)
   if $verbose == 1
-    puts "Downloading "+mos_url+" to "+local_file
+    puts "Downloading: #{mos_url}"
+    puts "Destination: #{local_file}"
   end
   if mos_url.match(/patch_file|zip$/)
     mos_passwd_file = Dir.home+"/.mospasswd"

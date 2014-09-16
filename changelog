@@ -185,3 +185,5 @@
 # Fixed Handbook URL determination for MX000
 # 0.9.3: Fri 12 Sep 2014 08:59:34 AEST
 # More cleanup of Handbook output
+# 0.9.4: Wed 17 Sep 2014 09:47:29 AEST
+# Improved image download for Handbook
