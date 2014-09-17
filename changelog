@@ -187,3 +187,5 @@
 # More cleanup of Handbook output
 # 0.9.4: Wed 17 Sep 2014 09:47:29 AEST
 # Improved image download for Handbook
+# 0.9.5: Wed 17 Sep 2014 12:33:59 AEST
+# Fixed Handbook output for Rack Mounting

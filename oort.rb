@@ -623,6 +623,7 @@ def process_handbook_spec_file(spec_file)
     item    = ""
     value   = ""
     counter = 0
+    t_end   = 0
     tables.each do |table|
       if !table.to_s.match(/Oracle System Handbook|Current Systems|Former STK Products|EOL Systems|Components|General Info|Cancel/)
         rows  = table.css("td")
@@ -634,6 +635,7 @@ def process_handbook_spec_file(spec_file)
               if t_table
                 handle_output(t_table)
                 handle_output("\n")
+                t_end = 0
               end
               if title == "Rack Mounting" or title == "Power Supplies"
                 t_table = Terminal::Table.new :title => title
@@ -653,18 +655,30 @@ def process_handbook_spec_file(spec_file)
                       text = text.gsub(/(.{1,78})(\s+|\Z)/, "\\1\n")
                     end
                     if counter == 0
-                      if !row.next_element.to_s.match(/[A-z]/) and title == "Rack Mounting" or title == "Power Supplies"
+                      if !row.next_element.to_s.match(/[A-z]/) and t_end == 0
                         t_row = [ text ]
                         t_table.add_row(t_row)
                       else
-                        item    = text
-                        counter = 1
+                        if title == "Rack Mounting"
+                          if text.match(/Drive/)
+                            t_end = 1
+                          end
+                          t_row = [ text ]
+                          if t_end == 0
+                            t_table.add_row(t_row)
+                          end
+                        else
+                          item    = text
+                          counter = 1
+                        end
                       end
                     else
-                      value   = text
-                      counter = 0
-                      t_row   = [ item, value ]
-                      t_table.add_row(t_row)
+                      if t_end == 0
+                        value   = text
+                        counter = 0
+                        t_row   = [ item, value ]
+                        t_table.add_row(t_row)
+                      end
                     end
                   end
                 end
@@ -892,12 +906,14 @@ def process_oracle_handbook(model,download_only)
     get_download(info_url,info_file)
     get_download(spec_url,spec_file)
     get_download(list_url,list_file)
-    get_download(small_image_url,small_image_file)
-    get_download(front_thumb_url,top_thumb_file)
-    get_download(rear_thumb_url,rear_thumb_file)
-    get_download(front_zoom_url,front_zoom_file)
-    get_download(rear_zoom_url,rear_zoom_file)
-    get_download(top_zoom_url,top_zoom_file)
+    if download_only == "yes"
+      get_download(small_image_url,small_image_file)
+      get_download(front_thumb_url,top_thumb_file)
+      get_download(rear_thumb_url,rear_thumb_file)
+      get_download(front_zoom_url,front_zoom_file)
+      get_download(rear_zoom_url,rear_zoom_file)
+      get_download(top_zoom_url,top_zoom_file)
+    end
     if download_only == "no"
       process_handbook_info_file(info_file)
       process_handbook_spec_file(spec_file)
