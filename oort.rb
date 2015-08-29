@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.9.4
+# Version:      0.9.6
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -1237,8 +1237,8 @@ def get_mos_url(mos_url,local_file)
     doc.get(mos)
     doc.manage.timeouts.implicit_wait = 20
     doc.find_element(:id => "pt1:gl3").click
-    doc.find_element(:id => "Mssousername").send_keys(mos_username)
-    doc.find_element(:id => "Mssopassword").send_keys(mos_password)
+    doc.find_element(:id => "sso_username").send_keys(mos_username)
+    doc.find_element(:id => "ssopassword").send_keys(mos_password)
     doc.find_element(:link => "Sign In").click
     doc.get(mos_url)
     file = File.open(local_file,"w")
@@ -2230,6 +2230,10 @@ end
 
 if opt["w"]
   $work_dir = opt["w"]
+end
+
+if !File.directory?($work_dir) and !File.symlink($work_dir)
+  Dir.mkdir($work_dir)
 end
 
 # If given a -M, -E, -P, or -R which involve local downloads get a list of the

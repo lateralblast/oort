@@ -15,7 +15,7 @@ and their URLs. It can also download the firmware to a local repository if neede
 For example to find the latest version of system firmware available for the T5-4:
 
 ```
-$ oort.rb -m t5-4 -l
+$ ./oort.rb -m t5-4 -l
 T5-4:
 SPARC T5-4 Server Sun System Firmware 9.2.0.a (based on ILOM 3.2.1) SysFW (24-Apr-2014) OBP 4.36.0
 https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId=18544280

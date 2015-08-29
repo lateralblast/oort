@@ -189,3 +189,5 @@
 # Improved image download for Handbook
 # 0.9.5: Wed 17 Sep 2014 12:33:59 AEST
 # Fixed Handbook output for Rack Mounting
+# 0.9.6: Sun 30 Aug 2015 07:48:27 AEST
+# Fixed MOS login
