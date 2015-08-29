@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.9.6
+# Version:      0.9.7
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -1580,9 +1580,9 @@ def print_usage(options)
   puts "-n MODEL:    Display firmware information for specific old V Series"
   puts "-N all:      Download firmware information for all older V Series"
   puts "-N MODEL:    Download firmware information for specific old V Series"
-  puts "-x all:      Display firmware information for all older M Series (M3000 - M5000"
+  puts "-x all:      Display firmware information for all older M Series (M3000-M5000)"
   puts "-x MODEL:    Display firmware information for specific old M Series model (M3000-M9000)"
-  puts "-X all:      Download firmware information for all older M Series (M3000 - M5000"
+  puts "-X all:      Download firmware information for all older M Series (M3000-M5000)"
   puts "-X MODEL:    Download firmware information for specific old M Series model (M3000-M9000)"
   puts "-u all:      Display all Solaris 11 SRUs"
   puts
@@ -2313,6 +2313,10 @@ end
 
 if opt["o"]
   output_file = opt["o"]
+  if output_file.match(/\//)
+    dir_name = File.dirname(output_file)
+    Dir.mkdir(dir_name)
+  end
   if File.exist?(output_file)
     File.delete(output_file)
   end
