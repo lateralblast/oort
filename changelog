@@ -193,3 +193,5 @@
 # Fixed MOS login
 # 0.9.7: Sun 30 Aug 2015 08:23:43 AEST
 # Various fixes
+# 0.9.8: Sun 30 Aug 2015 09:11:58 AEST
+# Fixed QLogic Firmware URL

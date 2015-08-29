@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.9.7
+# Version:      0.9.8
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -363,7 +363,8 @@ end
 
 def search_qlogic_fw_page(search_model,url)
   base_url   = "https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
-  qf8_url    = "http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3"
+  #qf8_url    = "http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3"
+  qf8_url    = "http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByOs.aspx?ProductCategory=39&OsCategory=5&Os=22&OsCategoryName=Solaris&ProductCategoryName=Fibre%20Channel%20Adapters&OSName=Solaris%20SPARC"
   fw_text    = {}
   fw_urls    = {}
   fw_version = ""
@@ -2315,7 +2316,9 @@ if opt["o"]
   output_file = opt["o"]
   if output_file.match(/\//)
     dir_name = File.dirname(output_file)
-    Dir.mkdir(dir_name)
+    if !File.directory?(dir_name) and !File.symlink?(dir_name)
+      Dir.mkdir(dir_name)
+    end
   end
   if File.exist?(output_file)
     File.delete(output_file)
