@@ -541,6 +541,7 @@ def open_patch_readme(patch_no)
   output_file = $readme_dir+"/README."+patch_no
   get_patch_readme(patch_no,output_file)
   if File.exist?(output_file)
+    remove_mos_email_from_file(output_file)
     doc = IO.readlines(output_file)
   else
     if $verbose == 1
@@ -1075,6 +1076,7 @@ end
 def open_patchdiag_xref()
   output_file = $work_dir+"/patchdiag.xref"
   get_patchdiag_xref(output_file)
+  remove_mos_email_from_file(output_file)
   doc = IO.readlines(output_file)
   return doc
 end
