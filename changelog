@@ -197,3 +197,5 @@
 # Fixed QLogic Firmware URL
 # 0.9.9: Sun 30 Aug 2015 10:14:09 AEST
 # Added handling for MOS timeouts
+# 1.0.0: Sun 30 Aug 2015 11:42:13 AEST
+# Added code to remove MOS login ID from XCP web page download

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.9.9
+# Version:      1.0.0
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -85,6 +85,32 @@ def handle_output(output)
   return
 end
 
+# Remove embedded email from downloaded HTML file
+
+def remove_mos_email_from_file(output_file)
+  if File.exist?(output_file)
+    (mos_username,mos_password) = get_mos_details()
+    mos_username = mos_username.upcase()
+    array = []
+    lines = File.readlines(output_file)
+    if lines.grep(/#{mos_username}/)
+      lines.each do |line|
+        if line.match(/#{mos_username}/)
+          line = line.gsub(/#{mos_username}/,"")
+        end
+        array.push(line)
+      end
+      File.delete(output_file)
+      file = File.open(output_file,"w")
+      array.each do |line|
+        file.puts line 
+      end
+      file.close 
+    end
+  end
+  return
+end
+
 # Search the M Series firmware page for information
 # This requires the use of selenium and a web browser as none of the ruby
 # modules seem to work with the MOS site
@@ -96,6 +122,7 @@ def search_xcp_fw_page(search_xcp)
   if !File.exist?(output_file)
     get_mos_url(xcp_url,output_file)
   end
+  remove_mos_email_from_file(output_file)
   xcp_rel   = ""
   xcp_post  = ""
   obp_post  = ""
