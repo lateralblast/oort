@@ -1235,7 +1235,11 @@ def get_mos_url(mos_url,local_file)
     cap = Selenium::WebDriver::Remote::Capabilities.phantomjs('phantomjs.page.settings.userAgent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10) AppleWebKit/538.39.41 (KHTML, like Gecko) Version/8.0 Safari/538.39.41')
     doc = Selenium::WebDriver.for :phantomjs, :desired_capabilities => cap
     mos = "https://supporthtml.oracle.com"
-    doc.get(mos)
+    begin
+      doc.get(mos)
+    rescue
+      doc.get(mos)
+    end
     doc.manage.timeouts.implicit_wait = 20
     begin
       doc.find_element(:id => "pt1:gl3").click
