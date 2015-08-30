@@ -199,3 +199,5 @@
 # Added handling for MOS timeouts
 # 1.0.0: Sun 30 Aug 2015 11:42:13 AEST
 # Added code to remove MOS login ID from XCP web page download
+# 1.0.1: Sun 30 Aug 2015 12:19:18 AEST
+# Fixed processing of XSCF firmware

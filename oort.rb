@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.0.0
+# Version:      1.0.1
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -145,7 +145,7 @@ def search_xcp_fw_page(search_xcp)
       lines = node.text.split(/\n(XCP)/)
       lines.each do |line|
         if !line.match(/XCP\.tar|Release|Matrix|^XCP$/)
-          line = line.gsub(/\n/," ").gsub(/\s+/," ").gsub(/^ /,"").gsub(/EOL /,"").gsub(/POST /,"").gsub(/ - /,"-")
+          line = line.gsub(/\n/," ").gsub(/\s+/," ").gsub(/^ /,"").gsub(/EOL /,"").gsub(/POST |Post /,"").gsub(/ - /,"-")
           if line.match(/^[0-9][0-9][0-9][0-9]/)
             xcp_info  = line.split(/ /)
             xcp_rel   = "XCP"+xcp_info[0]
@@ -155,7 +155,9 @@ def search_xcp_fw_page(search_xcp)
             xcp_prom  = xcp_info[2]
             xcp_month = xcp_info[6]
             xcp_year  = xcp_info[7]
-            xcp_date  = xcp_info[6..7].join(" ")
+            if xcp_info[6] and xcp_info[7]
+              xcp_date  = xcp_info[6..7].join(" ")
+            end
             if line.match(/Patch/)
               if !xcp_done.to_s.match(/#{xcp_rel}/)
                 model_info = line.split(/ #{xcp_year} /)[1]
