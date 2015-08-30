@@ -1,0 +1,322 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 118980-04
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: mat3300n st330000l st3300007lc 300gb disk firmware scsi
+Synopsis: Hardware 300GB SCSI Disk Drive Patch : Download program and SCSI Disk Drive firmware
+Date: May/16/2007
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: 300GB SCSI disks
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+Note:
+   Fujitsu Model - MAT3300N
+                1. Fix Command Timeout Bug.
+   Seagate Model - ST330000L 
+                1. initial firmware release to patch.
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	download
+	download32
+	download64
+	patchinfo
+        MAT3300N.1703.fw
+        README.118980-04 
+        ST330000L.065A.fw
+        mdload
+        mload
+.download
+
+Problem Description:
+
+This Patch is a SCSI Patch for all 300GB SCSI Drives.
+ 
+The  patch has the following bug fixes :
+ 
+no bug id	
+ 
+Previous History:
+ 
+Installation Instructions:
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. The system MUST BE IDLE during the download process!  No other
+   programs should be running while using this utility is being
+   used.  Failure to do so may cause the devices being upgraded
+   to fail or the system to crash.
+ 
+   Volume managers such as Veritas, SDS, Arraymon, and Vold must
+   be idle and any disks unconfigured.  Note, due to an open/close
+   accounting bug (see bug 4129295) in sd and ssd drivers, you must
+   reboot the system after unconfiguring any disks used by them.
+   This accounting bug prevents the upgrade utility from acquiring
+   sole ownnership of the disk so it will not be eligible for upgrade.
+   Note, Arraymon will be disabled during download startup and enabled
+   on exit.
+ 
+   Any other computers sharing the same I/O bus as the host system
+   must be either disconnected or offline to prevent possible
+   disruption of the firmware download process.
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.log" or "/var/tmp/download.log", "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+3. This package will only upgrade the identified Sun disks.
+ 
+4. If the High Availability kernel device polling is running, it will
+   be disabled.  It will not be re-enabled.
+ 
+5. If using Veritas, "deport" the volume to release the volume from
+   Veritas control.  Do not "remove" the volume as this will erase
+   the data stored on the Volume.
+ 
+6. Follow the instructions given below.  You may program one drive,
+   a range of drives, or all drives at once with this tool.
+ 
+ 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ This Patch has two disk drive Firmware Installer Utilities.
+ 
+ 1. This patch includes firmware installing utility (mload) that
+ is required for installing drive firmware in SE3310 RAID enclosures.
+ 2. This patch includes firmware downloading utility (download)
+ that will upgrade or download code to drives in JBOD and certain
+ environments. These are the A1000, A3000 and A3500.
+ 
+ This script(s) are intended for use on Solaris host  systems only.
+ 
+***********************************************************************
+ 
+ To install the contents of this patch see the pertinent section below.
+ 
+ Sections Index
+ A. SE3310 System Installation Instructions
+ B. JBOD and Non-SE33xx RAID Systems Installation Instructions
+ 
+ 
+*****************************************************************************
+*****************************************************************************
+ 
+A. ******************SE3310 System Installation Instructions ***************
+ 
+  Note: For JBOD or Non-33xx Raid System Installation Instructions go to Section B.
+ 
+   An Ethernet connection for the StorEdge
+   3310, or two connections if dual controllers are installed, with an
+   IP address assigned, allowing the user to connect to the array via
+   telnet, or a serial connection supporting a tip(1) connection to the
+   array.  Two network connections are required for dual-controller
+   configurations.  Refer to the Sun StorEdge 3000 Family Installation,
+   Operation, and Service Manual for the Sun StorEdge 3310 SCSI Array,
+   section 5.4.1 for procedures to connect to the array via tip.  Refer
+   to the Sun StorEdge 3000 Family Installation, Operation, and Service
+   Manual for the Sun StorEdge 3310 SCSI Array, Appendix B, section B.2
+   for procedures to connect to the array via telnet.
+ 
+ 
+Unpack the patch into any convenient directory such as /var/tmp, and refer
+to the Special Install Instructions below.
+
+Special Install Instructions:
+-----------------------------
+ 
+*** Warning *** Warning *** Warning *** Warning *** Warning ***
+ 
+This firmware upgrade procedure will prevent StorEdge 3310 arrays from
+servicing normal I/O requests for three to five minutes.  For this
+reason, all StorEdge 3310 logical disks should be unmounted from any
+Solaris hosts connected to the array for the duration of the install
+procedure.
+ 
+1.FTP the .tar file to the machine used to monitor the system.
+2.Then rlogin to the machine used to monitor the system.
+3.Enter the command &gt;tar -xvf 118980-04.tar
+4.cd  118980-04
+5.Stop I/O to the StorEdge 3310 array.
+ 
+6.  Determine the current controller firmware using the firmware
+    application menu.  Choose "View System Information".  If the
+    firmware version reported is 3.27Q or later, this patch will work.
+ 
+ 
+7.  Make certain to quiesce the SCSI bus to the minnow.
+ 
+8.  Open a terminal window on the host that will be used to download the
+    firmware.  Change your working directory, if necessary, to the
+    directory in which the patch was unpacked and confirm that the
+    DK32EJ72N.PQ0C.fw  file is present using the "ls" command.
+ 
+9.  Type "./mload"
+  at the command prompt. 
+  mload will respond with:
+ 
+Please Enter HOSTNAME OR 
+IP ADDRESS Of SE 3xxx for upgrade: 
+ 
+Enter the name or the IP Address of your System and Return.
+ 
+10. To determine what type of disk drives you have, at the prompt type:
+ 
+		mdload&gt; show disks
+ 
+You will get a response that looks something like this:
+ 
+Ch  Id      Size   Speed  LD     Status   IDs                      Rev  
+------------------------------------------------------------------------
+ 0   0  280.97GB   160MB  NONE   NEW      SEAGATE MAT3300NSUN300G  0602 
+                                              S/N 3CD0N79N00007113
+ 0   1  280.97GB   160MB  NONE   NEW      SEAGATE MAT3300NSUN300G  0602 
+                                              S/N 3FP007XQ00002137
+ 0   2  280.97GB   160MB  NONE   NEW      SEAGATE MAT3300NSUN300G  0602 
+                                              S/N 3JA037EK00007304
+ 0   3  280.97GB   160MB  NONE   NEW      FUJITSU MAT3300NSUN300G  0602 
+                                              S/N UPL0P27004UD
+ 0   4  280.97GB   160MB  NONE   FRMT     FUJITSU MAT3300NSUN300G  0602 
+                                              S/N A001P34005S3
+ 0   5  280.97GB   160MB  NONE   NEW      HITACHI MAT3300NSUN300G  0602 
+                                              S/N 00X03428    
+ 0   8  280.97GB   160MB  NONE   NEW      FUJITSU MAT3300NSUN300G  0602 
+                                              S/N A001P34007R8
+ 0   9  280.97GB   160MB  NONE   NEW      FUJITSU MAT3300NSUN300G  0602 
+                                              S/N A001P34007T8
+ 0  10  280.97GB   160MB  NONE   NEW      FUJITSU MAT3300NSUN300G  0602 
+                                              S/N A001P34007YV
+ 0  11  280.97GB   160MB  NONE   NEW      FUJITSU MAT3300NSUN300G  0602 
+                                              S/N A001P34007SN
+ 0  12  280.97GB   160MB  NONE   NEW      FUJITSU MAT3300NSUN300G  0602 
+                                              S/N A001P340068U
+ 0  13  280.97GB   160MB  NONE   NEW      FUJITSU MAT3300NSUN300G  0602 
+                                              S/N A001P340069U
+ 0  13  280.97GB   160MB  NONE   NEW      SEAGATE ST330000LSUN300G 065A
+                                              S/N A001P3400xxU
+ 
+ 
+11.  Download new firmware to all disks at the same time by typing
+     the following command at the prompt:
+ 
+mdload&gt; download disk-firmware MAT3300N.1703.fw "MAT3300NSUN300G" 
+ 
+and then wait 4-5 minutes until the prompt appears again.
+ 
+mdload&gt; download disk-firmware ST330000L.065A.fw "ST330000LSUN300G" 
+ 
+and then wait 4-5 minutes until the prompt appears again.
+ 
+ The output of a download command looks something like this:
+"mdload&gt; download disk-firmware MAT3300N.1703.fw "MAT3300NSUN300G"
+      WARNING: This is a potentially dangerous operation.
+      The controller will go offline for several minutes.
+      Data loss may occur if the controller is currently in use.
+      Are you sure? y
+      mdload: controller is shut down and ready for disk
+      firmware download
+      mdload: Sending disk firmware data.....................
+      mdload: flashing firmware data, please wait...
+ 
+      Download Status Report
+      - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      Disk Firmware download completed  (CH 0 ID 0)
+      Disk Firmware download completed  (CH 0 ID 1)
+      Disk Firmware download completed  (CH 0 ID 2)
+      Disk Firmware download completed  (CH 0 ID 3)
+      Disk Firmware download completed  (CH 0 ID 4)
+      Disk Firmware download completed  (CH 0 ID 5)
+      Disk Firmware download completed  (CH 0 ID 8)
+      Disk Firmware download completed  (CH 0 ID 9)
+      Disk Firmware download completed  (CH 0 ID 10)
+      Disk Firmware download completed  (CH 0 ID 11)
+      Disk Firmware download completed  (CH 0 ID 12)
+      Disk Firmware download completed  (CH 0 ID 13)
+      Disk Firmware download completed  (CH 2 ID 0)
+      Disk Firmware download completed  (CH 2 ID 1)
+      Disk Firmware download completed  (CH 2 ID 2)
+      Disk Firmware download completed  (CH 2 ID 3)
+      Disk Firmware download completed  (CH 2 ID 4)
+      Disk Firmware download completed  (CH 2 ID 5)
+      Disk Firmware download completed  (CH 2 ID 8)
+      Disk Firmware download completed  (CH 2 ID 9)
+      Disk Firmware download completed  (CH 2 ID 10)
+      Disk Firmware download completed  (CH 2 ID 11)
+      Disk Firmware download completed  (CH 2 ID 12)
+      Disk Firmware download completed  (CH 2 ID 13)
+      - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      mdload: Resetting controller...Done
+      mdload&gt;
+ 
+If an attempt is made to download an improper code you may get the response:
+"mdload&gt; download disk-firmware ST373453L.0449.fw "ST336704LSUN36G"
+WARNING: This is a potentially dangerous operation.
+The controller will go offline for several minutes.
+Data loss may occur if the controller is currently in use.
+Are you sure? y
+mdload: controller is shut down and ready for disk firmware download
+mdload: Sending disk firmware data.
+CH 0 ID 0 failed to get response (cmd_status 0000 tgt_status 02 sense 05 asc/ascq 26/99):"
+ 
+ 
+12.  Verify the latest disk firmware is downloaded by choosing the
+"show disks" command to view the DISK drive's firmware revision.
+ 
+ 
+ 
+ 
+*****************************************************************************
+*****************************************************************************
+ 
+B.******* JBOD and Non-SE33xx RAID System Installation Instructions *********
+
+README -- Last modified date:  Friday, April 1, 2011
+
+</pre></body></html>

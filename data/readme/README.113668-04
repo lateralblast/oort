@@ -1,0 +1,124 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 113668-04
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: st318304fc st336704fc st173404fc 18gb 36gb 72gb disk firmware fc-al
+Synopsis: Hardware, FC-AL Disks: Download program and FC-AL Disk Drive firmware
+Date: Dec/01/2003
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8
+
+SunOS Release: 5.5.1 5.6 5.7 5.8
+
+Unbundled Product: Segate Cheetah4-family FC-AL disks
+
+Unbundled Release: N/A
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4927396
+
+Changes incorporated in this version: 4927396
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+NOTE:        Solaris 2.5.1   103640-32 or higher
+	       		     2.6     105568-16 or higher
+                             105580-08 or higher  (for Ultra-30/60)
+                     7       106980-10 or higher
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	S318304_AE26
+	ST336704F.1526.fw 
+	download
+	download64 
+    .download
+    S173404_AE26
+    S336704_AE26
+    download32 
+    patchinfo
+ST318304F.1526.fw
+
+Problem Description:
+
+This patch corrects a code issue with 112(x)/AA2(x) fw that caused the first command to be 
+processed in the drive with queue depth = 0 to take too long to process. This would slow
+down I/O performance up to 3 times in some applications.
+ 
+This patch is designed to download a special firmware for Seagate Cheetah4 FC-AL Drives.
+This new firmware enables the Cheetah4 FC-AL Drive to exercise the flashROM and SRAM 
+devices within the drive to prevent possible damage due to excessive periods of inactivity. 
+The firmware also provides the ability to determine the flashROM vendor (requires an 
+external, host-based utility included with this patch). This patch also contains utilities
+which will "exercise" disk drives attached to the target host (also known as a "healthcheck")
+and which will automatically download the new firmware to only the selected drives.
+ 
+Code Change List:
+ 
+1. Reduces command response time when queue depth = 0.
+ 
+2. Changes time when drive idle exercize routine is invoked from 16ms to 100 ms.
+ 
+3. Does not invoke drive idle exercise routine at all if Atmel FlashROM not installed.
+ 
+The  patch has the following bug fixes :
+ 
+Previous History:
+The previous Patches for the drives which are incorporated into this patch are as follows:
+ 
+for FCAL drives with Spud bracket:
+ 
+Drive Model#	Patch #		       FWCode  	Previous FWs	
+ST318304FC	    109962-10	       1126		0726	 
+ST336704FC      109962-10	       1126		0726	
+ 
+for FCAL drives with T3 Sled:
+ 
+Drive Model#	Patch #		       FWCode  	Previous FWs	
+ST318304FC      109115-11 for T3    AA26    A726
+				112276-02 for T3+	
+ST336704FC		109115-11 for T3    AA26    A726
+				112276-02 for T3+
+ST373405FC		109115-11 for T3    AA27    A727
+				112276-02 for T3+
+
+Patch Installation Instructions:
+------------------------------
+ 
+see file: INSTALLATION_INSTRUCTIONS
+
+Special Install Instructions:
+----------------------------
+ 
+None.
+ 
+README -- Last modified date:  Tuesday, April 15, 2003
+
+README -- Last modified date:  Thursday, March 31, 2011
+
+</pre></body></html>

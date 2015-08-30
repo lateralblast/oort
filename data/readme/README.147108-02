@@ -1,0 +1,169 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 147108-02
+
+NOTE:
+***********************************************************************
+Your use of the firmware, software and any other materials contained 
+in this update is subject to My Oracle Support Terms of Use, which 
+may be viewed at https://support.oracle.com.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: st330055l st314655l st314a55l st373455l st373a55l 72gb disk firmware scsi sas
+Synopsis: Hardware 15k5 SCSI Disk Drive Patch : Download program and SCSI Disk Drive firmware
+Date: Dec/13/2012
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: 15k5 SCSI disks
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 6961602 6978258 ID Long WWN dither fix fix. reliability term unique
+
+Changes incorporated in this version: 
+Note:
+- Seagate's analysis on the field returned drives showed that the drive
+dither operation was not functioning properly. During the write
+operation to save the log pages to the system zone the operation was
+being completed without disabling the pre-heat or seeking away from
+the system zone. 
+- The early 15K5 SCSI drives were not assigned a WWN and when these
+drives get updated to FW 0692, mode page 83 WWN would show that there
+is a WWN but is default to zeros "000000000". This caused the drives that
+initially without a WWN not to have a unique WWN.   FW 0892 has the fix
+that would set the bits on page 83 on these early drives to show that the drive
+does not have a WWN and remove the zeros.  The system then will use the
+drive SN to create a unique WWN.  Drives with an assigned WWN will
+not get changed. 
+- D240 specific 15K5 SCSI drive FW is updated from A692 to A792
+This D240 f/w only has the dither /STIR fix 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	.download
+	README.147108-01 
+	ST314655L.0892.fw
+	ST314A55L.A792.fw
+	ST373455L.0892.fw
+	ST373A55L.A792.fw 
+	download
+	download32
+	download64
+	patchinfo
+ST330055L.0892.fw
+
+Problem Description:
+
+This Patch is a SCSI Patch for all 15k5 SCSI Drives.
+ 
+The  patch has the following bug fixes :
+ 
+no bug id	
+ 
+Previous History:
+ 
+Installation Instructions:
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. The system MUST BE IDLE during the download process!  No other
+   programs should be running while using this utility is being
+   used.  Failure to do so may cause the devices being upgraded
+   to fail or the system to crash.
+ 
+   Volume managers such as Veritas, SDS, Arraymon, and Vold must
+   be idle and any disks unconfigured.  Note, due to an open/close
+   accounting bug (see bug 4129295) in sd and ssd drivers, you must
+   reboot the system after unconfiguring any disks used by them.
+   This accounting bug prevents the upgrade utility from acquiring
+   sole ownnership of the disk so it will not be eligible for upgrade.
+   Note, Arraymon will be disabled during download startup and enabled
+   on exit.
+ 
+   Any other computers sharing the same I/O bus as the host system
+   must be either disconnected or offline to prevent possible
+   disruption of the firmware download process.
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.log" or "/var/tmp/download.log", "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+3. This package will only upgrade the identified Sun disks.
+ 
+4. If the High Availability kernel device polling is running, it will
+   be disabled.  It will not be re-enabled.
+ 
+5. If using Veritas, "deport" the volume to release the volume from
+   Veritas control.  Do not "remove" the volume as this will erase
+   the data stored on the Volume.
+ 
+6. Follow the instructions given below.  You may program one drive,
+   a range of drives, or all drives at once with this tool.
+ 
+ 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ This Patch has one disk drive Firmware Installer Utilities.
+ 
+ 1. This patch includes firmware downloading utility (download)
+ that will upgrade or download code to drives in JBOD and certain
+ environments. These are the A1000, A3000 and A3500.
+ 
+ This script(s) are intended for use on Solaris host  systems only.
+ 
+***********************************************************************
+ 
+ To install the contents of this patch see the pertinent section below.
+ 
+ Sections Index
+ A. JBOD and Non-SE33xx RAID Systems Installation Instructions
+ 
+ 
+*****************************************************************************
+*****************************************************************************
+ 
+A.******* JBOD System Installation Instructions *********
+
+Special Install Instructions:
+--------------------------------
+ 
+None.
+
+README -- Last modified date:  Sunday, February 10, 2013
+
+</pre></body></html>

@@ -1,0 +1,194 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 108673-02
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: netra t1 system prom update
+Synopsis: Hardware/PROM: Netra t1 System PROM Update
+Date: Aug/07/2000
+
+
+Install Requirements: NA                      
+                      
+Solaris Release: 2.6 7
+
+SunOS Release: 5.6 5.7
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: Netra t1 System PROM 1.0
+
+Xref: 
+
+Topic: Netra t1 System PROM Update
+
+Relevant Architectures: sparc
+	          NOTE: sun4u Netra t1 only
+
+
+BugId's fixed with this patch: 4281560 4300091 4301751 4357307
+
+Changes incorporated in this version: 4357307
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+
+Problem Description:
+
+4281560	 Set-Defaults in obp disbles 2nd HME interface
+4300091	 Can''t boot from internal cdrom
+4301751	 Netra t1; local-mac-address? doesn''t take effect with Solaris 2.6
+4357307	 Require SDRAM memory support
+
+Patch Installation Instructions:
+--------------------------------
+Copy the script provided with this patch, 
+Update.to.nordica.3.10.27.fcs+nvinit-.di@OS, to the 
+system to be upgraded. Log onto that system as root and run the script. You
+will see the following output:
+ **************************************************
+ *   Running Update.to.nordica.3.10.27+nvinit.di.Test@OS
+ *   Generated Wed Dec 10 13:06:41 PST 1997
+ **************************************************
+ WARNING: This Program will write a new PROM image.
+          Are you sure you want to do this?
+ Enter ''C'' to Continue installation or ''T'' to Terminate
+ C
+ Stripping bundled file: done
+ Decoding and untaring: done
+ Verifying checksums: done
+ Installing flashprom driver file: done
+ WARNING:  Updating Flash PROM with new system firmware in progress...
+           It may take a few minutes.
+  ******   DO NOT INTERRUPT OR POWER-DOWN THE SYSTEM   *******
+ Updating SPARCengine(tm)Ultra(tm) CP 1500  PROM
+ 1 Erasing ... Done.
+ 1 Verifying Erase ... Done.
+ 1 Programming ... Done.
+ 1 Verifying Program ... Done.
+ ***** Update.to.nordica.3.10.27+nvinit.di.Test@OS Completed Successfully
+ ****************************************************************
+ *   NOTE: updated Firmware takes effect after next reboot or   *
+ *   Power cycle of the system.                                 *
+ *   If there is any configuration support to become effective, *
+ *   you have to use -r with your boot command                  *
+ ****************************************************************
+Then reboot your system.
+This image will replace the whole of the current system PROM image with the imag
+e
+provided as part of the script. Do not run this script if you have added 
+custom dropins to your system PROM.
+
+Special Install Instructions:
+-----------------------------
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+*  PLEASE READ THE INSTRUCTIONS CAREFULLY AND ENTIRELY.  PLEASE FOLLOW THE
+   INSTRUCTIONS EXACTLY AS THEY ARE STATED.
+*  FAILURE TO FOLLOW INSTRUCTIONS COULD EITHER RESULT IN A DEFECTIVE BOARD OR
+   UNSUCCESSFUL FLASH PROM UPDATE.
+*  THIS IS NOT A STANDARD PATCH in that it does not use the installpatch
+   and backoutpatch scripts.
+*  THIS PATCH CANNOT BE INSTALLED ON AN ONLINE OPERATING SYSTEM BECAUSE
+   THE INSTALL INSTRUCTIONS REQUIRES THAT THE SYSTEM BE BROUGHT DOWN.
+   BE SURE TO SCHEDULE DOWN TIME TO INSTALL THIS PATCH.
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+**************************************************************************
+**************************************************************************
+========================================================================
+  Bug Fixes and Feature list added since 3.10.24.FCS
+========================================================================
+ 1. Added Japanese to the cycle of languages for the PS/2 keyboard.
+    NOTE : We are working on adding additional languages in the driver.
+    Those will be in the future releases.
+ 2. Put back fix in ATI 3D rage pro code.This is to fix the problem
+    in SunVTS test, add set-dimensions and support words. Bug id
+    4275948 opened against topdog. 
+ 3. Add "resolution-handshake" property for m64 graphics card drivers
+    to use in combination with set-dimensions to keep in sync with OS
+    resolution. Bug id 4268670 opened against topdog.
+ 4. Mac Address Fix put in the main source. Now both the network
+    interfaces will be assigned unique and successive addresses
+    based on System mac address irrespective of whether it is
+    EVEN or ODD. 
+    How to test : 
+    - Get a pair of serial eeproms that are used on Nordica,
+      one programmed with ODD mac address and other with EVEN
+      mac address.
+    - Plug each of them on Nordica systems and verify that
+      each of the network interfaces are assigned unique mac
+      address. This can be verified by looking into the 
+      properties of network device nodes.
+    NOTE : It is the sole responsibility of the Operations to send out
+    each system with a set of two mac addresses such that there
+    is no conflict in Mac addreses between different systems.
+ 5. A code fix has been put in the IDE cdrom obp driver. This 
+    fix was obtained from one of the customer. They had some
+    time out issue with the cdrom interface on the
+    secondary PCI bus. This fix has been tested by them on several 
+    systems with various cds (bootable/non-bootable/audio/none)
+    and it works in all situations. There is one issue with it 
+    though. If there is no cd or an audio/damaged cd it will take
+    20 seconds for boot cdrom to fail.If this delay becomes a issue,
+    it can be solved with the help of a nvramrc patch or, a dropin.
+    Please test the CDROM interface.
+ 6. DHCP protocol support added for network install of Solaris.
+    Note that DHCP works with the Solaris 2.8 Install server only.
+ 7. Fix for Bug Id 4330294.
+       Detail : tty BREAK character  does not work consistently.
+ 8. Code fix for "tpe-link-test?" w.r.t the Lucent Phy Lu6612. 
+    This Phy chip is used on nordica-red as against National 
+    Phy on nordica board. This fix was requested by one of the 
+    OEM clients. On some networks it is needed that "tpe-link-test?"
+    be set to false, so that the board does not do a link pulse test.
+ 9. SDRAM memory module support :
+    The obp has support for SDRAM memory modules. The production version
+    of SDRAM modules will be available much later. We may have
+    SDRAM proto types in Operations, please get them and test 
+    on Nordica-red/Nordica.
+ 10.Post fix for TI PCI bridge :
+    There is a post bug fix for TI PCI bridge that are going to 
+    be used interchangably in place of current Dec21150 bridge 
+    chip on Nordica boards. Please get hold of board with TI bridge
+    and verify POST in max mode.
+ 11. Post "menus" mode fix :
+     The "menus" mode of "diag-level" in post is not a supported
+     mode. In post1.17, diag-level = menus, defaults to "max" mode
+     of operation.
+ 12. 2 ms delay added in the PCI reset of secondary bus to make the
+     reset pulse width conform to PCI spec 2.1. This is internal to
+     OBP.
+ 13. Based on  certain customer reports, there was anomaly found 
+     in the way obp goes about initializing the latency timer 
+     register for the PCI bus master device. After few rounds of
+     discussion, it was decided that, this should be done at the
+     Solaris level.
+     To bring about this change, obp code is modified a bit . 
+     The creation of "latency-timer" property under the bus master
+     nodes has been removed. This enables Solaris to re-initialize
+     the latency timer registers for all the PCI bus master devices.
+        ----------- *** ---------- *** --------------
+
+README -- Last modified date:  Saturday, March 26, 2011
+
+</pre></body></html>

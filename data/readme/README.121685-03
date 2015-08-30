@@ -1,0 +1,93 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 121685-03
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire v440 netra 440
+Synopsis: Hardware/PROM: Sun Fire V440 and Netra 440 Flash PROM Update
+Date: Jul/27/2007
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.22.33, POST 4.22.33, OBDIAG 4.22.33
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sun fire v440, netra 440
+
+BugId's fixed with this patch: 5079227 6181985 6230541 6244643 6276146 6313800 6322957 6329044 6345861 6346222 6347455 6352086 6381115 6381385 6392742 6406142 6422909 6423788 6448085 6455202 6480389 6546593 6550351
+
+Changes incorporated in this version: 6550351 6546593 6480389 6455202 6422909 6244643 6181985 5079227
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunFire440
+unix.flash-update.SunFire440.sh
+
+Problem Description:
+
+6550351 Issuing a boot to the cdrom device hangs the system if no cdrom is installed.
+6546593 WANboot should not reflect packets
+6480389 "ERROR: /memory: CPU1 Bank 0 DIMMs are from different vendors"
+6455202 "supported-network-types" on BGE will breaks with 1000Mbps settings
+6422909 When first power on and at OBP level the wrong characters appear on screen...
+6244643 Need to modify initialization time of 2X Slimline DVD-R/-RW drive to much lesser time
+6181985 local-mac-address of bge interface is seen on pci card when net NVALIAS is duplicated
+5079227 This, ")" in between "Copyright" and "2004", is not in the right place.
+ 
+(From 121685-02)
+ 
+6448085 post fire2.1 support
+6313800 OBP should read and print the 'test release' flag while printing H8 firmware version
+ 
+(From 121685-01)
+ 
+6423788 Broadcom 57xx fcode driver support for IPMI/ASF firmware
+6406142 PCI bridge code handles IO limit = 0 incorrectly
+6392742 Netra 440 OBP should support Serrano and Jalapeno CPUs dynamically
+6381385 Upgrade LSI 1064 FCode to 1.00.39
+6381115 mixed speed memory will not interleave in enchilada system
+6352086	Possible failures in the Initialize I2C Controller test
+6347455 reg property in broadcom 5704, 5714, and 5715 does not match assigned-addresses property
+6346222 Data access error from broadcom fcode when given unrecognized device arguments
+6345861 Exception taken while probing results in a dictionary overflow/hang rather than ok prompt
+6329044 Post failed an IO bridge test, howerver, show-post-results printout is passed
+6322957 wrong POST and OBDiag version printed out at ok prompt
+6276146 Instance data is uninitialized at the time an instance is created 
+6230541 ERROR: Timeout on 0 waiting for resource type 2. after a ctrl-c when memory is being initialized
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+ 
+                &gt;&gt;&gt; END &lt;&lt;&lt;
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Friday, July 27, 2007
+
+</pre></body></html>

@@ -1,0 +1,465 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 119236-01
+Keywords: sun blade 1500
+Synopsis: Hardware/PROM: Sun Blade 1500 (non Silver) Flash PROM Update
+Date: Apr/29/2005
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.17.1,POST 4.17.1,OBDIAG 4.17.1
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sun blade 1500
+
+BugId's fixed with this patch: 5059929 5062018 5071186 5076244 5099420 5102714 5102715 5103544 5103833 5104494 5105537 5106365 5110143 6180585 6185010 6189110 6191222 6198247 6201932 6206112 6207902 6216781 6217930 6220285 6220303 6231224 6235884 6246407 6246421 6247508 6247511
+
+Changes incorporated in this version: 5062018 5071186 5076244 5099420 5102714 
+5102715 5103544 5103833 5104494 
+5105537 5106365 5110143 6180585 
+6185010 6189110 6191222 6198247 
+6201932 6206112 6207902 6216781 
+6217930 6220285 6220303 6231224 
+6235884 6246407 6246421 6247508 
+6247511
+
+Patches accumulated and obsoleted by this patch: 116698-03
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+                                README.119236-01, copyright, 817-6957-10.pdf
+                                flash-update-SunBlade1500-old,
+                                unix.flash-update.README,
+                                unix.flash-update.SunBlade1500.sh,
+flash-update-SunBlade1500-latest
+
+Problem Description:
+
+5062018 panic or fatal reset during resume
+5071186 Serial console doesn't work after reset-all.
+5076244 Misleading response msg to asr-enable cmd when a device is disabled by FWDIAGS
+5099420 Add new JP3.x EnXS MB Part Numbers to Unix flash-update utility
+5102714 OBP .version command leaves 2 items on stack
+5102715 USB keyboard FCode uses endpoint max packet incorrectly
+5103544 Remove "diag-out-console" openboot variable name in Taco/Taco+
+5103833 OBDiag revisions are reported incorrectly by .version command
+5104494 Add new Chalupa+ Mb part numbers to Unix flash-update utility
+5105537 Performance degradation in V440 jp3.x with SPECcpu2000
+5106365 network download performance on ce is slow
+5110143 Nvram var diag-script cannot be set to sys-ext for Taco+/EnWS+
+6180585 .SILENT in makefile is messed up
+6185010 depend files need to be updated
+6189110 Change Taco+/EnWS+ obp banner and root names
+6191222 Change Taco+/EnWS+ obp root and banner names
+6198247 Add retrofit JP2.x EnXS MB Part Numbers to Unix flash-update tool
+6201932 FATAL: no exception frames available, forcing misaligned trap on reboot/power-cycles
+6206112 obp 4.16.1 fails DVD test without DVD is installed
+6207902 stand-init interact breaks boot
+6216781 Failed boot with Missing cmn-xxx[ error and Out of memory then FATAL: no exception frames available
+6217930 V240 - FATAL: no exception frames available, forcing misaligned trap
+6220285 Enws Enws_plus Taco Taco_Plus Banner Copyright need to be updated to year 2005 on 4.17.0_b6
+6220303 ENWS banner included "Sun Fire V250" that need to be removed.
+6231224 system hang up when enter ":c" to leave kadb prompt and get back into UNIX mode.
+6235884 "NESTED ERRORs, going interactive forcing misaligned trap" seen after probing devices
+6246407 TFTP boot on WANboot capable proms hangs if duplicate TFTP data blocks are received
+6246421 Limit number of TFTP timeout messages during boot
+6247508 system-tick-speed and the alarm interval need to be updated to correct value
+6247511 support reentrancy in the memory list management
+
+Patch Installation Instructions:
+==============================
+ 
+ 
+Intro
+-----
+ 
+    This README is intended for users who wish to upgrade the firmware
+    in their Sun Blade 1500.  
+ 
+ 
+Summary of the Patch Installation Process:
+------------------------------------------
+ 
+The installation shall comprise of the following steps
+ 
+1)  Determine the system's current Flash PROM firmware revision.
+ 
+2)  Compare the current Flash PROM firmware revision with the available or 
+    latest Flash PROM firmware revisions.
+ 
+3)  If the current Flash PROM firmware revision is lower than the latest
+    available firmware revision in this patch, then proceed to the next step. 
+    If NOT, STOP: DO NOT CONTINUE.
+ 
+4)  Prepare the system for the Flash PROM update
+ 
+5)  Running the Flash PROM Utility
+ 
+6)  Verifying successful Flash PROM Update
+ 
+7)  Restoring the system
+ 
+8)  Resume operations
+ 
+ 
+Patch Installation instructions (in detail):
+============================================
+ 
+The required steps are explained in greater detail below.
+ 
+1)  Determine the System's Current Firmware Revisions
+    -------------------------------------------------
+ 
+    While the OS is running the following command may be used to
+    determine the current system firmware revisions;
+ 
+        /usr/sbin/prtconf -V
+        or
+	/usr/platform/sun4u/sbin/prtdiag -v | grep OBP
+ 
+    The firmware revisions may also be determined from the PROM monitor's
+    "ok" prompt with the following command;
+ 
+	.version
+ 
+2)  Compare the current Flash PROM firmware revision with the available or 
+    latest Flash PROM firmware revisions.
+ 
+    Compare the output of the OBP line in the "prtdiag -v" or "prtconf -V"
+    output. Find the revision number and compare with the revision on the
+    entries below that of the "flash-update-SunBlade1500-latest" line
+ 
+      Available Firmware Revisions
+      ----------------------------
+flash-update-SunBlade1500-latest:
+	OBP 4.17.1 2005/04/11 14:26 Sun Blade 1500
+	 Sun Blade[TM] 1500 POST 4.17.1 2005/04/11 14:44 
+	OBDIAG 4.17.1 2005/04/11 14:36  
+ 
+flash-update-SunBlade1500-old:
+	OBP 4.16.4 2004/12/18 05:20 Sun Blade 1500
+	 Sun Blade[TM] 1500 POST 4.16.3 2004/11/05 20:18 
+	OBDIAG 4.16.4 2004/12/18 05:21  
+ 
+3)  Is the UPGRADE NECESSARY?
+ 
+    If the current Flash PROM revision matches the version numbers given under
+    the flash-update-SunBlade1500-latest line, then STOP Here. This UPGRADE IS NOT
+    NECESSARY.
+ 
+    If the current Flash PROM firmware revision is lower than the latest
+    firmware revision in this patch, then proceed to the next step.
+ 
+4) Preparing the System
+   ---------------------
+ 
+  a) As root, copy the latest "flash-update" files from the directory
+     containing the patch to the root directory as follows:
+ 
+     # cp flash*latest  /
+     # chmod 755 /flash-update*
+ 
+     In order to boot the binary, it must be located within the root
+     partition.  If it is not already located within the root partition
+     then move it to /.  If the binary is already located elsewhere 
+     within the root partition then note the exact filepath so that the
+     binary can be booted later.
+ 
+  b) As root, exit the OS such that the system returns to the PROM's "ok"
+     prompt: 
+ 
+     # init 0
+ 
+       ok
+ 
+ c) Jumper J27 is factory-set so that the flash PROM is write-enabled.
+    There is no need to switch the jumper before flash updating.
+ 
+ 
+5)  Running the Flash Update Utility
+    --------------------------------
+ 
+  a) Power on the system
+ 
+     Wait for the PROM's banner to appear, and then
+ 
+  b) Use the Stop-A keys (or Break key, if running from a serial line) to
+     abort the auto-boot sequence.
+ 
+     ** NOTE **  If the flash update completes normally then the values
+     contained within the system's Non-Volatile RAM (NVRAM) configuration
+     variables will be retained.  However, if the update process is some-
+     how interrupted then it is possible that any non-default values
+     contained in NVRAM will be lost.  For this reason it is recommended
+     that you note down on paper the contents of any NVRAM configuration
+     variable which has been customized so that they may be manually
+     restored at a later time, if necessary.  (Use the PROM's "printenv"
+     command to list the variables and their values.)
+ 
+  c) The system should now display the PROM monitor's "ok" prompt.
+     Now boot the Flash update utility as given below:
+ 
+     CAUTION: Do not boot/run revisions lower than the latest unless you
+	      are absolutely sure that that is what you want to do!
+ 
+     ok boot disk /flash-update-SunBlade1500-latest
+ 
+     NOTE: If your system's boot device is not "disk" then you will
+           have to specify the appropriate devalias (e.g. disk2).
+           If the binary is located in a location other than / then
+           provide the entire filepath after the boot device.
+ 
+     Answer the questions as prompted by the utility. 
+ 
+ 
++++++++++++++++++++++ example Flash update follows ++++++++++++++++++++++++
+++++++++ Note that this is an example only.  Much of the information ++++++
+++++++++ which is displayed by your system will be different from    ++++++
+++++++++ what is shown below.                                        ++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+ 
+Standalone Flash PROM Update Utility, Rev. 2.7
+                        Ultra(tm) 1
+                        Ultra(tm) 2
+                        Ultra(tm) 5/10
+                        Ultra(tm) 30
+                        Ultra(tm) 60 / E220R
+                        Ultra(tm) 80 / E420R
+                        Ultra(tm) Enterprise(tm) 250
+                        Ultra(tm) Enterprise(tm) 450
+			Sun Blade(tm) 100
+			Sun Blade(tm) 1000
+			Sun Blade(tm) 1500
+			Sun Fire (tm) 280R
+			Netra(tm) T4 
+			Sun Fire (tm) V880
+			Sun Fire (tm) V440
+ 
+This utility allows you to interactively update the firmware
+revisions in specific system Flash PROM components.
+ 
+Type h for help, q to quit, Return or Enter to continue:
+ 
+Every precaution should be taken to prevent the loss of system
+power during the Flash PROM programming process!
+ 
+Type h for help, q to quit, Return or Enter to continue:
+ 
+ 
+       Firmware Release(s)                Firmware Release(s)
+ Currently Existing in the System      Available for Installation  /  Install?
+---------------------------------- -------------------------------------------
+OBP 4.9.4  2003/05/14 19:13         OBP 4.9.5 2003/09/15 14:00          no
+POST 4.9.1 2003/03/14 20:40         POST 4.9.4 2003/09/16 10:02          no
+ 
+Type sa if you wish to select all available firmware releases for
+installation.  Type h for help, quit to exit, or cont to continue: sa
+ 
+ 
+       Firmware Release(s)                Firmware Release(s)
+ Currently Existing in the System      Available for Installation  /  Install?
+---------------------------------- -------------------------------------------
+OBP 4.9.4  2003/05/14 19:13         OBP 4.9.5 2003/09/15 14:00         YES 
+POST 4.9.1 2003/03/14 20:40         POST 4.9.4 2003/09/16 10:02         YES 
+ 
+Type sa if you wish to select all available firmware releases for
+installation.  Type h for help, quit to exit, or cont to continue: cont
+ 
+ 
+The Flash programming process is about to begin.
+ 
+Type h for help, q to quit, Return or Enter to continue:
+ 
+Erasing the top half of the Flash PROM.
+Programming OBP into the top half of the Flash PROM.
+Verifying OBP in the top half of the Flash PROM.
+ 
+Erasing the bottom half of the Flash PROM.
+Programming OBP into the bottom half of Flash PROM.
+Verifying OBP in the bottom half of the Flash PROM.
+ 
+Erasing the top half of the Flash PROM.
+Programming POST into the top half of Flash PROM.
+Verifying POST in the top half of the Flash PROM.
+ 
+Programming was successful.
+ 
+Resetting ...
+ 
+ 
++++++++++++++++++++++ example Flash update ends ++++++++++++++++++++++++++
+ 
+  Once the PROM's banner reappears then use the Stop-A keys (or Break
+  key, if running from a serial line) to abort the auto-boot sequence
+  if the system begins to boot.
+ 
+6)  Verifying successful Flash PROM Update
+ 
+    Verify from the results of the .version command that the OBP
+    version matches the OBP version given above under the
+    flash-update-SunBlade1500-latest entry in Step 2.
+ 
+7)  Resume operations
+ 
+    a) Allow the system to auto-boot, or issue the boot command for your
+       environment as necessary.
+ 
+    b) Once the system has rebooted you may wish to remove the Flash Update
+       binaries and documents since they will no longer be needed.
+ 
+       # rm /flash-update*
+ 
+    c) Remember to remove the files from their original location if
+       they were not extracted directly into the root directory.
+ 
+ 
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+Special Install Instructions:
+----------------------------- 
+ 
+  NOTE 1: If you have the frame buffer Raptor GFXP -04 REV 50
+          (part 370-3753-04), you *must* install patch 110126-03 to
+          upgrade the FCode in the card **BEFORE** you can do the
+          firmware update. Revisions -05 and up of the frame buffer
+          are not affected.
+ 
+          Failure to install the frame buffer patch (110126-03)
+          will cause "FATAL" resets after the firmware update.
+ 
+ 
+  NOTE 2: This utility (flash-update) is *not* OS-dependent.  The list of
+          releases shown under the "Solaris Release" and "SunOS Release"
+          are not inclusive  of all the SunOS releases that are compatible.
+          The absence of a valid Solaris Release or SunOS  Release from
+          the lists above does not preclude the installation of this patch
+          against the hardware.
+ 
+  NOTE 3: DIMMs Support
+ 
+          OBP 4.9.4 is only compatible with DIMMs using SPD version 0.0.
+          If you wish to install DIMMs with SPD version 1.x, you must first
+          upgrade your OBP to 4.9.5 or higher, then install the DIMMs.
+ 
+          If you do not upgrade your OBP prior to installing these DIMMs, OBP
+          will beep 3 times and power off.  The following message will be
+          printed to the serial port:
+ 
+          "SPD reports DIMM has unsupported SPD revision
+           System configuration failed, powering off"
+ 
+          For compatible DIMM part numbers, please refer to the Sun Blade 1500
+          Product Notes, or refer to the Special Install Instructions below.
+ 
+  Note 4: Modifications to Diagnostic Operation     
+ 
+          This released version of OpenBoot provides the ability to enable
+          diagnostic execution for all power-on, user reset and error reset
+          events **.  The default values of these configuration variables
+          disable diagnostic execution at power-on, which is the same behavior
+          as the previous OpenBoot patch.
+ 
+          **To implement this new policy, behavioral changes to diagnostic
+          controls were made to simplify the enabling of diagnostics and
+          controlling the level and verbosity of diagnostics.
+ 
+          A new feature includes a Sun-prescribed mode of diagnostic execution,
+          which overrides user-defined settings.  This mode provides service
+          personnel with an easy method by which to invoke a predictable
+          execution of diagnostics.
+ 
+          Enabling diagnostic execution at power-on will increase system boot
+          time ( measured from power-on to the 'ok&gt;' prompt ) and messaging
+          ( varies by system configuration ) for all 'power-on-reset' and OBP
+          detected 'error-reset' events. Increased boot time and messaging is
+          largely due to the execution of diagnostics.
+ 
+          Automated System Recovery (ASR), a form of restoration, is implemented
+          at the firmware layer and increases overall system availability when
+          diagnostics are enabled.
+ 
+          For more specific details regarding these OBP changes, reference the
+          pdf document; "OpenBoot[tm] PROM Enhancements for Diagnostic
+          Operation", included within this patch ( part 817-6957, July 2004).
+ 
+  Note 5: WANboot Documentation
+ 
+          Instructions for installing systems over a WAN is provided in
+          Chapters 41-46 of the "Solaris 9 9/04 Installation Guide" from the
+          "Solaris 9 9/04 Release and Installation Collection". This document
+          is accessible at:
+ 
+              http://docs.sun.com/db/doc/817-5768
+ 
+          The quick link to the WANboot specific documentation is:
+ 
+              http://docs.sun.com/db/doc/817-5768/6ml70g5vj?a=view
+ 
+          The list of arguments processed by the WAN boot capable network boot
+          support package is provided in the boot(1M) man page in the "man
+          pages section 1M: System Administration Commands" section of the
+          "Solaris 9 9/04 Reference Manual Collection".
+ 
+          A quick link to this man page is:
+ 
+              http://docs.sun.com/db/doc/817-3937/6mjgeafkc?a=view
+ 
+          Security keys used for WANboot can be installed using the
+          "set-security-key" command at the OBP's command prompt.  Description
+          of usage is provided in the monitor(1M) man page in the "man pages
+          Section 1M: System Administration Commands" section of the (Solaris 9
+          09/04 Reference Manual Collection) 
+ 
+          A quick link to the monitor(1M) man page is:
+ 
+              http://docs.sun.com/db/doc/817-3937/6mjgeafu2?a=view
+ 
+** WARNING **  WARNING **  WARNING **  WARNING **  WARNING **  WARNING **
+ 
+*  PLEASE READ THE INSTRUCTIONS CAREFULLY AND ENTIRELY.  PLEASE FOLLOW THE
+   INSTRUCTIONS EXACTLY AS THEY ARE STATED.
+ 
+*  FAILURE TO FOLLOW INSTRUCTIONS COULD EITHER RESULT IN A DEFECTIVE BOARD OR
+   UNSUCCESSFUL FLASH PROM UPDATE.
+ 
+*  THIS IS NOT A STANDARD PATCH in that it does not use the installpatch
+   and backoutpatch scripts.
+ 
+*  THIS PATCH CANNOT BE INSTALLED ON AN ONLINE OPERATING SYSTEM BECAUSE
+   THE INSTALL INSTRUCTIONS REQUIRES THAT THE SYSTEM BE BROUGHT DOWN.
+   BE SURE TO SCHEDULE DOWN TIME TO INSTALL THIS PATCH.
+ 
+*  Installation of the firmware included with this patch does NOT
+   require any hardware changes if the Flash update completes normally. 
+ 
+*  PLEASE REVIEW NOT ONLY THIS README BUT ALSO ADDITIONAL DOCUMENTATION
+   GIVEN. 
+ 
+   For all hardware platform specific information please reference the 
+   the Hardware Product Notes that are published online at: 
+   http://www.sun.com/products-n-solutions/hardware/docs/Workstation_Products/
+   Workstations/Sun_Blade_Workstations/Sun_Blade_1500/index.html
+ 
+   The Product Notes can also be found via part number 816-7569-xx Sun Blade 1500
+   Product Notes (where xx represents the latest revision of this document).
+ 
+** WARNING **  WARNING **  WARNING **  WARNING **  WARNING **  WARNING **
+
+README -- Last modified date:  Thursday, June 16, 2005
+
+</pre></body></html>

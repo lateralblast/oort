@@ -1,0 +1,86 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 119233-02
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun blade 2500 silver
+Synopsis: Hardware/PROM: Sun Blade 2500 (Silver) Flash PROM Update
+Date: Oct/16/2006
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.17.3,POST 4.17.3,OBDIAG 4.17.3
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 5059929 5062018 5076244 5103833 5110143 6180585 6185010 6189110 6191222 6201932 6220285 6220303 6231224 6235884 6246407 6246421 6247508 6247511 6423038
+
+Changes incorporated in this version: 6423038
+
+Patches accumulated and obsoleted by this patch: 118321-01
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunBlade2500-Silver
+unix.flash-update.SunBlade2500Silver.sh
+
+Problem Description:
+
+6423038 Third party graphics card (Barco)not recognized after Upgrading  OBP 4.9.7  to 4.17.1
+ 
+(From 119233-01)
+ 
+6247511 support reentrancy in the memory list management
+6247508 system-tick-speed and the alarm interval need to be updated to correct value
+6246421 Limit number of TFTP timeout messages during boot
+6246407 TFTP boot on WANboot capable proms hangs if duplicate TFTP data blocks are received
+6235884 "NESTED ERRORs, going interactive forcing misaligned trap" seen after probing devices
+6231224 system hang up when enter ":c" to leave kadb prompt and get back into UNIX mode.
+6220303 ENWS banner included "Sun Fire V250" that need to be removed.
+6220285 Enws Enws_plus Taco Taco_Plus Banner Copyright need to be updated to year 2005 on 4.17.0_b6
+6201932 FATAL: no exception frames available, forcing misaligned trap on reboot/power-cycles
+6191222 Change Taco+/EnWS+ obp root and banner names
+6189110 Change Taco+/EnWS+ obp banner and root names
+6185010 depend files need to be updated
+6180585 .SILENT in makefile is messed up
+5110143 Nvram var diag-script cannot be set to sys-ext for Taco+/EnWS+
+5103833 OBDiag revisions are reported incorrectly by .version command
+5076244 Misleading response msg to asr-enable cmd when a device is disabled by FWDIAGS
+5062018 panic or fatal reset during resume
+5059929 ERROR: Timeout on 0:0 waiting for resource type 16.
+
+Patch Installation Instructions:
+==============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+ 
+                &gt;&gt;&gt; END &lt;&lt;&lt;
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Monday, October 16, 2006
+
+</pre></body></html>

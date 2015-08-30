@@ -1,0 +1,108 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 123483-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: netra t2000 sun system firmware 6.2.4 flashprom update sysfwdownload
+Synopsis: Hardware/PROM: Netra T2000 Sun System Firmware Update
+Date: Sep/18/2006
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 6.2.4
+
+Xref: 
+
+Topic: Netra T2000 Sun System Firmware 6.2.4 flashprom update
+
+Relevant Architectures: sparc
+Note:
+Upgrading to Sun System Firmware 6.2.4 requires Solaris 10 Update 1 to be installed. The system may experience boot or other problems with earlier version of Solaris (S10_HW2).
+
+BugId's fixed with this patch: 6380442 6390526 6400117 6407069 6412550 6415903 6416169 6420886 6427102 6436300 6437802 6438527 6438649 6441889 6442350 6444152 6445593 6446922 6447320 6447326 6448085 6448446 6448548 6449586 6449659 6450065 6450119 6450201 6450605 6450616 6450624 6450715 6451501 6451762 6451938 6452183 6454051 6454648 6456957 6457904
+
+Changes incorporated in this version: 6450616 6450624 6450715 6451501 
+6451762 6451938 6452183 6454051 
+6454648 6456957 6457904
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-6_2_4-Netra_T2000.bin
+sysfwdownload
+
+Problem Description:
+
+6457904 Flashupdate from ShMM doesn't work on Montoya
+6456957 vBSC does not support the disable of the pci leaves
+6454648 Pelton: Alom POST status shows Passed all devices but POST reported ERROR in IO-Bridge test
+6454051 LSI 1064E compatible property does not match Solaris driver aliases file in s10u2
+6452183 Panther 2100 Ecache timing number change.
+6451938 Add POST support for El paso
+6451762 Add Obp El Paso support
+6451501 Diskonchip G4 device driver support.
+6450715:Pelton: Low Ambient temperature thresholds need to be changed
+6450624 Disable NPWR_EN on Seattle
+6450616 Pelton : ASR db path names for PCIX2 and PCIX3 slots are reversed
+6450605 ALOM needs to adjust VBATT threshold lower, batteries being marked failed prematurely
+6450201 DiskOnChip file system corruption on P1 Montoya
+6450119 "ide" devalias on montoya needs to be /pci@780/pci@0/pci@1/pci@0/ide@1f,1
+6450065 Add fire 2.1 hardware revision checking to hypervisor
+6449659 Pelton POST PCI id test output incorrect for PCIX and PCIE slots.
+6449586 Montoya OnBoard Switch MAC Address Settings wrong
+6448548 New MB and CP numbers to support Panther 2100.
+6448446 EAR after DSC should be handled with care
+6448085 post fire2.1 support
+6447326 Remove CPU speed configuration menu
+6447320 Remove OBP flash-update command
+6446922 man-net on HsPCI+ based 15k domain is not valid
+6445593 Extra activities on V245's I2C bus may cause false POST failures
+6444152 Seattle Unix OBP flash update script needs to support new Seattle MB part numbers
+6442350 U45,fails to negotiate w/the DSS-8+ switch and has no network access when init 6 or reset-all
+6441889 OBP needs to support Netra CP3060
+6438649 I2C contention between OBP and ALOM
+6438527 Add Montoya platform support to ALOM-CMT
+6437802 JBI Fatal HV error should not happen when I/O protection is on
+6436300 netconsole gets stuck while running obdiag with base fabric interface
+6427102 flx18074: ERROR: motherboard SEEPROM access failed
+6420886 POST needs to be enhanced to support Montoya platform
+6416169 flx17820: Dimm1 dimm0 devices disabled Fatal error on Jade
+6415903 Add Montoya vBSC platform support
+6412550 Montoya needs OBP slot-names property
+6407069 flx17690: ERROR: no valid memory configuration, System config failed, powering off on Jade
+6400117 cdrw -p24 command does not work correctly on T2000.
+6390526 USB 2.0 Hub gets lost to OBP after Solaris EHCI driver run
+6380442 Seatle_P0.1-2U: FATAL: no exception frames available, forcing misaligned trap (S#S020)
+
+Patch Installation Instructions:
+-----------------------------
+ 
+ 
+Please refer to the Install.info file for instructions on updating
+the firmware flashprom using the files included in this patch.
+
+Special Install Instructions:
+ 
+
+README -- Last modified date:  Monday, September 18, 2006
+
+</pre></body></html>

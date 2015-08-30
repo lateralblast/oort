@@ -1,0 +1,534 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+<title>Patch README: 147311-11</title>
+<style type="text/css"> body {font-family: Arial, Helvetica, sans-serif; font-size: 12px; } h1 {font-size: 16px} table.readmeTable { border-width: 1px; border-color: gray; border-style: solid; border-spacing: 2px; } table.readmeTable th { border-width: 1px; padding: 4px; border-style: inset; border-color: gray; } table.readmeTable td { border-width: 1px; padding: 4px; border-style: inset; border-color: gray; } </style>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
+<meta http-equiv="pragma" content="no-cache">
+</head>
+
+<body>
+<h1><b>Patch-ID# </b><b>147311-11</b></h1><br>
+<a href="https://support.oracle.com/CSP/ui/flash.html#tab=PatchHomePage(page=PatchHomePage&amp;id=gnrgyece()),(page=PatchDetailPage&amp;id=gnrgyece(patchId=147311-11&amp;patchType=Patch&amp;patchName=147311-11))">Download this patch from My Oracle Support</a><br>
+<br>
+<table border="1">
+<tbody><tr>
+   <td><b>
+   Your use of the firmware, software and any other materials contained 
+   in this update is subject to My Oracle Support Terms of Use, which 
+   may be viewed at <a href="https://support.oracle.com">My Oracle Support</a>.
+   </b></td>
+</tr>
+<tr>
+   <td>
+   For further information on patching best practices and resources, please
+   see the following links:
+   <ul>
+   <li> 
+   <a href="http://www.oracle.com/technetwork/systems/patches">
+      Oracle Technology Network Patching Center</a>.
+   </li>
+   <li> 
+   <a href="https://support.oracle.com/CSP/ui/flash.html#tab=KBHome(page=KBHome&amp;id=()),(page=KBNavigator&amp;id=(bmDocID=1289614.1&amp;from=BOOKMARK&amp;bmDocDsrc=KB&amp;viewingMode=1143))">
+      Sun Patches and Updates Information Center</a>.
+   </li>
+   </ul>
+   </td>
+</tr>
+<tr>
+   <td><i>
+   Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
+   </i></td>
+</tr>
+</tbody></table><br>
+<b>Keywords: </b>firmware: sparc enterprise t5440 7.4.9 firmware_metadata security<br>
+<b>Synopsis: </b>FIRMWARE: SPARC Enterprise T5440 - Sun System Firmware 7.4.9<br>
+<b>Date: </b>Aug/17/2015<br>
+<br>
+<br>
+<b>Install Requirements: </b>Additional instructions may be listed below<br>
+<br>
+<b>Solaris Release: </b>10<br>
+<br>
+<b>SunOS Release: </b>5.10<br>
+<br>
+<b>Unbundled Product: </b>Sun System Firmware<br>
+<br>
+<b>Unbundled Release: </b>7.4.9<br>
+<br>
+<b>Xref: </b><br>
+<br>
+<b>Topic: </b>SPARC Enterprise T5440 Sun System Firmware 7.4.9 flashprom update.<br>
+<br>
+<b>Relevant Architectures: </b>sparc<br>
+<br>
+<b>Bugs fixed with this patch: </b><br>
+<br>
+<table class="readmeTable">
+<thead>
+<tr><th>Sun CR #</th>
+<th>Bug #</th>
+</tr></thead>
+<tbody><tr><td>6998751</td><td>15680406</td></tr>
+<tr><td>7010225</td><td>15689859</td></tr>
+<tr><td>7055524</td><td>15722617</td></tr>
+<tr><td>7069713</td><td>15730568</td></tr>
+<tr><td>7072870</td><td>15732176</td></tr>
+<tr><td>7082194</td><td>15737134</td></tr>
+<tr><td>7100258</td><td>15747956</td></tr>
+<tr><td>7133194</td><td>15768541</td></tr>
+<tr><td>7136620</td><td>15769319</td></tr>
+<tr><td>7140999</td><td>15769541</td></tr>
+<tr><td>7148479</td><td>15775115</td></tr>
+<tr><td>7170789</td><td>15793311</td></tr>
+<tr><td>7195797</td><td>15813730</td></tr>
+<tr><td>7197748</td><td>15815409</td></tr>
+<tr><td>7202495</td><td>15820040</td></tr>
+<tr><td>7206959</td><td>15825752</td></tr>
+<tr><td>7207539</td><td>15826621</td></tr>
+<tr><td></td><td>16064298</td></tr>
+<tr><td></td><td>16082082</td></tr>
+<tr><td></td><td>16092880</td></tr>
+<tr><td></td><td>16094917</td></tr>
+<tr><td></td><td>16235933</td></tr>
+<tr><td></td><td>16396649</td></tr>
+<tr><td></td><td>16447062</td></tr>
+<tr><td></td><td>16450696</td></tr>
+<tr><td></td><td>16738856</td></tr>
+<tr><td></td><td>16839239</td></tr>
+<tr><td></td><td>16863221</td></tr>
+<tr><td></td><td>16910658</td></tr>
+<tr><td></td><td>16915020</td></tr>
+<tr><td></td><td>16919552</td></tr>
+<tr><td></td><td>16944446</td></tr>
+<tr><td></td><td>17470333</td></tr>
+<tr><td></td><td>17489082</td></tr>
+<tr><td></td><td>17538264</td></tr>
+<tr><td></td><td>17593160</td></tr>
+<tr><td></td><td>17731184</td></tr>
+<tr><td></td><td>17874610</td></tr>
+<tr><td></td><td>18029216</td></tr>
+<tr><td></td><td>18133391</td></tr>
+<tr><td></td><td>18249666</td></tr>
+<tr><td></td><td>18483692</td></tr>
+<tr><td></td><td>18714182</td></tr>
+<tr><td></td><td>18718721</td></tr>
+<tr><td></td><td>18905174</td></tr>
+<tr><td></td><td>19452063</td></tr>
+<tr><td></td><td>19696464</td></tr>
+<tr><td></td><td>19715038</td></tr>
+<tr><td></td><td>20427033</td></tr>
+<tr><td></td><td>20441292</td></tr>
+<tr><td></td><td>20695314</td></tr>
+<tr><td></td><td>20739688</td></tr>
+<tr><td></td><td>20804210</td></tr>
+<tr><td></td><td>20823003</td></tr>
+<tr><td></td><td>21202826</td></tr>
+<tr><td>6798125</td><td>15537833</td></tr>
+<tr><td>6807162</td><td>15542992</td></tr>
+<tr><td>6879905</td><td>15587924</td></tr>
+<tr><td>6905030</td><td>15606370</td></tr>
+<tr><td>6924733</td><td>15621416</td></tr>
+<tr><td>6932350</td><td>15627460</td></tr>
+<tr><td>6968118</td><td>15655213</td></tr>
+<tr><td>6979834</td><td>15664897</td></tr>
+<tr><td>6984075</td><td>15668419</td></tr>
+<tr><td>6985018</td><td>15669160</td></tr>
+<tr><td>6988123</td><td>15671791</td></tr>
+<tr><td>6988929</td><td>15672434</td></tr>
+<tr><td>6994068</td><td>15676633</td></tr>
+<tr><td>6994699</td><td>15677146</td></tr>
+<tr><td>6995839</td><td>15678027</td></tr>
+<tr><td>6998256</td><td>15679996</td></tr>
+<tr><td>6998608</td><td>15680279</td></tr>
+<tr><td>6999724</td><td>15681178</td></tr>
+<tr><td>7001287</td><td>15682412</td></tr>
+<tr><td>7001358</td><td>15682492</td></tr>
+<tr><td>7003504</td><td>15684201</td></tr>
+<tr><td>7005900</td><td>15686252</td></tr>
+<tr><td>7009707</td><td>15689432</td></tr>
+<tr><td>7010440</td><td>15690062</td></tr>
+<tr><td>7011283</td><td>15690885</td></tr>
+<tr><td>7011582</td><td>15691107</td></tr>
+<tr><td>7013990</td><td>15692972</td></tr>
+<tr><td>7014974</td><td>15693684</td></tr>
+<tr><td>7020021</td><td>15697407</td></tr>
+<tr><td>7020097</td><td>15697465</td></tr>
+<tr><td>7020498</td><td>15697788</td></tr>
+<tr><td>7020953</td><td>15698129</td></tr>
+<tr><td>7021387</td><td>15698451</td></tr>
+<tr><td>7021673</td><td>15698669</td></tr>
+<tr><td>7022240</td><td>15699120</td></tr>
+<tr><td>7022348</td><td>15699198</td></tr>
+<tr><td>7022509</td><td>15699293</td></tr>
+<tr><td>7023115</td><td>15699675</td></tr>
+<tr><td>7023687</td><td>15700122</td></tr>
+<tr><td>7024758</td><td>15700834</td></tr>
+<tr><td>7028656</td><td>15703531</td></tr>
+<tr><td>7030242</td><td>15704635</td></tr>
+<tr><td>7030371</td><td>15704718</td></tr>
+<tr><td>7031127</td><td>15705246</td></tr>
+<tr><td>7033834</td><td>15707141</td></tr>
+<tr><td>7034028</td><td>15707281</td></tr>
+<tr><td>7036027</td><td>15708877</td></tr>
+<tr><td>7036352</td><td>15709135</td></tr>
+<tr><td>7036601</td><td>15709320</td></tr>
+<tr><td>7036830</td><td>15709526</td></tr>
+<tr><td>7037194</td><td>15709818</td></tr>
+<tr><td>7037757</td><td>15710222</td></tr>
+<tr><td>7037936</td><td>15710381</td></tr>
+<tr><td>7040128</td><td>15712104</td></tr>
+<tr><td>7042655</td><td>15714049</td></tr>
+<tr><td>7044335</td><td>15715228</td></tr>
+<tr><td>7045703</td><td>15716199</td></tr>
+<tr><td>7046371</td><td>15716712</td></tr>
+<tr><td>7046620</td><td>15716912</td></tr>
+<tr><td>7049388</td><td>15718854</td></tr>
+<tr><td>7050902</td><td>15719686</td></tr>
+<tr><td>7051449</td><td>15720085</td></tr>
+<tr><td>7052558</td><td>15720725</td></tr>
+<tr><td>7053515</td><td>15721440</td></tr>
+<tr><td>7057050</td><td>15723346</td></tr>
+<tr><td>7059774</td><td>15724741</td></tr>
+<tr><td>7061004</td><td>15725599</td></tr>
+<tr><td>7062990</td><td>15726517</td></tr>
+<tr><td>7062995</td><td>15726524</td></tr>
+<tr><td>7064258</td><td>15727163</td></tr>
+<tr><td>7064443</td><td>15727270</td></tr>
+<tr><td>7066153</td><td>15727964</td></tr>
+<tr><td>7066937</td><td>15728462</td></tr>
+<tr><td>7067748</td><td>15728942</td></tr>
+<tr><td>7068106</td><td>15729322</td></tr>
+<tr><td>7080248</td><td>15736152</td></tr>
+<tr><td>7081199</td><td>15736723</td></tr>
+<tr><td>7082951</td><td>15737639</td></tr>
+<tr><td>7085108</td><td>15738765</td></tr>
+<tr><td>7085230</td><td>15738844</td></tr>
+<tr><td>7085802</td><td>15739191</td></tr>
+<tr><td>7093939</td><td>15743599</td></tr>
+<tr><td>7096506</td><td>15745043</td></tr>
+<tr><td>7097544</td><td>15745630</td></tr>
+<tr><td>7109463</td><td>15753525</td></tr>
+<tr><td>7110284</td><td>15754057</td></tr>
+<tr><td>7117136</td><td>15758470</td></tr>
+<tr><td>7121420</td><td>15761093</td></tr>
+<tr><td>7129566</td><td>15766065</td></tr>
+<tr><td>7129681</td><td>15766151</td></tr>
+<tr><td>7130432</td><td>15766576</td></tr>
+<tr><td>7132566</td><td>15768087</td></tr>
+<tr><td>7143136</td><td>15771196</td></tr>
+<tr><td>7147503</td><td>15774347</td></tr>
+<tr><td>7156102</td><td>15780883</td></tr>
+<tr><td>7173177</td><td>15795199</td></tr>
+<tr><td>7185890</td><td>15805347</td></tr>
+<tr><td>7189405</td><td>15808294</td></tr>
+<tr><td>7191503</td><td>15810039</td></tr>
+<tr><td>7192557</td><td>15810944</td></tr>
+</tbody></table>
+<br>
+<br>
+<b>Changes incorporated in this version: </b>21202826 20823003 20804210 20739688 20695314 20441292 20427033 16092880 15769541 15747956 15730568<br>
+<br>
+<b>Patches accumulated and obsoleted by this patch: </b><br>
+<br>
+<b>Patches which conflict with this patch: </b><br>
+<br>
+<b>Patches required with this patch: </b><br>
+<br>
+<b>Obsoleted by: </b><br>
+<br>
+<b>Files included with this patch: </b><br>
+<br>
+SPARC_Enterprise_T5440_metadata.xml<br>
+Sun_System_Firmware-7_4_9-SPARC_Enterprise_T5440.pkg<br>
+sysfwdownload<br>
+<br>
+<b>Problem Description:</b><br>
+<br>
+
+<pre>21202826 export-gpl script needs to be updated for syssec rules
+20823003 Convert internal scripts to use https to access the svn server
+20804210 SUNBT6984628-prtdiag -v hangs after set /HOST send_break_action=break, the
+20739688 build failures during multi-platform builds
+20695314 Problem with SYS-MGMT/WEB
+20441292 Fix for CVE-2015-0235
+20427033 Can't use Remote System Console when SSLv3 is disabled in Java
+16092880 JAR files need to be re-built and re-signed in 3.0.12.4 branch
+15769541 SUNBT7140999-3.0_SP16 export-gpl script needs to be updated for us.oracle.com
+15747956 SUNBT7100258-3.1_SP00 tokend memory leak
+15730568 SUNBT7069713-3.1_SP00 Update export-gpl for Oracle's rules
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=147311-10">147311-10</a> - Sun System Firmware 7.4.8.a)
+ 
+19715038 Build fails on OL6 in libstringutils
+19696464 Fix for CVE-2014-6271 and CVE-2014-7169
+19452063 SFCB does not build on OL6
+18718721 Can't use static linking with OEL6
+15826621 SUNBT7207539-TRUNK Fix thread error message when using ilom_build_platforms.pl
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=147311-09">147311-09</a> - Sun System Firmware 7.4.8)
+ 
+18905174 Backport 18905174 POST incorrectly reports NIU Failures if connected to active n
+18714182 Problem with HYPERVISOR
+18483692 18249666 didn't fix the problem
+18249666 Fixes for bugs 17593160 / 16738856 not working in Firmware 7.4.7
+18133391 Backport 18133391 to 1.10.7 - ldmd dumps core with fatal error: waiting for hv r
+16450696 Backport 16450696 to 1.10.7 - xir guest_core only collects xir file, doesn't run
+15775115 Backport 15775115 to 4.33.6: SUNBT7148479 Boot of off an iSCSI LUN on a iSCSI st
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=147311-08">147311-08</a> - Sun System Firmware 7.4.7)
+ 
+18029216 Backport 18029216 to 4.33.6: Update banner for 2014
+17874610 Java 7u51 requirements for RIAs
+17731184 Port fix for 15691318 to Netra T5220
+17593160 Faulty DIMM not disabled and does not allow poweron
+17538264 Backport 17538264 to 4.33.6: iSCSI boot problem with NETAPP filer
+17489082 Update ILOM TimeZone data to pull in recent changes (new DST for Israel, Chile)
+17470333 LDC reset can get stuck
+16944446 /var/log will be full very quickly when External I/O Expansion Unit is connected
+16839239 ILOM: NTP: todoffset behavior is inconsistent when you reset SP
+15768541 SUNBT7133194 CEs from one PA are assigned to two different DIMMs
+15689859 Backport 15689859 to 3.0.12.4: SUNBT7010225-TRUNK Onbox legal notices need to be
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=147311-07">147311-07</a> - Sun System Firmware 7.4.6.c)
+ 
+16919552 Scottsdale powers off intermittently on rebooting the system
+16915020 Backport 16915020 to 4.33.6.d: Suppress PCIe correctable error messages during P
+16910658 Unable to login to SP on the Glendale system after flashupdate with sysfw 7.4.6
+16863221 Backport of 16863221 to 4.33.6: ldc channel 1 overwrites Solaris memory page whe
+16738856 Wrong DIMM failed by POST and system fails to poweron
+16447062 Backport 16447062 to 1.10.7: Problem with SYSFW-ALL / HYPERVISOR
+16396649 POST has problems with large PCI configurations
+16235933 Primary panic during boot when IOV is changed from ON to OFF
+16094917 Blade can't connected to CMM via vlan
+16082082 showlogs displays excess lines
+16064298 Backport 16064298 to 4.33.6: OpenBoot banner should reflect 2013
+15813730 BBR hbuf files need to be captured via normal snapshot on 7.x.x based ILOM
+15793311 SUNBT7170789 T2/T2+ HV returns the incorrect HVctl op status for asynchronous un
+15722617 SUNBT7055524-SPARC_3.0.16 Create a trap for host os boot progress
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=147311-06">147311-06</a> - Sun System Firmware 7.4.5)
+ 
+15825752 SUNBT7206959 sun4v: After upgrade to 7.3.1.a, sccd daemon shuts down
+15820040 SUNBT7202495 Floating point save macro can incorrectly round pointer, cau
+15815409 SUNBT7197748 Migration issue with different fw versions
+15769319 SUNBT7136620 PCIEX-8000-DJ occurs on power-up &amp; sometimes doesn't clear the firs
+15737134 SUNBT7082194 ILOM 3.0 WebGUI doesn't work with Firefox 6.
+15732176 SUNBT7072870 4.34.X Modify set-ascii-security-password to optionally prompt for
+15680406 SUNBT6998751 Maramba 540-7908-04 failed Margin voltage 1.320V exceeded high limi
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=147311-05">147311-05</a> - Sun System Firmware 7.4.4.f)
+ 
+7192557 Back out CRs 7064443, 7185890, 7189405 and 7191503
+7191503 System failed to boot after resetsc, poweroff and poweron
+7189405 Systems power off randomly, often following a "reset sc" and a "poweron"
+7185890 The system hangs if the SP is reset while the host is at Solaris
+7173177 Panic on a NULL iv_handler, the specific interrupt being handled is a cnex interrupt
+7156102 Need to check if LDC Tx Q is configured before using its head/tail values
+7147503 OBP fails when multiple iSCSI targets on a single transport address
+7132566 T6320 blades reports fault "PCIEX-8000-DJ".
+7130432 HV should be hardened against registers that may have missing bits to prevent misdiagnosis, panics
+7080248 T5440 CPU D210 DVRM_15: status 0x4 is incorrectly reported power system fault after host powered off
+7064443 Sysfw 7.3.1.a upgrade breaks LDOM configs in mixed memory populations
+7031127 Cluster node hung during shutdown as fmd thread stuck in ds_pri_open()
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=147311-04">147311-04</a> - Sun System Firmware 7.4.3)
+ 
+7143136 Need to update OBP copyright notice in the banner to 2012
+7129681 memory-latency-group nodes are incorrect for a 3 node batoka
+7129566 /persist fills during heavy error rates
+7121420 Bump up asr version to init asr for CR 7082951 asr changes
+7117136 Netra T5220 with SATA drive won't boot from DVD (PDB 7026156)
+7110284 ttrace_buf_conf should return a value (MINIMUM_NUMBER_ENTRIES) if the error code is EINVAL
+7109463 PCIEX-8000-DJ &amp; PCIEX-8000-KP faults reported by SP on T5120 during SP reset or host power on
+7003504 Batoka fails to boot obp if one of the CMPs encounters fatal link errors
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=147311-03">147311-03</a> - Sun System Firmware 7.4.2)
+ 
+7097544 "ERROR: Unable to connect to snmpd: Connection refused" msg generate while setting up from ilom
+7096506 vBSC hangs during host power-down with the host power cycle test
+7093939 KT erratum 117 workaround can leave two strands in the incorrect state.
+7085802 HOST_LAST_POWER_STATE is not effective on T5220
+7085230 Command to close socket fails after several iterations of "stop /SYS" "start /SYS"
+7085108 /SYS/MB gets faulted when running reboot cycles in the SDIO domain on T41B
+7082951 Installing sysfw 7.3.2 (<a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=145679-04">145679-04</a>) did not fix CR 7046371
+7081199 OPS test occasionally fails due to missing ipmi sensor data after a reset_to_defaults=factory reboot
+7068106 POST XAUI Internal Loopback Test failures
+7067748 ldoms manager is in maintainence state keeps returning Failed to connect to logical domain manager
+7066937 T4 HV shouldn't blindly enable the L2 cache prefetcher upon re-enabling a core.
+7066153 ILOM spsh hung, lumain must be restarted
+7064258 hypervisor should emulate INTR_DELIVERED_STATE interrupt state on T3 and T4 platforms
+7062995 HVctl_op_guest_start(stop) always respond guestid 0
+7062990 HVctl_op_get_res_stat/HVctl_res_guest always respond resid 0
+7061004 POST verbosity overloads console output
+7059774 HV needs to implement workaround for HW bug 13014
+7057050 SDIO xcap processing misses the first xcap
+7053515 HV should return address of -1 rather than VA for NotData errors
+7052558 HV needs to pause strands before touching L3 cache registers
+7051449 PCIE ACS changes break SDIO, devices are not useable after assignment
+7050902 Post migration failure, system should not hard hang.
+7049388 T4 machine hard hangs on changing threading policy from hi-IPC to throughput, post migration failure
+7046620 ttrace_buf_conf does not return a power of 2 nentries on EINVAL
+7045703 POST: Code cleanup
+7042655 tracking can deadlock if state is changed while guest is exiting
+7040128 POST: user input needs to be bound checked
+7037936 hvctl_op_track_dirty_start results in Fatal Error and Power Down
+7037194 Always enforce STRICT API
+7034028 POST is not run/entered when CPU0 = disabled
+7022509 Guest domain panics on seville when running PM_07
+7020953 SUN4V-8002-SP &amp; ereport.fm.ferg.invalid: DMU Core and Block Error Status(0): No bits set,on T5xx0
+7013990 No ability on T6300, T6320, T6320 G2 and T6340 blades to update ppn &amp; psn under ILOM 3.0
+6995839 POST failed and hung up on multiple powercycle during " SerDes Loopback " test
+6988929 Wrong DIMM faulted
+6984075 LSI2008 return all 1s on config space read after bus number change
+6924733 Scottsdale: xferd dying
+6879905 Nodes in machine description missing "back" properties to parent nodes
+6807162 boottimer events are not logged
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=147311-02">147311-02</a> - Sun System Firmware 7.4.0.d)
+ 
+7046371 CLI shows component state of "none" for PCIE0 &amp; PCIE1 on T6340
+7036601 T5220 After continuous p/cycles reboots pci card in prtdiag -v may not be seen intermittently
+7030371 Batoka fails to boot obp if either CMP1, 2, or 3 is asr disabled
+7021673 SPARC Enterprise T5440 FW 7.3.0.c getting PCIEX-8000-6D and service LED on during reboot test
+7011283 Constellation10; after ac powercycle cmm does not allocate power to all blades.
+6999724 System using FW 7.2.9.a shutdown triggered by incorrect sensor thresholds
+6998608 After several iterations of "stop /SYS" "start /SYS" HOST control from ILOM is lost
+6998256 Continue testing of "reset /SYS" fail to bring up host after 185 iteration
+6994699 T5220 Panic while running IO
+6994068 config in /HOST/bootmode = (none) even after control_domain and guest domain are set up
+6968118 Setting factory defaults does not work after dropping mains power while HOST is powered on
+6932350 ILOM needs XIR user Interface
+6905030 T5120 : one memory dimm fault caused L2_BANK Forced fail (POST)
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=147311-01">147311-01</a> - Sun System Firmware 7.4.0.b)
+ 
+7044335 Domain with long devalias names hang
+7037757 OBP fails to iSCSI boot when partition is provided
+7036830 Source Monza resets itself when a guest using all the available memory is migrated.
+7036352 Post migration, a guest domain ends up in a hung state on the target.
+7036027 OBP iSCSI boot login negotiation failure
+7033834 IOS RTT isn't setup correctly when a guest's starting address is not 256MB aligned
+7030242 T_BCORE and T_TCORE show different temperatures after reset SP
+7028656 Re-arrange compile order to fix link issues
+7024758 Solana hard hangs on migrations of a domain running shared context OS tests.
+7023687 Support needed for migrating a larger number of HV API groups
+7023115 HV does not ensure in progess LDC copy activities are complete when starting up dirty page tracking
+7022348 hcall_mmu_unmap_perm_addr does not invalidate and demap dirty page tracking entries
+7022240 Dirty page tracking code does not check real/virtual flag when evicting entries via demap hcalls
+7021387 Live Migration: ldc mapins are not properly dirtied
+7020498 Migrated domains display humongous uptimes in ldm ls output.
+7020097 POST to remove outdated XAUI 2 XAUI Loopback Test
+7020021 erptlog UI cmd to generate error reports from SER log buffer
+7014974 HV should clean up pri/sec/sub registers after it probes
+7011582 cpu_mondo doesn't properly deal with unconfigured VCPU's
+7010440 Allocate TSB error
+7009707 Kernel correctable error storm may lead to system hang on VF systems
+7005900 assertion failed: sfmmup != ksfmmup &amp;&amp; ctxtype != KCONTEXT
+7001358 Remove unsupported product targets
+7001287 Remove Platform name from POST banner in customer mode
+6988123 Need OBP to provide a list of registered HV APIs to Solaris to support LDoms migration
+6985018 Ferg makes decisions and can discard important SERs from HV in relation to a HVabort.
+6979834 RFE: Hypervisor support for Live Migration
+6798125 FERG needs to understand LFU REINIT events
+</pre>
+<br>
+<br>
+<b>Patch Installation Instructions:</b><br>
+
+<pre>--------------------------------
+ 
+Please refer to the Install.info file for instructions on updating the firmware
+in the flashprom using the files included in this patch.  In particular, there
+is information on the differences involved with the ILOM-based Sun System
+Firmware (7.x) in connection with the use of the Solaris Sun Update Connection
+utility.
+</pre>
+<br>
+<br>
+<b>Special Install Instructions:</b><br>
+
+<pre>-----------------------------
+ 
+NOTE 1: Firmware component revisions included with this release:
+ 
+	Sun System Firmware 7.4.9 2015/07/13 19:38
+	--------------------------------------------
+	ILOM 3.0.12.4.ze Jul 13 19:37:54 PDT 2015
+	Hypervisor 1.10.7.g 2014/07/10 11:47
+	OpenBoot 4.33.6.f 2014/07/10 10:24
+	POST 4.33.6.f 2014/07/10 10:37
+	VBSC 1.10.3.k Jul 13 2015  19:25:41
+ 
+	Checksum of Sun_System_Firmware-7_4_9-SPARC_Enterprise_T5440.pkg : 1698480505
+	(generated by the /usr/bin/cksum command)
+ 
+NOTE 2: Please refer to the online documentation for feature and version
+        compatibility between releases of Sun System Firmware and
+        Oracle VM Server for SPARC releases.  Documentation relevant to
+        this platform can be found at:
+        - OVM SPARC:   http://www.oracle.com/technetwork/documentation/vm-sparc-194287.html
+        - Oracle ILOM: http://download.oracle.com/docs/cd/E19860-01/index.html
+        - T5440:       http://download.oracle.com/docs/cd/E19488-01/index.html
+ 
+NOTE 3: Please visit http://www.oracle.com/goto/opensourcecode to download the
+        firmware's open source components that are required to be made available under
+        open source licenses.
+ 
+NOTE 4: Known Problem with Sun System Firmware 7.3.0:
+        o CR=6993191
+ 
+          Problem Description:
+          --------------------
+ 
+          On SPARC Enterprise T5440 or Netra T5440 servers, when LDoms configurations created on a 2-way
+          configuration is used on a 4-way configuration, system will hang when powered on. You may see
+          following messages,
+ 
+          2010-10-19 01:59:49.953 0:0:0&gt;Master set ACK for vbsc runpost command and spin...  |
+          &lt;Continously spinning twirly bar above - never exited&gt;
+ 
+ 
+          Work Around directions:
+          -----------------------
+ 
+        When system hangs, manually power down the primary domain. Set the configurations in the
+        "factory-default" configuration and then power on again. You can either use following commands at the
+        ILOM prompt.
+ 
+          -&gt; stop /SYS
+          -&gt; set /HOST/bootmode config="factory-default"
+          -&gt; start /SYS
+ 
+          Or following comands at the ALOM shell,
+ 
+          poweroff
+          bootmode config="factory-default"
+          poweron
+ 
+NOTE 5: In order to use the Live Migration functionality with this revision of
+        Sun System Firmware, you must be running the SUNWldm package from the
+        Oracle VM Server for SPARC v2.1 (or greater).
+ 
+NOTE 6: BugID 16839239 added in Sun System Firmware 7.4.7 for SPARC T2 platforms:
+ 
+        This fix introduces a change in behavior regarding how time/date
+        changes are handled. Previously any time/date change made other than
+        by ILOM (by NTP or other method of setting the SP time that is not
+        done through ILOM) would not affect the time/date of the host, even
+        after a power cycle. But the change would be reflected in the
+        time/date of the host after a full (including SP) power cycle, if that
+        change was made since the last power-on of the host.
+ 
+        With this change, all such time/date changes will now be reflected in
+        the domain's time/date after a host power cycle regardless of how the
+        change was made.
+</pre>
+<br>
+<br>
+<b>README -- Last modified date:  </b>Monday, August 17, 2015<br>
+<br>
+
+
+
+
+</body></html>

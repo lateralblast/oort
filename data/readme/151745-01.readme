@@ -1,0 +1,1491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+<title>Patch README: 151745-01</title>
+<style type="text/css"> body {font-family: Arial, Helvetica, sans-serif; font-size: 12px; } h1 {font-size: 16px} table.readmeTable { border-width: 1px; border-color: gray; border-style: solid; border-spacing: 2px; } table.readmeTable th { border-width: 1px; padding: 4px; border-style: inset; border-color: gray; } table.readmeTable td { border-width: 1px; padding: 4px; border-style: inset; border-color: gray; } </style>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
+<meta http-equiv="pragma" content="no-cache">
+</head>
+
+<body>
+<h1><b>Patch-ID# </b><b>151745-01</b></h1><br>
+<a href="https://support.oracle.com/CSP/ui/flash.html#tab=PatchHomePage(page=PatchHomePage&amp;id=gnrgyece()),(page=PatchDetailPage&amp;id=gnrgyece(patchId=151745-01&amp;patchType=Patch&amp;patchName=151745-01))">Download this patch from My Oracle Support</a><br>
+<br>
+<table border="1">
+<tbody><tr>
+   <td><b>
+   Your use of the firmware, software and any other materials contained 
+   in this update is subject to My Oracle Support Terms of Use, which 
+   may be viewed at <a href="https://support.oracle.com">My Oracle Support</a>.
+   </b></td>
+</tr>
+<tr>
+   <td>
+   For further information on patching best practices and resources, please
+   see the following links:
+   <ul>
+   <li> 
+   <a href="http://www.oracle.com/technetwork/systems/patches">
+      Oracle Technology Network Patching Center</a>.
+   </li>
+   <li> 
+   <a href="https://support.oracle.com/CSP/ui/flash.html#tab=KBHome(page=KBHome&amp;id=()),(page=KBNavigator&amp;id=(bmDocID=1289614.1&amp;from=BOOKMARK&amp;bmDocDsrc=KB&amp;viewingMode=1143))">
+      Sun Patches and Updates Information Center</a>.
+   </li>
+   </ul>
+   </td>
+</tr>
+<tr>
+   <td><i>
+   Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
+   </i></td>
+</tr>
+</tbody></table><br>
+<b>Keywords: </b>firmware: sparc t4-4 - 8.7.2.b firmware_metadata security<br>
+<b>Synopsis: </b>FIRMWARE: SPARC T4-4 - Sun System Firmware 8.7.2.b<br>
+<b>Date: </b>May/23/2015<br>
+<br>
+<br>
+<b>Install Requirements: </b>Additional instructions may be listed below<br>
+<br>
+<b>Solaris Release: </b>10<br>
+<br>
+<b>SunOS Release: </b>5.10<br>
+<br>
+<b>Unbundled Product: </b>Sun System Firmware<br>
+<br>
+<b>Unbundled Release: </b>8.7.2.b<br>
+<br>
+<b>Xref: </b><br>
+<br>
+<b>Topic: </b>SPARC T4-4 Sun System Firmware 8.7.2.b flashprom update.<br>
+<br>
+<b>Relevant Architectures: </b>sparc<br>
+<br>
+<b>Bugs fixed with this patch: </b><br>
+<br>
+<table class="readmeTable">
+<thead>
+<tr><th>Sun CR #</th>
+<th>Bug #</th>
+</tr></thead>
+<tbody><tr><td>6945579</td><td>15637781</td></tr>
+<tr><td>7007985</td><td>15688099</td></tr>
+<tr><td>7155287</td><td>15780223</td></tr>
+<tr><td>7169353</td><td>15792114</td></tr>
+<tr><td>7200867</td><td>15818329</td></tr>
+<tr><td></td><td>16416823</td></tr>
+<tr><td></td><td>16479460</td></tr>
+<tr><td></td><td>16594001</td></tr>
+<tr><td></td><td>16620887</td></tr>
+<tr><td></td><td>16747266</td></tr>
+<tr><td></td><td>16893537</td></tr>
+<tr><td></td><td>17030369</td></tr>
+<tr><td></td><td>17276912</td></tr>
+<tr><td></td><td>17301698</td></tr>
+<tr><td></td><td>17330621</td></tr>
+<tr><td></td><td>17370600</td></tr>
+<tr><td></td><td>17370610</td></tr>
+<tr><td></td><td>17370620</td></tr>
+<tr><td></td><td>17370670</td></tr>
+<tr><td></td><td>17370674</td></tr>
+<tr><td></td><td>17370714</td></tr>
+<tr><td></td><td>17488155</td></tr>
+<tr><td></td><td>17495689</td></tr>
+<tr><td></td><td>17510459</td></tr>
+<tr><td></td><td>17591778</td></tr>
+<tr><td></td><td>17597378</td></tr>
+<tr><td></td><td>17622795</td></tr>
+<tr><td></td><td>17761035</td></tr>
+<tr><td></td><td>17785495</td></tr>
+<tr><td></td><td>17805393</td></tr>
+<tr><td></td><td>17819777</td></tr>
+<tr><td></td><td>17866274</td></tr>
+<tr><td></td><td>17904463</td></tr>
+<tr><td></td><td>17943232</td></tr>
+<tr><td></td><td>17945672</td></tr>
+<tr><td></td><td>17975324</td></tr>
+<tr><td></td><td>18042307</td></tr>
+<tr><td></td><td>18042406</td></tr>
+<tr><td></td><td>18043254</td></tr>
+<tr><td></td><td>18050252</td></tr>
+<tr><td></td><td>18057294</td></tr>
+<tr><td></td><td>18062258</td></tr>
+<tr><td></td><td>18078400</td></tr>
+<tr><td></td><td>18096717</td></tr>
+<tr><td></td><td>18154033</td></tr>
+<tr><td></td><td>18154048</td></tr>
+<tr><td></td><td>18166940</td></tr>
+<tr><td></td><td>18167378</td></tr>
+<tr><td></td><td>18167550</td></tr>
+<tr><td></td><td>18168547</td></tr>
+<tr><td></td><td>18175553</td></tr>
+<tr><td></td><td>18175633</td></tr>
+<tr><td></td><td>18177663</td></tr>
+<tr><td></td><td>18184187</td></tr>
+<tr><td></td><td>18198119</td></tr>
+<tr><td></td><td>18204810</td></tr>
+<tr><td></td><td>18225223</td></tr>
+<tr><td></td><td>18232610</td></tr>
+<tr><td></td><td>18237443</td></tr>
+<tr><td></td><td>18237836</td></tr>
+<tr><td></td><td>18238067</td></tr>
+<tr><td></td><td>18245340</td></tr>
+<tr><td></td><td>18266486</td></tr>
+<tr><td></td><td>18267682</td></tr>
+<tr><td></td><td>18269896</td></tr>
+<tr><td></td><td>18275909</td></tr>
+<tr><td></td><td>18281044</td></tr>
+<tr><td></td><td>18282277</td></tr>
+<tr><td></td><td>18283786</td></tr>
+<tr><td></td><td>18286393</td></tr>
+<tr><td></td><td>18287143</td></tr>
+<tr><td></td><td>18289172</td></tr>
+<tr><td></td><td>18289269</td></tr>
+<tr><td></td><td>18289312</td></tr>
+<tr><td></td><td>18289363</td></tr>
+<tr><td></td><td>18289444</td></tr>
+<tr><td></td><td>18290117</td></tr>
+<tr><td></td><td>18292182</td></tr>
+<tr><td></td><td>18298063</td></tr>
+<tr><td></td><td>18300711</td></tr>
+<tr><td></td><td>18300720</td></tr>
+<tr><td></td><td>18308075</td></tr>
+<tr><td></td><td>18314106</td></tr>
+<tr><td></td><td>18316155</td></tr>
+<tr><td></td><td>18323581</td></tr>
+<tr><td></td><td>18323618</td></tr>
+<tr><td></td><td>18330235</td></tr>
+<tr><td></td><td>18339500</td></tr>
+<tr><td></td><td>18345080</td></tr>
+<tr><td></td><td>18345671</td></tr>
+<tr><td></td><td>18347122</td></tr>
+<tr><td></td><td>18352824</td></tr>
+<tr><td></td><td>18352883</td></tr>
+<tr><td></td><td>18352973</td></tr>
+<tr><td></td><td>18354773</td></tr>
+<tr><td></td><td>18354859</td></tr>
+<tr><td></td><td>18360348</td></tr>
+<tr><td></td><td>18367767</td></tr>
+<tr><td></td><td>18368315</td></tr>
+<tr><td></td><td>18377616</td></tr>
+<tr><td></td><td>18392616</td></tr>
+<tr><td></td><td>18393736</td></tr>
+<tr><td></td><td>18399396</td></tr>
+<tr><td></td><td>18403317</td></tr>
+<tr><td></td><td>18405172</td></tr>
+<tr><td></td><td>18413007</td></tr>
+<tr><td></td><td>18422832</td></tr>
+<tr><td></td><td>18433797</td></tr>
+<tr><td></td><td>18433931</td></tr>
+<tr><td></td><td>18433948</td></tr>
+<tr><td></td><td>18435192</td></tr>
+<tr><td></td><td>18435491</td></tr>
+<tr><td></td><td>18441504</td></tr>
+<tr><td></td><td>18442726</td></tr>
+<tr><td></td><td>18442924</td></tr>
+<tr><td></td><td>18452989</td></tr>
+<tr><td></td><td>18453336</td></tr>
+<tr><td></td><td>18453452</td></tr>
+<tr><td></td><td>18454893</td></tr>
+<tr><td></td><td>18463933</td></tr>
+<tr><td></td><td>18467032</td></tr>
+<tr><td></td><td>18467744</td></tr>
+<tr><td></td><td>18475201</td></tr>
+<tr><td></td><td>18475689</td></tr>
+<tr><td></td><td>18506550</td></tr>
+<tr><td></td><td>18507197</td></tr>
+<tr><td></td><td>18512809</td></tr>
+<tr><td></td><td>18516022</td></tr>
+<tr><td></td><td>18520430</td></tr>
+<tr><td></td><td>18520961</td></tr>
+<tr><td></td><td>18521102</td></tr>
+<tr><td></td><td>18538111</td></tr>
+<tr><td></td><td>18544621</td></tr>
+<tr><td></td><td>18544645</td></tr>
+<tr><td></td><td>18544664</td></tr>
+<tr><td></td><td>18593915</td></tr>
+<tr><td></td><td>18600284</td></tr>
+<tr><td></td><td>18603213</td></tr>
+<tr><td></td><td>18603457</td></tr>
+<tr><td></td><td>18610462</td></tr>
+<tr><td></td><td>18610809</td></tr>
+<tr><td></td><td>18610829</td></tr>
+<tr><td></td><td>18615204</td></tr>
+<tr><td></td><td>18615809</td></tr>
+<tr><td></td><td>18616187</td></tr>
+<tr><td></td><td>18616553</td></tr>
+<tr><td></td><td>18617751</td></tr>
+<tr><td></td><td>18632312</td></tr>
+<tr><td></td><td>18632617</td></tr>
+<tr><td></td><td>18638348</td></tr>
+<tr><td></td><td>18646318</td></tr>
+<tr><td></td><td>18647554</td></tr>
+<tr><td></td><td>18652330</td></tr>
+<tr><td></td><td>18664075</td></tr>
+<tr><td></td><td>18671515</td></tr>
+<tr><td></td><td>18671980</td></tr>
+<tr><td></td><td>18672082</td></tr>
+<tr><td></td><td>18672587</td></tr>
+<tr><td></td><td>18673145</td></tr>
+<tr><td></td><td>18676492</td></tr>
+<tr><td></td><td>18678145</td></tr>
+<tr><td></td><td>18678490</td></tr>
+<tr><td></td><td>18687072</td></tr>
+<tr><td></td><td>18691573</td></tr>
+<tr><td></td><td>18694750</td></tr>
+<tr><td></td><td>18698221</td></tr>
+<tr><td></td><td>18704464</td></tr>
+<tr><td></td><td>18706502</td></tr>
+<tr><td></td><td>18707243</td></tr>
+<tr><td></td><td>18711995</td></tr>
+<tr><td></td><td>18713091</td></tr>
+<tr><td></td><td>18713355</td></tr>
+<tr><td></td><td>18713397</td></tr>
+<tr><td></td><td>18717107</td></tr>
+<tr><td></td><td>18721265</td></tr>
+<tr><td></td><td>18726166</td></tr>
+<tr><td></td><td>18726225</td></tr>
+<tr><td></td><td>18727389</td></tr>
+<tr><td></td><td>18733134</td></tr>
+<tr><td></td><td>18733963</td></tr>
+<tr><td></td><td>18745748</td></tr>
+<tr><td></td><td>18746004</td></tr>
+<tr><td></td><td>18746096</td></tr>
+<tr><td></td><td>18746181</td></tr>
+<tr><td></td><td>18752989</td></tr>
+<tr><td></td><td>18754096</td></tr>
+<tr><td></td><td>18755152</td></tr>
+<tr><td></td><td>18756696</td></tr>
+<tr><td></td><td>18762540</td></tr>
+<tr><td></td><td>18770148</td></tr>
+<tr><td></td><td>18771247</td></tr>
+<tr><td></td><td>18777620</td></tr>
+<tr><td></td><td>18791802</td></tr>
+<tr><td></td><td>18793821</td></tr>
+<tr><td></td><td>18796955</td></tr>
+<tr><td></td><td>18799678</td></tr>
+<tr><td></td><td>18803798</td></tr>
+<tr><td></td><td>18808974</td></tr>
+<tr><td></td><td>18809377</td></tr>
+<tr><td></td><td>18809694</td></tr>
+<tr><td></td><td>18810750</td></tr>
+<tr><td></td><td>18813071</td></tr>
+<tr><td></td><td>18816801</td></tr>
+<tr><td></td><td>18816994</td></tr>
+<tr><td></td><td>18817467</td></tr>
+<tr><td></td><td>18817648</td></tr>
+<tr><td></td><td>18818935</td></tr>
+<tr><td></td><td>18819493</td></tr>
+<tr><td></td><td>18828261</td></tr>
+<tr><td></td><td>18828671</td></tr>
+<tr><td></td><td>18848854</td></tr>
+<tr><td></td><td>18849067</td></tr>
+<tr><td></td><td>18854580</td></tr>
+<tr><td></td><td>18854603</td></tr>
+<tr><td></td><td>18855197</td></tr>
+<tr><td></td><td>18856016</td></tr>
+<tr><td></td><td>18857332</td></tr>
+<tr><td></td><td>18857696</td></tr>
+<tr><td></td><td>18864395</td></tr>
+<tr><td></td><td>18864856</td></tr>
+<tr><td></td><td>18865347</td></tr>
+<tr><td></td><td>18867042</td></tr>
+<tr><td></td><td>18869680</td></tr>
+<tr><td></td><td>18877191</td></tr>
+<tr><td></td><td>18882574</td></tr>
+<tr><td></td><td>18898706</td></tr>
+<tr><td></td><td>18905197</td></tr>
+<tr><td></td><td>18906065</td></tr>
+<tr><td></td><td>18914967</td></tr>
+<tr><td></td><td>18915919</td></tr>
+<tr><td></td><td>18917075</td></tr>
+<tr><td></td><td>18917313</td></tr>
+<tr><td></td><td>18917324</td></tr>
+<tr><td></td><td>18917522</td></tr>
+<tr><td></td><td>18924145</td></tr>
+<tr><td></td><td>18928051</td></tr>
+<tr><td></td><td>18941369</td></tr>
+<tr><td></td><td>18948260</td></tr>
+<tr><td></td><td>18951282</td></tr>
+<tr><td></td><td>18958206</td></tr>
+<tr><td></td><td>18967109</td></tr>
+<tr><td></td><td>18968359</td></tr>
+<tr><td></td><td>18979056</td></tr>
+<tr><td></td><td>18994514</td></tr>
+<tr><td></td><td>18997246</td></tr>
+<tr><td></td><td>18999677</td></tr>
+<tr><td></td><td>18999744</td></tr>
+<tr><td></td><td>19002210</td></tr>
+<tr><td></td><td>19013460</td></tr>
+<tr><td></td><td>19013534</td></tr>
+<tr><td></td><td>19016472</td></tr>
+<tr><td></td><td>19023325</td></tr>
+<tr><td></td><td>19023531</td></tr>
+<tr><td></td><td>19032807</td></tr>
+<tr><td></td><td>19032954</td></tr>
+<tr><td></td><td>19033050</td></tr>
+<tr><td></td><td>19047920</td></tr>
+<tr><td></td><td>19049435</td></tr>
+<tr><td></td><td>19050280</td></tr>
+<tr><td></td><td>19050727</td></tr>
+<tr><td></td><td>19055018</td></tr>
+<tr><td></td><td>19058108</td></tr>
+<tr><td></td><td>19062333</td></tr>
+<tr><td></td><td>19063254</td></tr>
+<tr><td></td><td>19063448</td></tr>
+<tr><td></td><td>19064682</td></tr>
+<tr><td></td><td>19073410</td></tr>
+<tr><td></td><td>19074532</td></tr>
+<tr><td></td><td>19076616</td></tr>
+<tr><td></td><td>19078374</td></tr>
+<tr><td></td><td>19078569</td></tr>
+<tr><td></td><td>19166329</td></tr>
+<tr><td></td><td>19166877</td></tr>
+<tr><td></td><td>19166923</td></tr>
+<tr><td></td><td>19169677</td></tr>
+<tr><td></td><td>19172949</td></tr>
+<tr><td></td><td>19173830</td></tr>
+<tr><td></td><td>19175284</td></tr>
+<tr><td></td><td>19181096</td></tr>
+<tr><td></td><td>19188932</td></tr>
+<tr><td></td><td>19195293</td></tr>
+<tr><td></td><td>19197738</td></tr>
+<tr><td></td><td>19202490</td></tr>
+<tr><td></td><td>19210792</td></tr>
+<tr><td></td><td>19211179</td></tr>
+<tr><td></td><td>19217597</td></tr>
+<tr><td></td><td>19218424</td></tr>
+<tr><td></td><td>19231549</td></tr>
+<tr><td></td><td>19237383</td></tr>
+<tr><td></td><td>19239666</td></tr>
+<tr><td></td><td>19270228</td></tr>
+<tr><td></td><td>19313957</td></tr>
+<tr><td></td><td>19336643</td></tr>
+<tr><td></td><td>19356538</td></tr>
+<tr><td></td><td>19386744</td></tr>
+<tr><td></td><td>19387757</td></tr>
+<tr><td></td><td>19399897</td></tr>
+<tr><td></td><td>19401059</td></tr>
+<tr><td></td><td>19402447</td></tr>
+<tr><td></td><td>19402496</td></tr>
+<tr><td></td><td>19403825</td></tr>
+<tr><td></td><td>19430756</td></tr>
+<tr><td></td><td>19439545</td></tr>
+<tr><td></td><td>19452708</td></tr>
+<tr><td></td><td>19453173</td></tr>
+<tr><td></td><td>19483211</td></tr>
+<tr><td></td><td>19485526</td></tr>
+<tr><td></td><td>19491565</td></tr>
+<tr><td></td><td>19501229</td></tr>
+<tr><td></td><td>19501910</td></tr>
+<tr><td></td><td>19525834</td></tr>
+<tr><td></td><td>19553635</td></tr>
+<tr><td></td><td>19563848</td></tr>
+<tr><td></td><td>19580194</td></tr>
+<tr><td></td><td>19616042</td></tr>
+<tr><td></td><td>19616571</td></tr>
+<tr><td></td><td>19638587</td></tr>
+<tr><td></td><td>19638848</td></tr>
+<tr><td></td><td>19639423</td></tr>
+<tr><td></td><td>19646522</td></tr>
+<tr><td></td><td>19652573</td></tr>
+<tr><td></td><td>19654600</td></tr>
+<tr><td></td><td>19672352</td></tr>
+<tr><td></td><td>19672562</td></tr>
+<tr><td></td><td>19672605</td></tr>
+<tr><td></td><td>19681431</td></tr>
+<tr><td></td><td>19681502</td></tr>
+<tr><td></td><td>19681518</td></tr>
+<tr><td></td><td>19681956</td></tr>
+<tr><td></td><td>19682651</td></tr>
+<tr><td></td><td>19683188</td></tr>
+<tr><td></td><td>19688390</td></tr>
+<tr><td></td><td>19690462</td></tr>
+<tr><td></td><td>19692191</td></tr>
+<tr><td></td><td>19707353</td></tr>
+<tr><td></td><td>19707599</td></tr>
+<tr><td></td><td>19709925</td></tr>
+<tr><td></td><td>19723086</td></tr>
+<tr><td></td><td>19725881</td></tr>
+<tr><td></td><td>19725883</td></tr>
+<tr><td></td><td>19726288</td></tr>
+<tr><td></td><td>19730867</td></tr>
+<tr><td></td><td>19731186</td></tr>
+<tr><td></td><td>19732076</td></tr>
+<tr><td></td><td>19767096</td></tr>
+<tr><td></td><td>19767745</td></tr>
+<tr><td></td><td>19770233</td></tr>
+<tr><td></td><td>19773831</td></tr>
+<tr><td></td><td>19775152</td></tr>
+<tr><td></td><td>19776840</td></tr>
+<tr><td></td><td>19782342</td></tr>
+<tr><td></td><td>19782548</td></tr>
+<tr><td></td><td>19783035</td></tr>
+<tr><td></td><td>19783917</td></tr>
+<tr><td></td><td>19787879</td></tr>
+<tr><td></td><td>19790879</td></tr>
+<tr><td></td><td>19795707</td></tr>
+<tr><td></td><td>19800759</td></tr>
+<tr><td></td><td>19817690</td></tr>
+<tr><td></td><td>19821324</td></tr>
+<tr><td></td><td>19823513</td></tr>
+<tr><td></td><td>19825218</td></tr>
+<tr><td></td><td>19827166</td></tr>
+<tr><td></td><td>19827520</td></tr>
+<tr><td></td><td>19836725</td></tr>
+<tr><td></td><td>19846580</td></tr>
+<tr><td></td><td>19849498</td></tr>
+<tr><td></td><td>19849527</td></tr>
+<tr><td></td><td>19851755</td></tr>
+<tr><td></td><td>19852383</td></tr>
+<tr><td></td><td>19852448</td></tr>
+<tr><td></td><td>19857390</td></tr>
+<tr><td></td><td>19862913</td></tr>
+<tr><td></td><td>19869970</td></tr>
+<tr><td></td><td>19875275</td></tr>
+<tr><td></td><td>19876129</td></tr>
+<tr><td></td><td>19876156</td></tr>
+<tr><td></td><td>19876199</td></tr>
+<tr><td></td><td>19877689</td></tr>
+<tr><td></td><td>19880050</td></tr>
+<tr><td></td><td>19883370</td></tr>
+<tr><td></td><td>19883813</td></tr>
+<tr><td></td><td>19884613</td></tr>
+<tr><td></td><td>19884650</td></tr>
+<tr><td></td><td>19888449</td></tr>
+<tr><td></td><td>19890289</td></tr>
+<tr><td></td><td>19891093</td></tr>
+<tr><td></td><td>19896874</td></tr>
+<tr><td></td><td>19906021</td></tr>
+<tr><td></td><td>19906047</td></tr>
+<tr><td></td><td>19906075</td></tr>
+<tr><td></td><td>19906141</td></tr>
+<tr><td></td><td>19906262</td></tr>
+<tr><td></td><td>19906298</td></tr>
+<tr><td></td><td>19906346</td></tr>
+<tr><td></td><td>19906403</td></tr>
+<tr><td></td><td>19906459</td></tr>
+<tr><td></td><td>19906476</td></tr>
+<tr><td></td><td>19910506</td></tr>
+<tr><td></td><td>19910666</td></tr>
+<tr><td></td><td>19910698</td></tr>
+<tr><td></td><td>19910699</td></tr>
+<tr><td></td><td>19910733</td></tr>
+<tr><td></td><td>19910763</td></tr>
+<tr><td></td><td>19911426</td></tr>
+<tr><td></td><td>19911533</td></tr>
+<tr><td></td><td>19911563</td></tr>
+<tr><td></td><td>19912508</td></tr>
+<tr><td></td><td>19913086</td></tr>
+<tr><td></td><td>19913808</td></tr>
+<tr><td></td><td>19916158</td></tr>
+<tr><td></td><td>19927172</td></tr>
+<tr><td></td><td>19930984</td></tr>
+<tr><td></td><td>19931819</td></tr>
+<tr><td></td><td>19931981</td></tr>
+<tr><td></td><td>19933172</td></tr>
+<tr><td></td><td>19933180</td></tr>
+<tr><td></td><td>19933812</td></tr>
+<tr><td></td><td>19942936</td></tr>
+<tr><td></td><td>19950010</td></tr>
+<tr><td></td><td>19952146</td></tr>
+<tr><td></td><td>19958133</td></tr>
+<tr><td></td><td>19958312</td></tr>
+<tr><td></td><td>19969622</td></tr>
+<tr><td></td><td>19969738</td></tr>
+<tr><td></td><td>19970868</td></tr>
+<tr><td></td><td>19976322</td></tr>
+<tr><td></td><td>19978020</td></tr>
+<tr><td></td><td>19978122</td></tr>
+<tr><td></td><td>19978355</td></tr>
+<tr><td></td><td>19988970</td></tr>
+<tr><td></td><td>19989153</td></tr>
+<tr><td></td><td>20003379</td></tr>
+<tr><td></td><td>20003462</td></tr>
+<tr><td></td><td>20010209</td></tr>
+<tr><td></td><td>20025785</td></tr>
+<tr><td></td><td>20025954</td></tr>
+<tr><td></td><td>20026648</td></tr>
+<tr><td></td><td>20027691</td></tr>
+<tr><td></td><td>20030363</td></tr>
+<tr><td></td><td>20035787</td></tr>
+<tr><td></td><td>20038337</td></tr>
+<tr><td></td><td>20053862</td></tr>
+<tr><td></td><td>20054069</td></tr>
+<tr><td></td><td>20059159</td></tr>
+<tr><td></td><td>20060737</td></tr>
+<tr><td></td><td>20062264</td></tr>
+<tr><td></td><td>20063345</td></tr>
+<tr><td></td><td>20063366</td></tr>
+<tr><td></td><td>20063387</td></tr>
+<tr><td></td><td>20063404</td></tr>
+<tr><td></td><td>20063415</td></tr>
+<tr><td></td><td>20069385</td></tr>
+<tr><td></td><td>20070354</td></tr>
+<tr><td></td><td>20082284</td></tr>
+<tr><td></td><td>20088030</td></tr>
+<tr><td></td><td>20090154</td></tr>
+<tr><td></td><td>20090567</td></tr>
+<tr><td></td><td>20094328</td></tr>
+<tr><td></td><td>20096050</td></tr>
+<tr><td></td><td>20097834</td></tr>
+<tr><td></td><td>20104121</td></tr>
+<tr><td></td><td>20123284</td></tr>
+<tr><td></td><td>20131343</td></tr>
+<tr><td></td><td>20131371</td></tr>
+<tr><td></td><td>20138259</td></tr>
+<tr><td></td><td>20139984</td></tr>
+<tr><td></td><td>20145492</td></tr>
+<tr><td></td><td>20175661</td></tr>
+<tr><td></td><td>20183034</td></tr>
+<tr><td></td><td>20191267</td></tr>
+<tr><td></td><td>20192163</td></tr>
+<tr><td></td><td>20204712</td></tr>
+<tr><td></td><td>20207914</td></tr>
+<tr><td></td><td>20214613</td></tr>
+<tr><td></td><td>20215327</td></tr>
+<tr><td></td><td>20222032</td></tr>
+<tr><td></td><td>20229396</td></tr>
+<tr><td></td><td>20230092</td></tr>
+<tr><td></td><td>20246063</td></tr>
+<tr><td></td><td>20258273</td></tr>
+<tr><td></td><td>20258520</td></tr>
+<tr><td></td><td>20263269</td></tr>
+<tr><td></td><td>20264505</td></tr>
+<tr><td></td><td>20264767</td></tr>
+<tr><td></td><td>20268930</td></tr>
+<tr><td></td><td>20281129</td></tr>
+<tr><td></td><td>20282045</td></tr>
+<tr><td></td><td>20286705</td></tr>
+<tr><td></td><td>20287561</td></tr>
+<tr><td></td><td>20298029</td></tr>
+<tr><td></td><td>20304401</td></tr>
+<tr><td></td><td>20304596</td></tr>
+<tr><td></td><td>20306762</td></tr>
+<tr><td></td><td>20310675</td></tr>
+<tr><td></td><td>20318984</td></tr>
+<tr><td></td><td>20320347</td></tr>
+<tr><td></td><td>20326246</td></tr>
+<tr><td></td><td>20326976</td></tr>
+<tr><td></td><td>20327243</td></tr>
+<tr><td></td><td>20327828</td></tr>
+<tr><td></td><td>20327860</td></tr>
+<tr><td></td><td>20341550</td></tr>
+<tr><td></td><td>20345567</td></tr>
+<tr><td></td><td>20345810</td></tr>
+<tr><td></td><td>20348205</td></tr>
+<tr><td></td><td>20348211</td></tr>
+<tr><td></td><td>20348516</td></tr>
+<tr><td></td><td>20354214</td></tr>
+<tr><td></td><td>20354635</td></tr>
+<tr><td></td><td>20359736</td></tr>
+<tr><td></td><td>20364516</td></tr>
+<tr><td></td><td>20365545</td></tr>
+<tr><td></td><td>20371525</td></tr>
+<tr><td></td><td>20372922</td></tr>
+<tr><td></td><td>20375525</td></tr>
+<tr><td></td><td>20382483</td></tr>
+<tr><td></td><td>20386591</td></tr>
+<tr><td></td><td>20386680</td></tr>
+<tr><td></td><td>20393768</td></tr>
+<tr><td></td><td>20395729</td></tr>
+<tr><td></td><td>20395909</td></tr>
+<tr><td></td><td>20395925</td></tr>
+<tr><td></td><td>20395942</td></tr>
+<tr><td></td><td>20395957</td></tr>
+<tr><td></td><td>20395985</td></tr>
+<tr><td></td><td>20397278</td></tr>
+<tr><td></td><td>20404781</td></tr>
+<tr><td></td><td>20410013</td></tr>
+<tr><td></td><td>20410095</td></tr>
+<tr><td></td><td>20417827</td></tr>
+<tr><td></td><td>20424959</td></tr>
+<tr><td></td><td>20425962</td></tr>
+<tr><td></td><td>20427033</td></tr>
+<tr><td></td><td>20433489</td></tr>
+<tr><td></td><td>20433774</td></tr>
+<tr><td></td><td>20438891</td></tr>
+<tr><td></td><td>20441292</td></tr>
+<tr><td></td><td>20444225</td></tr>
+<tr><td></td><td>20446092</td></tr>
+<tr><td></td><td>20449282</td></tr>
+<tr><td></td><td>20452621</td></tr>
+<tr><td></td><td>20456666</td></tr>
+<tr><td></td><td>20462288</td></tr>
+<tr><td></td><td>20463410</td></tr>
+<tr><td></td><td>20465373</td></tr>
+<tr><td></td><td>20481345</td></tr>
+<tr><td></td><td>20483166</td></tr>
+<tr><td></td><td>20492643</td></tr>
+<tr><td></td><td>20501800</td></tr>
+<tr><td></td><td>20504378</td></tr>
+<tr><td></td><td>20504391</td></tr>
+<tr><td></td><td>20514624</td></tr>
+<tr><td></td><td>20515422</td></tr>
+<tr><td></td><td>20524188</td></tr>
+<tr><td></td><td>20524887</td></tr>
+<tr><td></td><td>20531355</td></tr>
+<tr><td></td><td>20533400</td></tr>
+<tr><td></td><td>20561805</td></tr>
+<tr><td></td><td>20562019</td></tr>
+<tr><td></td><td>20564628</td></tr>
+<tr><td></td><td>20569535</td></tr>
+<tr><td></td><td>20571220</td></tr>
+<tr><td></td><td>20577466</td></tr>
+<tr><td></td><td>20577702</td></tr>
+<tr><td></td><td>20577754</td></tr>
+<tr><td></td><td>20601367</td></tr>
+<tr><td></td><td>20603262</td></tr>
+<tr><td></td><td>20604737</td></tr>
+<tr><td></td><td>20605133</td></tr>
+<tr><td></td><td>20612716</td></tr>
+<tr><td></td><td>20638220</td></tr>
+<tr><td></td><td>20638438</td></tr>
+<tr><td></td><td>20639640</td></tr>
+<tr><td></td><td>20672430</td></tr>
+<tr><td></td><td>20679339</td></tr>
+<tr><td></td><td>20679476</td></tr>
+<tr><td></td><td>20686922</td></tr>
+<tr><td></td><td>20694678</td></tr>
+<tr><td></td><td>20695314</td></tr>
+<tr><td></td><td>20703597</td></tr>
+<tr><td></td><td>20713271</td></tr>
+<tr><td></td><td>20720599</td></tr>
+<tr><td></td><td>20729143</td></tr>
+<tr><td></td><td>20731561</td></tr>
+<tr><td></td><td>20738228</td></tr>
+<tr><td></td><td>20739688</td></tr>
+<tr><td></td><td>20740040</td></tr>
+<tr><td></td><td>20756566</td></tr>
+<tr><td></td><td>20756622</td></tr>
+<tr><td></td><td>20765451</td></tr>
+<tr><td></td><td>20772829</td></tr>
+<tr><td></td><td>20808972</td></tr>
+<tr><td></td><td>20823003</td></tr>
+<tr><td></td><td>20829125</td></tr>
+<tr><td></td><td>20851964</td></tr>
+<tr><td></td><td>20925824</td></tr>
+<tr><td></td><td>20973304</td></tr>
+</tbody></table>
+<br>
+<br>
+<b>Changes incorporated in this version: </b><br>
+<br>
+<b>Patches accumulated and obsoleted by this patch: </b><br>
+<br>
+<b>Patches which conflict with this patch: </b><br>
+<br>
+<b>Patches required with this patch: </b><br>
+<br>
+<b>Obsoleted by: </b><br>
+<br>
+<b>Files included with this patch: </b><br>
+<br>
+SPARC_T4-4_metadata.xml<br>
+Sun_System_Firmware-8_7_2_b-SPARC_T4-4.pkg<br>
+sysfwdownload<br>
+<br>
+<b>Problem Description:</b><br>
+<br>
+
+<pre>20973304 BUI does not show up "Status History Log" details
+20925824 run snapshot fail through ftp/sftp protocol on ILOM web page.
+20851964 serpa and seville-based platforms do not build when jar files are compressed
+20829125 Problem with RESTRICTED-SH
+20823003 Convert internal scripts to use https to access the svn server
+20808972 ssh client fails to drill down in FIPS mode under certain condtions.
+20772829 SCP client doesn't support  AES counter mode (strong cipher)
+20765451 long delay to get spsh prompt in degraded mode
+20756622 ipmiint to use FRU operations with larger sizes
+20756566 kernel panic can't output data to console before kernel resets
+20740040 Globals not properly saved when we trap at max GL
+20739688 build failures during multi-platform builds
+20738228 Problem with WEB
+20731561 Problem with WEB
+20729143 Build fails in libpackage tests.
+20720599 improve performance for snapshot use of 'show /SYS'
+20713271 Change openssl update and build methodology
+20703597 remove openssl 1.0.1h
+20695314 Problem with WEB
+20694678 backport openssl 1.0.1j from core_3.2.5 to core_3.2.4
+20686922 ASR Client sending serial number instead of hostname
+20679476 execve() syscall is failing under load
+20679339 Mensa and Jumilla Error processing data in segment "NT": Segment Corrupt
+20672430 Data from emulation of LDSH with misaligned address not sign-extended correctly
+20639640 mii-tool should be a restricted shell command
+20638438 AST JRC Client shall use the default JVM SSL Protocols
+20638220 JAR files in patch need to be re-signed.
+20612716 HV 1.13.2 missing reboot-memory node
+20605133 Building openSLP leaves behind autom4te.cache directory
+20604737 IPMI SSO Credentails are invalid on systems configured with 12 or more users
+20603262 Disable PM component in the asrdb after POK or nonrecoverable glitch occurs
+20601367 sp_trace logs from pmbus_sensor
+20577754 Add support to degrade system after a POK fault
+20577702 Add support to powercycle system after a glitch fault
+20577466 VHBA: unable to boot guest from a COMSTAR LUN using vHBA
+20571220 ASR/XML &lt;host-id&gt; changing backend requirements
+20569535 Add ability for ILOM OESHM client to download scripts from server
+20564628 SUBGUEST_CPU_EXTENSIONS_INFO returns raddr as -1 with data area not configured
+20562019 JRC tokend shall have the same socket attributes as https
+20561805 ASR/XML backup/restore of password not working
+20533400 root should not be forced to change pwd if default pwd is compliant with policy
+20531355 BRCTL uses bit position not value
+20524887 logmgr stop reports sp_trace_write error
+20524188 Migration between 1.13.x HV and 1.14.x HV release builds fail
+20515422 ILOMs hang when McAfee Vulnerability Manager 7.5 scans the network
+20514624 ASR  Unregistered. seen in SP event log after FW upgrade
+20504391 Subguest RA2RA TSB translation fails when mutiple TSBs configured
+20504378 VA_MASK support for subguests broken
+20501800 Error enabling ASR: "command failed"
+20492643 ASR/XML asr-notify restarts during shutdown
+20483166 BUI doesn't timeout properly on closed browser/tab
+20481345 Can't restart consd - too many arguments
+20465373 HTWS reports invalid ext3/4 filesystem
+20463410 force root password change not subjected to idle timeout
+20462288 Problem with RESTRICTED-SH
+20456666 send_action_break=dumpcore property functionality not working
+20452621 T5-2 console hang on local graphics monitor when screen display begins to scroll
+20449282 top down make does not work on sun4u platforms
+20446092 CPU DR with active subguests breaks PRIQ handling
+20444225 Exadata X2-2/X4270M2 dynafrud is dying in a loop
+20441292 Problem with INFRASTRUCTURE
+20438891 Reduce pointless hvmd parsing
+20433774 ASR allows pending queue in /conf/asr/msgs to grow without bounds
+20433489 ILOM completion message sent to HMN server results in 500 error
+20427033 Can't use Remote System Console when SSLv3 is disabled in Java
+20425962 start-slave-cpus may fail to setup User Pointer register
+20424959 Problem with RESTRICTED-SH
+20417827 t7-1 on11u3_15+2 bad trap ixgbe dr intr_remove_handler
+20410095 Symlink to self not detected on OEL6
+20410013 JRC+ sparc solaris client storage-redir issues with some Solaris hosts.
+20404781 Support server HMN LOG_AUTO command
+20397278 default root password change is not required when it meets the password policy
+20395985 C compiler used by OpenBoot is too old to use on current Solaris versions
+20395957 C sources are not compliant with latest C compilers
+20395942 MAPDI makefile macro forces compression
+20395925 linker map files must be updated to match current linkers
+20395909 Sources for obsolete program flash-update should be removed from the source base
+20395729 T4-4 POST Internal NIU Loopback failures on a live network
+20393768 ILOM leaks memory when sending ILOM+ update to HMN server
+20386680 Unable to boot an LDOM on a T4 with 8.7 nightly firmware installed
+20386591 An error event in ILOM restore only shows "/X/*" instead of "/SP/*".
+20382483 spsh to avoid recursive walks of properties
+20375525 Problem with INFRASTRUCTURE
+20372922 OESHM UI changes.
+20371525 HMN TLI update changes broke the 'Is HMN Available' Get Behavior
+20365545 Improve Password Policy warning prompt behavior
+20364516 enable hmn_feature on select x86 platforms
+20359736 printvar build script truncates output
+20354635 fishwrapd consumes too much memory on system with large amount of SAS storage
+20354214 If IPv6 address is used for oeshm server_uri, the displayed address is incorrect
+20348516 snapshot failed on a fully configured machine (sca-m716-186) with build_27
+20348211 Add ability for OESHM server to clear faults in ILOM
+20348205 Add ability for OESHM server to change Top Level Identity in ILOM
+20345810 ilomconfig/sunoem cli create command appears to fail
+20345567 Improve Password Policy warning prompt behavior
+20341550 avoid reserialization when thresholds are changed
+20327860 cpu-extensions table not unconfigured on subguest-fini
+20327828 cpu-extensions-conf missing means to unconfigure the table
+20327243 Update copyright notice to 2015
+20326976 OESHM related IPMI commands not working on multi-domain systems
+20326246 SAVE_GLOBALS trap leaves some junk around
+20320347 Remote Auth (Radius, etc) fails after setting password policy
+20318984 BUI preferences password_policy symbols not allowing  &amp; and =
+20310675 fix to hmn_test compilation
+20306762 put budget-specific code under power_management_budget_interface_feature
+20304596 script inside hmn_ilom.pkg has the incorrect property name
+20304401 Help users with workspace permissions
+20298029 ILOM should not assume that console bootlog output is NULL-terminated
+20287561 MINIHELP: sshd weak_ciphers mode needs to be documented
+20286705 banner/connect_message and banner/login_message in xml file and not in show
+20282045 SP/preferences/password_policy  history Looks like it's 6 previous not 5 previou
+20281129 can't connect to serial console on AST based systems
+20268930 Only start hmnd if oeshm servicestate set to enabled
+20264767 ILOM Password Policy BUI
+20264505 force root change password
+20263269 ASR CLI help says "no proxy support" when it is clearly included.
+20258520 ASR reports "Username missing" in ILOM event log
+20258273 Wrong path in DHCPv6 script
+20246063 Kernel Zone panics on first boot on M7-8
+20230092 Add SLP capability to ILOM+
+20229396 Storage subsystems must be present for Add-on disk only platforms
+20222032 Change "hmn" name in user visible strings to be "oeshm"
+20215327 MINIHELP: Add HMN support
+20214613 ASR/XML: K02L_asr-notify should be K02L_asr-notify_SLN
+20207914 new minihelp required for ILOM Password Policy feature
+20204712 change date output in HMN updates to server
+20192163 Unknown address warning messages displayed for ILOM+ updates
+20191267 Remove LOCAL_TARGET_HOME from Buildbot
+20183034 Change banner properties
+20175661 Add HMN related behaviors to the IPMI OEM 'Get Behaviors' command
+20145492 Cannot clear hmn server_uri property
+20139984 HTWS reports invalid repository
+20138259 Other removable devices page on M series is slow and difficult to read
+20131371 ILOM HMN update indicates success when server returns HTTP error
+20131343 20070354 broke non-resumable handler
+20123284 FRU list in HMN update is improperly formatted
+20104121 HMN update from ILOM must include open problems and inventory
+20097834 SDIO:M6-32: ABORT: ...err_subr.s, line 0x4ac: recursive spinlock_enter
+20096050 Remove BAR 1C workaround in LSI3008 FCODE driver
+20094328 HV is not initializing the pex TLP hints register (0.14.2.2)
+20090567 add configvar for ios_debug
+20090154 stack Underflow during reboot  when a guest is configured with large ldc
+20088030 Restore of users information allows for invalid values
+20082284 share-id lookup table should include files listed in EXCLUDE_SHAREID_FILES
+20070354 SAVE_GLOBALS not recursive
+20069385 ILOM Backup Fails w/ Error: Transport error - could not communicate with service
+20063415 hypervisor does not always handle disabled pcie slots correctly
+20063404 Define and use pcie link width and link speed macros
+20063387 fpga_pcie_reset_{assert|deassert}() sometimes end up picking wrong DCU
+20063366 must call wait_for_pcie_fabric_reset() before ios_peu_link_up()
+20063345 idt.c should use the same debug prints as the rest of pcie prober
+20062264 Nightly 8.7.x (starting 11/17): ilom has trouble parsing xml files for fru/sensr
+20060737 ASR/XML: "X-Oracle-Telemetry-Source" should be "ILOM_XML", not "FMA"
+20059159 Misaligned data access trap emulation not working for subguests
+20054069 openSLP doesn't build on the new OEL6 based development systems
+20053862 "pidof -x" has stopped working
+20038337 Fix for 19857390 broke the build
+20035787 add domain_count to header for all platforms
+20030363 KVMS closes abruptly
+20027691 Remove some duplication in .xml files
+20026648 'debug' q.bin panics parent while running multiple subguests with over commit
+20025954 Add mii-tool to image by default
+20025785 ASR heartbeats are not automatically sent
+20010209 Replace DDR4 pseudo part numbers with official Oracle part number
+20003462 ASR/XML UI property "asset-ID" not needed.
+20003379 New FRUID enums for 4S variants of M7-8 chassis
+19989153 ASR client using wrong password for proxy authentication
+19988970 Remove model_handle from libhdl
+19978355 ILOM: Upgrade Open SSL to 1.0.1j
+19978122 Invalid port error when ASR proxy host prefixed by http
+19978020 No such object error window entering ASR proxy data in BUI
+19976322 Show hmn server IP address as R/O field and hide hmn server uri
+19970868 ASR client does not provide a default endpoint URL
+19969738 Remove default_model_handle from libhdl
+19969622 HOST Properties are not cleared up after set to factory default with non-debug v
+19958312 Help information for  /SP/powermgmt/budget/ pendingtimelimit changed.
+19958133 ILOM unable to use ntpdate with routers
+19952146 fmadm faulty output with [replayed from FRUID]	is not clear
+19950010 ILOM BUI does not give status of [replayed from FRUID]
+19942936 Parfait errors found in usr/src/common/libs/ui/cli with Parfait 1.5.2
+19933812 All platforms should have the same set of v3 state MD properties
+19933180 Reorder MMU restore to be more paranoid
+19933172 subguest state-flags could re-use incorrect state
+19931981 Fix race in hypervisor build
+19931819 Add HMN log rolloup support
+19930984 Use tunables for soft cap budget timeout settings
+19927172 io domain got stuck on reboot in ldoms 3.2 Int36
+19916158 BUI, ILOM reports the same location and serial # for all SPPs
+19913808 Parfait issues in mods/apps/plat on Serpa and Madrid
+19913086 net switch and net module libhdl interfaces
+19912508 Parfait errors found in usr/src/infra/consd
+19911563 Remove directories from parfait_issues.mk that now build
+19911533 Parfait errors found in usr/src/infra/fpgautil
+19911426 Parfait errors found in usr/src/common/libs/vbsc/libpcp
+19910763 Parfait errors found in usr/src/common/libs/libspdatarecorder
+19910733 Parfait errors found in usr/src/common/libs/librundiag
+19910699 Parfait errors found in usr/src/common/libs/libdesas
+19910698 Exit code of ipmitool sunoem cli does not reflect spsh cmd errors
+19910666 Parfait errors found in usr/src/common/libs/libdynafru
+19910506 Parfait errors found in usr/src/common/libs/libdalomfm
+19906476 Parfait errors found in /usr/src/common/tools/mtd
+19906459 Parfait errors found in /usr/src/common/tools/htwool
+19906403 Parfait errors found in /usr/src/common/apps/snapshto
+19906346 Parfait errors found in /usr/src/common/apps/shadowscan
+19906298 Parfait errors found in /usr/src/common/apps/seriallink
+19906262 Parfait erros found in usr/src/common/apps/sas_stat
+19906141 Parfait errors found in usr/src/common/apps/libcapitest
+19906075 Parfait errors found in usr/src/common/apps/jedi-clis
+19906047 Parfait errors found in usr/src/common/apps/gmtest
+19906021 Parfait errors found in /usr/src/common/apps/flashfpga
+19896874 HMP+ needs ILOM IPMI command for retrieving key/cert info
+19891093 x5-4 ClustronV3 PCIe card not identified by ILOM
+19890289 Check q.bin sizes and fail build if they exceed maximum size
+19888449 missing RULES for aura SSD event-fault support
+19884650 SP Trace to provide point control over individual trace-ids
+19884613 May 2015 build: setting /HOST/console logging returns Internal error
+19883813 Serial Redirection still can be use when kvms state is disabled
+19883370 JRC+ window should ignore arrow keys and forward to remote host
+19880050 x5-4 Estes-Int not recognized by ILOM
+19877689 HV did not set some LDC channels state UP after SP failover
+19876199 ILOM ASR XML logging (sp_trace) could be improved
+19876156 ILOM ASR XML UI does not allow clearing endpoint or username
+19876129 ILOM ASR XML BUI does not allow http:// prefixed endpoint (CLI ok)
+19875275 MINIHELP: change the default value of autorunonerror (boot fail recovery)
+19869970 Remove unused label in SYNC_DEMAP_WITH_SWTW macros
+19862913 T7-4 ILOM-SP not listing  /System/PCI_Devices/Add-on/Device_xx Info
+19857390 tracking dirty pages in a domain running a KZ corrupts memory
+19852448 ABORT: ../../../common/src/traps_common.s, line 0x22a: BAD TRAP PC = 40000b715ff
+19852383 report thresholds to 3 decimal places in event log
+19851755 BUI-Mouseover popup for Processors box too small, boundaries not respected
+19849527 FPGA System Interrupt Enable register is uninitialized
+19849498 Shared context register can be corrupted
+19846580 fdd: add support for error, ireport, state and alert events
+19836725 Update .traps to contain complete list of trap information
+19827520 enhance pmeminfo with additional options
+19827166 run snapshot caused lumain coredump
+19825218 HTWS reports false-positive repository errors with svn1.7
+19823513 Enable pmeminfo for all platforms
+19821324 t5-2 s12_59+ sysfw 9.4.0._14 trapstat -t + xir resume = hvabort and poweroff
+19817690 Service has requested an additional Ethernet address record in the SD segment
+19800759 Operator role unable to start/stop/reset on /System target
+19795707 in 4.37.x vdisk fails when vhba configured - vdisk and vhba work ok in 4.36.x
+19790879 asr-notify dumps core after misconfiguration
+19787879 SDM event log should be captured in snapshot.
+19783917 Enabling TPM without node0 causes a fatal
+19783035 ASR status changes to incorrectly read 'registration in progress'
+19782548 HVABORT on T5/M5 during hv link training
+19782342 Snapshot cannot capture info when CLI banner acceptance is enabled
+19776840 Dynamic Direct I/O capability for T4, T5, M5 and M6 platforms
+19775152 nightly test failures, LED inop on non-River platforms
+19773831 ASR telemetry still sent after state set to disabled
+19770233 perform health monitoring with separate threads
+19767745 HV should report Subdevice information on Switches
+19767096 ASR/XML fault telemetry should be retried after send failures
+19732076 Simplify back-porting luapi errno from trunk.
+19731186 libipmi functions logging messages to syslog
+19730867 MINIHELP: ASR UI updates
+19726288 add xmllint checks to build environment
+19725883 when HMN daemon is disabled, property values are diff. after rebooting SP
+19725881 Integrate openSLP into the ILOM build
+19723086 getperf HV API calls return wrong error code
+19709925 kernel: OnInitBuffer: NULL achReadBuffer, kmalloc FAILED
+19707599 HMN daemon init script has incorrect usage
+19707353 Memory leak with Other Removable Devices
+19692191 B6000, x6270 UNABLE TO LAUNCH JRC WHEN STARTING BLADE BUI FROM CMM
+19690462 Script and macros to extract #define values from C code.
+19688390 Devices behind hub behind hub not seen when empty ports exist adjacent to hub
+19683188 augment share-id checks to catch out of range ids
+19682651 Increase the iotsb number in latest firmware
+19681956 HV support for LDoms Verified Boot
+19681518 Integrate Perl CPAN modules into ILOM
+19681502 openSLP required for the HMN project
+19681431 Add Perl CPAN modules source code into ILOM
+19672605 MINIHELP: Host Management &gt; Status History Log
+19672562 SRIOV: pcicfg: WARN: PCI Expansion ROM is not accessible. [add FC IOV (emlx) op]
+19672352 Update .traps command at ok prompt, which has not been updated since sun4u
+19654600 T4 System fails to reach OBP, hits fatal error in HV after poweron
+19652573 Enable the ASR/XML feature
+19646522 SP Trace: provide stack backtrace support
+19639423 Incorrect/missing SNMP username info
+19638848 Deadman panic seen with move-core
+19638587 MINIHELP:Hostmgmt_Diagnostics_Sparc page missing on SPARC T-platforms
+19616571 Deadman panic after guest suspend/resume (post TH HV)
+19616042 HV corrupts memory doing a RTT update during live service
+19580194 HMN client must support HTTPS
+19563848 Perform integration of Perl 5.16.3 into ILOM
+19553635 sunHwTrapHeartbeat DESCRIPTION insufficient
+19525834 setsvcid core dump.
+19501910 x5-4 Thebe3 HBA not recognized in ILOM
+19501229 ubifs_upev_feature should use Kconfig.feature to modify kernel config..
+19491565 Add Perl into the ILOM repository
+19485526 obp assumes an executable heap and fails on Solaris 12
+19483211 OBP is not negotiating the retained-mem group before calling REBOOT_MEMORY_GET
+19453173 Knowledge Article KA for SP enet failure has un-printable characters
+19452708 request FMA fault log to display faults from the backup log
+19439545 T4-4 HC needs to not send a fatal when one PM is disabled for a DC SPOF
+19430756 PSNC long product names need setpsnc and copypsnc support
+19403825 web accessibility - french passages in about page needs to have lang attribute
+19402496 Javascript encoding problem
+19402447 'compatible' of PCIe bridge (type 1) has wrong SSID and SVID
+19401059 Corrupt FRUID should only result in a single fault diagnosis
+19399897 1. A means to disable CBC mode cipher encryption, and enable CTR or GCM cipher m
+19387757 uboot warm reset sets the ssp running wild and may corrupt the ddr
+19386744 sp_trace_view coredump on corrupted dumpfile
+19356538 sp_trace_view coredump on invalid dumpfile
+19336643 Internal error: Oops: 17 [#1] on M7-8 with SysFW build_33
+19313957 MINIHELP: Banner Changes
+19270228 Add checksum of HMN ILOM pkg in update ILOM sends to HMN server
+19239666 Don't use system avoidance daemon with hmnd
+19237383 Open Problems should utilize ASRU
+19231549 QPIREUT registers: Update device number for QPI Lane 2 from 24 to 10 for HSW-EX
+19218424 show /Servers/PDomains command hangs before listing PDom2/System
+19217597 Changes for New Branch 3.2.5
+19211179 Add ILOM support for HMN client
+19210792 T4-4 DC power fault SPOF -fault ID SPT-8000-DH
+19202490 Regression: first guest domain cannot go to obp
+19197738 Evacuate core to newly added cores stuck
+19195293 NX5-2: P0.1: update BIOS to 32000006
+19188932 System summary: Error reading register 0x38 from DB_CPLD
+19181096 A249A PSU reports a high load power transient when input voltage is disconnected
+19175284 X5-4/X5-8: revert default serial baud rate to 9600
+19173830 ILOM should not log internal event in event log
+19172949 NX5-2: P0.1: HWDiag Cleanup
+19169677 Ldom guest hangs in  "OpenBoot initializing" after power cycle
+19166923 Use 'argh' in Sensor and LED access methods.
+19166877 Virgo+ LEDs broken.
+19166329 sunHwTrapDiagEntity should not be included in sunHwTrapHeartbeat
+19078569 Fixing a bug in NMVE cable check in hwdiag io nvme_test
+19078374 X5-2[L] - adjustments to hwconfig values from hardware team
+19076616 update uefidiag image in ilom
+19074532 X4-2*: some devices are missing from /SP/bootlist
+19073410 Hwdiag: X4-8: Add register dump for HBA retimer
+19064682 add uefidiag script hooks for ops/developers
+19063448 X5-2[L] - CPU and MEMORY VPS Sensors are inaccurate
+19063254 hwdiag io disk_scan should print subset of info for MISSING disk
+19062333 Reset based error scraping is not working
+19058108 x5-4 ILOM does not recognize Fortville PCIe card
+19055018 NX5-2: p0.1: U-Boot I2c Probe fails on 0.9V_SAS
+19050727 GetDisabledRanks/GetDisabledCores Interlock are Timing OUT
+19050280 Not all core MCA banks are scraped
+19049435 Haswell EX needs a sperate cpumem.csv file
+19047920 x5-8: Add support for INTSW sensor
+19033050 NX5-2: P0.1: Cannot turn on Telco Alarm Leds
+19032954 NX5-2 P0.1: PCIe Switch mapping incorrect
+19032807 hwdiag io commands for platform missing help
+19023531 Warn if default https cert/key is being used
+19023325 Reported power values for fans are too low
+19016472 X4-8: No fault when host rebooted from UE injection from ITP
+19013534 hwdiag x5-2(l) nvme_test enabled in restricted mode
+19013460 NX5-2: Add Inventory for FS2 DBP
+19002210 ldmd dumps core with fatal error dueto HV response timeout of op HVctl_op_hello
+18999744 fru list failed on some configurations
+18999677 [X4-2L SW1.2] hwdiag system info mixes Fans info and PCIe info
+18997246 X4-4/8: CRC mismatch when using vrdtool_inf tool
+18994514 MINIHELP:Hostmgmt_Keyswitch - Remove mode from diagnostic paragraph
+18979056 X4-8: Hwdiag - Add diagnosibility for Mbus
+18968359 X5-2[L] - add version '10b' of the PCIE Switch Card Firmware to the ILOM .pkg
+18967109 hwdiag x5-2l sas expander functions should not allow nvme disks
+18958206 X5-2[L] - DBP FGPA interrupt service routine dropping interrupts
+18951282 ILOM ASR client lacks proxy properties
+18948260 hwdiag mem info not detecting mapped out DIMM in 8C CPU (single HA)
+18941369 Excluding DBP LEDs from 'hwdiag led test all' for x5-2(L)
+18928051 uefidiag ultrax pelink/idt name sync
+18924145 X5-2[L] - ILOM needs to resync with Power Control and DBP FPGA after load
+18917522 hwdiag x5-2l ultrax fixes
+18917324 X4-8/X5-8: chassis.device.cpld.voltage-rail-error does not generate any fault
+18917313 T7-4:SP Network Mangement cable pull causes all network setting to reset to none
+18917075 Nile FS1: update BIOS to 21000219
+18915919 Thebe3 not reconized by ILOM
+18914967 X5-2L - fpga_update.sh script UltraX support
+18906065 X5-2L - UltraX DBP FRU markup is incorrect, uses 12DBP i2c address
+18905197 update uboot for ultrax dbp fru device at 0xAA
+18898706 X4-8, SW1.1 hwdiag system info no longer showed "Host Network Ports"
+18882574 correct hwdiag ultrax pci info dev/func
+18877191 X5-4: add PCI-E switch card config programming support
+18869680 MINIHELP: Add help for "Other Removable Devices"
+18867042 Diagnostics does not rotate  the previously saved result file
+18865347 clearfru should remove corrupted dynamic segments
+18864856 Include Ops FDR override files in ILOM
+18864395 OK_REAR Led remains ON when SP is reset
+18857696 X4-8: Systems should not need AC power after Adding/Removing CMODs
+18857332 Adding chip info for PSU FRUID in x5-2L's XML file
+18856016 x5-4/x5-8: enable cpldflash in service shell
+18855197 x5-4 after fwupdate, dhcp-enabled SP got a new IP address
+18854603 misc cleanup and consolidation of serial getty.sh
+18854580 Grantley: need alternate build path to handle platform feature varations
+18849067 variable target used unitialized in res_hv_memory_parse (parfait)
+18848854 hwdiag/uboot, remove access to vrd on ultrax disk backplane
+18828671 serial port setting interlock with HOST/console can fail
+18828261 Hwdiag: Adding dda dump for failing VRDs in hwdiag cpld vr_check
+18819493 X4-4/8 DIMM IDString optional
+18818935 "hwdiag mem info all" fails to report information with  8core CPU (QGSF)
+18817648 Place NVMe drives in front and SAS Expander in all fan zones
+18817467 X5-2[L] PCIe thermal floor ignores wrong slots when AIC cards installed
+18816994 uefidiag reports capacity of 4.0 TB drives as 0 bytes
+18816801 X5-2[L] - add PCIE Switch Card Firmware release candidate to the ILOM .pkg
+18813071 x5-4 hwdiag Error: PECI access failed for DIMM information - PECI_PROT_ILLEGAL_M
+18810750 Enhance vrdtool_ir to skip updating MTP if no data is written
+18809694 X5-2[L] - HDD Slot Power state is not reflected in STATE sensor
+18809377 ILOM should not access CSRs via PECI on hotpluggable devices (NVME drives)
+18808974 coretool stacktrace in env_monitor_grantley.c:145
+18803798 CEs injected by ITP did not update serd value and no fault
+18799678 Update NX5-2 and QX5-4 IR VRD configuration Files to Version 05
+18796955 hwdiag doesn't show complete i2c devices list
+18793821 Ignore VCU timeout machine checks
+18791802 Fix IPMI message length for RAKP handshakes
+18777620 include hwdiag disk_power for 1u/2u 8 disk backplane
+18771247 Make the address decode of bank for specific for DDR4
+18770148 X5-2[L] - prog_vrd.sh script does not properly detect write failures
+18762540 NX5-2 P0.1: Update BIOS to 32000005
+18756696 hwdiag could hang when running multiple commands
+18755152 remove sas expander temp sensor from xml file
+18754096 X5-4: get fpga_update to work for X5-4
+18752989 X5-2[L] - add UltraX DBG FPGA support to fgpa_update script
+18746181 X5-4/X5-8: need new QPART IDs assigned
+18746096 X5-4/X5-8 : enable hwdiag
+18746004 X5-4/X5-8: need new SSIDs assigned
+18745748 OPS config with only single NVME switch card causes IIO scraping to fail
+18733963 Grantley QX5-4: Add FMA diagnosis support for 4 CPU Haswell
+18733134 hwdiag utilities for nvme need to be updated when using 12 dbp system
+18727389 Provide general ILOM 'tunable' baudrates for internal and external serial ports
+18726225 Use macros for LED blinking ability catagories in hwdiag code
+18726166 MINIHELP: Additional transfer protocols for Snapshot
+18721265 setpsnc/setsvcid do not error for long PSN/PPN
+18717107 add hwdiag -x option to exclude memory frequency check for ops
+18713397 sp_trace_view -r POD has many unsupported Reading Type 0x6 errors.
+18713355 A bug in 'hwdiag led set all off' when applied to disk drive LEDs
+18713091 Hwdiag dda dump on LTC4215 device does not display 1 byte register content
+18711995 Virtual Keyboard in JRC+ loses the framing sometimes
+18707243 X4-8: Automatic update of corrupted FPGA contents of a CMOD
+18706502 Adding memory VTT to hwdiag cpld reg and vr_check
+18704464 X5-2L - add UltraX DBP FPGA image to ILOM .pkg file
+18698221 Snapshot - support additional protocols
+18694750 add haswell c1 stepping detection for hwdiag
+18691573 regression: hwdiag -h Segmentation fault at fabric test all|&lt;cpu&gt;
+18687072 X4-8 incorrect CPU identification in ILOM
+18678490 Running hwdiag pci commands with host power off reports error.
+18678145 X5-2L - enhance prog_vrd.sh script to verify VRD versions while listing
+18676492 certain x5-2 hwdiag commands with verbosity flag (-v) display invalid pci errors
+18673145 RAS coredump when receive PCIE Device error IPMI msg for device not in PCI tree
+18672587 'help version' in /SP/firmware/host/miniroot is not correct
+18672082 vrdtool_ir fails to enable test mode when target VRD is behind an I2C MUX
+18671980 Add support for reading the VPD on NVMe drives and AICs to fan control
+18671515 x5-2(l) UEFIDIAG PCIe nvme DSN inaccurate
+18664075 Turn on HBA Service LEDs for ILOM Generated HBA faults
+18652330 uefidiag version associated with ilom build
+18647554 Hwdiag: Display SP current date/time when executing hwdiag
+18646318 sunoem cli dump /System/BIOS/Config returns partial file
+18638348 x4-4/x4-8: Update portfolio documents for x4-4/x4-8 PSU sensors.
+18632617 hwdiag io disk_power not functional
+18632312 Problem with WEB
+18617751 NX5-2: Enable A249A PSU automatic fan control to reduce acoustic level
+18616553 Add support for Fultondale cards to fan control
+18616187 X4-4/8: CPLD update utility should be available in service mode.
+18615809 add pcie nvme cards to hwdiag pci/temp/inventory output
+18615204 Remove SAS Expander Temp Sensor from I2C Probe Test in x5-2L Uboot Diag
+18610829 Redundant messages when trying to reset a system already off
+18610809 X4-4/X4-8: Implement hwdiag psutest
+18610462 X5-2[L]: Need to identify ereports derived from host OS MC_pkts
+18603457 X4-8 ILOM reports incorrect slot number when reporting PCIE card fault
+18603213 X4-4 Hwdiag led command - remove bogus led: /SYS/MB/V_3V3/FAULT
+18600284 hwdiag io eye_scope_data command needs internal retry
+18593915 Physical View for Web UI
+18544664 NX5-2: Update BIOS to 32.00.00.04
+18544645 X5-2* failing address decode calls out incorrect DIMM
+18544621 ILOM address decode for DDR4 needs to include bank group and bank information
+18538111 Some IIO ereports display "unrecognized" if they do not lead to a fault
+18521102 hwdiag system info does not detect on-board Twinvilles in a 1 CPU system
+18520961 Need fault for identifying drives in unsupported slots
+18520430 Update PA to DIMM translation intel code
+18516022 Some linux thread names are truncated
+18512809 Need to throttle DMI CEs and Non-fatal errors
+18507197 MINIHELP: Add help for /HOST/dimm_sparing
+18506550 Adding DBP POK test to x5-2(L) hwdiag
+18475689 x4-8: ipmi fru print 0 does not work correctly
+18475201 fault.memory.intel.mrc.unexpected-errcode occurred 2x with BIOS 71
+18467744 Add ADR bit check for REG_PWR_STS_PWRDWN2
+18467032 x5-2/l - add x5-2/l support in magic package
+18463933 X4-2B/X3-2B: progparts timer is not consistent.
+18454893 X4-8: /SYS/TEMP_FAULT does not light up on ereport.env.temperature-unr-ghi@/sys
+18453452 Increase FDD_{ERR,FLT}LOG_SIZELIMIT values for Pilot 3
+18453336 Mismatch of UBIFS Dynamic major number and /dev/ubi0's major number.
+18452989 QX5-4 Initial Putback
+18442924 X4: remove UI "/SP/policy ENHANCED_PCIE_COOLING_MODE" altogether
+18442726 add x5-2l hwdiag io eye_scope_data command
+18441504 X5-2[l] - dimm_mgr.c:1237:spd_i2c_write_chunk(): Write FAILED, dimm ...
+18435491 Sunoem cli session can not be closed completely when 5 minutes timeout expires
+18435192 Size of ereport log and host_debug_err.log needs to be increased
+18433948 X5-2L - correct 24DBP NVMEx to Slot conversion
+18433931 Use ultra-x DBP board_id informed by HW in hwdiag code
+18433797 fault.ierr-persistent should not be auto-cleared by power-cycle
+18422832 x4-8 faulted pcie device not alerting user in ILOM
+18413007 ILOM's handling of WSB power-cycle reset during UEFICFG
+18405172 updated x5-2l hwdiag for nvme
+18403317 X5-2[L] - enhance VRD Programming script to handle Optionally Present VRDs
+18399396 x4-4 inject CE-MAX+1 not setting PRSNT sensor state correctly for failed dimm
+18393736 ILOM reports different DIMM UE locations in fault log and host debug error log
+18392616 FMA:  Check version number of OS's Machine Check ereport.
+18377616 ILOM does not report the memory CE's
+18368315 NVMEx/PRSNT sensors need to be removed from SDR for the single cpu system
+18367767 contents of PMBUS status registers are not in PSU ereports
+18360348 Avoid numbering conflicts between architected and non-architected MCA banks
+18354859 X5-2 ILOM must stop clearing host owned LNKSTS register
+18354773 X5-2L - need to swap NVME virtual PCIE slot mappings for client presentation
+18352973 NX5-2: P0.1: Update ILOM for P0.1 MB Changes
+18352883 NX5-2: P0: Update Fan VPS map based on measured values
+18352824 NX5-2: P0: Remove ZL9117M from U-Boot I2C Probe
+18347122 Hwdiag system info: Decode revision number
+18345671 Activating Remote Storage redirection should suspend Local redirection
+18345080 X5-2[L] - need method for sharing installed DBP type
+18339500 ILOM must NOT clear error indication in LNKSTS register
+18330235 MINIHELP: update minihelp for 'host storage device' to reflect new features
+18323618 NX5-2: P0: Update BIOS to Fix VGA, PCIe Failures
+18323581 Limit host power lock for PROGPARTS, UEFICFG to spstate only
+18316155 X4-8 ILOM upgrade can be performed while fpga upgrading
+18314106 spd_i2c_write_eeprom(): sun_i2c_multimsg_on_bus() FAILED, ntries: 3
+18308075 Hwdiag X4-4: Decode Board Revision
+18300720 Need to diagnose fault.chassis.temp.fail@/sys/mb/pch from PCH ereports
+18300711 Need unr-ghi/unr-glo ereports when PCH temperature crosses 90 degrees C
+18298063 MINIHELP - should use header tag instead of div tags for headings
+18292182 CONS_PUTCHAR with out-of-range value returns EOK not EINVAL
+18290117 PRMS check 058 fails
+18289444 hwdiag system info shows Absent FM in a system as Present in a system
+18289363 NX5-2: P0.0: Cannot access FRUID on 8 Disk Back-plane
+18289312 NX5-2: Placeholder bug to re-enable VGA regulator fault in ILOM
+18289269 NX5-2: P0.0: VGA Regulator Fault reported
+18289172 NX5-2: P0.0: U-Boot I2C Probe fails with host power off
+18287143 IVB-EP platforms can't get the DIMM info in hwdiag
+18286393 pod ras coredump under some cases.
+18283786 X4-8 - fault.io.intel.iio.pcie-link-degraded-width on /SYS/SMOD/HBA in RC1.1
+18282277 pod + dimmmgr flooding HAL log with unnecessary trace messages
+18281044 hwdiag disk format/sanitize progress indicator update
+18275909 hwdiag -v pci info pch generates PECI_PROT_ILLEGAL_MSG (0x90) error
+18269896 X5-2 should not run prog_bios if it fails to enter SP_STATE_PROGPARTS
+18267682 injecting pcie_us_cto_uc_memrd should not fault MB and CPU, only PCIe slot
+18266486 enhance hwdiag x5-2(l) nvme test
+18245340 PECI downstream writes return time-out completion code (but seem to occur).
+18238067 BIOS progress messages should be initialized upon every BIOS start of execution
+18237836 Decrease time between polls in polled mode to get more accurate CE SERDs.
+18237443 ILOM fails to power host back on after warm reset during ueficfg
+18232610 X4-8: 2 mtst injected intel.cache_ce errors caused fault raised
+18225223 UltraX: hwdiag should support test to verify proper cabling of x8 NVME switch
+18204810 pod coredumps during SP FW flash
+18198119 Update PA-&gt;DIMM logs in MSR scraping to output NAC name
+18184187 x4-8: internal HBA information lost from cli and gui
+18177663 Need ability to restart LocalStorageClient redirection
+18175633 Add link control register dump to host debug error log.
+18175553 PCIe register values test code should be expanded to handle downstream devices
+18168547 X5-2L - Fan Control Updates for UltraX configuration
+18167550 Probe for temperature sensor on hotplug NVMe drives
+18167378 UltraX support of IIO RAS
+18166940 HA shadow registers not recording ADDR values during memory CEs
+18154048 SERD counters for hotplugged dimms need to be reset
+18154033 need ereport listing components that have been hotplugged out
+18096717 Redirected ISO vendor is empty or inconsistent.
+18078400 x4-4 ILOM not generating ereport/fault for cpu/mem faults
+18062258 Remove unneeded dependencies on reading resolved cores mask
+18057294 After diagnostics test completion, host should boot into OSA.
+18050252 X5-2 ILOM  Error updating BIOS image - fault.chassis.memory.spi.error
+18043254 ncsi-check-links.sh does not work in a 1 CPU system
+18042406 SSH Server Has Weak MAC Algorithms Enabled
+18042307 SSH Server Has CBC Mode Ciphers Enabled
+17975324 X4-8: RAS support for HBA
+17945672 move to 4-byte DMA in Pilot3 early boot may save some SP boot time
+17943232 JRC+ Max Session Count issues on M series
+17904463 X5-2 ILOM Remote Console is intercepting cursor keystrokes
+17866274 PLACEHOLDER: X5-2: Decrease MRC timeout when MRC gets faster
+17819777 usr/src/common/IPMI/USB/share.c - buffer overflow
+17805393 add perl support to the ILOM image for use in escalation mode
+17785495 X4-8: FW71 - ILOM reports 0 system memory after SP reset if host is ON.
+17761035 Need to handle new "Loss of memory VTT (0.60V) output" from FPGA
+17622795 [Watch] x4-4 Out-Of-Memory condition message found in SP boot
+17597378 X4-8: Warm Service does not reflect memory inventory changes
+17591778 stacktrace sanity checks and workaround parfait bug 17591638
+17510459 Hwdiag Version/Date: Should be updated on every build
+17495689 ILOM CHARACTER LIMIT FOR WARNING BANNER IS INSUFFICIENT
+17488155 hwdiag not mapping out DIMM in improperly configured channel
+17370714 kt_errors_dram_dac.c possible unitialized variable (parfait)
+17370674 memory leak in stabs (parfait)
+17370670 memory leak in mdlint (parfait)
+17370620 double free in aschk (parfait)
+17370610 Workaround parfait bug 17193269 error: initializer element is not a compile-time
+17370600 Add support for parfait static code analysis
+17330621 HWDIAG reports errors for Fans 3&amp;4 when A261 is not powered
+17301698 Bios binary and UEFI Diags could be corrupted under special cases
+17276912 capidirectd - warning, unable to generate Initialize message, status=-1
+17030369 PLACEHOLDER: remove Infineon VPS sensors when P0.0 and P0.1 X5-2 systems age out
+16893537 /System/Memory/DIMMs/DIMM_ locations do not have the set command listed.
+16747266 More descriptive	text when a PSU fault is detected.
+16620887 IPMI SSHkey accepts UID 0 which is reserved
+16594001 IPMI Set User Access Command request ignored if 7th bit of 1st byte set to 0
+16479460 c_vbsc_send_polled doesn't handle GM failover
+16416823 ILOM: Add support for complex password for NT4-1
+15818329 SUNBT7200867 Name the consd (pdm2ilom) threads
+15792114 SUNBT7169353-3.1.2.30 Provide decode of failing memory address to row, column an
+15780223 SUNBT7155287 Enable/disable host console history logging doesn't work on G5
+15688099 AURA 1.0 ESM SERVICE LIFE is changed by SP reset, or a few days later
+15637781 SUNBT6945579 snmp mibs should have contact info changed to Oracle Corp
+</pre>
+<br>
+<br>
+<b>Patch Installation Instructions:</b><br>
+
+<pre>--------------------------------
+ 
+Please refer to the Install.info file for instructions on updating the firmware
+in the flashprom using the files included in this patch.
+</pre>
+<br>
+<br>
+<b>Special Install Instructions:</b><br>
+
+<pre>-----------------------------
+ 
+NOTE 1: Firmware component revisions included with this release:
+ 
+ 
+	Sun System Firmware 8.7.2.b 2015/05/06 15:23
+	--------------------------------------------
+	ILOM 3.2.5.3.b May 6 16:26:33 PDT 2015
+	Hostconfig 1.4.3 2015/04/10 09:55
+	Hypervisor 1.14.2.a 2015/05/06 15:22
+	OpenBoot 4.37.2 2015/04/10 08:59
+	POST 4.37.2 2015/04/10 09:05
+	GM 1.4.3 2015/04/10 10:04
+ 
+ 
+	Checksum of Sun_System_Firmware-8_7_2_b-SPARC_T4-4.pkg : 4249947023
+	(generated by the /usr/bin/cksum command)
+ 
+NOTE 2: Please refer to the online documentation for feature and version
+        compatibility between releases of Sun System Firmware and
+        Oracle VM Server for SPARC releases.  Documentation relevant to
+        this platform can be found at:
+        - OVM SPARC:   http://www.oracle.com/technetwork/documentation/vm-sparc-194287.html
+        - Oracle ILOM: http://www.oracle.com/technetwork/documentation/sys-mgmt-networking-190072.html
+        - SPARC T4-4:  http://download.oracle.com/docs/cd/E23411_01/index.html
+ 
+NOTE 3: Please visit http://www.oracle.com/goto/opensourcecode to download the
+        firmware's open source components that are required to be made available under
+        open source licenses.
+ 
+NOTE 4: EFI/GPT Disk Label Support for SPARC Servers
+        - Oracle Solaris and Sun System Firmware supports the following two disk labels:
+          o  SMI - VTOC label traditionally for disks that are less than 2 TB.
+          o  EFI - Extensible Firmware Interface GUID Partition Table (EFI GPT) provides support for disks
+                   that are larger than 2 TB. EFI GPT is also available for disks that are smaller than 2 TB.
+ 
+          The EFI label can be applied to a boot disk if the system is running the appropriate Oracle
+          Solaris and Sun System Firmware releases.  The minimum Firmware and Software requirement for
+          EFI GPT support is as follows:
+ 
+            - Sun System Firmware 8.4.0 or later  (SPARC T4 server)
+            - Sun System Firmware 9.1.0 or later  (SPARC T5 and SPARC M5 servers )
+            - Oracle Solaris 11.1 - 11.x (SPARC T4, SPARC T5, and SPARC M5 servers)
+ 
+          Use the format utility to manually set up a boot disk with the EFI GPT or SMI disk label. For example:
+ 
+             # format -e
+             Specify disk (enter its number): 2
+             selecting c0t5d0
+             [disk formatted]
+             .
+             .
+             .
+             format&gt; label
+             [0] SMI Label
+             [1] EFI Label
+             Specify Label type[1]: 0
+             Warning: This disk has an EFI label. Changing to SMI label will erase all
+             current partitions.
+             Continue? yes
+             Auto configuration via format.dat[no]? no
+             Auto configuration via generic SCSI-2[no]? no
+             format&gt; quit
+ 
+ 
+          Update the Sun System Firmware on your SPARC T4, SPARC T5, or SPARC M5 server to at least the
+          minimum versions noted above to enable the server to boot from EFI GPT labeled disks.
+ 
+          Older Sun System Firmware releases prior to 8.4.0 and 9.1.0 do not support the EFI GPT disk label
+          and are not able to boot from such disks.  If you try to boot from an EFI formatted disk with
+          older Sun System Firmware, you might see the following error message on the host console:
+ 
+             ok boot
+             Bad magic number in disk label
+             Can't open disk label package
+ 
+          The Oracle Solaris 11 update 1 installer automatically writes the EFI GPT disk label to the disk
+          if the firmware supports it. The disk will only boot under Sun System Firmware 8.4.0 or later
+          (SPARC T4) or Sun System Firmware 9.1.0 or later (SPARC T5 and SPARC M5). If a host is downgraded
+          to an older version of the Sun System Firmware, then the disk will fail to boot.
+ 
+          You can configure the Oracle Solaris Automatic Installer (AI) to use the SMI disk label by default
+          instead of the EFI GPT disk label by changing the following four lines of the &lt;disk&gt; snippet in
+          the AI manifest.
+ 
+             &lt;target&gt;
+                 &lt;disk whole_disk="true"&gt;
+                     &lt;disk_keyword key="boot_disk"/&gt;
+                     &lt;slice name="0" in_zpool="rpool"/&gt;
+                 &lt;/disk&gt;
+ 
+             [...]
+ 
+             &lt;/target&gt;
+ 
+          The AI then creates a slice0 for the installation which is the entirety of the boot disk.
+ 
+NOTE 5: Logical Domain Migration Firmware Version Restrictions
+ 
+        Hypervisor API incompatibility
+        ------------------------------
+        If you attempt to perform a live migration of a domain that is booted with at least version 8.4
+        of Sun System Firmware to a system that runs an older firmware version, the migration fails
+        (e.g. a live migration from a SPARC T5/M5 running Sun System Firmware 9.x to a SPARC T4 system
+        will only succeed if the T4 is running at least 8.4; a live migration from a SPARC T4 running
+        8.4 to a SPARC T2/T3 running 7.x will fail, as will a live migration from a SPARC T4 running 8.4
+        to a SPARC T4 running 8.3.x or earlier). In this instance, you will see the following message:
+ 
+            # ldm migrate ldg1 root@target
+            Target Password: Domain ldg1 is using features of the system firmware that are not supported
+            in the version of the firmware running on the target machine.
+            Domain Migration of LDom ldg1 failed
+ 
+ 
+        Note that you can perform a live migration of a domain on a SPARC T4 system that is booted with
+        version 8.3 of Sun System Firmware to a SPARC T4 system that is running at least version 8.4 of
+        Sun System Firmware or to a SPARC T5 system running any version of Sun System Firmware 9.x.
+ 
+        Live migration from a SPARC T4 system to SPARC M5 systems requires at least version 8.4 of
+        Sun System Firmware on the SPARC T4 system.
+ 
+        EFI label incompatibility
+        -------------------------
+        Support for EFI/GPT disk labels is introduced in Sun System Firmware 8.4 and 9.1 and by default,
+        virtual disks that are installed when running at least Oracle Solaris 11.1 those systems
+        will have an EFI/GPT disk label. This disk label cannot be read on older versions of Sun System
+        Firmware (such as 9.0.x, 8.3, or 7.x) which precludes doing a live or cold migration to a system
+        running a version of Sun System Firmware with EFI/GPT support (in particular, note that cold
+        migration will not work either.  This is different than previous limitations).
+ 
+NOTE 6: Sun System Firmware 9.2.1 (for SPARC T5 and SPARC M5/M6 servers) and Sun System Firmware 8.5.1
+        (for SPARC T4 servers) increases the maximum number of Logical Domain Channels (LDCs) supported
+        per guest and requires a Logical Domains (LDoms) Manager version later than 3.1.1 to safely use
+        this larger number of LDCs.  To prevent potential Solaris issues in domains when using LDoms
+        Manager version 3.1.1 or older with this firmware, do not increase the number of LDCs used per
+        domain beyond the 768 supported by older firmware releases.  (e.g. do not add large numbers of
+        virtual disks and virtual network interfaces until LDoms Manager has been updated to a version
+        later than 3.1.1.)
+ 
+NOTE 7: About Oracle Integrated Lights Out Manager (ILOM) Version 3.2.5
+ 
+        New Features: Oracle ILOM 3.2.5 represents an introduction of new features (compared to the prior
+        SPARC release of Oracle ILOM 3.2.4) including Password Policy for Local Users, SSH enhancements,
+        Banner Message Management, ASR Configuration, Enhanced Host History Log, and others.  More
+        details on these and other new features are available at this link:
+        http://www.oracle.com/technetwork/documentation/sys-mgmt-networking-190072.html.  Reference the
+        "Feature Updates and Release Notes" document for Oracle ILOM 3.2.
+ 
+NOTE 8: SPARC: Live migration of a guest domain from newer Sun System Firmware to older versions is
+        blocked under some circumstances (Bug 20594568)
+ 
+        For customers using Oracle Solaris 11.2.8 you may be unable use Live Migration under certain
+        circumstances.  For SPARC T4-based systems, this issue is applicable for migrations from Sun
+        System Firmware versions 8.7.x to Sun System Firmware 8.6.x or earlier.  For SPARC T5 and SPARC
+        M5/M6 based systems, this issue is applicable for migrations from Sun System Firmware versions
+        9.4.x to Sun System Firmware 9.3.x or earlier.  This problem is limited to guest domains
+        running Solaris 11.2.8 patch level.
+ 
+        If you attempt this backwards live migration, one of the following error messages is displayed
+        after the "ldm migrate" command:
+ 
+              # ldm migrate ldg0 target-host
+              Target Password:
+ 
+              API group 0x11d v1.0 is not supported in the version of the firmware running on the
+              target machine.
+              Domain ldg0 is using features of the system firmware that are not supported in the version
+              of the firmware running on the target machine.
+ 
+              or
+ 
+              API group 0x1 v1.5 is not supported in the version of the firmware running on the
+              target machine.
+              Domain ldg0 is using features of the system firmware that are not supported in the version
+              of the firmware running on the target machine.  
+ 
+        To work around this issue, upgrade the migration target system to the current Sun System Firmware
+        (9.4 for T5/M5/M6 or 8.7 for T4) before migrating to it, or use the alternative method described
+        in Oracle Solaris 11.2 SRU 8.5.0 README (Doc ID 1994190.1).
+</pre>
+<br>
+<br>
+<b>README -- Last modified date:  </b>Monday, June 1, 2015<br>
+<br>
+
+
+
+
+</body></html>

@@ -1,0 +1,209 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 116346-10
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: cp2160 obp smc firmware ct410/810
+Synopsis: Hardware/PROM: CP2160 SPARC and SMC firmware update
+Date: Nov/04/2005
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: SPARC 1.0.20 SMC 4.1.3
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 5067893 6174630 6248107 6250393 6323614 6323625
+
+Changes incorporated in this version: 6323625 6323614 6248107 6250393
+
+Patches accumulated and obsoleted by this patch: 114472-01
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+.FWupdate.info
+.diPatch
+FWBin/CP2160.SMC.4.1.3
+FWBin/CP2160.SMC.BOOT.3.15.9
+FWBin/CP2160.SPARC.1.0.20
+FWBin/CP2160.SPARC.1.0.20_SMC.4.1.3
+FWBin/CP2160.SPARC.1.0.20_SMC.4.1.3.README
+FWupdate
+README.116346-10
+copyright
+
+Problem Description:
+
+6323625 - Othello+ OBP could not get right Host ID with new mac address 0:14:4f:x:y:z
+6323614 - Sputnik+ shows the security-mode be set when first time power on
+6248107 - LU 14160: SMC corruption during OBP 1.0.18 (RRL7.1) FW download
+6250393 - LU 14267: cp2140 1.1.14 FW (RRL7.1) breaks jumpstart in ct400 server
+
+( 116346-09 )
+6174630 - CPU hangs during the initialization. This has been observed in Gilbert
+.AZ Verizon site on two cpus.
+5067893 - CP2160 reboots fail intermittently: Timeout waiting for BOOTP/DHCP rep
+ly. Retryi
+
+Patch Installation Instructions:
+-------------------------------- 
+ 
+1. Install from OS level:
+-------------------------
+ 
+    This patch has following files:
+ 
+        FWupdate
+        FWBin/CP2160.SPARC.1.0.20_SMC.4.1.3
+        FWBin/CP2160.SPARC.1.0.20
+        FWBin/CP2160.SMC.4.1.3
+	FWBin/CP2160.SPARC.1.0.20_SMC.4.1.3.README
+        .FWupdate.info
+	.diPatch
+	copyright
+ 
+    It has the supporting tool for updating the SPARC and/or SMC firmwares.
+ 
+    Tool Name : FWupdate
+ 
+    Purpose   : To initiate system firmware update (SPARCFW &amp; SMCFW) at Solaris
+                level.
+ 
+    User      : Must be Super User to execute this script
+ 
+    Usage     : FWupdate [-h]
+                FWupdate [-F] -f &lt;filepath&gt; -d &lt;device&gt; -t &lt;FW type&gt;
+ 
+                -h : Help, show usage
+                -F : To Force the update when the Firmware is being downgraded
+                -f : Complete filepath &amp; filename specified by following 
+                     argument
+                -t : Type of Firmware binary.
+                     Possible options={sparc, smc, sparc+smc}
+                -d : Complete path of device node or device alias specifying
+                     the device where file is located
+                     If disk is specified, the file must be in the root
+                     directory. Also, the file cannot of a Symbolic link
+ 
+ 
+    Points of interest:
+ 
+    1) The complete filepath &amp; filename must be specified using -f option.
+    2) Use -d option to specify the device from which the file may be loaded.
+       User may specify the device either using a OBP device alias or using the
+       complete path to the device node.
+    3) If the file is located on a local disk then it must be in the root 
+       directory and must not be a symbolic link.
+    4) The tool performs a check on the version of SPARC Firmware. If a 
+       downgrade is detected then the script would notify the user. A downgrade
+       can only be updated using the force (-F) option.
+    5) Tool does not perform a check on SMCFW version.
+    6) Update script FWupdate and info file FWupdate.info must be in same 
+       directory.
+ 
+ 
+    Sample usage:
+ 
+    Example 1:
+ 
+    FWupdate -f &lt;full_path&gt;/CP2160.SPARC.1.0.20_SMC.4.1.3 -d net -t sparc+smc
+ 
+    File is located on the NFS and is combined OBP &amp; SMC image
+ 
+ 
+    Example 2:
+ 
+    FWupdate -f /CP2160.SPARC.1.0.20_SMC.4.1.3 -d disk -t sparc+smc
+ 
+    File is on a local disk in root directory and is combined OBP &amp; SMC image
+ 
+ 
+    Example 3:
+ 
+    FWupdate -f /CP2160.SMC.4.1.3 -d disk -t smc
+ 
+    File is SMC flash binary located on local disk and is SMC image
+ 
+ 
+2. Install image from OBP 'ok' prompt:
+--------------------------------------
+ 
+The images for flash-update
+        CP2160.SPARC.1.0.20_SMC.4.1.3  - Combined Sparc and SMC image
+        CP2160.SPARC.1.0.20            - Sparc image
+        CP2160.SMC.4.1.3               - SMC image
+ 
+ 
+o   From OS, do 'halt' and system will go to OBP 'ok' prompt.
+ 
+o   Disable auto boot, if it is set to true.
+ 
+        ok setenv auto-boot? false
+ 
+ 
+o   Before flash-update the image, do 'reset-all' to reset the board.
+ 
+o   Update image:
+ 
+  *   Update Combined Sparc and SMC image
+ 
+        ok flash-update &lt;binary-path&gt;/CP2160.SPARC.1.0.20_SMC.4.1.3
+ 
+ 
+  *   Update Sparc image
+ 
+        ok flash-update &lt;binary-path&gt;/CP2160.SPARC.1.0.20
+ 
+ 
+  *   Update SMC image
+ 
+        ok smc-flash-update &lt;binary-path&gt;/CP2160.SMC.4.1.3
+ 
+ 
+  *   Update SMC boot image
+ 
+        ok smc-flash-update &lt;binary-path&gt;/CP2160.SMC.BOOT.3.15.9
+ 
+ 
+o   After update Sparc only image, do 'reset-all' to reset the CP2160 board.
+ 
+    Note:
+        After flash-update a combined image or a smc-flash-update SMC image,
+        the CP2160 board will take a hardware reset as soon as the update
+        process is finished.
+ 
+ 
+o   Set auto-boot? to true if it is needed.
+ 
+        ok setenv auto-boot? true
+
+Special Install Instructions:
+------------------------
+
+None.
+
+README -- Last modified date:  Thursday, March 9, 2006
+
+</pre></body></html>

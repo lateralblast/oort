@@ -1,0 +1,742 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 136933-11
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: hardware/prom: sun blade t6320 server module 7.1.8.a flashprom security
+Synopsis: Hardware/PROM: Sun Blade T6320 Server Module Sun System Firmware with LDOMS support
+Date: Apr/15/2009
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 7.1.8.a
+
+Xref: 
+
+Topic: Sun Blade T6320 Server Module Sun System Firmware 7.1.8.a flashprom update
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4794955 6358537 6485109 6487885 6488334 6489630 6504694 6512417 6516471 6517022 6519557 6523695 6525973 6529467 6530696 6537680 6538289 6545380 6547428 6549183 6553956 6554026 6555126 6556636 6558874 6558875 6558876 6558974 6560249 6562812 6563363 6563453 6564189 6565130 6566151 6567748 6568272 6572421 6575857 6576348 6577471 6580094 6581061 6581227 6582340 6583280 6584080 6585188 6586938 6587238 6587418 6587522 6587917 6588393 6588443 6590036 6590769 6591927 6592314 6592723 6592934 6593780 6594044 6594218 6594395 6596503 6596924 6598988 6599677 6600945 6601551 6601935 6602227 6602244 6602475 6603535 6603949 6603960 6604416 6604574 6605824 6607368 6607719 6607780 6607996 6609765 6610641 6611174 6612618 6612947 6613209 6613677 6614166 6614911 6615776 6615866 6616381 6617464 6618239 6618866 6619164 6619932 6619991 6621350 6621584 6621998 6623032 6623132 6623142 6623619 6623916 6624408 6624658 6624684 6625125 6626041 6626045 6627667 6629419 6630112 6630598 6630613 6630717 6631187 6631330 6631875 6632210 6632561 6634497 6634974 6634980 6634997 6635149 6635181 6635541 6636325 6637134 6637424 6637682 6637992 6638901 6639002 6639010 6639013 6639099 6639225 6639312 6639912 6640494 6640613 6640893 6641093 6641113 6641377 6641936 6641981 6642749 6642800 6642804 6642807 6642809 6642932 6643632 6644049 6644994 6647026 6647337 6647462 6647778 6647841 6648468 6648867 6649268 6649860 6650227 6650241 6650392 6650585 6651301 6651325 6651513 6652004 6652016 6652046 6652076 6652095 6652445 6652635 6653866 6654153 6654272 6654395 6654559 6654784 6654860 6654865 6654887 6655060 6655263 6655361 6656072 6656086 6656116 6656245 6656689 6657584 6657637 6657711 6657747 6657972 6658373 6658389 6658510 6658551 6658998 6659139 6659298 6659301 6659611 6660171 6660206 6660399 6660672 6661197 6661302 6661663 6661699 6661716 6661834 6662147 6662162 6662634 6662931 6663105 6663348 6664193 6665185 6665257 6665650 6666120 6666122 6666265 6666361 6666425 6666797 6666878 6666913 6666961 6667511 6667926 6668015 6668651 6669206 6669222 6669255 6669289 6669330 6669412 6669456 6669488 6669841 6670137 6670188 6670340 6670786 6670841 6671070 6671110 6671343 6671365 6671538 6671677 6671945 6672185 6672320 6672380 6672954 6673405 6674205 6674338 6674589 6675315 6675710 6675793 6676130 6676224 6676309 6676561 6676807 6676924 6676959 6677467 6677699 6677840 6677901 6678016 6678160 6678254 6678801 6679095 6679121 6679155 6679408 6679411 6680498 6680637 6681583 6681676 6681791 6682118 6682424 6682758 6682834 6682970 6683273 6683322 6683328 6683801 6684545 6684679 6684913 6685195 6685358 6685672 6685903 6686133 6686172 6686422 6686442 6687097 6687340 6688615 6688749 6689507 6689590 6690208 6690618 6690807 6690844 6690978 6691664 6691673 6691804 6692325 6692398 6692478 6692928 6693092 6693734 6693906 6694217 6694387 6694475 6694497 6694831 6694955 6695004 6695671 6695708 6696045 6696383 6697118 6697436 6697714 6697814 6697838 6697899 6698177 6698362 6698692 6698816 6699979 6701489 6701539 6701583 6701750 6702022 6702160 6702424 6704316 6704491 6704565 6705064 6705118 6706405 6706778 6707084 6708044 6708080 6708234 6708608 6709027 6709034 6709044 6709202 6710098 6710104 6710322 6710569 6710574 6710601 6710682 6710724 6710924 6711147 6711750 6712261 6712358 6712366 6712395 6712683 6713342 6713480 6713501 6713920 6714329 6714853 6716711 6716834 6717373 6717674 6717871 6717911 6718186 6718826 6719096 6719153 6719266 6719274 6719573 6719873 6720279 6720401 6720737 6720746 6720815 6720848 6720926 6720970 6720995 6721010 6721020 6721262 6721909 6721956 6721970 6722035 6722305 6722322 6722446 6722602 6723191 6724172 6724215 6724342 6724535 6724547 6724567 6724588 6724660 6724985 6725079 6725223 6725348 6725379 6726077 6727932 6728010 6728454 6728569 6728954 6729411 6729474 6729529 6730129 6730281 6730282 6730610 6731027 6731112 6731227 6731291 6731651 6732222 6732265 6732269 6732655 6733001 6733878 6734035 6734387 6734405 6734408 6734503 6735386 6735506 6737155 6737239 6737472 6738335 6738367 6739048 6740145 6740529 6740559 6740949 6741172 6741575 6742200 6742464 6743561 6743825 6744987 6745118 6745296 6747230 6747621 6748859 6749345 6749425 6749654 6749698 6750179 6750193 6750687 6750734 6751051 6751699 6753562 6754430 6754453 6754668 6754698 6754707 6754755 6754833 6755425 6755810 6755818 6757022 6757819 6759780 6760181 6760186 6760448 6761821 6762441 6763110 6766240 6768857 6769672 6770171 6770610 6770813 6773666 6774655 6776242 6776441 6778578 6778939 6781831 6782824 6784226 6784232 6787915 6787965 6789243 6789447 6790025 6790291 6790690 6790692 6790694 6791294 6792104 6793942 6797795 6799087 6800689 6801373 6802075 6802513 6803715 6804349 6807927 6808990 6811587 6813963
+
+Changes incorporated in this version: 6580094 6654559 6656116 6710601 6722322 6755810 6759780 6761821 6762441 6766240 6770171 6776441 6781831 6787915 6787965 6789243 6789447 6790025 6790690 6790692 6790694 6791294 6792104 6797795 6799087 6800689 6801373 6802513 6804349 6807927 6808990 6811587 6813963
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-7_1_8_a-Sun_Blade_T6320_Server_Module.pkg
+sysfwdownload
+
+Problem Description:
+
+6580094 Wrong traps sent for assertion/deassertion of sensors whose names end with  OK or GOOD 
+6654559 SNMPWalk on ENTITY-MIB::entPhysicalName table gives zero results 
+6656116 Memory link training errors should not fault the MCU 
+6710601 ILOM shell could report Configured (orderable) Part Number for FRUs 
+6722322 C-Style guidelines for spacing around '++' not being enforced. 
+6755810 Maramba: FBDIMM high warning alert seen during OPS VTS testing. 
+6759780 keyswitch_state unrecognized chassis message occurs 
+6761821 powercycle -i fails to poweroff the system during the second iteration. 
+6762441 Accuracy of output from 'showpower' isn't sufficient 
+6766240 DVD boot read failures from obp prompt (intermittent DVD DRIVE MISIDENTIFIED may be seen) 
+6770171 Power supply should not be faulted when AC power is not present 
+6776441 Faults not restored after a reboot 
+6781831 Solaris date/time jumps accordingly following ILOM date/time auto-adjusted with ntp server 
+6787915 Apparent memory leak in capi_get_FRUData_private() 
+6787965 At post sequence, a CPU core was disabled by mistake, when a faulted DIMM was installed 
+6789243 Apparent memory leak in xxx_set_fault_data/xxx_clear_fault_id 
+6789447 plathwsvcd: Apparently leaking sockets 
+6790025 ealertd: Consuming many file descriptors 
+6790690 snmpd does not close log file on logrotate 
+6790692 ipmi log file not closed in all cases.  Log file held open 
+6790694 lib newstatus does not close lock file fd on fini 
+6791294 libcfgdbaccess: Leaking memory 
+6792104 Another memory leak in libcfgdbaccess 
+6797795 sc_cliprompt didn't take effect 
+6799087 An IBIST failure with reconfigure sometimes leaves the memory control unit, MCU, in a strange state 
+6800689 need to provide tools to handle fruid corruption due to incomplete i2c writes 
+6801373 vbsc 'install' rule cannot be build by dmake, causing WOS assembler to have to revert to make 
+6802513 ALOM shell has ILOM prompt '-&gt;' 
+6804349 DVD will not boot -- OBP fix missing to compliment CR 4976792 (READ RETRY) 
+6807927 VF System keeps power cycles and can't go to obp after POST test done. 
+6808990 Host time goes back by 5 minutes after AC powercycle 
+6811587 SPARC blades sometimes don't set the slotid correctly 
+6813963 Socket leak in Turgo and Congo fan speed control code 
+ 
+(from 136933-10 - Sun System Firmware 7.1.7.h)
+ 
+6768857 V_VTTL reached non-recoverable threshold and the server powered off.
+6778939 'ipmitool fru list' fails with the message 'FRU Read failed: Invalid command on LUN' with bmc i/f 
+6793942 ILOM IPMI VbscIfc code does not properly check for log file size and offset
+6802075 POST ops1 failed "FATAL ERROR 3", "Unexpected Trap" on N2 systems
+6803715 'ipmitool fru list' fails with Invalid cmd on LUN' with bmc i/f on Thunder Monza Glendale
+ 
+(from 136933-09 - Sun System Firmware 7.1.7.e)
+ 
+6754755 Signed JARs need to be checked into the Latest release branch 
+6773666 dmake race caused by a .o rule not having a dependency on the parent (sparc) directory 
+6774655 POST loops with "ERROR: No good memory bank/channel left in system" 
+6776242 ipmi lan handler is not thread safe
+6778578 More dependencies needed to stop dmake races 
+6782824 flx23361 - ILOM can not control host after VBSC failure 
+6784226 IPMI Minor events related to /SYS/VPS seen on fully-configured Glendales (4/8GB DIMMs) 
+6784232 Need to tweak Required Power for 4/8GB memory dimm configs 
+6790291 Glendale/Scottsdale need to support REM-less operation 
+ 
+(from 136933-08 - Sun System Firmware 7.1.7.c)
+ 
+6770813 L2C scrubber code is faulty 
+6770610 Node Reconfig 2P with CPM1 and CMP3 ERROR: POST timed out. Not all system components tested. 
+6769672 Incomplete fix for 6757022 
+6763110 NULL pointer dereference in vbsc_send_polled 
+6760448 scc will coredump if no there's no mac address 
+6760186 queue_test_timed() function fails to complete under some conditions 
+6760181 Misc fixes needed for ilom_3.0_sparc b13 
+6757819 DAC ereport calls out wrong unum on sys with L2 index hashing (HV) 
+6757022 Host getting wedged when resetting sc while host is already powered on 
+6755818 Corruption of "my-self" causing missing "idprom" property in root node 
+6755425 More POST threads starting than expected 
+6754833 Intermittent failures seen on reboot and power cycle 
+6754707 Some sparc platforms missing entries in files.cps 
+6754698 Wolf: IPMI is leaking sessions 
+6754668 stlistener is using hundreds of sockets 
+6754453 Maramba POST intermittently fails during the 100 power cycle with an LDOM created primary domain. 
+6754430 (SYSFW 7.2/ILOM 3.0) Viewing system information subtab in web interface can destabilize SP 
+6753562 Failures of a secondary CMP master are not handled properly 
+6751699 Dynamic fruid should minimize creating/deleting new segments 
+6751051 POST reports hundreds of free resource timeouts 
+6750734 Continuous output of "ERROR: Failed to send a fma event(rc=11)" during POST 
+6750687 Remove fpga_host_power vbsc ipc interface that allows ILOM to directly toggle power 
+6750193 ILOM can not power on/off the host after many reset loops (~122 times) 
+6750179 Glendale power-on algorithm can cause entire blade system to lose power/shutdown 
+6749698 vbsc FATAL and ERROR messages don't get logged in the sp event log 
+6749654 ILOM inadvertently disables the XAUI 
+6749425 HVABORT still prints address of fatal_error 
+6749345 N2/VF error storm prevention using CERER is incorrect 
+6748859 With Boot Timer, changing keyswitch position clears logs/event history &amp; event does not get logged 
+6747621 RN50 fcode needs to support new memory 
+6747230 "1:4:0&gt;ERROR: TEST = PIU intx interrupt test" is output during POST 
+6745296 FMA ereport calls out wrong DIMM on some N2/VF systems 
+6745118 C10/C48:After edit CMM's network in webgui,can not relog web by using new ip address. 
+6744987 /usr/local/bin/scc segfaults on thunder SP 
+6743825 POST menu IO-Bridge unit dump causes a crash 
+6743561 A disabled XAUI card is detected by POST 
+6741575 PSU INPUT_POWER values are off 
+6740949 POST Block Mem Schmoo Test is N1 only - Remove for N2/VF 
+6740559 Set /SYS/PS0 prepare_to_remove_action returns power must be off error 
+6740529 show /SYS/MIDPLANE product_part_number and product_serial_number contains preceding " 
+6740145 8-bit data element overflows when using 10-bit i2c addresses, plus general lightning cleanup 
+6738367 ILOM IPMI VbscIfc should decode payload data when displaying log 
+6738335 BUI test of Remote Power Control Graceful shutdown and PowerOn fails 
+6737472 CMM not working with RADIUS server (RSA Ace Server with token card authentication) 
+6737239 Remove unsupported power interfaces from all sun4v systems 
+6735506 POST is mis-handling a FBR error, if the FBR occurs too early in POST 
+6735386 /SP/powermgmt "policy" property values must change 
+6734408 Support change from remote-keyboard to rkeyboard in OBP 
+6732269 Many "lumain: (pam_ActDir-BE): ERROR" messages in /var/log/messages of SP after SP is reset 
+6732265 POST failures in pre-CMT platforms 
+6732222 nodefault-bytes is not persistent 
+6731651 Immediate control domain reset request does not generate guest stopped messaged to vbsc.
+6731291 Remove exported funcs that allow ALOM/ILOM to directly toggle power 
+6731227 "Invalid hypervisor argument(s). function:" when changing IO bus config, can't boot again 
+6731027 After reset SP issue Solaris init 0 then halt will hang forever 
+6730610 Memory holes on SE T5440 can cause overrun of MD allocations 
+6729529 Product definition cleanup 
+6729474 BUI powercycle needs to allow more time for gracefully host shutdown 
+6729411 immu_err does not set context correctly 
+6725348 Disabled CPU thread is not shown correctly 
+6724588 JRC - L10n - French keyboard with Java 6u10 Alt Graph fix has some broken keys 
+6724547 Update BUI Remote Power Control to include graceful/immediate SYS reset 
+6723191 HOST domain status is wrong after control domain reset when auto-boot is disable 
+6722035 Warn user after PEU fails to train with link width x8 
+6719873 Lynx: Fault Management displays Chassis Intrusion Fault but Timestamp field empty... 
+6719096 all ILOM: show /SYS SP data doesn't display with level all parameters 
+6718186 Need VF MD house-keeping 
+6716711 Provide BUI and SNMP methods for graceful reset of the system 
+6713480 Some FRU may not be reported correctly by SNMP. 
+6713342 Failure with re-config will cause false L2 cache failures 
+6710924 gemini/pegasus: change in DCHP address on gemini blade leaves 9501 out of date 
+6709034 Andro CMM: Policy tab missing from GUI, available from CLI 
+6701750 Empty HDD "container" entities have incorrect sunPlatEquipmentHolderStatus in ILOM/SNMP MIB 
+6698177 ILOM does not allow hyphen "-" character in SNMP community string 
+6694387 OBP NIU will try to run 10G copper at 1G 
+6694217 Thumper: HDD state sensors send the same trap for different events 
+6692478 The ILOM user name should be set with an alphabetical characters. 
+6685195 Target /SP/diag is missing from CLI when login as an operator 
+6670786 Support backoff/timeout in sram guest state poller to avoid case where SC becomes slow/unresponsive 
+6663105 hvctl call failed because of out of memory errors. 
+6615866 ILOM should print FRUID temperature records in human-readable degrees C 
+6612618 SNMP sunPlatSensorTable missing PS0-5 &amp; RFM0-8 sensor data on Scorpio P0 
+6609765 fault event generation code in sensors.c causes incorrect HW Trap MIB trap events 
+6594218 poweron should not be allowed after flashupdate 
+6582340 Write to vbsc: Illegal seek 
+6568272 alom inj command should be hidden from customers 
+6562812 The ldm list-config output can be confusing when issued after a delayed reconfiguration reset 
+6554026 Glendale should calculate Total Required Power based upon CRUs actually installed 
+6525973 SC should log an event after flashupdate completes 
+6517022 Inconsistent error messages seen on ilom (useradd, etc.). Different than alom cmt also. 
+6516471 Attempt to set sc_clitimeout to non-integer value should return error 
+6504694 Invalid confirmation answer not consistent and returns different string on ilom vs alom cmt 
+4794955 POST debug menu's help not implemented 
+ 
+ 
+(from 136933-07 - Sun System Firmware 7.1.6.d)
+ 
+6742464 I2Ctest fails on Huron and Maramba platform
+6742200 Change for 6599677 also needs workaround for 6694663 to support existing versions of ldoms 
+6741172 SysFW fails I2Ctest with 7.1.3e or 7.1.6
+6739048 'showsc version -v' is not showing complete version information with firmware 7.1.6
+6734387 DC PSU should not have high line INPUT voltage threshold set 
+6732655 Sun ILOM web interface should enforce stricter authentication
+6713920 New Fbdimm settings for Qimonda AMBs on Huron and Turgo
+6599677 HV uses resource_id as an index to access the Hammerhead config space 
+ 
+(from 136933-06 - Sun System Firmware 7.1.6) 
+ 
+6737155 Need clear notification of processor failure 
+6734503 sunPlatEquipmentAlarmStatus in ILOM MIB not set correctly at or around threshold values for sensors 
+6734408 Support change from remote-keyboard to rkeyboard in OBP 
+6734405 Change remote-keyboard to rkeyboard in devalias. 
+6734035 Missing breaks in switch statement for single node MD pruning. 
+6733878 fpga serial interrupts need to be handled on all nodes
+6733001 Back out change for CR 6731651 
+6731112 Default case in init-xmac-xif sets mii-gmii-mode incorrectly 
+6730282 Link up status message includes confusing "duplex = 0" 
+6730281 Netboot via Maramba's Neptune port2 or 3 fails if a copper XAUI is plugged in 
+6730129 rpc calls are not thread safe 
+6728954 Enable IIT feature for Huron and Maramba. 
+6728569 consd does not clean up and causes ILOM instability 
+6728454 Remove support for N2 erratum 106 
+6728010 A disabled CMP can never be re-enabled 
+6727932 CPU causing reset errors - disabled during poweron 
+6726077 showenvironment rounds down fractional values while dpdump (and SunMC) round them up 
+6725379 Error handling code should never assume that the VCPU struct is available 
+6725223 vcpu dr with heavy traffic causes loss of network connectivity for guest domains 
+6725079 Watchdog code assumes current strand is associated with a guest 
+6724985 ILOM can not power off host - flx23014 
+6724660 xml parsing in capidirect is slow and fragments memory 
+6724567 Skip disabled DRAM banks when verifying DSUs 
+6724535 hvabort() with TL==0 at startup will cause an illegal_instruction trap 
+6724342 HV does not send guest starting message to vBSC after domain reset 
+6724215 SP reports prom is unreadable or corrupted when CMP module is removed but Memory Module stays in sys 
+6724172 Some errors not getting reported on console because they are issued as warnings 
+6722446 guest.entry is just dead weight 
+6722305 xml parsing in libfruid is slow and consumes/fragments memory 
+6721970 Batoka memory holes break obp bootstrap memory 
+6721956 JRC - L10n - backslash and close curly brace does not work on Spanish keyboard on Windows 
+6721909 ipmitool power cycle fails to poweron HOST 
+6721262 ALOM cli reset command help and strings need update for new options (-d, -n, -f) 
+6721010 Page shifts are wrong in header file and real address miss handlers 
+6720995 fpga serial dispatch needs work for sparse node configurations 
+6720970 OpenBoot "power-off" and Solaris "uadmin 2 0" does not power off host 
+6720926 incremental builds don't work 
+6720848 fpga interrupt initialization should use correct addresses 
+6720815 if the primary master is already running do not try to nudge it along 
+6720746 powercycle commands times out (fails) before HOST powers off 
+6720279 FW support for XAUI Copper--Optional implementation of voltage sequencer fault recovery mechanism 
+6719573 Power management is showing incorrect value for 'actual power' when the host is powered off 
+6719266 pci setup should not touch non-existent busses 
+6719153 One fake ssi interrupt is more than enough 
+6718826 lfu_errors array missing ERR_LAST_IN_TABLE end marker 
+6717911 [watch]Invalid target /SP/clients/radius 
+6717871 [watch]Invalid target /SP/clients/ldap 
+6717674 memscrub debug instrumentation is blase about NULL pointers 
+6716834 IPMI Lanconfig internal structure may be accessed out of bounds 
+6714853 MMU TSB Config setup does not handle context_index = (-1) 
+6714329 Enable graceful domain reset after host halt's 
+6711147 Thunder : SCC error seen on all boards with Build 7 at Flex 
+6710724 LUP_P bit is incorrectly masked by HV on several sun4v platforms 
+6710574 Build. Fix GPL target in sparc 2.0 branch. 
+6710569 Build. Use placeholder VBSC files only when specifically told that is OK. 
+6710104 The booted set name is erroneously cleared on a warm-start 
+6709202 sis state and description need to be updated when host is reset from sc 
+6709044 VF/N2 PIU PLL init procedure is missing 
+6709027 PCIe IO devices, including PLX, should be held in reset through poweron 
+6707084 'showusers' is showing 'ilomint' as logged in user whereas there is no such user at the sp side. 
+6706778 host bios (vbsc) should start early and run as a high priority process 
+6704565 Move Batoka iit to common area for use by other platforms 
+6704316 xcopy() invocation during TSB context setup is deemed an abomination 
+6702160 Host can be powered on while flashupdating the sc from BUI. 
+6701583 ioreset in primary clobbers XAUI in service domain
+6701539 Add feature to support iobox on huron and maramba 
+6701489 Log faults from vbsc 
+6698177 ILOM does not allow hyphen "-" character in SNMP community string 
+6697714 Fatal error in PCIe Root Port; Batoka RQT events 
+6697118 Lynx/Virgo: Need appropriate Entity ID for PCI Express RISERs (/SYS/MB/RISERx) 
+6695708 showpower should display matched AC/DC power valued based on displayed voltage and current. 
+6695671 ILOM needs to handle DC input voltage correctly. 
+6695004 ILOM 3.0: general, extensible framework for sensor noise filtering 
+6694955 IPMI Redesign: Sensor access methods may need sensor-specific data. 
+6694475 'showfru -g lines' command does not function as expected 
+6693092 ILOM ETM delays sending ereports after SC reset 
+6692398 enable_errors_postscrub attempts to cross-call non-existent nodes 
+6692325 Send Alt-Graph(right alt) keystroke to remote host directly 
+6689507 pcp channel communication breaks in certain cases 
+6685672 epkt generation for PUI Other Events for the no Duplicate errors path need cleanup 
+6684545 Changing socketed EEprom can result in sccd core file and sccd daemons timing out 
+6681583 epkts for MMU translation Table Cache Data Parity Errors do not log address of failure 
+6678801 Logrotate message will cause a message file rotation in about 2.9 hours 
+6678160 FW support for XAUI Copper--I2C controlled MDIO interface level shifting 
+6669289 Add support for new LDOMs reset control registers
+6662931 N2 and VF HV machine descriptions contain deprecated informati
+6662634 Access to OBP from Control Domain when the user does not have access to Solaris 
+6661699 Epkts using MMU TFAR/TFSR encoded incorrectly 
+6656086 Create persistent fault for memory configuration errors 
+6654865 OBP support for xaui copper 
+6647841 Processor always starts on lowest available strand, even if it is asr disabled - For Maramba/VF 
+6630717 Add firmware support for FBDIMM1+ DIMMs for VF platforms 
+6596503 Non-existent CPU cores and strands shown in PICL tree as enabled 
+6593780 ILOM ETM sometimes complains 0 events on fmaq when unloaded 
+6591927 ILOM ETM miscounts stats on retried sends to domain 
+6590769 Help messages for ALOM break should be updated 
+6587917 -n option to restartssh does not seem to do anything 
+6585188 poweron -c &lt;FRU&gt; incorrectly powers on host, should return error 
+6563363 setdiagopt command will not accept more that 254 characters 
+6523695 cpu_mondo_send(): reconfiguring queue after receiving EWOULDBLOCK leads to tail pointer errors 
+6358537 CLI: missleading error message when LOCATE led is set 
+ 
+(from 136933-05 - Sun System Firmware 7.1.3.e)
+ 
+6722602 mem leak in plat*d get_faults code 
+6721020 OpenBoot should handle "shutdown" request from Hypervisor
+6720737 Small leak in plat_hwsvc_free_fault_data 
+6720401 POST should not fail the GBE device unless it is absolutely certain that the GBE is at fault
+6704491 OBP doesn't display all disabled devices
+6698816 Multiple (all?) objects in the SUN-PLATFORM-MIB return "noSuchInstance" during SNMP GET 
+6686422 ILOM hangs and does not allow user logins via network or RS232 console port 
+6685358 Need some caching in snmp 
+6678254 ipmitool sunoem cli through lanplus prints out garbages 
+6676561 Changing NVRAM parameter at OS level causes panic : BAD TRAP: type=31
+6673405 Adding memory to system causes the saved LDoms configs on the SP to be invalidated 
+ 
+(from 136933-04 - Sun System Firmware 7.1.3.d)
+ 
+6719274 Thrasher does not work on VF platforms
+6717373 cpu-table (in arch/sun4v/cpustruct.c) should be cleaned before use sysfw-7x/post 
+6713501 Improve PCIE test and scan from post menus. 
+6712683 POST mistake the slot of the faulted DIMM
+6712395 POST times out with 8GB FBDIMMs
+6712366 Monitor preferred resolution does not work on XVR50 
+6712358 POST print function confusion 
+6712261 T6320: Coyote REM FRU not display in C48 
+6711750 cpuset pointer is invalid after sc warm start on N2/VF systems 
+6710682 Sunvts hsclbtest test fails on Maramba platform
+6710322 Turgo POST fails when T1 PCI-X card is plugged in 
+6710098 Panic on CPU thread; BAD TRAP type=33 and type=34 reported; Crashme test provokes this immediately
+6708608 Master cpu timeout occurring on T5140/T5240 
+6708234 Glendale - watch-net-all terminates and jump by itself to OK when is looking at /niu@80/network@0 
+6708080 SNMP gets don't report fan module is a FRU
+6708044 IPMI driver regression: broken on s10u3 
+6706405 Expand 6679155 to apply to all platforms with PIU, not just Batoka 
+6705118 Intermittent XAUI Lane Synchronization Failure at Flex
+6705064 POST, block memory test fails if thread 0 is asr disabled 
+6702424 Larger vbsc md/rom allocations can cause problems on 64Mb machines (huron/glendale) 
+6702022 WARNING: invalid vector intr: number 0x413, pil 0x0 logged on batoka during bootup after reboot
+6699979 Change SP_PROTO default in platform makefiles 
+6698692 PIU Secondary error handling for UE RECV needs fixes 
+6698362 Hypervisor abort upon receiving DAE_nc_page trap 
+6697899 Batoka/Maramba: Couldn't get to unix prompt after boot disk. Typing in console didn't work. 
+6697838 dpdump not getting midplane fru information
+6697814 Use larger page sizes for real to physical mappings 
+6696383 PRI template for Batoka missing pci-mem64-support property; VF templates need factoring 
+6696045 trap Stack Array ECC errors handled incorrectly 
+6694831 Increase size of ldc queues in sram for performance 
+6694497 POST incorrectly reports timeouts 
+6692928 sunoem cli can drop connection just with a single receive failure 
+6691804 VBSC missing POST reconfig flag 
+6691664 Bad detector in the ereport.io.fire.pec.re 
+6690978 Incorrect diagnosis of a memory UE 
+6690844 Confusing POST PCI id test error
+6690807 dmake needs to compile parallel targets correctly to allow parallel WOS assembly 
+6690208 No ereport generated for an FBU error 
+6689590 Webserver runs out of memory during security scan 
+6688749 cache the target CPU pointer to improve VDEV interrupt efficiency 
+6688615 LDC packet transfer to/from SRAM could be a little more efficient 
+6687340 When hostconsole log gets full, the entire log rotates, making the info unavailable to customers 
+6686442 Congo ILOM should support ipmitool sunoem CLI feature 
+6686172 TPM code incorrectly included in N2/VF POST makefiles 
+6686133 HV support for SP initiated reset 
+6685903 ldoms config boot after resetsc fails to save PRI; resetsc again emits PRI Error + ldmd fatal error 
+6684913 Optimise enhanced POST Systest tests for N2 products 
+6684679 ipmitool sunoem cli command when srouced from a file displays many "^D" 
+6683801 N2 TSB miss/MMU error trap handlers could be a little more efficient 
+6683328 Failure of some io devices disabled incorrectly 
+6683322 With non-factory-default spconfig: ldmd fatal error: No available physical memory 
+6683273 Micro optimisation for hypervisor spinlocks 
+6682970 Clock drift on N2 platforms (Glendale, Monza &amp; Turgo) due to spread spectrum 
+6682834 transition ds port state to "init" before bringing up corresponding ldc 
+6682758 VF Fatal NCX timeout when primary domain is reset - ereport.io.vf.ncx.to-fsr 
+6682424 ipmitool sunoem cli needs to increase the timeout when spsh exits 
+6682118 RKVMS-AST2000: Deleting first session before second session login menu appears hangs javaRconsole 
+6681791 remove obsolete stack-related directives in n2 offsets.in 
+6681676 hypervisor command cross-calls should be cleaned up 
+6680637 Parallel make of VBSC has race in opcode-derived file creation 
+6680498 bincheck isn't quite binary safe 
+6679411 DBU ereports are missing L2 info 
+6679408 L2ND SER is discarded 
+6679155 VF team says to set pio_control_1 in Mem 64 PCIE Offset Register to avoid potential deadlock 
+6679121 possible race condition in ipmi threshold adjusting code 
+6679095 Completion timeout bit not set in PIU_PLC_TLU_CTB_TLR_UE_INT_EN for sun4v platforms 
+6678016 Enable features for sparc powermgmt 
+6677901 ILOM timestamp creation needs to work reliably during parallel platform makes 
+6677840 Enhanced POST memory tests on VF platforms should test local memory only 
+6677699 start %pc may not be what it should be when cpu_start() is called immediately after a cpu_stop() 
+6677467 Lynx/Virgo:spsh exit causes seg fault 
+6676924 vbsc frees memlayout buffer without checking if it is allocated 
+6676807 FERG needs to filter FBRs 
+6676224 ipmitool sunoem led get:Sun OEM Get LED command failed: Parameter out of range 
+6676130 g12n - stale /etc/snmp/snmpd.static.conf causes no SNMP Traps to be sent 
+6675793 POST hangs when using diag_verbosity=debug 
+6675710 Gemini+_Pegasus+: Cannot ssh or console into SP using local/ldap user accounts 
+6675315 g12n - 2.0.2.3 -  no snmp trap when a sensor event occurred 
+6674589 Can't boot if HOST is reset two times approx 10 secs apart. 
+6674338 cpuid and serial number should match in SERs 
+6674205 stick frequency inaccuracy due to spread spectrum 
+6672954 HV should offer a build target to build without a timestamp 
+6672380 Vestiges of htraptracing are not eliminated when a vcpu is stopped 
+6672320 Update user-visible copyrights to 2008 
+6672185 fopen, fprintf, fclose are not check for null 
+6671945 alom and ilom command lists incorrect DIMM size for 1GB Micron DIMMs 
+6671677 factory-default MD missing md-generation# property 
+6671538 vbsc should power off host immediately for POK Faults 
+6671365 Hypervisor makefiles could be rearranged to reduce duplication 
+6671343 Hypervisor sources could use cstyle and other misc cleanup 
+6671110 Compiler optimization ensures strands never sync and cpus fail to start 
+6671070 POST diagnoses to a wrong dimm if a faulty dimm is in either D2 or D3 slots 
+6670841 HV must ensure C2C bit set for all remote cache errors 
+6670340 Optimise enhanced POST memory tests for N2 products 
+6670188 memory leak in capi_get_fru_info 
+6670137 snmpd coredumps 
+6669841 Get rid of unecessary build flags and compile flags 
+6669488 POST times out with verbosity min 
+6669456 GET_DRAM_ERROR should be the same for N2 and VF 
+6669412 G4F/Thor : WebGUI stops working after changing Network settings in WebGUI 
+6669330 CMM does not show all Glendale blade SP IP addresses after upgrading CMM to 2.0.3.2 
+6669222 lock in mmu_miss can be eliminated to reduce contention 
+6669206 picl displays error "PICL snmpplugin: sunPlatSensorClass 0 unsupported" when fault detected on iobox 
+6668651 HV RA to PA guest mappings should not use padding in structure 
+6668015 strand_in_error needs rework 
+6667926 No status update to user with non-debug vbsc 
+6667511 capsimload binary is not installed on core 2.0 target image 
+6666961 max level POST on Batoka with memory CE's gets unexpected trap to address 0
+6666913 Add support for lint tool to the source base for Linux builds 
+6666878 determine size of max_indicator_mech_map in libcapidirect 
+6666797 Support reading md for ldc queue size and offsets for n1 
+6666425 bootload() function could be written in C instead of assembler 
+6666361 ILOM needs sis state memory 
+6666265 support event/reading type set to 0x6f for galaxyplatforms 
+6666122 IPMI LAN consumes all available resources if it fails to bind to the TCP port 
+6666120 fix "sunoem led get" for Phase 1 on non-Andromeda platforms 
+6665650 DRAM MA and CWQ load UEs may result in a panic while trying to retire a page 
+6665257 Huron leaks 980 bytes on each power cycle 
+6665185 pci-mem64-support property (in openboot node) is missing from the pri 
+6664193 speedy mondo dispatch rework leaves niu interrupts in the dust 
+6663348 inj command only works with root password is the default 
+6662162 watch-net-all not testing interfaces
+6662147 Coredump from lumain, hanging spsh 
+6661834 showenvironment showing incorrect status for power supplies in C48 chassis 
+6661716 N2/VF should insert the "variables" node only under the "root" node, and never the "openboot" node 
+6661663 PID2VCPUP doesn't check for vcpu-&gt;strandp being NULL before dereferencing 
+6661302 support power monitoring in glendale 
+6661197 Hypervisor should provide more useful information when aborting after an error 
+6660672 SensorMonitor doesn't treat 2 byte DiscreteReadingMask properly 
+6660399 after sysfwdownload, flashupdate -s 127.0.0.1 should remove /coredump/ILOM_flash.pkg when done 
+6660206 Huron POST spelling error: "Lopback" missing an "o". eg:"ERROR: TEST = BCM8704 Internal Lopback". 
+6660171 Port capisimload from trunk to core 2.0 
+6659611 Mask wrong in relocate of vector interrupt table 
+6659301 Need to support i2c-translation for 8275-based platforms 
+6659298 pca9553_blink routine logic for determining ACT (vs LOCATE) LED needs to scale 
+6659139 JRC: System cannot find CD image when installing any RHEL using JRC redirected image 
+6658998 X4100m2 ilom over ssh or javaRconsole stops reporting events; ipmitool reports current events 
+6658551 IPMI Redesign: sensorlist records should not need to be strictly ordered 
+6658510 snmp engineid incorrect default reduces v3 security 
+6658389 IPMI LAN process may crash sporadically because of ignored error code 
+6658373 motherboard shouldn't be faulted when ambient temperature threshold exceeded 
+6657972 HV not generate ereports for IO error injection after error injected to pciexrc1 
+6657747 Use java workarounds for Turkish and Estonian keyboards 
+6657711 A single scratchpad UE in kernel mode generates a panic and an hv abort 
+6657637 Scratchpad register correctable error injection generates a panic: bad kernel MMU trap 
+6657584 Enhance ILOM GUI Diagnostic tab on Andro &amp; C10 to support manual operation of PCCheck. 
+6656689 ldc subscribers cannot determine if the SP has been reset 
+6656245 max_ra_bits property in pri should be 40 
+6656072 post cpu tests failures, hardware under test is wrong field may state/fail wrong core 
+6655361 Leave output of svn stats in webrev directory to be used for putback list 
+6655263 ILOM fmd 2.0b2 repeatedly core dumps on a new platform 
+6655060 interrupts left pending for stopped cpus result in non-idle idle strands 
+6654887 SNMP trap destination port should be configurable 
+6654860 POST code setup for xaui copper 
+6654395 ldmd fatal error: No available physical memory 
+6654272 Alt Graph press on JavaRConsole with Windows OS provides unusable keyboard 
+6654153 Frutool on Andromeda CMM can report invalid data to capi if i2c requests fail 
+6653866 Need ILOM CLI for Golden Gate (CPLD) Programming 
+6652635 NSTRANDS_PER_CHIP_MASK pre-processor define is incorrect 
+6652445 Large amounts of data redirected to the console eventually stops being printed 
+6652095 setfru command returns "Could not create segment FD" message 
+6652076 T6320: /SYS/MB/REM prom is unreadable or corrupted message seen with Coyote REM 
+6652046 XAUI Conflicting error message 
+6652016 Sun Blade T6320 has no XAUI 
+6652004 javarconsole: deleting first tab makes second tab appear disconnected. 
+6651325 Fix keymaps for Tier 1 (Italy, French, Brazil, Spanish, German) 
+6650585 showplatform and /SYS/ACT do not always display correct host state 
+6650392 boot-time and reset-time can be improved with further memory scrubbing changes 
+6650241 vBSC runtime can be improved by %40 just by turning compiler optimization on 
+6649860 Conflict between fatal handling and power management 
+6642807 mis-merge in main.s causes SET_VCPU_STRUCT() and SET_STRAND_STRUCT() to happen twice. 
+6642749 When connected to SP via serial port , sending NUL character results in &lt;break&gt; being sent to domain 
+6641936 'consolehistory' in alom-cli is not displaying the correct history of information. 
+6641377 alom cli usage for logout is not correct 
+6639312 Only FRUs should have a fault_state property (except for /SYS) 
+6639099 Cannot view entire history log using ilom cli due to line_count and pause_count restrictions 
+6639002 Incorrect FRU callout in diagnosis of PCI card(s) for FMA IO faults 
+6637424 offsets.h complains about missing definition 
+6635541 SP needs to implement correct System Policy when SCC NVRAM Invalid or Not Present 
+6632561 Incorrect GNUmakefile can hang the build 
+6630598 Call ldc_copy with negative flag returns ENOACCESS 
+6625125 RESET_FEE needs to be set to non-zero value 
+6624658 When the stop /SYS command is not used, HOST_LAST_POWER_STATE is not effective. 
+6623619 PRI IO slot canonical paths are missing trailing "@0" component 
+6618866 Customers need to be able to automate FW updates 
+6617464 QJ070821-014 prtdiag not displayed FAN exchanged 
+6616381 offsetchk prints incorrect array size 
+6613209 The value of /HOST/diag/trigger is changed when the motherboard is replaced.[QJ070903-042] 
+6612947 System hangs after 60 ms power glitch 
+6610641 solaris reboot causes HDD OK2RM to stay on 
+6607780 RFEN: ActDir to support 'group movement' within the tree even though MS ActDir warns against it 
+6607719 Unable to delete the last session in javarconsole if a session to the left of it is deleted first 
+6604574 Erratum workaround: MCU Refresh Frequency and Sync Frame Frequency can not be integer multiples 
+6602475 javarconsole: choose 'No' to stop cd image redirection, checkbox is blank 
+6601935 plathwsvcd/showfaults: fault message in /var/tmp/faults.tmp doesn't show up under showfaults command 
+6600945 power-off doesn't power off the virtual machine OBP is running within 
+6598988 need error handling support for UEs in foreign L2 cache reads 
+6592723 Absent/poorly connected SSCC generates i2c_writeread failed 121 error and infinite reboot loop 
+6588443 System should respond to invalid mem config (mixed arch) sooner (less than current 5 minutes) 
+6587238 VBSC sometimes does not reboot the system after SIR 
+6577471 VBSC should not power-cycle when reset is requested via CLI 
+6566151 Ontario s10u4 eft.undiagnosable_problem for jbc.cpe jbc.mb_pea jbc.jtceew 
+6564189 Power state should be checked before calling sensor access functions 
+6560249 ilom should read the vbsc version via the provided api 
+6558974 Remove check for unbind property in guest parse routine 
+6556636 VBSC should build separate versions of object files for debug and non-debug 
+6555126 Increase size of ldc queues in sram for performance 
+6549183 Guest Watchdog should be made LDoms aware. 
+6545380 ilom DMTF cli: Unable to force RW console if another user has the console 
+6538289 Galaxy-snmp dumps core, timeouts during compliance test on IlomCtrlMIB 
+6537680 ERROR: too much data in /var/opt/vbsc/asrdb - no backing store for ASR DB 
+6529467 POST should handle preceeding spaces gracefully 
+6519557 Hypervisor should read md for ldc queue size and offsets 
+6488334 VBSC sets up memory incorrectly in mixed dimm config on N2 
+6487885 javarconsole doesn't prompt user that it's been disconnected in a timely manner 
+6485109 isalist output need to be corrected on Niagara2 
+ 
+(from 136933-02 - Sun System Firmware 7.1.0.h)
+ 
+6697436 1G won't work if on Goa if a Goa in slot 1 is not inserted 
+6693906 probe-scsi-all on USB1.1 storage generates Fast Data Access MMU Miss 
+6693734 Platforms that support MEM64 and PCI hotplug are using invalid memory sizes 
+6691673 sysfwdownload does not timeout/cleanup on the ILOM 
+6690618 niu reset from guest doesn't properly prepare niu for 10g mode after running in 1g mode 
+6687097 virtual-console device always returns NUL the very first character available after it gets opened 
+6669255 Domains fail to boot from the right devalias name 
+6651513 Version negotiation in obp's vnet/vdisk doesn't adhere to the protocol 
+6647462 Problem with T2000 SysFW 6.5.5, won't see DVD rom device after upgrade 
+6634980 Possible Data corruption when using NVRAMRC kill or yank 
+6634974 Incorrect Error reported on nvramrc CRC Error 
+6631330 niu driver changes for goa 
+ 
+(from 136933-01 - Sun System Firmware 7.1.0.g)
+ 
+6683322 With non-factory-default spconfig: ldmd fatal error: No available physical memory 
+6682834 transition ds port state to "init" before bringing up corresponding ldc 
+6676959 Service tag is not properly programmed 
+6676309 Clock drift in Huron due to spread spectrum 
+6664193 speedy mondo dispatch rework leaves niu interrupts in the dust 
+6661663 PID2VCPUP doesn't check for vcpu-&gt;strandp being NULL before dereferencing 
+6657972 HV not generate ereports for IO error injection after error injected to pciexrc1 
+6656689 ldc subscribers cannot determine if the SP has been reset 
+6655060 interrupts left pending for stopped cpus result in non-idle idle strands 
+6654784 Broke Huron build trying to compile it with multinode support 
+6654395 ldmd fatal error: No available physical memory 
+6651301 Add IOBOX connection property support to CAPI and envmon 
+6650585 showplatform and /SYS/ACT do not always display correct host state 
+6650227 bootmode reset_nvram fails to reset obp to defaults 
+6649268 strand error struct - unaligned memory accesses 
+6648867 unaligned write in strand error handling 
+6648468 When there are memory holes, hypervisor passes incorrect memory size argument to the guest(s) 
+6647778 Error: Invalid property value when setting reset_to_defaults to None 
+6647337 Restarting domains with multiple domains in existence causes incorrect uptime in Zeus 
+6647026 Available commands listed for /X/powermgmt isn't correct in CLI. 
+6644994 Incorrect data is received as the response of pcp interface on huron 
+6644049 Need to ditch polling in favor of interrupts for idling 
+6643632 Refactoring and restructuring changes needed for platform scalability 
+6642932 CWQ and MAU qconf set head_marker field to wrong value, causes interrupts immediately 
+6642809 /SPD/Timestamp printed incorrectly 
+6642804 SET_SIZE(start_secondary_master) is missing in NCHIPS=1 case 
+6642800 SET_SIZE(start_master) is missing 
+6641981 CapiSDR needs to set bits 7:6 in Sensor Units 1 when Discrete sensors use Full SDRs 
+6641113 ActiveDirectory Web gui not showing '&lt;USERNAME&gt;' portion of userdomain in table format... 
+6641093 Port CAPI Sensor simulator from ILOM 3.0 to 2.0 
+6640893 Add better stack debugging to hv 
+6640613 ipmitool incorrectly displays Discrete sensors, especially Discrete sensors that use Full SDRs 
+6640494 No HV debug output on port 2001 
+6639912 uadmin 2 0 and reboot reads old bootmode settings (should be cleared) 
+6639225 Backout 6549183, causes 6638756 
+6639013 N2 post interface update 
+6639010 Change hv 1.6.x file names to be more apt 
+6638901 RED_STATE if MMU error in hyper-privileged mode 
+6637992 vecintr() mondo dispatch could be reordered for performance 
+6637682 Move debugflags to mini-MD 
+6637134 HV abort handling broken at TL = 0 
+6636325 hv trap trace doesn't work after the guest resets 
+6635181 1.6 vbsc rejects LDoms 1.0.1 MD bootsets 
+6635149 mmu_tsb_ctxnon0() returns EINVAL with a shared context setting, context_index = -1 
+6634997 some DAUs should be reported to the guest as non-resumable 
+6634497 Servicetag information incorrectly populated 
+6632210 Hypervisor could use a print macro that handles g7 clobbering 
+6631875 call ldc_mapin with misaligned cookie does not return EBADALIGN 
+6631187 Power Management query via the web while chassis is powered off hangs 
+6630613 Call ldc_copy with mismatched page size returns EOK 
+6630112 Some DEVINST2INDEX or DEVINST2COOKIE failures will be nasty 
+6629419 Need to reduce VBSC memory usage for N2 platforms
+6627667 Change OBP environment variable pci-mem64? default value from false to true 
+6626045 Update RNG OBP virtual-device node for Huron/N2 platforms 
+6626041 Machine description for guest needs to support rng-#units propval in RNG virtual-device node 
+6624684 VCPU start_stick is never initialised 
+6624408 queued sp messages relayed to solaris syslog should indicate so 
+6623916 Software guest state updates generate too much traffic 
+6623142 Hypervisor needs to inform vbsc of soft state 
+6623132 DMU Data Parity Error should not be set as Fatal 
+6623032 VBSC builds fail with standard Sun make 
+6621998 Configuring ldc channels should not corrupt other sysinos 
+6621584 Hypervisor stack size should be reduced 
+6621350 teja_profiler_dump() can dump bogus info to the console 
+6619991 Update Phase 1 to allow a "Chassis" Entity 
+6619932 hv_ldc_copy should return EINVAL for SP endpoints 
+6619164 vBSC is running POST for user resets even tho diag_trigger does not have user_reset set 
+6618239 dmake does not compile multiple N2 targets correctly 
+6615776 Number of guest LDC channels need to be increased on per platform basis 
+6614911 Configuring NCS_QTYPE_CWQ queue does not set tail offset to zero 
+6614166 Need to pass the correct hypervisor md header to md_check_content_version 
+6613677 Replace qas with fbe in Makefile 
+6611174 mau/cwq should target interrupt based on submitter 
+6607996 When creating IPMI records from JEDEC DIMM SPDs, need to synthesize serial number properly 
+6607368 ENABLE_PCIE_OE_ERR_INTERRUPTS macro needs a tweak 
+6605824 An additional error after an error storm is handled results in an incorrect ereport 
+6604416 Update versioning for vbsc1.6.x-gate 
+6603960 hwtw entry management could use a little optimization 
+6603949 Sample guest dis_bpcc() function has a typo and is C-style filthy 
+6603535 Firmware needs to check FBDIMM voltage range 
+6602244 Need parallel memscrub timeout 
+6602227 Hypervisor stack needs overflow and underflow safeguards 
+6601551 Use mailbox for systest arguments 
+6596924 vbsc should check the actual return value of stat() 
+6594395 "Options: true false" menu interrupts OBP reset 
+6594044 Removal of "next" spconfig results in incorrect selection. 
+6592934 Occasional LDOM warning message after POST 
+6592314 ldc_read (vbsc) does not set qhead after processing control pkts 
+6590036 Mal formed MSI errors are encoded wrong. 
+6588393 N2 sends invalid interrupt to all strands on startup 
+6587522 Missing information in "ldm list-config" 
+6587418 Huron vbsc should check MD content-version like N1 does to ensure firmware compatibility 
+6586938 add "show components" to cli dmtf argument alias 
+6584080 Post tests asr disabled XAUI cards 
+6583280 Return status of MD property removal routine is useless 
+6581227 Deserializing fails when number of entries is greater than 12 
+6581061 Number of guest LDC channels need to be increased on per platform basis 
+6576348 Console hangs if lowest available strand of control domain is DR'ed out 
+6575857 ds should check return value from Xmalloc 
+6572421 Regenerate ILOM servicetags entry on SP boot 
+6567748 LOM should show correct Guest Status sent from OBP and Solaris 
+6565130 partdef tool should flag an error when nodes have the same name 
+6563453 SNMP: udp port snmp unreachable on CMMs 
+6558876 Combining -level all with a property with the show command doesn't work correctly 
+6558875 Support parsing of a mini-md from vbsc for hv-specific info to leave out of hv md 
+6558874 Support delivery of mini-md from vbsc to hv at poweron with hv-specific info 
+6553956 Hypervisor spill/fill code uses %asi unnecessarily 
+6547428 The warning message has an incorrect spelling. WARNING: No response from Domain Service "Providor" 
+6530696 vBSC should support parallel make 
+6512417 vbsc needs to compile under a modern operating system 
+6489630 ldc_unmap() with misaligned raddr expects EBADALIGN but receives EOK
+
+Patch Installation Instructions:
+--------------------------------
+ 
+ 
+Please refer to the Install.info file for instructions on updating the firmware
+in the flashprom using the files included in this patch.  In particular, there
+is information on the differences involved with the ILOM-based Sun System
+Firmware (7.x) in connection with the use of the Solaris Sun Update Connection
+utility.
+
+Special Install Instructions:
+-----------------------------
+ 
+NOTE 1: Firmware component revisions included with this release:
+ 
+	Sun System Firmware 7.1.8.a 2009/03/15 14:57
+	--------------------------------------------
+	ILOM 2.0.4.28.a Mar 15 14:25:11 PDT 2009
+        Hypervisor 1.6.9 2009/03/12 08:39
+        OBP 4.29.2 2009/03/12 06:53
+        POST 4.29.2 2009/03/12 07:22
+	VBSC 1.6.9  Mar 15 2009  14:00:20
+ 
+	Checksum of Sun_System_Firmware-7_1_8_a-Sun_Blade_T6320_Server_Module.pkg : 3551592073
+	(generated by the /usr/bin/cksum command)
+ 
+ 
+NOTE 2: By using Sun System Firmware (Firmware) you agree to the terms of the
+	Software License Agreement and Entitlement (SLA/Entitlement) found in
+	FIRMWARE_SLA+Entitlement.txt in the Legal directory.  By using the
+	Firmware, you agree to the terms of the SLA/Entitlement. If you do not
+	agree to all of the terms promptly destroy the unused Firmware.
+ 
+NOTE 3: Upgrading to Sun System Firmware 7.1.7.c or later for this platform
+	requires Solaris 10 (8/07) (Update 4) plus patches (or later) to be installed.
+ 
+	127127-11    6588452 Huron P1.1 panics and cannot boot Solaris 10 from
+   	119254-51    KU dependency
+   	125891-01    KU dependency
+   	127755-01    FMA, KU dependency
+   	118712-21    pfb; yoyo hang/panic fix
+   	120812-24    OpenGL 1.5
+   	125416-06    6542641 cannot install Solaris on Flash Devices (USB Flash ...
+   	128304-03    USB panic in root complex
+ 
+NOTE 4: Please refer to the online documentation for feature and version
+	compatibility between Sun System Firmware and LDom Manager releases.
+	LDoms release notes are available on http://docs.sun.com under this title
+	and part number:Logical Domains (LDoms) 1.0.3 Release Notes 820-4895
+ 
+NOTE 5: If you are currently using LDoms 1.0 or 1.0.1 software, you must perform a
+	full upgrade procedure to upgrade to LDoms 1.0.3 software. Refer to the
+	Logical Domains (LDoms) 1.0.3 Administration Guide, 820-4894, at
+	http://docs.sun.com/app/docs/prod/ldoms#hic. You do not need to
+	destroy configurations created with LDoms 1.0.2 software; you only need to
+	upgrade the software.
+ 
+NOTE 6: Please visit http://www.sun.com/opensourcecode to download the 
+	firmware's open source components that are required to be made available 
+	under open source licenses.
+
+README -- Last modified date:  Wednesday, April 15, 2009
+
+</pre></body></html>

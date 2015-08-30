@@ -1,0 +1,450 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 144200-03
+
+NOTE:
+***********************************************************************
+Your use of the firmware, software and any other materials contained 
+in this update is subject to My Oracle Support Terms of Use, which 
+may be viewed at https://support.oracle.com.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: st95000ns 500gb disk firmware sata
+Synopsis: SunOS: Hardware 500GB SATA Disk Drive Patch Download program and SATA Disk Drive firmware
+Date: Dec/17/2012
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: SATA disks
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: all
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+-rw-r--r--   1 nw147508 staff        199 Mar  2 14:27 patchinfo
+-rw-r--r--   1 nw147508 staff      16996 Mar  2 14:29 README.144200-03
+-rwxr-xr-x   1 nw147508 staff        884 Mar  2 14:27 download*
+-rwxr-xr-x   1 nw147508 staff       1924 Mar 24  2006 mload*
+-rwxr-xr-x   1 nw147508 staff      11187 Mar 24  2009 disktool.pl*
+-rwxr-xr-x   1 nw147508 staff      12516 Feb 27  2009 ata_disk_load32*
+-rwxr-xr-x   1 nw147508 staff      14048 Mar 24  2009 linfwupd64x45xx*
+-rwxr-xr-x   1 nw147508 staff      14048 Mar 24  2009 linfwupdx45xx*
+-rwxr-xr-x   1 nw147508 staff      15372 Mar  1 17:17 nload_x86_l5520*
+-rwxr-xr-x   1 nw147508 staff      15504 Feb 27  2009 nv_x64*
+-rwxr-xr-x   1 nw147508 staff      15528 Feb 25  2009 fwupdx4500*
+-rwxr-xr-x   1 nw147508 staff      15648 Feb 27  2009 ata_disk_load64*
+-rwxr-xr-x   1 nw147508 staff      18904 Feb 27  2009 dload_sparc*
+-rwxr-xr-x   1 nw147508 staff      19544 Feb 27  2009 nv_x32*
+-rwxr-xr-x   1 nw147508 staff      19576 Feb 25  2009 fwupd64x4500*
+-rwxr-xr-x   1 nw147508 staff     299940 Mar  2 14:27 download32*
+-rwxr-xr-x   1 nw147508 staff     371148 Mar  2 14:27 download64*
+-rwxr-xr-x   1 nw147508 staff    3574636 Sep  6  2005 mdload*
+drwxr-xr-x   2 nw147508 staff        180 Mar  2 14:27 x86/
+drwxr-xr-x   2 nw147508 staff        191 Mar  2 14:27 firmware/
+
+Problem Description:
+
+This Patch is a SATA Patch for 500GB SATA Drives bugs. 
+ 
+The patch has the following bug fixes:
+ 
+Network f/w roll.
+ 
+Previous History:
+ 
+Installation Instructions:
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. The system MUST BE IDLE during the download process!  No other
+   programs should be running while using this utility is being
+   used.  Failure to do so may cause the devices being upgraded
+   to fail or the system to crash.
+ 
+   Volume managers such as Veritas, SDS, Arraymon, and Vold must
+   be idle and any disks unconfigured.  Note, due to an open/close
+   accounting bug (see bug 4129295) in sd and ssd drivers, you must
+   reboot the system after unconfiguring any disks used by them.
+   This accounting bug prevents the upgrade utility from acquiring
+   sole ownnership of the disk so it will not be eligible for upgrade.
+   Note, Arraymon will be disabled during download startup and enabled
+   on exit.
+ 
+   Any other computers sharing the same I/O bus as the host system
+   must be either disconnected or offline to prevent possible
+   disruption of the firmware download process.
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.log" or "/var/tmp/download.log", "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+3. This package will only upgrade the identified Sun disks.
+ 
+4. If the High Availability kernel device polling is running, it will
+   be disabled.  It will not be re-enabled.
+ 
+5. If using Veritas, "deport" the volume to release the volume from
+   Veritas control.  Do not "remove" the volume as this will erase
+   the data stored on the Volume.
+ 
+6. Follow the instructions given below.  You may program one drive,
+   a range of drives, or all drives at once with this tool.
+ 
+7. To download the boot disk you must be in "single-user mode". To enter
+   "single-user mode" reboot with the command:
+   # reboot -- -s 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ 
+1. General guidelines for upgrading:
+ 
+        BACK UP ALL FILESYSTEMS.
+ 
+        STOP ALL APPLICATIONS. The system must be idle during the
+        firmware upgrade process.
+ 
+        UNMOUNT all file systems on the drives to be upgrade.
+        Disks with mounted file systems are not eligible for
+        upgrade.
+ 
+        UNCONFIGURE devices from volume manager.
+ 
+        REBOOT THE SYSTEM if you unconfigured any disks from
+        volume manager (e.g. Veritas).  Otherwise, you will
+        not be able to upgrade any previously configured disks.
+ 
+        UPGRADE the disks.  Follow the given instructions in
+        the procedure section below.
+ 
+        In case of any disruption or unforeseen events happening on the
+        relevant bus during the firmware download process, it may be
+        that the upgraded disk becomes non-functional.  In this event,
+        it will be necessary to swap out the disk. This would happen
+        as a result of an incomplete or corrupted firmware file
+        being downloaded.  Loss of power during the upgrade process
+        would also damage the disk.
+ 
+**NOTE**    If you cannot upgrade devices due to volume manager
+            interference,  try booting of the Solaris 2.6 release CD. Please be
+                         advised that you cannot see the ultra3 scsi card with solaris 2.10 media.
+            You also cannot use rm6 from the solaris 2.10 media and there are other
+                         circumstances under which 2.6 is not usefull. But it will work in many cases.
+ 
+**NOTE**    If a system disk is to be upgraded, the upgrade utility will
+            allow it to be upgraded if the system is in single-user mode
+            (e.g. "reboot - -s, or boot -s").  Otherwise, the system disk will not be
+            eligible for upgrade.
+ 
+        RECONFIGURE devices to volume manager.
+**NOTE**    As Download disables kernel high availability device polling,
+            it may be necessary to reboot the system to restart it.
+ 
+2. Procedure:
+ 
+The procedure to be used for upgrading the drive firmware is
+explained below. Upgrade time will be approximately 3 minutes per drive. 
+ 
+a) Unpack the patch (through tar) into any directory, say &lt;patchdir&gt;.
+   (Note, if the patch ends in a ".Z" suffix, you will need to first
+   uncompress it.)  So, you would type:
+        % su root
+        # cd &lt;patchdir&gt;
+        # tar -xvf &lt;patch tar file&gt;
+ 
+b) In the patch directory, as root, type the "download" command:
+        # ./download
+ 
+c). Select the devices to be upgraded (see example below).
+ 
+**NOTE**    Any device that is in-use by another application will not
+            be upgraded.  The following warning message will be
+            issued:   c1t3d0s0: Open failed, you must be the sole user!
+ 
+**NOTE**    This upgrade can result in error messages in the console
+            window and/or the terminal "download" window.  It is
+            normal for the SCSI link to go offline for a few
+            seconds and then return to the online state.  The disk
+            mode pages will also be restored to the default values.
+ 
+c). After the devices have been upgraded, the displayed device
+    list will be refreshed.  Devices remaining to be upgraded or
+    failed devices will be displayed.  Failed devices will be
+    marked with a "****" in the rev field.
+ 
+**NOTE**    If all devices have been upgraded, the following
+            message will be displayed:   No devices found to upgrade!
+ 
+d). To display the full list of devices including the upgrades ones,
+    type 'inquiry' (see example below).
+ 
+ 
+e). Quit the "download" program by typing 'quit' (see example below).
+ 
+f) If this fails use the alternate method below:
+ 
+./fwupd64x4500 /dev/rdsk/c0t29dos2? firmware/st95000ns.sf04.fw
+ 
+**************************************************************************
+**************************************************************************
+EXAMPLES:
+ 
+ 
+gabrielle #32 /tmp/nw147508&gt;tar -xvf 144200-03.tar
+x 144200-03, 0 bytes, 0 tape blocks
+x 144200-03/firmware, 0 bytes, 0 tape blocks
+x 144200-03/firmware/ST95000NS.SF04.fw, 886272 bytes, 1731 tape blocks
+x 144200-03/download32, 299940 bytes, 586 tape blocks
+x 144200-03/download64, 371148 bytes, 725 tape blocks
+x 144200-03/.download, 97 bytes, 1 tape blocks
+x 144200-03/download, 884 bytes, 2 tape blocks
+x 144200-03/fwupd64x4500, 19576 bytes, 39 tape blocks
+x 144200-03/fwupdx4500, 15528 bytes, 31 tape blocks
+x 144200-03/linfwupd64x45xx, 14048 bytes, 28 tape blocks
+x 144200-03/linfwupdx45xx, 14048 bytes, 28 tape blocks
+x 144200-03/disktool.pl, 11187 bytes, 22 tape blocks
+x 144200-03/ata_disk_load32, 12516 bytes, 25 tape blocks
+x 144200-03/ata_disk_load64, 15648 bytes, 31 tape blocks
+x 144200-03/dload_sparc, 18904 bytes, 37 tape blocks
+x 144200-03/nv_x32, 19544 bytes, 39 tape blocks
+x 144200-03/nv_x64, 15504 bytes, 31 tape blocks
+x 144200-03/mload, 1924 bytes, 4 tape blocks
+x 144200-03/nload_x86_l5520, 15372 bytes, 31 tape blocks
+x 144200-03/mdload, 3574636 bytes, 6982 tape blocks
+x 144200-03/x86, 0 bytes, 0 tape blocks
+x 144200-03/x86/mdload, 2910968 bytes, 5686 tape blocks
+x 144200-03/patchinfo, 199 bytes, 1 tape blocks
+x 144200-03/README.144200-03, 16996 bytes, 34 tape blocks
+ 
+THIS IS THE FIRMWARE DOWNLOAD PROCEDURE FOR SOLARIS 10 U8
+scsvr-04# ./download
+Firmware Download Utility, V4.3.1
+ 
+**************************  WARNING  **************************
+NO OTHER ACTIVITY IS ALLOWED DURING FIRMWARE UPGRADE!!!
+No other programs including any volume manager (e.g. Veritas,
+SDS, or Vold) should be running.  Other host systems sharing
+any I/O bus with this host must either be offline or
+disconnected.  Any interruption (e.g. power loss) during
+upgrade can result in damage to devices being upgraded.
+ 
+Any disk to be upgraded should first have its data backed up.
+***************************************************************
+ 
+Searching for devices...
+ 
+DISK DEVICES
+Device         Rev   Product
+ 
+c0t0d0:        SF03  ST95000NS -- SUN500G
+c0t1d0:        SF03  ST95000NS -- SUN500G
+Total Devices:  2
+ 
+ 
+Enter command: p
+Upgrading devices...
+ 
+c0t0d0: Successful download
+c0t1d0: Successful download
+c0: recovery delay, 84 sec.
+ 
+DISK DEVICES
+No devices found to upgrade!
+ 
+ 
+Enter command: inq
+ 
+DISK DEVICES
+Device  Rev   Product               S/N
+c0t0d0: SF04  ST95000NS -- SUN500G  06399020TK
+c0t1d0: SF04  ST95000NS -- SUN500G  06399020E8
+Total Devices:  2
+ 
+ 
+Enter command: q
+ 
+ 
+SPECIAL INSTRUCTIONS:
+ 
+# The following examples allow to download -
+  For Adaptec controllers and for drives behind Adaptec Raid
+  controllers
+  For Sparc invoke "download32_aac"
+  For Solaris X86 invoke "xdownload32_aac"
+  The drives which are not part of Adaptec please follow 
+  the respective instructions to download.
+ 
+  The PATH local variable of your working SHELL should be
+  include the current working directory
+  For example if you are in Korn Shell you can execute this command -
+  #&gt; export PATH=$PATH:.
+ 
+ 
+Solaris Download Example:
+ 
+******** Note - For Sparc use the download32_aac
+ 
+# ./xdownload32_aac
+ 
+ 
+Number of controllers: 1
+*************************************************
+       List of Available Drives
+ 
+Adpt Ch Dev Vendor  Model               Size  SerialNo  FWRev         Type
+0    0  0  SEAGATE ST95000NSSUN500G     500GB 152158H3  SF04          SATA
+0    0  2  SEAGATE ST95000NSSUN500G     500GB 18217F78  SF04          SATA
+*************************************************
+ 
+       Enter Channel and Device to download firmware
+       Enter Channel No - Enter all for All OR Ctrl C to exit): 0
+ 
+       Enter Disk or Device ID  Hit Return for all drives: 1
+ 
+       Enter the firmware file to be used
+       (white space or Return is considered as end of input) :/H101473SC.SA23.fw
+ 
+ 
+ Starting Download to
+0    0  1  HITACHIH101473SCSUN72G     68GB 000726D19GSA        P2V19GSASA25      SAS
+Download successful
+*************************************************
+       List of Available Drives
+ 
+Adpt Ch Dev Vendor Model            Size  SerialNo    FWRev        Type
+0    0  0  SEAGATE ST95000NSSUN500G 500GB 152158H3    SF04         SATA
+0    0  2  SEAGATEST95000NSSUN500G  500GB 18217F78    SF04         SATA
+*************************************************
+ 
+       Enter Channel and Device to download firmware
+       Enter Channel No - Enter all for All OR Ctrl C to exit): ^C#
+#
+#
+# cd /opt/StorMan
+# ./arcconf rescan 1
+Controllers found: 1
+ 
+Command completed successfully.
+#
+#
+# cd /net/hoohoo/usr/download/bin
+# ./xdownload32_aac -i
+ 
+******* Note -- For Solaris Sparc use download32_aac
+ 
+ 
+Number of controllers: 1
+*************************************************
+       List of Available Drives
+ 
+Adpt Ch Dev Vendor Model            Size  SerialNo   FWRev    Type
+0    0  0  SEAGATE ST95000NSSUN500G 500GB 152158H3   SF04     SATA
+0    0  2  SEAGATEST95000NSSUN500G  500GB 18217F78   SF04     SATA
+*************************************************
+ 
+       Enter Channel and Device to download firmware
+       Enter Channel No - Enter all for All OR Ctrl C to exit): ^C#
+#
+# 
+LINUX Download Procedure 
+[root@scsvr-177 144200-2]# cd /dev
+[root@scsvr-177 144200-2]# ls | grep sd
+#this shows you all available devices and will look something like
+sda
+sda1
+sda2
+sdb
+sdb1
+sdc
+sdc1
+sdd
+sdd1
+sde
+sde1
+sdf
+sdf1
+sdg
+sdg1
+sdh
+sdh1
+sdi
+sdi1
+sdj
+sdj1
+sdk
+sdk1
+sdl
+sdl1
+sdm
+sdm1
+sdn
+sdn1
+sdo
+sdo1
+sdp
+sdp1
+[root@scsvr-177 144200-2]# smartctl -i /dev/sdk
+smartctl version 5.38 [x86_64-redhat-linux-gnu] Copyright (C) 2002-8 Bruce Allen
+Home page is http://smartmontools.sourceforge.net/
+ 
+=== START OF INFORMATION SECTION ===
+Device Model:     SEAGATE ST95000NSSUN500G 0951M19G61
+Serial Number:    9SP19G61
+Firmware Version: SF04
+User Capacity:    500,107,862,016 bytes
+Device is:        Not in smartctl database [for details use: -P showall]
+ATA Version is:   8
+ATA Standard is:  ATA-8-ACS revision 4
+Local Time is:    Thu Mar 11 13:59:55 2010 PST
+SMART support is: Available - device has SMART capability.
+SMART support is: Enabled
+ 
+./nload_x86_l5520 -d /dev/sdk ST95000NS.SF04.fw
+ 
+# This needs to be repeated for each drive.
+ 
+README -- Last modified date:  Tuesday, March 20, 2010
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Monday, December 17, 2012
+
+</pre></body></html>

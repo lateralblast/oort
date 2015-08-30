@@ -1,0 +1,83 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 124411-03
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun ultra 45
+Synopsis: Hardware/PROM: Sun Ultra 45 Flash PROM Update
+Date: Sep/12/2007
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.25.9, POST 4.25.9, OBDIAG 4.25.9
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 5079227 6377849 6381271 6381279 6390526 6401719 6420097 6420241 6422909 6487277 6550351 6592973 6592986
+
+Changes incorporated in this version: 6592986 6592973
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunUltra45
+unix.flash-update.SunUltra45.sh
+
+Problem Description:
+
+6592986 Add Unix flash update support for U45 MB_PN's 375-3552 and 375-3553 and U25 MB_PN 375-3556
+6592973 sata_drive Block error in Hitachi SATA HDDs occurred when power is cycled by s99zzzpc script
+ 
+(From 124411-02)
+ 
+6550351 Issuing a boot to the cdrom device hangs the system if no cdrom is installed.
+5079227 This, ")" in between "Copyright" and "2004", is not in the right place.
+ 
+(From 124411-01)
+ 
+6487277 ./dimmCheck hangs intermittently when we have 8 x Samsung dimms in a Chicago system
+6422909 When first power on and at OBP level the wrong characters appear on screen...
+6420241 Make the PLX 8532 PCI-Express workaround for CR 6397497 standard probing procedure
+6420097 phys.hi&gt;cfg-offset method does not work for non-PCIE bridges
+6401719 IO-Bridge Error - Data miss compare when running DMA loopback mode. 
+6390526 USB 2.0 Hub gets lost to OBP after Solaris EHCI driver run
+6381279 Remove no-probe-list property from Fire nodes
+6381271 All configuration variables should be set to defaults on NVRAM initialization
+6377849 Need to disable INTX prior to boot
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+ 
+                &gt;&gt;&gt; END &lt;&lt;&lt;
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Wednesday, September 12, 2007
+
+</pre></body></html>

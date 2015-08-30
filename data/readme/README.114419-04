@@ -1,0 +1,105 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">OBSOLETE Patch-ID# 114419-04
+Keywords: multiterabyte disk support multiterabyte disk support
+Synopsis: Obsoleted by: 117172-17 SunOS 5.9_x86: Multiterabyte Disk Support - abi_libefi.so.1 patch
+Date: Jul/06/2004
+
+
+Install Requirements: Install in Single User Mode                      
+                      Reboot immediately after patch is installed                      
+                      
+Solaris Release: 9_x86
+
+SunOS Release: 5.9_x86
+
+Unbundled Product: 
+
+Unbundled Release: 
+
+Xref: This patch available for SPARC as patch 114127
+
+Topic: SunOS 5.9_x86: Multiterabyte Disk Support - abi_libefi.so.1 patch
+
+Relevant Architectures: i386
+
+BugId's fixed with this patch: 4334693 4622990 4716238 4809406 4888423 4906621 4935076
+
+Changes incorporated in this version: 4888423
+
+Patches accumulated and obsoleted by this patch: 114422-01
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 114420-02 or greater
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+/usr/lib/abi/abi_libefi.so.1
+/usr/lib/libefi.so
+/usr/lib/libefi.so.1
+/usr/lib/llib-lefi
+/usr/lib/llib-lefi.ln
+/usr/sbin/fmthard
+
+Problem Description:
+
+4888423 Revision in EFI Partition Table Header should be 1.00, not 1.02
+ 
+(from 114419-03)
+ 
+4906621 starting and ending LBA values in PMBR are byte-swapped
+4935076 Libefi fails to use the on disk header length to calculate CRC
+ 
+(from 114419-02)
+ 
+4809406 X86 abi_libefi.so.1 Patch is missing a binary ( symlink to /usr/lib/libefi.so.1
+ 
+(from 114419-01)
+ 
+4716238 PSARC 2001/570 multi-terabyte disk support
+4334693 format command fails when configuring A3x00 RAID 5, 19+1 w/ Seagate 72GB drives
+4622990 Solaris should provide a complete UUID mechanism
+ 
+(from 114422-01)
+ 
+4716238 PSARC 2001/570 multi-terabyte disk support
+4334693 format command fails when configuring A3x00 RAID 5, 19+1 w/ Seagate 72GB drives
+4622990 Solaris should provide a complete UUID mechanism
+
+Patch Installation Instructions:
+--------------------------------
+ 
+For Solaris 2.0-2.6 releases, refer to the Install.info file and/or
+the README within the patch for instructions on using the generic
+'installpatch' and 'backoutpatch' scripts provided with each patch.
+ 
+For Solaris 7-9 releases, refer to the man pages for instructions
+on using 'patchadd' and 'patchrm' scripts provided with Solaris.
+Any other special or non-generic installation instructions should be
+described below as special instructions.  The following example
+installs a patch to a standalone machine:
+ 
+       example# patchadd /var/spool/patch/104945-02
+ 
+The following example removes a patch from a standalone system:
+ 
+       example# patchrm 104945-02
+ 
+For additional examples please see the appropriate man pages.
+
+Special Install Instructions:
+-----------------------------
+ 
+NOTE:  To get the complete Multi-terabyte feature, please also install the
+        following patches:
+ 
+        114431-01 (or newer) sd &amp; ssd patch
+        114421-01 (or newer) libadm.so.1 patch
+        113999-01 (or newer) devfsadm patch
+        114423-01 (or newer) format patch
+        114424-01 (or newer) prtvtoc patch
+
+README -- Last modified date:  Monday, January 24, 2005
+
+</pre></body></html>

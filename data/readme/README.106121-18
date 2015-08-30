@@ -1,0 +1,485 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 106121-18
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: desktop standalone flash prom update
+Synopsis: Hardware/PROM: Ultra 5/10 Standalone Flash PROM Update
+Date: May/15/2002
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+    NOTE: This utility is *not* OS-dependent.  The list of releases shown
+          under the "Solaris Release" and "SunOS Release" sections may not 
+          be complete: The absence of a valid Solaris Release or SunOS  
+          Release from the lists above does not preclude the installation 
+          of this patch against the hardware.
+
+
+Unbundled Release: OBP_3.31.0,POST_3.1.0,OBDIAG_P2.9
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+NOTE: Sun4u Ultra 5/10 only
+
+BugId's fixed with this patch: 4670050
+
+Changes incorporated in this version: 4463337 4483753, 4091949 4114343 4114784 
+4119822 4169774 4176300 4187987 4188219 4198675 4203447 4221374 4256699 4267135
+4287319 4310258 4318271 4325933 4338343 4342398 4346332 4360786 4360814 4360883
+4407855 4407869 4123985 4129194 4511402 4661718
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+                                flash-update-Ultra510-10,
+                                flash-update-Ultra510-14,
+                                flash-update-Ultra510-16,
+                                flash-update-Ultra510-18,
+                                flash-update-Ultra510-latest
+802-3233-20.ps, copyright,
+
+Problem Description:
+
+4670050: Patch 106121-17 will not work for Darwin
+ 
+4661718: Add support for new audio chip AD1845 for Einstein OBDiag
+ 
+4511402: patch 106121-15 with 375-0009(ultra10 Darwin system BD) does not work
+ 
+4463337: PCI2.2 T(rhfa) timing violation causing devices behind pci-pci bridge 
+              not probed
+4483753: RARP replies which dont include ar$spa must be handled correctly
+ 
+4407855: Code that validates idprom contents incorrectly expects 0x80 at offset 1
+ 
+4407869: probe-scsi and probe-scsi-all need to recognize device_type=scsi*
+ 
+4360814: PCI resources allocated on one segment is not available on the other
+ 
+4318271: During probe register at 0x30 not found on Ultra 10
+ 
+4360786: Ecache sizing may be incorrect on modules using IBM SRAM parts
+ 
+4360883: DHCP IP address validation code must be more robust
+ 
+4123985: erroneous divide by zero bug in OBP
+ 
+4325933: Branch on register intructions are broken in assem.fth
+ 
+4338343: fb8: "Memory Address not Aligned" error in fb8-insert-lines
+ 
+4176300: Draw logo doesn't clip, returns negative number for line# to draw at.
+ 
+4203447: setting nvram variables when config-valid? is false leaves
+         parameters on stack
+ 
+4346332: System type is not displayed in banner after flash update
+ 
+4267135: The "mfg-mode" name does not retain the custom value
+ 
+4342398: Fix memory timing violation when using 440 Mhz CPU modules
+ 
+4310258: Add support for DHCP.
+ 
+4287319: The flash utility needs to be able to support ST and Hyundai 29F080 parts.
+ 
+4256699: Ultra 60s/450 mhz cpus fail jumpstart install even with OE CD modification
+ 
+4221374: Provide more descriptive message when user tries to use wrong Flash
+         update image.
+ 
+4091949: Flashprom updates for Sun4u systems may cause NVRAM contents to change
+ 
+4198675: The flash update utility is unable to detect locked flashprom sectors.
+ 
+4169774: DTR not asserted high when Ultra-10 powered on to ok prompt.
+ 
+4129194: Fix the hex parsing of the IP address.
+ 
+4114784: Can't boot from Symbios single or differential scsi drives.
+ 
+4114343: Incorrect patterns used to probe PCI device register.
+ 
+4119822: Restored the power-cycle-limit of 3000.
+ 
+4187987: Corrects "Unimplemented Fcode token" message displayed.
+ 
+4188219: Integrated PGX24 ATI FCode version 1.7 (Graphics fcode only detects 2
+         MB SGRAM, instead of 4MB as standarD).
+
+Patch Installation Instructions:
+================================
+ 
+ 
+Intro
+-----
+ 
+This README is intended for users who wish to upgrade the firmware in their
+Ultra 5/10 system Flash PROM.
+ 
+Summary of the Patch Installation Process:
+ ------------------------------------------
+ 
+The installation shall comprise of the following steps
+ 
+1)  Determine the system's current Flash PROM firmware revision.
+ 
+2)  Compare the current Flash PROM firmware revision with the available or 
+    latest Flash PROM firmware revisions.
+ 
+3)  If the current Flash PROM firmware revision is lower than the latest
+    available firmware revision in this patch, then proceed to the next step. 
+    If NOT, STOP: DO NOT CONTINUE.
+ 
+4)  Prepare the system for the Flash PROM update
+ 
+5)  Running the Flash PROM Utility
+ 
+6)  Verifying successful Flash PROM Update
+ 
+7)  Restoring the system
+ 
+8)  Resume operations
+ 
+ 
+Patch Installation instructions (in detail):
+============================================
+ 
+The required steps are explained in greater detail below.
+ 
+1)  Determine the System's Current Firmware Revisions
+    -------------------------------------------------
+ 
+While the OS is running the following command may be used to
+determine the current system firmware revisions;
+ 
+         /usr/sbin/prtconf -V
+ 
+The firmware revisions may also be determined from the PROM monitor's
+"ok" prompt with the following command;
+ 
+         .version
+ 
+2)  Compare the current Flash PROM firmware revision with the available or 
+    latest Flash PROM firmware revisions.
+ 
+    Compare the output of the OBP line in the "prtconf -V" output. Find
+    the revision number and compare with the revision on the entries below
+    that of the "flash-update-Ultra510-latest" line;
+ 
+Available Firmware Revisions
+----------------------------
+ 
+-10     flash-update-Ultra510-10
+        All Models
+            OBP: 3.27 Version 0 created 2000/08/23 15:45
+            POST: 3.1.0
+ 
+-14     flash-update-Ultra510-14 
+        All Models
+            OBP: 3.29 Version 0 created 2000/12/20 18:45
+            POST: 3.1.0
+ 
+-16     flash-update-Ultra510-16
+        All Models
+            OBP: 3.31 Version 0 created 2001/07/25 20:36
+            POST: 3.1.0
+ 
+LATEST  flash-update-Ultra510-18; flash-update-Ultra510-latest 
+        All Models
+            OBP: 3.31 Version 0 created 2001/07/25 20:36
+            POST: 3.1.0
+ 
+3)  Is the UPGRADE NECESSARY?
+ 
+    If the current Flash PROM revision matches the version numbers given under
+    the flash-update-Ultra510-latest line, then STOP Here. This UPGRADE IS NOT
+    NECESSARY.
+ 
+    If the current Flash PROM firmware revision is lower than the latest
+    firmware revision in this patch, then proceed to the next step.
+ 
+4) Preparing the System
+   ---------------------
+ 
+   a) As root, copy the latest "flash-update" file from the directory
+      containing the patch to the root directory as follows:
+ 
+      # cp flash*latest  /
+      # chmod 755 /flash-update*
+ 
+      In order to boot the binary, it must be located within the root
+      partition.  If it is not already located within the root partition
+      then move it to /.  If the binary is already located elsewhere 
+      within the root partition then note the exact filepath so that the
+      binary can be booted later.
+ 
+   b) As root, exit the OS such that the system returns to the PROM's "ok"
+      prompt: 
+ 
+      # halt
+ 
+        ok
+ 
+   c) Power off the system.
+ 
+** CAUTION **  Do not attempt to access any part of the system hardware
+               with the system power still on!
+ 
+   d) Remove the system top cover.  (If you unsure how to do this then
+      consult your system "Installation Guide" or "Service Manual".)
+ 
+   e) Set JP2 to write enable at 2+3. Default is write protect at 1+2
+      Locate jumper JP2.
+ 
+      Jumper JP2 provides a write enable/disable mechanism for the
+      Flash PROM.  JP2 normally connects pins 1+2, which causes the
+      Flash PROM to be write protected.  To enable patch installation,
+      write enable the Flash PROM by MOVING the JP2 jumper from pins 1+2 
+      to pins 2+3.
+ 
+      **IMPORTANT NOTE**: If this jumper is NOT set to WRITE ENABLE, the 
+        Flash update will fail.
+ 
+      (If you have difficulty locating JP2 then consult Figure 1-3 in the 
+       "Sun Flash PROM Guide for Workstations and Workgroup Servers -
+       Standalone Version").
+ 
+    f) Replace the system top cover.
+ 
+ 
+5)  Running the Flash Update Utility
+    --------------------------------
+ 
+    a) Power on the system
+ 
+       Wait for the PROM's banner to appear, and then
+ 
+    b) use the Stop-A keys (or Break key, if running from a serial line) to
+       abort the auto-boot sequence.
+ 
+       ** NOTE **  If the flash update completes normally then the values
+       contained within the system's Non-Volatile RAM (NVRAM) configuration
+       variables will be retained.  However, if the update process is some-
+       how interrrupted then it is possible that any non-default values
+       contained in NVRAM will be lost.  For this reason it is recommended
+       that you note down on paper the contents of any NVRAM configuration
+       variable which has been customized so that they may be manually
+       restored at a later time, if necessary.  (Use the PROM's "printenv"
+       command to list the variables and their values.)
+ 
+     c) The system should now display the PROM monitor's "ok" prompt.
+        Now boot the Flash update utility as given below:
+ 
+        CAUTION: Do not boot/run revisions lower than the latest unless you
+                 are absolutely sure that that is what you want to do!
+ 
+        ok boot disk /flash-update-Ultra510-latest
+ 
+        NOTE: If your system's boot device is not "disk" then you will
+              have to specify the appropriate devalias (e.g. disk2).
+              If the binary is located in a location other than / then
+              provide the entire filepath after the boot device.
+ 
+        Answer the questions as prompted by the utility. 
+ 
+ 
++++++++++++++++++++++ example Flash update follows ++++++++++++++++++++++++
+++++++++ Note that this is an example only.  Much of the information ++++++
+++++++++ which is displayed by your system will be different from    ++++++
+++++++++ what is shown below.                                        ++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+ 
+Standalone Flash PROM Update Utility, Rev. 2.5
+                        Ultra(tm) 1
+                        Ultra(tm) 2
+                        Ultra(tm) 5/10
+                        Ultra(tm) 30
+                        Ultra(tm) 60 / E220R
+                        Ultra(tm) 80 / E420R
+                        Ultra(tm) Enterprise(tm) 250
+                        Ultra(tm) Enterprise(tm) 450
+ 
+ 
+This utility allows you to interactively update the firmware
+revisions in specific system Flash PROM components.
+ 
+Type h for help, q to quit, Return or Enter to continue:
+ 
+Every precaution should be taken to prevent the loss of system
+power during the Flash PROM programming process!
+ 
+Type h for help, q to quit, Return or Enter to continue:
+ 
+ 
+       Firmware Release(s)                Firmware Release(s)
+Currently Existing in the System      Available for Installation  /  Install?
+--------------------------------- -------------------------------------------
+OBP 3.1.2 1996/03/28 17:08         OBP 3.1.5 1996/08/27 16:13           no
+POST 3.1.4 1996/04/09 03:23        POST 3.1.5 1996/06/28 11:54          no
+ 
+Type sa if you wish to select all available firmware releases for
+installation.  Type h for help, quit to exit, or cont to continue: sa
+ 
+ 
+ 
+       Firmware Release(s)                Firmware Release(s)
+Currently Existing in the System      Available for Installation  /  Install?
+---------------------------------- -------------------------------------------
+OBP 3.1.2 1996/03/28 17:08         OBP 3.1.5 1996/08/27 16:13           YES
+POST 3.1.4 1996/04/09 03:23        POST 3.1.5 1996/06/28 11:54          YES
+ 
+Type sa if you wish to select all available firmware releases for
+installation.  Type h for help, quit to exit, or cont to continue: cont
+ 
+ 
+The Flash programming process is about to begin.
+ 
+Type h for help, q to quit, Return or Enter to continue:
+ 
+Erasing the top half of the Flash PROM.
+Programming OBP into the top half of the Flash PROM.
+Verifying OBP in the top half of the Flash PROM.
+ 
+Erasing the bottom half of the Flash PROM.
+Programming OBP into the bottom half of Flash PROM.
+Verifying OBP in the bottom half of the Flash PROM.
+ 
+Erasing the top half of the Flash PROM.
+Programming POST into the top half of Flash PROM.
+Verifying POST in the top half of the Flash PROM.
+ 
+Programming was successful.
+ 
+Resetting ...
+ 
+ 
+Restoring previous NVRAM environment settings...
+ 
+&lt;If any NVRAM configuration variables have custom values installed then
+ you will see a list of the variables/values which are being restored.&gt;
+#power-cycles =       10
+auto-boot? =          false
+security-#badlogins =  0
+OK
+Resetting ...
+ 
+ 
++++++++++++++++++++++ example Flash update ends ++++++++++++++++++++++++++
+ 
+ 
+  Note that the section "Restoring previous NVRAM environment settings..."
+  up to the "Resetting ..." line will only be displayed on serial port A.
+  If you are running from the keyboard/console devices then you will not
+  see those lines displayed.
+ 
+  Once the PROM's banner reappears then use the Stop-A keys (or Break
+  key, if running from a serial line) to abort the auto-boot sequence
+  if the system begins to boot.
+ 
+6)  Verifying successful Flash PROM Update
+ 
+    Verify from the results of the .version command that the OBP
+    version matches the OBP version given above under the
+    flash-update-Ultra510-latest entry in Step 2.
+ 
+7)  Restoring the system
+ 
+    The system should be restored to the original set-up as follows:
+ 
+    a) Turn the power to the system off.
+    b) Remove the top cover and move jumper JP2 to pins 1+2.
+    c) Replace the top cover.
+ 
+    If any problems should be encountered during the firmware upgrade
+    then consult the "Sun Flash PROM Guide for Workstations and Workgroup
+    Servers - Standalone Version".
+ 
+8)  Resume operations
+ 
+    a) Turn on the system power and allow the system to boot the
+       operating system.
+ 
+    b) Once the system has rebooted you may wish to remove the Flash Update
+       binaries and documents since they will no longer be needed.
+ 
+       # rm /flash-update*
+ 
+    c) Remember to remove the files from their original location if
+       they were not extracted directly into the root directory.
+
+Special Install Instructions:
+----------------------------- 
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+*  PLEASE READ THE INSTRUCTIONS CAREFULLY AND ENTIRELY.  PLEASE FOLLOW THE
+   INSTRUCTIONS EXACTLY AS THEY ARE STATED.
+ 
+*  FAILURE TO FOLLOW INSTRUCTIONS COULD EITHER RESULT IN A DEFECTIVE BOARD OR
+   UNSUCCESSFUL FLASH PROM UPDATE.
+ 
+*  THIS IS NOT A STANDARD PATCH in that it does not use the installpatch
+   and backoutpatch scripts.
+ 
+*  THIS PATCH CANNOT BE INSTALLED ON AN ONLINE OPERATING SYSTEM BECAUSE
+   THE INSTALL INSTRUCTIONS REQUIRES THAT THE SYSTEM BE BROUGHT DOWN.
+   BE SURE TO SCHEDULE DOWN TIME TO INSTALL THIS PATCH.
+ 
+*  INSTALLATION OF THIS PATCH REQUIRES A HARDWARE JUMPER CHANGE. IF YOU ARE
+   UNSURE ON HOW TO OPEN THE SYSTEM BOX, PLEASE ENSURE THAT A QUALIFIED 
+   PERSON, WITH THE STATIC WRIST STRAP KIT NEEDED TO SERVICE ELECTRONIC
+   EQUIPMENT, IS AVAILABLE TO COMPLETE THIS ACTIVITY. FAILURE TO USE STATIC
+   PROTECTION KIT OR IMPROPER HANDLING COULD RESULT IN THE DAMAGE OF THE 
+   SYSTEM BOARD.
+ 
+*  PLEASE REVIEW NOT ONLY THIS README BUT ALSO ADDITIONAL DOCUMENTATION
+   GIVEN.
+The file "802-3233-xx.ps" (where xx stands for the latest numeric
+revision) is a PostScript copy of the "Sun Flash PROM Guide for Workstations
+and Workgroup Servers - Standalone Version", which  provides the following;
+ 
+   (i) A board-level diagram that gives the approximate location of the 
+       hardware jumper (that will need to be changed).
+ 
+   Note, however, that The Flash PROM Guide was originally written for 
+   a user who is running the Flash PROM update utility from a bootable
+   CDROM, and thus it will not contain the proper boot commands for
+   installation of this patch.  Also note that the instructions in
+   the document for installing packages are not valid for this patch.
+ 
+*  TAKE EVERY PRECAUTION TO ENSURE THAT THE UPGRADE IS NOT INTERRUPTED
+   ONCE IT IS STARTED!
+ 
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+**************************************************************************
+**************************************************************************
+
+README -- Last modified date:  Thursday, March 9, 2006
+
+</pre></body></html>

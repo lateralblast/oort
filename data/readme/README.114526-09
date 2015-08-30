@@ -1,0 +1,927 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 114526-09
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun_fire firmware flashprom update 5.19.8 scapp rtos
+Synopsis: Hardware/PROM: Sun Fire E6900/E4900/E2900/6800/4800/4810/3800 and V1280 Systems Firmware Update
+Date: Dec/04/2006
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: ScApp:5.19.8 RTOS:46, SC POST:46
+
+Xref: 
+
+Topic: Sun Fire system controller and flashprom update 5.19.8
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4428566 4498429 4663279 4690339 4703904 4709241 4734993 4743135 4784278 4794425 4828481 4832436 4845213 4851173 4907031 4948862 4964577 4999203 5004903 5010772 5028357 5032628 5038389 5048077 5054736 5056786 5058313 5068851 5069447 5070035 5071578 5072276 5076076 5077929 5082318 5085018 5085635 5087505 5087531 5088923 5089758 5089914 5091506 5091556 5092056 5092943 5093903 5098458 5098576 5099024 5099206 5099222 5101931 5105071 5105159 5106212 5106991 5108252 5110294 6176361 6176656 6176983 6177277 6180250 6182056 6182823 6182879 6183312 6183416 6183491 6184244 6184731 6184828 6185632 6189121 6190321 6190420 6190958 6191653 6191670 6191697 6191698 6191702 6193106 6193290 6193663 6194725 6195042 6195046 6195052 6196157 6196179 6196188 6196203 6196224 6196246 6196261 6196275 6196291 6196334 6196689 6196909 6198051 6198082 6198780 6199131 6199794 6200122 6200139 6201556 6201910 6202614 6202816 6203201 6203913 6204544 6204553 6206067 6206232 6207271 6208518 6209273 6211488 6211882 6212437 6213495 6213848 6213864 6214299 6214760 6214767 6214817 6214976 6215169 6215221 6215806 6216230 6216453 6216785 6217215 6217224 6217270 6217337 6217449 6217862 6219611 6219615 6219677 6220913 6222122 6222140 6222963 6222967 6223880 6224047 6224839 6225187 6225904 6226734 6227953 6228408 6228920 6229524 6229530 6229534 6230977 6231165 6231211 6231817 6232339 6232911 6234122 6234591 6237765 6238222 6238528 6239114 6239143 6240464 6240517 6241193 6241226 6241760 6241963 6241970 6244351 6245333 6247676 6247796 6248345 6248730 6248991 6250437 6251107 6251470 6251555 6254032 6254255 6255713 6257129 6258017 6258744 6259437 6260123 6260887 6260986 6261847 6262906 6263100 6263111 6264209 6264280 6264380 6264812 6264958 6265727 6266118 6266207 6267319 6267344 6268146 6269048 6269212 6269221 6270351 6270908 6270925 6271883 6271962 6272282 6273264 6273970 6274228 6276615 6277258 6277490 6277542 6278199 6278585 6281293 6281990 6287644 6287893 6289071 6291732 6292517 6297086 6300392 6309268 6309342 6311761 6313503 6314358 6316095 6316530 6316541 6319195 6319704 6321138 6323420 6325921 6326613 6329943 6330120 6330681 6347015 6353053 6354226 6356684 6369788 6375533 6378865 6379321 6395663 6399086 6399115 6405762 6407052 6414145 6438912 6441484 6457967
+
+Changes incorporated in this version: 5048077 6300392 6375533
+
+Patches accumulated and obsoleted by this patch: 111346-04 112127-03 112494-08 112883-07 112884-06 113751-05 114523-02 114524-06 800054-01
+
+Patches which conflict with this patch: 
+NOTE:
+See Special Instructions: Watchdog Timer information and configuration instructions.
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Install.info
+README.114526-08
+Sun_Fire_Entry-Level_Midrange_System_Administration_Guide.pdf
+Sun_Fire_Entry-Level_Midrange_System_Controller_Command_Reference_Manual.pdf
+Sun_Fire_Entry-Level_Midrange_System_Firmware_5.19.0_Release_Notes.pdf
+Sun_Fire_Midrange_System_Controller_Command_Reference_Manual.pdf
+Sun_Fire_Midrange_Systems_Firmware_5.19.0_Release_Notes.pdf
+Sun_Fire_Midrange_Systems_Platform_Administration_Manual.pdf
+copyright
+lw8cpu.flash
+lw8pci.flash
+sgcpu.flash
+sgiowci.flash
+sgpci.flash
+sgrtos.flash
+sgsc.flash
+
+Problem Description:
+
+5048077 Failed bulk PS doesn't generate ScApp error / notice event
+6300392 Solaris reboot causes AR L2CheckError INCSyncErr CMDVSyncErr PreqSyncErr in adjacent domain
+6375533 Main SC can lose access to IDPROM
+ 
+(From 114526-08)
+ 
+6405762 Fan failures in Sun Fire 3800 - 6800 may cause platform outage
+6441484 Black splat on platform agent
+6457967 Primary side rectifier over-temp shutdown on PSx on Sun Fire 4900
+6438912 fails to poweron a system board in one particular sequence of swapping PS
+ 
+(From 114526-07) 
+ 
+6378865 Xmit POST initiates Short PCI Reset T_rst&lt;1ms
+6297086 Single-bit error on DECC line (DIMM signal) w/ post-tolerate-ce=true indicts processor
+6369788 Change POSIX timezones 2007 transition dates - U.S. Energy Policy Act of 2005
+6395663 E2900 with a single DIMM reporting only CEs CHS disabled all of its CPUs
+6399086 Thread deadlock caused by TreeHelper use of TreePrune
+6399115 SC reboot message after 01-01-2007, for getting the new 2007 Time Zone (DST) rules
+6407052 SC panic while doing setdefault command
+6414145  Change Branch Predictor Mode (BPM) in SCAPP/hpost for Panther USIV+ 
+ 
+(From 114526-06) 
+ 
+6379321 IB_SSC fails PCI IO Controller Functional Tests during POST
+6326613 ipmp fails on lw8 with xmits 3.1 assemblies
+6281990 mem dimm tests indict wrong components
+6278585 Memory Addressing test should support tolerate_mem_ce
+6330120 subcr 2130757 POST should identify correct SRAM/DIMM when ECC bit fails
+6323420 Panther L2$ ECC failures during POST incorrectly FAIL Ecache DIMMs
+6330681 Need to correct lint error introduced by 6319704 putback
+6329943 mpt driver fails to attach to Jasper320 on LW8 PCI system after max POST
+6316095 Problems in tolerate_mem_ce implementation
+6353053 false VCMON failures due to ramping system load
+6241193 core power write failed
+6354226 POST can attach FRUs which failed interconnect test
+6356684 RFE 6309268 regression: L3$ Tags test failure for certain
+6309268 Panther: Need a cell bit adjacency test for L2$-data and L3$-tags
+ 
+(From 114526-05)
+ 
+6347015 Add support for Panther 2.2
+ 
+(From 114526-04)
+ 
+6273264 Solaris 10/POST not giving correct Panther E$ address (AFAR) on failure
+6277490 RFE: AVL-FS2 (Serengeti): Provide Diagnosis of NEW Panther CPU Errors
+6277542 l3 ram test only tests 512K of the sram
+6287644 Unable to Poweron a Failed Xmits3.1 I/O assembly
+6311761 Add support for PCI+ boards in LW8
+6313503: "bootmode reset_nvram" should not change security settings in obp
+6314358 IdProm.java generates hostids; it shouldn't.
+6316530 SERD tunables for CPU events are not consisten between s9u8, s10u1fma, and scapp
+6316541 sc cpu de needs to handle l3/l2 cache errors on non-FMA domains so as to not cause proc indictment -v src/ 
+6321138 hostid is 'ffffffff' in 5.20.0 build 3
+6325921 Showboard output for Panther board intermittently shows proc at 1510MHz
+6287893 - RTOS 44: SC does not respond to ping but tNetTask looks running
+6319195 - RTOS 45: lw8.c doesn't follow proper MAC address and hostid conventions
+ 
+ 
+(From 114526-03)
+ 
+6319704 Panic seen on Serengeti with 5.19.1 firmware after post level of init.
+ 
+(From 114526-02)
+ 
+6309342 Increase clock system frequency tolerance to 3%
+ 
+(From 114526-01)
+4428566 SC APP cannot always determine when Solaris is down
+4498429 DR diag-level not sync with domain boot parameters diag-level
+4663279 ScApp build environment may use compiler/tools in users path
+4690339 domain error isolation  CM_EACK in C accompanied by ConsolePortError in D
+4703904 undocumented setfailover command available in user mode
+4709241 change passwd in spare SC should not be allowed if failover is enable.
+4734993 Messages for changing partition are not consistent
+4743135 showkey command reports standby during a transiton from on/diag/secure to off
+4784278	SC should log a "alive" message to syslog periodically
+4794425 need more control over elevated-POST-after-repeated-panics feature
+4828481 Console messages "addRecord: Segment TH Insufficient space Need 35 have 25"
+4832436 disablecomponent doesn't check if a component is already disabled
+4845213 SafErr Safari error during POST and SC reports AFAR but no AFSR
+4851173 prtdiag/Solaris LOM reports incorrect/missing entries if new SBx added when in S
+4907031	Firmware upgrade to &gt;= 5.15.0 for first time should set hang-policy to reset
+4948862 Need way to program blank SCC cards in the field for Lw8
+4964577 local-mac-address? flag seems to be ignored by qfe adapter on a V1280
+4999203 Software panic after "poweroff" command, machine needs powercycle to recover
+5004903 please remove 'Clock failover disabled' from showsc command
+5010772 Jasper320 HBA not working in Starcat/XMITS 5v slot
+5028357 SC is "hard hung" doing a dumpconfig to host with tcp-wrappers
+5032628 exceptions due to hardware events are not logged to the showlog or loghost
+5038389 OBP should not panic when not able to locate correct superblock
+5054736 Need workaround for Cheetah+ erratum 34
+5056786 mp_memory_clear() test, mailbox problem
+5058313 takes a long time to synchronize failover status after "setfailover force"
+5068851 serengeti platform obp get wrong mac address of router foroff subnet tftp server
+5069447 V1280 reboot fails "Not enough memory to allocate buffer of 318108 bytes
+5070035 Alarm 3 on Lightweight 8 needs to be user programmable for backward compatiblity
+5071578 POST fails memory test but indicts ecache
+5072276 Typo : HMB should be HBM.
+5076076 wanboot "panic - boot: create_ramdisk: fatal error" on ESP server platforms
+5077929 dump-cheetah-regs should display the Mem_Timing5_CTL register on Jaguar
+5082318 panther:showenv output for temp does not match functional req PN.SCAPP.07
+5085018 VCMON should CHS disable ramping processors on a domain reboot/keyswitch
+5085635 Need COBP support for CE/ECC errors
+5085635 Need COBP support for CE/ECC errors
+5087505 ifReset() uses pointer to free()d memory
+5087531 reset hang
+5088923 ERROR: DomainBufferReader thread error java.lang.NullPointerException
+5089758	Processor-intensive command execution causes time drift on the domains
+5089914 RFE : need new power budget with Uniboard fully loaded 2 GB dimm.
+5091506 6800 System fails to boot with 6 JAG's loaded with 2g  memory config.
+5091556 SC panics runs out of memory
+5092056 SGFW needs to support UltraSPARC-IV+
+5092943 setk on: Failed to get the cpu part number of board /N0/SB4 (a jag3.1)
+5093903 SIGBUS error occurred during multiple showenvironment commands.
+5098458 AVL phase 2 FS-1
+5098576 Software support for LW8 PCIX board
+5099024 Persistent Msg Log Error count corrupted
+5099206 Seprom addRecord errors are not actionable
+5099222 showp -p frame displays S?R2.i2c.0x240afbad/2.0xff.5.-1107.11.0x20; as a status
+5101931 XMITS3.0/PCIX/3.3V Slot: Data comparison failures with SunVTS iobustest
+5105071 removing an SC, even though it has been powered off, can cause a domain outage.
+5105159 pci parity error message misleading
+5106212 PS Failure Causes false FT Failure
+5106991 remove checkpointing cpu board sram accesses from cobp
+5108252 Compiling ScApp workspace failed
+5110294 Incorrect print format in expander lpost
+6176361 'shutdown' command does not work.
+6176656	Too many threads
+6176983 Proc traps in LPOST but remains in the domain
+6177277 incorrect E$ DIMM part shown in error msg when it failed
+6180250 Need POST subtest complete messages
+6182056 Stick Registers test in POST needs improvement in terms of messaging.
+6182823 Panther: Panther 1.x workaround should be removed from ScApp
+6182879 domain hung after memory read/write testing
+6183312 obp bug can cause domain panics
+6183416 Certain DIMM failures cannot be isolated
+6183491 Panther: Proccore test timeout when run at post level 127
+6184244 serengeti OBP PCIX support.
+6184731 Some Power Save bits in Panther 2.0 need to be always zero
+6184828 AVL2.0: after reset chs, domain reboot failed; after reboot failed, setkey off and setkey on failed
+6185632 POST Handles Single Missing E$ Chip Incorrectly
+6189121 REGRESSION: inventory not showing the correct "powered on" time
+6190321 Interrupted board tests can cause a hung SC
+6190420 Add PCI-X support to SCAPP for Serengeti.
+6190958 Change Vcore voltage from 1.225 to 1.25 volts for Jag 3.x
+6191653 Panther: sepromupdate for panther does not have the right behaviour
+6191670 regression: ERROR: communication failure: No Board Power: SB2.sbbc0.sram1c000 (1091c000)
+6191697 Need to implement cpu_stress() test for CMPs (Jaguar, Panther)
+6191698 post fails default/mem1/mem2 while running MP Cache Coherency Test
+6191702 Need to implement large page size test for US-IV+
+6193106 "make install" failed with "execute permission denied" message
+6193290 V1280, 5.18.0/5.17.3 service mode contains engineering mode only commands
+6193663 regression: PANIC java.lang.IllegalStateException: Task already scheduled or cancelled
+6194725 Panther: Re-introduce serail-Id check at start of POST run
+6195042 DOM messages for non-fatal CPU errors should be AD messages
+6195046 Incorrect port number in error id exists
+6195052 SC does not send capability_map to domain during boot-up and failover
+6196157 Safari flow control not correctly configured during board tests
+6196179 OBP decompress performance could be much better
+6196188 FPU Functional Stress subtest performance could be much better
+6196203 Performance entering OBP could be much better
+6196224 Performance of UP Memory Clear could be much better
+6196246 POST memory test performance could be much better on Jaguar/Panther systems
+6196261 POST MASEST subtest performance could be much better at mem2
+6196275 POST MP Memory Access subtest performance could be much better
+6196291 POST Fast Init Verification subtest performance could be much better
+6196334 copy_2_ecache() facility could be more robust, faster
+6196689 PANIC:out of memory while spare SC failover tried to sync up with main SC
+6196909 poweron SB failed: DC-DC convertor voltage failure; voltage ramp timed out after 500 msec
+6198051 POST Memory Controller and Fireplane Saturation tests could be much faster
+6198082 POST estimated memory test time messages are wildly inaccurate
+6198780 failover disabled showing up every 50-60 seconds on both consoles
+6199131 USIII+ processor with different clock speed on the same uniboard
+6199794 Jag/Ch+ not playing with Panthers on serengeti
+6200122 AVL 2.0: SC panics with a null pointer exception in ECC diagnosis engine.
+6200139 SC does not report the errors in EMU registers for Panther cpu
+6201556 Serengeti Prtdiag does not show correct bus freq for Xmits3.0 PCIX Leaf
+6201910 non-diagnosable error messages by the system controller should not be seen on the console by default
+6202614 AR not correctly configured during board tests on domain 1
+6202816 add warning for incompatible dimm sizes on V1 and V2 uniboards.
+6203201 Serengeti Firmware Performance Improvement Project
+6203913 ScApp/POST needs to work better with Solaris persistant page retirement feature
+6204544 sc panic during ssh testing.
+6204553 AD should fail cpu for no subtype IERR/TUE
+6206067 regression keyswitch on to standby to on - SF4800.ASIC.CHEETAH.EMU_NO_REFSH.7152105f
+6206232 POST overriding the panther features mask by disabling IPE
+6207271 Panther: FGU-RAS needs to be disabled for PN2.0s
+6208518 POST ECC computation could be faster
+6209273 setkey on results in stack overflow and Signal 10
+6211488 Panther L2 Cache Errors need to FAIL the proc, not the
+6211882 Add PCI-X support to SCAPP for LW8
+6212437 Panther2.0: L2 Cache Functional Test fails at post
+6213495 Multi-core processors are failed too slowly on command timeout
+6213848 POST fails L2 &amp; L3 Caches Stress test in shared memory configuration
+6213864 Panther core synchronization routines are extremely broken
+6214299 regression: reboot of the SC hangs after changing ssh-&gt;telnet (with flashupdate)-domain at obp
+6214760 Error regs id is not correct for jaguar error id
+6214767 Ecc De should consider L2sram UE when handling syndrome 0x71
+6214817 global array "xir_r" has incorrect size
+6214976 WARNING!!! DTLB Entry not found after mapping
+6215169 icache size returned by snmp agent on sc is incorrect.
+6215221 Lpost needs to work better with Solaris persistant page retirement feature
+6215806 Panther L2 and L3 cache tests could be much faster
+6216230 system panic with TO Error(s) during configure SB board
+6216453 regression domain recovery using watchdog timer panics the SC
+6216785 regression: domain reboot and poweron panics the SC(Out of memory)
+6217215 Create a common webrev directory and change source to use that directory.
+6217224 Copyright file needs updated for 2005.
+6217270 Simplify the error trap handling for trap 0x63 and remove ereport support.
+6217337 Need to update the COBP banner to reflect the year 2005.
+6217449 Sc commands are hanging but sc is alive.
+6217862 Error regs id needs to be defined for cpu Asic
+6219611 post-tolerate-ce leads to incorrect indictment of processor.
+6219615 FW Performance Improvement: hardward Ecache fault injection cause POST hung
+6219677 Keyswitch transitions from standby to on fail
+6220913 AVL debugging messages are in the release build.
+6222122 SC print msg with '/N0/SB4/P2 ....' while SB4 is isolated
+6222140 'showb -v -p mem' does not print proper msg when 2G dimm seen in V1 &amp; V2 board.
+6222963 Panther: ScApp should support PN TapeOut 2.1
+6222967 Panther: ScApp should incorporate new VCORE value of 1.15 V for Panther
+6223880 Panther: POST failed l3cache_functional_test() in shared memory configuration
+6224047 switching from ssh to telnet with failover causes "Too many connections" when &gt;1 user telnets to SC
+6224839 Memory controller configuration shouldn't use FP operations
+6225187 New webrev publishing scheme shouldn't depend on $USER
+6225904 POST banner is not updated for 2005
+6226734 src/scapp/java/version.sh generates illegal octal values for some versioning values
+6227953 Fast ECC Errors test fails on Panther
+6228408 Panther 2.1: Turn on remaining power savings enables
+6228920 AD identified the SB as at fault with a faulty DIMM installed
+6229524 POST memory allocation needs to be improved
+6229530 Some Panther subtests can't deal with memoryless CPU boards
+6229534 Extra POST output appears after entering OBP
+6230977 Panther: Extra LPOST debug messages need to be removed
+6231165 Performance regression in fix for 6216230
+6231211 Confused ERROR message when poweron the board with mixed DIMM sizes in the same physical bank
+6231817 bootmode diag - fails POST with java.lang.ClassCastException: sun.serengeti.PantherAsic
+6232339 Sc panic with out of memory error.
+6232911 spurious voltage errors during poweron and poweroff
+6234122 Change indictment policy for signalling 0x71 error
+6234591 SB failure when setkeyswitch on- Chip ESR D[0xb031] : 0x405f9000 or hotplug then DR
+6237765 Serengeti POST should be lint-clean
+6238222 Regression: Fix for 6216785 causes out-of-memory problems
+6238528 scapp does not disable ECC error checking reporting on the DX's during the iotest
+6239114 setf override option missing from manufacturing mode
+6239143 post misdiagnose  with post-tolerate-ce=true when there is a CE condition
+6240464 DE should not print ce/ue to the console or fruid when recording indictment from Solaris
+6240517 repeated domain reboots cause the sc to run out of memory
+6241226 Incorrect E$ Indictment by POST for proteus injected error on E$ Control bus
+6241760 change in failover behavior causing failover scripts to fail
+6241963 POST subtests can incorrectly report failure to allocate memory while ECC tests are running
+6241970 MP Memory Clear test can timeout in some Panther configurations
+6244351 sgcn_output_line(): OBP console blocked, obp takes long time to startup
+6245333 Regression: improper dimm seprom data after upgrading from 5.17.4
+6247676 request to change the 'showcomponent' output for pci-x board
+6247796 Debugging code is causing a performance degradation
+6248345 regression:java.lang.ClassCastException: sun.serengeti.SdcAsic
+6248730 scapp should not complain on panther specific solaris-&gt;SC diagnostic messages
+6248991 lw8 can not set 'reboot-on-error' from obp
+6250437 (Regression): SC failover causes panther running application domain to pause
+6251107 "CPU ECC Tests" fails at level 64 on Starcat with Pan 2.0 and lpost 5.19.0_11
+6251470 Unexpected interrupt causes stack underflow
+6251555 Panther: ScApp should support a core voltage of 1.2 V for panther Lites via NVCI
+6254032 OBP Compiler warnings in firmware builds.
+6254255 snmp query gets wrong overtemp status in slot status
+6255713 The xmits shows: ERROR: Received Target Abort bit set in PCI
+6257129 POST hung after L2 &amp; L3 Caches Stress failed with bad L3$ DIMM
+6258017 NullPointerException is seen on sc console during domain bootup with SFL and SNMP agent enabled
+6258744 POST fails entire SB for single-bit error on memory address line (MEM_ADDR_D7)
+6259437 scapp may attempt to unpark already running panther core1's
+6260123 Changing "max-panic-diag-limit" during panic loop fails.
+6260887 lw8 reboot will always rerun cpu post if any component gets ever disabled
+6260986 Domain paused after halting Solaris, enabling disabled dimms, disabling new dimm.
+6261847 'prtdiag' shows 66 MHz on pci-x board
+6262906 remove lsi1030 debug message in cobp
+6263100 COBP changed the policy for creating the probe list 
+6263111 LW8 specific code should be inside the   #ifdef LW8 block
+6264209 unknown (broken) power supplies are treated a A152
+6264280 regression: standby to on, results in NO_REFSH [05:05] : 0x1 Refresh starvatio
+6264380 "Fast ECC errors" at post level 64 with 2.1 US4+ when memory are blacklisted
+6264812 6260944 Domain isolation broken in certain serengeti config
+6264958 spd IOCARD_PER_PORT number needs to change to 11 for IDE device.
+6265727 Trap handler does not support Panther AFSR_EXT
+6266118 System error occurs during reset -x, which prevents xir from happening.
+6266207 Regression:  SC does not release telnet connection when it is released.
+6267319 ISAP errors on reset
+6267344 Improper tags in RecordInfo
+6268146 Xmits contains residual error bits in pci status register during lpost-&gt;obp transition
+6269048 MICRON DIMM Boot Up Failure.
+6269212 Strange message during post ERROR: Slot out of range
+6269221 resetting the domain looses the OBP arguments.
+6270351 Panther: Panther 1800 MHz procs should run at 1500 MHz in 5.19.0
+6270908 Panther: ScApp should support speeds at 1500 MHz and 1800 Mhz only
+6270925 Panther: fix duplicate error code
+6271883 Panther L2 &amp; L3 Caches Stress test needs parked_otherCore 
+6271962 pcix obp changed the order of default/nvram alias evaluation
+6272282 POST identifying incorrect dimm as faulty when MTAG and ECC correctable errors
+6273970 POST DSTOP when all memory on Panther bd. blacklisted in a mix 1 x Panther2.1 &amp; 1 x Jaguar domain
+6274228 regression: ssh-keygen -r -t dsa  result in java.lang.NullPointerException
+6276615 Scapp needs to support Xmits 3.1
+6277258 showboards -v -p cheetah does not parse serialid for panther correctly
+6278199 DVT needs some way of configuring clock ratios for panthers in the lab
+6281293 "dr_wakeup_cpu: start-cpu failed" errors during "cfgadm -c configure"
+6289071 UltraSPARC-IV+ (panther) systems take too long to reset from OBP
+6291732 ERROR CASE: DIMMS failing POST during DR but still get configured in causing domain crash
+6292517 cpuid property missing for CH+ in COBP
+
+Patch Installation Instructions:
+--------------------------------
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+
+Special Install Instructions:
+---------------------
+Watchdog Timer - Sun Fire Entry-Level Midrange Systems 5.19.0 - 7/29/2005
+=========================================================================
+ 
+ 
+This text gives information on the application mode of the watchdog
+timer on the Netra 1280 server.
+ 
+The enhancement allows users to:
+ 
+o Configure the watchdog timer - User applications running on the host can 
+configure and use the watchdog timer, enabling customers to detect fatal 
+problems from their applications and to recover automatically.
+ 
+o Program Alarm 3 - This enables users to generate this alarm in case of 
+critical problems in their applications.
+ 
+This README text provides the following sections to help you understand how to 
+configure and use the watchdog timer and program Alarm3:
+ 
+o Upgrading the Firmware Using the lom -G Command
+o Understanding the Watchdog Timer Application Mode
+o Using the ntwdt Driver
+o Understanding the User APIs
+o Setting the Time-out Period
+o Enabling or Disabling the Watchdog
+o Rearming ("Patting") the Watchdog
+o Getting the State of the Watchdog Timer
+o Finding and Defining Data Structures
+o Using the Sample Watchdog Program
+o Programming Alarm3
+o Understanding Error Messages
+o Knowing Unsupported Features and Limitations
+ 
+ 
+ 
+Upgrading the Firmware Using the lom -G Command
+-----------------------------------------------
+ 
+** WARNING **
+Both the RTOS and ScApp need to be updated before rebooting.
+Ignore any reboot messages you may receive in between each update.
+(Do not reset the SC between updating sgsc.flash and sgrtos.flash.
+Go to step 2 after BOTH have been updated)
+ 
+* See infodoc 81977 for typical system responses during the upgrade.
+* It is best to have two sessions open
+  - login to the system controller to watch progress
+  - login to the system as root to run the commands
+ 
+Before starting the upgrade, reset the system controller from the console.
+This frees resources on the controller and places it in a known state prior
+to the upgrade.
+ 
+1) Reset the system controller from the console.
+       lom&gt; resetsc -y
+ 
+2) Upgrade the firmware on the system controller (SC):
+ 
+       #lom -G sgrtos.flash
+       #lom -G sgsc.flash
+ 
+3) Escape to lom&gt; and reset the SC:
+ 
+       lom&gt; resetsc -y
+ 
+To get to the Lights Out Management (lom) prompt, you can telnet directly into 
+the Ethernet port of the SC (this is different from the Solaris IP address), or 
+you can attach a console to the serial port on the SC. If you are remote from 
+the system, configure the SC's Ethernet port, or attach the SC serial port to a 
+network terminal server.
+ 
+4) Upgrade the firmware on the system boards:
+ 
+       #lom -G lw8cpu.flash
+       #lom -G lw8pci.flash
+ 
+5) Shutdown the Solaris(TM) Operating System (OS).
+ 
+6) Power off the system.
+ 
+	lom poweroff
+ 
+7) Power on the system.
+ 
+	lom poweron
+ 
+ 
+ 
+Understanding the Watchdog Timer Application Mode
+-------------------------------------------------
+ 
+ 
+The watchdog mechanism detects a system hang, or an application hang or crash, 
+should they occur. The watchdog is a timer that is continually reset by a user 
+application as long as the operating system and user application are running. 
+ 
+When the application is rearming the application watchdog, an expiration can be 
+caused by:
+ 
+o Crash of the rearming application
+o Hang or crash of the rearming thread in the application
+o System hang
+ 
+When the system watchdog is running, a system hang, or more specifically, the 
+hang of the clock interrupt handler causes an expiration.
+ 
+The system watchdog mode is the default. If the application watchdog is not 
+initialized, then the system watchdog mode is used.
+ 
+The "setupsc" command, an existing command on the SC Lights Out Management can 
+be used to configure the recovery for the system watchdog ONLY:
+ 
+lom&gt; setupsc
+ 
+The system controller configuration should be as follows:
+ 
+SC POST diag Level [off]:
+Host Watchdog [enabled]:
+Rocker Switch [enabled]:
+Secure Mode [off]:
+ 
+PROC RTUs installed: 0
+PROC Headroom quantity (0 to disable, 4 MAX) [0]:
+ 
+The recovery configuration for the application watchdog is set using 
+Input/Output Control codes (IOCTLs) that are issued to the ntwdt driver.
+ 
+ 
+ 
+Using the ntwdt Driver
+----------------------
+ 
+ 
+To use the new application watchdog feature, you must install the ntwdt 
+driver. To enable and control the watchdog's application mode, you must 
+program the watchdog system using the LOMIOCDOGxxx IOCTLs, described in the 
+section "Understanding the User API".
+ 
+If the ntwdt driver, as opposed to the system controller, initiates a reset of 
+the Solaris OS on application watchdog expiration, the value of the following 
+property in the ntwdt driver's configuration file (ntwdt.conf) is used:
+ 
+ntwdt-boottimeout="600";
+ 
+In case of a panic, or an expiration of the application watchdog, the ntwdt 
+driver reprograms the watchdog time-out to the value specified in the property.
+ 
+Assign a value representing a duration that is longer than the time it takes to 
+reboot and perform a crash dump. If the specified value is not large enough, the 
+SC resets the host if reset is enabled. Note that this reset by the SC occurs 
+only once.
+ 
+ 
+ 
+Understanding the User API
+---------------------------
+ 
+ 
+The ntwdt driver provides an application program interface by using IOCTLs. You 
+must open the /dev/ntwdt device node before issuing the watchdog IOCTLs.
+ 
+--------------------------------------------------------------------------------
+NOTE: Only a single concurrent instance of open() is allowed on /dev/ntwdt. Any 
+subsequent open() generates the following error message: EAGAIN - (The driver is
+busy, try again.)
+--------------------------------------------------------------------------------
+ 
+You can use the following IOCTLs with the watchdog timer:
+ 
+o LOMIOCDOGTIME -  Set time-out period for watchdog timer 
+o LOMIOCDOGCTL -   Enable or disable watchdog timer
+o LOMIOCDOGPAT -   Rearm ("pat") watchdog timer
+o LOMIOCDOGSTATE - Get state of watchdog timer
+o LOMIOCALCTL -    Set value of Alarm3
+o LOMIOCALSTATE -  Get state of Alarm3
+ 
+ 
+ 
+Setting the Time-out Period
+---------------------------
+ 
+ 
+The LOMIOCDOGTIME IOCTL sets the time-out period of the watchdog. This IOCTL 
+programs the watchdog hardware with the time specified in this IOCTL. You must 
+set the time-out period (LOMIOCDOGTIME) before attempting to enable the watchdog 
+timer (LOMIOCDOGCTL).
+ 
+The argument is a pointer to an unsigned integer. This integer holds the
+new time-out period for the watchdog in multiples of 1 second. You can 
+specify any time-out period in the range of 1 second to 180 minutes.
+ 
+If the watchdog function is enabled, the time-out period is immediately
+reset so that the new value can take effect. An error (EINVAL) is displayed if 
+the time-out period is less than 1 second or longer than 180 minutes.
+ 
+-----------------------------------------------------------------------------
+NOTE: The LOMIOCDOGTIME is not intended for general purpose use. Setting the
+watchdog time-out to too low a value might cause the system to receive a
+hardware reset if the watchdog and reset functions are enabled. If the
+time-out is set too low, the user application must be run with a higher
+priority (for example, as a real time thread) and must be rearmed more
+often to avoid an unintentional expiration.
+-----------------------------------------------------------------------------
+ 
+ 
+ 
+Enabling or Disabling the Watchdog
+----------------------------------
+ 
+ 
+The LOMIOCDOGCTL IOCTL enables or disables the watchdog, and it enables or 
+disables the reset capability. (See the "Data Structures" section for the 
+correct values for the watchdog timer.) 
+ 
+The argument is a pointer to the lom_dogctl_t structure (described in
+greater detail in the "Data Structures" section).
+ 
+Use the reset_enable member to enable or disable the system reset function. 
+Use the dog_enable member to enable or disable the watchdog function. An
+error (EINVAL) is displayed if the watchdog is disabled and reset is
+enabled.
+ 
+--------------------------------------------------------------------------------
+NOTE: If LOMIOCDOGTIME has not been issued to set up the time-out period prior 
+to this IOCTL, the watchdog is NOT enabled in the hardware.
+--------------------------------------------------------------------------------
+ 
+ 
+ 
+Rearming, or Patting, the Watchdog
+----------------------------------
+ 
+ 
+The LOMIOCDOGPAT IOCTL rearms, or pats, the watchdog so that the watchdog starts 
+ticking from the beginning; that is, to the value specified by LOMIOCDOGTIME. 
+This IOCTL requires no arguments. If the watchdog is enabled, this IOCTL must be 
+used at regular intervals that are less than the watchdog time-out, or the 
+watchdog expires.
+ 
+ 
+ 
+Getting the State of the Watchdog Timer
+---------------------------------------
+ 
+ 
+The LOMIOCDOGSTATE IOCTL gets the state of the watchdog and reset
+functions and retrieves the current time-out period for the watchdog. If
+LOMIOCDOGSTATE was never issued to set up the time-out period prior to
+this IOCTL, the watchdog is not enabled in the hardware.
+ 
+The argument is a pointer to the lom_dogstate_t structure (described in
+greater detail in the section on "Data Structures"). The structure members
+are used to hold the current states of the watchdog reset circuitry and
+current watchdog time-out period. Note that this is not the time
+remaining before the watchdog is triggered.
+ 
+The LOMIOCDOGSTATE IOCTL requires only that open() be successfully called. This 
+IOCTL can be run any number of times after open() is called, and it does not 
+require any other DOG IOCTLs to have been executed.
+ 
+ 
+ 
+Finding and Defining Data Structures
+------------------------------------
+ 
+ 
+All data structures and IOCTLs are defined in lom_io.h, which is available in 
+the SUNWlomu package.
+ 
+The data structures for the watchdog timer are shown here:
+ 
+1. The watchdog/reset state data structure is as follows:
+ 
+typedef struct { 
+	int reset_enable; /* reset enabled if non-zero */ 
+	int dog_enable; /* watchdog enabled if non-zero */ 
+	uint_t dog_timeout; /* Current watchdog time-out in seconds */ 
+} lom_dogstate_t; 
+ 
+2. The watchdog/reset control data structure is as follows:
+ 
+typedef struct { 
+        int reset_enable; /* reset enabled if non-zero */ 
+        int dog_enable; /* watchdog enabled if non-zero */ 
+} lom_dogctl_t;
+ 
+ 
+ 
+Using the Sample Watchdog Program
+-----------------------------
+ 
+ 
+Following is a sample program for the watchdog timer:
+ 
+#include &lt;sys/types.h&gt;
+#include &lt;lom_io.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/stat.h&gt;
+ 
+int
+main()
+{
+        uint_t timeout = 30;
+        lom_dogctl_t dogctl;
+        int fd;
+ 
+        dogctl.reset_enable = 1;
+        dogctl.dog_enable = 1;
+ 
+        fd = open("/dev/ntwdt", O_EXCL);
+ 
+        /* Set timeout */
+        ioctl(fd, LOMIOCDOGTIME, (void *)&amp;timeout);
+ 
+        /* Enable watchdog */
+        ioctl(fd, LOMIOCDOGCTL, (void *)&amp;dogctl);
+ 
+ 
+        /* Keep patting */
+        while (1) {
+                ioctl(fd, LOMIOCDOGPAT, NULL);
+                sleep (5);
+        }
+ 
+        return (0);
+}
+ 
+ 
+ 
+Programming Alarm3
+------------------
+ 
+ 
+Alarm3 is available to Solaris Operating System users irrespective of the 
+watchdog mode. Alarm3 or system alarm ON and OFF have been redefined (see the 
+table below.) 
+ 
+ 
+Set the value of Alarm3 using the LOMIOCALCTL IOCTL. You can program Alarm3 like 
+you set and clear Alarm1 and Alarm2.
+ 
+The following table presents the behavior of Alarm3:
+ 
+                            Alarm3        Relay       System LED (Green)
+  ---------------------------------------------------------------------
+  Poweroff                    ON          COM -&gt; NC    OFF
+  Poweron/LOM up              ON          COM -&gt; NC    OFF
+  Solaris running             OFF         COM -&gt; NO    ON  
+  Solaris not running         ON          COM -&gt; NC    OFF
+  Host WDT expires            ON          COM -&gt; NC    OFF
+  User sets to ON             ON          COM -&gt; NC    OFF
+  User sets to OFF            OFF         COM -&gt; NO    ON 
+ 
+Alarm3 ON = Relay(COM-&gt;NC), System LED OFF
+Alarm3 OFF = Relay(COM-&gt;NO), System LED ON
+ 
+When programmed, you can check Alarm3 or the system alarm with the showalarm 
+command and the argument "system".
+ 
+For example:
+ 
+sc&gt; showalarm system
+system alarm is on
+ 
+The data structure used with the LOMIOCALCTL and LOMIOCALSTATE IOCTLs is as 
+follows:
+ 
+#include &lt;lom_io.h&gt;
+ 
+#define ALARM_NUM_1 1 
+#define ALARM_NUM_2 2 
+#define ALARM_NUM_3 3
+ 
+#define ALARM_OFF 0 
+#define ALARM_ON 1
+ 
+typedef struct {
+	int alarm_no; 
+	int alarm_state;
+} lom_aldata_t; 
+ 
+ 
+ 
+Understanding Error Messages
+----------------------------
+ 
+ 
+Following are the error messages that might be displayed and what they mean:
+ 
+ 
+EAGAIN 
+ 
+This error message is displayed if you attempt to open more than one instance 
+of open() on /dev/ntwdt.
+ 
+ 
+EFAULT
+ 
+This error message is displayed if an incorrect user-space address was
+specified.
+ 
+ 
+EINVAL 
+ 
+This error message is displayed if a nonexistent control command
+was requested or invalid parameters were supplied.
+ 
+ 
+EINTR 
+ 
+This error message is displayed if a thread awaiting a component state change 
+is interrupted.
+ 
+ 
+ENXIO 
+ 
+This error message is displayed if the driver is not installed in
+the system.
+ 
+ 
+ 
+Knowing Unsupported Features and Limitations
+--------------------------------------------
+ 
+ 
+1) In the case of the watchdog timer expiration detected by the SC, the recovery 
+is attempted only once; there are no further attempts of recovery if the first 
+attempt fails to recover the domain.
+ 
+ 
+2) If the application watchdog is enabled and you break into the OpenBoot(TM) 
+PROM (OBP) by issuing the "break" command from the system controller's "lom" 
+prompt, the SC automatically disables the watchdog timer.
+ 
+--------------------------------------------------------------------------------
+NOTE: The SC displays a console message as a reminder that the watchdog, from 
+the SC's perspective, is disabled.
+--------------------------------------------------------------------------------
+ 
+However, when you reenter the Solaris OS, the watchdog timer is still ENABLED 
+from the Solaris Operating System's perspective. To have both the SC and the Solaris OS view the same watchdog state, you must 
+use the watchdog application to either enable or disable the watchdog.
+ 
+3) If you perform a dynamic reconfiguration (DR) operation in which a system 
+board containing kernel (permanent) memory is deleted, then you must 
+disable the watchdog timer's application mode before the DR operation and 
+enable it after the DR operation.  This is required because Solaris software 
+quiesces all system IO and disables all interrupts during a memory-delete of
+permanent memory. As a result, system controller firmware and Solaris software 
+can not communicate during the DR operation. Note that this limitation affects 
+neither the dynamic addition of memory nor the deletion of a board not 
+containing permanent memory. In those cases, the watchdog timer's application 
+mode can run concurrently with the DR implementation.
+ 
+You can execute the following command to locate the system boards that contain 
+kernel (permanent) memory:
+ 
+sh&gt; cfgadm -lav | grep -i permanent
+ 
+ 
+4) If the Solaris Operating System hangs under the following conditions, the 
+system controller firmware cannot detect the Solaris software hang:
+ 
+o Watchdog timer's application mode is set 
+o Watchdog timer is not enabled 
+o No rearming is done by the user
+ 
+ 
+5) The watchdog timer provides partial boot monitoring. You can use the 
+application watchdog to monitor a domain reboot.
+ 
+However, domain booting is not monitored for:
+ 
+o Bootup after a cold powerup
+o Recovery of a hung or failed domain
+ 
+In the latter cases, a boot failure is not detected and no recovery attempts are 
+made.
+ 
+ 
+6) The watchdog timer's application mode provides no monitoring for application 
+startup. In application mode, if the application fails to start up, the failure 
+is not detected and no recovery is provided. 
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+ 
+Copyright 2006 Sun Microsystems, Inc.  All rights reserved.
+Use is subject to license terms.
+ 
+This product or document is protected by copyright and distributed under
+licenses restricting its use, copying, distribution, and decompilation.
+No part of this product or related documentation may be reproduced in
+any form by any means without prior written authorization of Sun and
+its licensers, if any.  Third party software, including font technology,
+if any, is copyrighted and licensed from Sun suppliers.
+ 
+Sun, Sun Microsystems, Solaris, the Sun Logo, Sun Fire, OpenBoot, and SPARC are
+trademarks or registered trademarks of Sun Microsystems, Inc in the U.S.
+and other countries. All SPARC trademarks are used under license and are
+trademarks or registered trademarks of SPARC International, Inc. in the
+U.S. and other countries.  Products bearing SPARC trademarks are based
+upon an architecture developed by Sun Microsystems, Inc.
+ 
+Federal Acquisitions: Commercial Software - Government users subject to
+standard license terms and conditions.
+ 
+DOCUMENTATION IS PROVIDED "AS IS" AND ALL EXPRESS OR IMPLIED CONDITIONS.
+REPRESENTATIONS AND WARRANTIES, INCLUDING ANY IMPLIED WARRANTY OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT,
+ARE DISCLAIMED, EXCEPT TO THE EXTENT THAT SUCH DISCLAIMERS ARE HELD TO
+BE LEGALLY INVALID.
+ 
+--------------------------------------------------------------------------------
+ 
+Copyright 2006 Sun Microsystems, Inc.  All rights reserved.
+Use is subject to license terms.
+ 
+Ce produit ou document est protege par un copyright et distribue avec
+des licences qui en restreignent l'utilisation, la copie, la distribution,
+et la decompilation.  Aucune partie de ce produit ou document ne peut etre
+reproduite sous aucune forme, par quelque moyen que ce soit, sans l'autorisation 
+prealable et ecrite de Sun et de ses bailleurs de licence, s'il y en a.  Le 
+logiciel detenu par des tiers, et qui comprend la technologie relative aux 
+polices de caracteres, est protege par un copyright et licencie par des 
+fournisseurs de Sun.
+ 
+Sun, Sun Microsystems, Solaris, le Sun logo, Sun Fire, OpenBoot, et SPARC sont 
+desmarques de fabrique ou des marques deposees de Sun Microsystems, Inc. aux
+Etats-Unis et dans d'autres pays. Toutes les marques SPARC sont utilisees
+sous licence et sont des marques de fabrique ou des marques deposees de
+SPARC International, Inc. aux Etats-Unis et dans d'autres pays.  Les
+produits portant les marques SPARC sont bases sur une architecture
+developpee par Sun Microsystems, Inc.
+ 
+LA DOCUMENTATION EST FOURNIE "EN L'ETAT" ET TOUTES AUTRES CONDITIONS,
+DECLARATIONS ET GARANTIES EXPRESSES OU TACITES SONT FORMELLEMENT EXCLUES
+DANS LA MESURE AUTORISEE PAR LA LOI APPLICABLE, Y COMPRIS NOTAMMENT TOUTE
+GARANTIE IMPLICITE RELATIVE A LA QUALITE MARCHANDE, A L'APTITUDE A UNE 
+UTILISATION PARTICULIERE OU A L'ABSENCE DE CONTREFACON.
+
+README -- Last modified date:  Monday, December 4, 2006
+
+</pre></body></html>

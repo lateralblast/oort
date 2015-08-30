@@ -1,0 +1,824 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 140686-02
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Big Admin Patching Center, http://www.sun.com/bigadmin/patches/ 
+***********************************************************************
+
+Keywords: sun blade 1500
+Synopsis: Hardware/PROM: Sun Blade 1500 (non Silver) Flash PROM Update
+Date: Feb/09/2010
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.30.4.a, POST 4.30.4.a, OBDIAG 4.30.4.a
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4794955 4826050 4854322 4946025 5052695 5064141 5076888 5079065 5079227 6181985 6183557 6230349 6230541 6234769 6244643 6254839 6255271 6256046 6256336 6256337 6256341 6257778 6257800 6263301 6265745 6273119 6273179 6276146 6276317 6281593 6282737 6284105 6284318 6285982 6286277 6288074 6290779 6291681 6297452 6297463 6297477 6299053 6299060 6299482 6299605 6300724 6300972 6303388 6305812 6305975 6306001 6310450 6312383 6312957 6313129 6313800 6315148 6318305 6320918 6320921 6321482 6322907 6322957 6323565 6323579 6323585 6323590 6325917 6326441 6326496 6326930 6327114 6327140 6329044 6331616 6332106 6332576 6333076 6333659 6333723 6334308 6335492 6336692 6338777 6338965 6339760 6339872 6340485 6340821 6340824 6341068 6344537 6344802 6344992 6345548 6345808 6345852 6345861 6346222 6346267 6346290 6346530 6346813 6346834 6346885 6347315 6347412 6347455 6347502 6347549 6348525 6349469 6349827 6349949 6350004 6352086 6352494 6353715 6354366 6356428 6356637 6356644 6356687 6356915 6358072 6358075 6358110 6359345 6359716 6360367 6360432 6361002 6361097 6361535 6361563 6363976 6364139 6364445 6364532 6364700 6365640 6365656 6365688 6366588 6366606 6368614 6368716 6369302 6370015 6370384 6370405 6370408 6372458 6372564 6374738 6375003 6375990 6376524 6376657 6377038 6377208 6377849 6379703 6379876 6379878 6379979 6380442 6380622 6380975 6381064 6381084 6381105 6381115 6381125 6381242 6381271 6381272 6381274 6381277 6381279 6381281 6381283 6381385 6381818 6382974 6383237 6383658 6384335 6384845 6385582 6386216 6386341 6387399 6388093 6388582 6388673 6388925 6389161 6389988 6390526 6390564 6391361 6391455 6392539 6392742 6392744 6392749 6392873 6393492 6393665 6393953 6393958 6394040 6395015 6396318 6396464 6396519 6396528 6396533 6396540 6396546 6397170 6397497 6397564 6399215 6399627 6400117 6400192 6400408 6401634 6401719 6402905 6402909 6403073 6404798 6406061 6406091 6406142 6406195 6406577 6407069 6407889 6409416 6411051 6411069 6411912 6412462 6412474 6412550 6412889 6413467 6413698 6414799 6414995 6415442 6415545 6416036 6416142 6416169 6416658 6416671 6417885 6418642 6418658 6419216 6420097 6420137 6420147 6420194 6420241 6420886 6421308 6421344 6421833 6421866 6421977 6422104 6422818 6422909 6423038 6423090 6423131 6423137 6423761 6423788 6423795 6423803 6424432 6424812 6425918 6426346 6427093 6427102 6428852 6428946 6429329 6430079 6430086 6430219 6430500 6430572 6431870 6432504 6433152 6436266 6436300 6436354 6436371 6438159 6438649 6438710 6441770 6441889 6442350 6443014 6444152 6445593 6447320 6447326 6447642 6447749 6447763 6447810 6447815 6447818 6447820 6447821 6447824 6447852 6448085 6448548 6449538 6449659 6450457 6450624 6451155 6451159 6451168 6451721 6451762 6451938 6452183 6452223 6452237 6452256 6454051 6455202 6456539 6456885 6456952 6457354 6458997 6459524 6459543 6459548 6459574 6460910 6460934 6463668 6464267 6465220 6465254 6466207 6466624 6466637 6466655 6466679 6466695 6467470 6468284 6468359 6469964 6470467 6470510 6470888 6471999 6472605 6474333 6474932 6478131 6478437 6478646 6480310 6480389 6481526 6481980 6482540 6484677 6484976 6485717 6485941 6487271 6487277 6487287 6487292 6487301 6487332 6487343 6487348 6487438 6487708 6488846 6488855 6490115 6491132 6494774 6494859 6495912 6498373 6498780 6500285 6500287 6500325 6503261 6504355 6504375 6505653 6505657 6505760 6506771 6508437 6508449 6508466 6508474 6508906 6510676 6510693 6510722 6511659 6511901 6512278 6512280 6512314 6512782 6512892 6513595 6515491 6516619 6517108 6517207 6518846 6518865 6518879 6518883 6519920 6519943 6520058 6520718 6521186 6521198 6521605 6521645 6523024 6523823 6524613 6525090 6525913 6526107 6526454 6526699 6526861 6526870 6527778 6528635 6528667 6529207 6529467 6529504 6529934 6532334 6534028 6534031 6535840 6537035 6538367 6539675 6540632 6543430 6543748 6543749 6545197 6545200 6545566 6546593 6547428 6548060 6549753 6550351 6550398 6550717 6550743 6550784 6551724 6553004 6554358 6557874 6558342 6559998 6561842 6561957 6566732 6569526 6570315 6570779 6572821 6573367 6573618 6574092 6574105 6575253 6576406 6579294 6580761 6581085 6581490 6581660 6581794 6583392 6585340 6586400 6587533 6588214 6589154 6589571 6590254 6590384 6590912 6592973 6592986 6593097 6593547 6594395 6594929 6595500 6596546 6596594 6598829 6600945 6601551 6601822 6604051 6604845 6605782 6606197 6608466 6609024 6609130 6611798 6612022 6612178 6616363 6617193 6621175 6622444 6622775 6623111 6623916 6626045 6628699 6629201 6631330 6631946 6633009 6634169 6634974 6634977 6634980 6636978 6638534 6638972 6640485 6644446 6646461 6646532 6646995 6647462 6647984 6650227 6650783 6651513 6652016 6652046 6654860 6654865 6655556 6656072 6657721 6660206 6661787 6662162 6664365 6665538 6666961 6669255 6669488 6670340 6671070 6672367 6674578 6675519 6675677 6675793 6676561 6677840 6678885 6678924 6681061 6682845 6683328 6684123 6684913 6686172 6687097 6688605 6689868 6690618 6690844 6690952 6690978 6693035 6693734 6693906 6694304 6694387 6694497 6697436 6698815 6704491 6705064 6705118 6706303 6706473 6708044 6708234 6708608 6710322 6712358 6712366 6712395 6712683 6713501 6716256 6717373 6719274 6719316 6719407 6720177 6720401 6720575 6721020 6721347 6724265 6725256 6725717 6726148 6728454 6729529 6730281 6730282 6730722 6731112 6732222 6732265 6734408 6735506 6736372 6737081 6737476 6737895 6738373 6739392 6740949 6743825 6747230 6747621 6750734 6751051 6753562 6754453 6755425 6755818 6756295 6760186 6762055 6766240 6770610 6772664 6774655 6777379 6780222 6782337 6787965 6790291 6791196 6791232 6795793 6797789 6802075 6803726 6804349 6807094 6807927 6808167 6809434 6810138 6810143 6812437 6813603 6813715 6816141 6819881 6821770 6825151 6830927 6835857 6835860 6836888 6836962 6839482 6842259 6842274 6855840 6855850 6855865 6858855 6859020 6859443 6860195 6862099 6862229 6866918 6867960 6868081 6869577 6890136
+
+Changes incorporated in this version: 6890136 6869577 6868081 6867960 6866918 6862229 6862099 6860195 6859443 6859020 6858855 6855865 6855850 6855840 6842274 6842259 6839482 6835860 6835857 6821770 6819881 6797789 6738373 6725717 6588214 6580761
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunBlade1500
+unix.flash-update.SunBlade1500.sh
+
+Problem Description:
+
+6890136 OBP 4.30.3.b causes ERROR: /pci@1d,700000/pci@1/&lt;Unnamed&gt;: Last Trap: Data Access Error
+6869577 Insufficient memory allocated to the resolution buffer in the ast fcode.
+6868081 Probe for TPM support in OpenBoot
+6867960 Chalupa: POST Fails with ERROR: TEST = Slave Spin
+6866918 Memory leak in SAS/SATA test 
+6862229 speedup of mailbox test
+6862099 Multiple resets observed
+6860195 Add support to dump PLX FW from DEMON menu
+6859443 POST sometimes picks the wrong channel in single channel mode
+6859020 POST register assumption
+6858855 Integrate AST2100 Fcode into source tree
+6855865 Need to increase hotplug-memsize and hotplug-mem64size
+6855850 Need to extend the Maximum PCI probe depth
+6855840 Add the PCIe Root Port support for RCs containing RPs.
+6842274 Speed up of L2 caches tests
+6842259 Some of the internal L2 arrays are not being fully tested
+6839482 Need to remove clock-divisors from v445
+6835860 POST timed out sometimes occurs
+6835857 chip reset error occurs when OS boots
+6821770 POST error occured on Neptune XAUI 10G Loopback Test
+6819881 Didn't receive RTR pkt! when powercycling huron and maramba systems
+6797789 Confusing error messages when using PCIe cards with 64 bit prefetchable BAR
+6738373 Correct Cheetah+ erratum 34 DTLB issue in Starcat OBP
+6725717 V480 onboard CE failed OBDiag test intermittently
+6588214 Need to remove clock-divisors from v440
+6580761 OBP MMU miss handlers not correct for sun4v spec
+ 
+ 
+(From 140686-01)
+ 
+6836962 Various errors reported during Tenaya P1.0 POST HDD testing, thought to be related to FMODs
+6836888 Bootblock code in Solaris 10 Update 5 or earlier is incompatible with OpenBoot 4.30 or later
+6830927 Some healthy components was disabled by a faulted DIMM
+6825151 OBP console chars are dropped/scrambled with USB keyboard
+6816141 virtual storage devices are not getting created under OBP
+6813715 POST Niu and Neptune Code Merge
+6813603 POST thread bottleneck
+6812437 DEMON selectable Systest BusFS causing NoData UEs
+6810143 FMOD failures in POST SAS/SATA device test
+6810138 Tenaya POST Support
+6809434 OBP handles all resumable errors as request to shutdown
+6808167 DEMON selectable Systest General test subtest conflict
+6807927 VF System keeps power cycles and can't go to obp after POST test done
+6807094 Congo:Need OBP changes for Firmware Progress State Sensor
+6804349 DVD will not boot -- OBP fix missing to compliment CR 4976792 (READ RETRY)
+6803726 Tenaya system (more than 1) hits fbr errors during Enhanced Memory testing
+6802075 POST ops1 failed "FATAL ERROR 3", "Unexpected Trap" on N2 systems
+6795793 POST look for display device on T6320
+6791232 Monza: Need OBP changes for Firmware Progress Sensor
+6791196 POST fails NIU Link Check Test w/ P1 Copper XAUI
+6790291 Glendale/Scottsdale need to support REM-less operation
+6787965 At post sequence, a CPU core was disabled by mistake, when a faulted DIMM was installed
+6782337 POST disk test fails on phy7
+6780222 The neptune fcode driver would break if bufsz0 were not set to 2K
+6777379 Post support for T6320 G2
+6774655 POST loops with "ERROR: No good memory bank/channel left in system" 
+6772664 WARNING: /pci@7c0/pci@0/pci@1/pci@0/isa@2: Could not open asr package
+6770610 Node Reconfig 2P with CPM1 and CMP3 ERROR: POST timed out. Not all system components tested.
+6766240 DVD boot read failures from obp prompt (intermittent DVD DRIVE MISIDENTIFIED may be seen)
+6762055 Booting from SATA DVD drives under LSI1068 fails
+6760186 queue_tests_timed() function fails to complete under some conditions
+6756295 Add support to test serial port from DEMON menu
+6755818 Corruption of "my-self" causing missing "idprom" property in root node
+6755425 More POST threads starting than expected
+6754453 Maramba POST intermittently fails during the 100 power cycle with an LDOM created primary domain.
+6753562 Failures of a secondary CMP master are not handled properly
+6751051 POST reports hundreds of free resource timeouts
+6750734 continuous output of "ERROR: Failed to send a fma event(rc=11)" during POST
+6747621 RN50 fcode needs to support new memory
+6747230 "1:4:0&gt;ERROR: TEST = PIU intx interrupt test" is output during POST
+6743825 POST menu IO-Bridge unit dump causes a crash
+6740949 POST Block Mem Schmoo Test is N1 only
+6739392 reset host causes POST to fail GBE tests
+6737895 Some non-critical Neptune/NIU FCode clean up
+6737476 OpenBoot disk label package fixes are mising from the large disk support changes
+6737081 POST fails PIU PCI id test with ARTM
+6736372 DVD boot error from IOU#2 or IOU#6 on DC machines generates wrong error log
+6735506 POST is mis-handling a FBR error, if the FBR occurs too early in POST
+6734408 Support change from remote-keyboard to rkeyboard in OBP
+6732265 POST failures
+6732222 nodefault-bytes is not persistent
+6731112 Default case in init-xmac-xif sets mii-gmii-mode incorrectly 
+6730722 LDOM Device RESET Control reg. is programmed with Maramba value in Scottsdale.
+6730282 link up status message includes confusing "duplex = 0"
+6730281 netboot via Maramba's Neptune port2 or 3 fails if a copper XAUI is plugged in
+6729529 Product definition cleanup
+6728454 remove support for N2 erratum 106
+6726148 Power-cycling approx. 10 times causes disk devices to disappear.
+6725256 Miscellaneous fixes for OPL platforms
+6724265 Initial PUTBACK of Scottsdale Blade to 4.28 and 4.x Gate
+6721347 POST fails when X4447A-Z card present in slot PCIE3 or slot PCIE7
+6721020 OpenBoot should handle "shutdown" request from Hypervisor
+6720575 Add OBP support for Scottsdale Platform
+6720401 POST should not fail the GBE device unless it is absolutely certain that the GBE is at fault.
+6720177 POST fails with CMP0 missing on T5440
+6719407 'Device:' is output 5 times after reset-all on OBP
+6719316 USB Failure in POST indicts wrong device
+6719274 Thrasher does not work on VF platforms
+6717373 cpu-table should be clean before use
+6716256 Thunder needs to pick updated OBP which has Scottdale fixes
+6713501 Improve PCIE test and scan from post menus.
+6712683 POST mistake the slot of the faulted DIMM
+6712395 POST times out with 8GB FBDIMMs
+6712366 Monitor preferred resolution does not work
+6712358 POST print function confusion
+6710322 Turgo POST fails when T1 PCI-X card is pluged in
+6708608 master cpu timeout occuring on T5140/T5240
+6708234 Glendale - watch-net-all terminates and jump by itself to OK when is looking at /niu@80/network@0
+6708044 ipmi driver regression: broken on s10u3
+6706473 post fails with 3-way config
+6706303 post interrupt test fails on n1 platforms
+6705118 Intermittent XAUI Lane Synchronization Failure at Flex.
+6705064 block memory test fails if thread 0 is asr disabled
+6704491 OBP doesn't display all disabled devices
+6698815 POST interrupt test updates
+6697436 1G won't work if on Goa if a Goa in slot 1 is not inserted
+6694497 POST incorrectly reports timeouts
+6694387 OBP will try to run 10G copper at 1G
+6694304 DMA function fails
+6693906 probe-scsi-all generates Fast Data Access MMU Miss
+6693734 Platforms that support MEM64 and PCI hotplug are using invalid memory sizes
+6693035 Thunder POST still refers to non existent XAUI ports
+6690978 Incorrect diagnosis of a memory UE
+6690952 POST code implementation of Node reconfigure for T5440
+6690844 Confusing PCIID test error messages
+6690618 niu reset from guest doesn't properly prepare niu for 10g mode after running in 1g mode
+6689868 With FW 7.1.3_build_02 "boot net - install" doesn't work
+6688605 flx22610: Jade host hangs on a reboot with message ERROR: motherboard SEEPROM access failed
+6687097 virtual-console device always returns NUL the very first character
+6686172 TPM code incorrectly included in Congo POST makefile
+6684913 Optimise enhanced POST Systest tests for N2 products
+6684123 On OPL OBP can cause OBP to Display incorrect information
+6683328 failure of some io devices disabled incorrectly
+6682845 2 Unexpected trap37 when running memory screen
+6681061 POST support for Thunder platform
+6678924 Link width issue with plx version BC chip on pelton 
+6678885 Link width issue with plx version BC chip on pelton
+6677840 Enhanced POST memory tests on VF platforms should test local memory only
+6676561 Changing NVRAM parameter at OS level causes panic : BAD TRAP: type=31
+6675793 post hangs if diag verbosity=debug
+6675677 POST membist test fails when CH0/D0 is disabled on a branch
+6675519 Problem with LSB Degradation
+6674578 Sparse CPU support for cpu-struct table
+6672367 If a cmp has missing threads/cores in N1, then post will not test some regions of memory
+6671070 POST diagnoses to a wrong dimm if a faulty dimm is in either D2 or D3 slots
+6670340 Optimise enhanced POST memory tests for N2 products
+6669488 POST times out with verbosity min
+6669255 Domains fail to boot from the right devalias name
+6666961 max level POST on Batoka with memory CE's gets unexpected trap to address 0
+6665538 Ikkaku platform support
+6664365 flx20948: CP2500 boot-device can be corrupted with a bad read from the AC
+6662162 watch-net-all not testing interfaces
+6661787 POST support for Batoka
+6660206 Huron POST spelling error: "Lopback" missing an "o". eg:"ERROR: TEST = BCM8704 Internal Lopback".
+6657721 POST should offline the failing DIMM module in the event of a CE.
+6656072 post cpu tests failures, hardware under test is wrong field may state/fail wrong core
+6655556 Updated P3 congo/post POST Support for Congo
+6654865 OBP development for xaui copper
+6654860 POST code setup for xaui copper
+6652046 XAUI Conflicting error message
+6652016 Sun Blade T6320 has no XAUI
+6651513 version negotiation in obp's vnet/vdisk doesn't adhere to the protocol
+6650783 PCI Probe error messages could cause problems
+6650227 bootmode reset_nvram fails to reset obp to defaults
+6647984 Thunder platform support in OBP.
+6647462 Problem with T2000 SysFW 6.5.5, won't see DVD rom device after upgrade
+6646995 POST output does not appear to be correct - POST is not correctly using SC's diag_&lt;var&gt; values
+6646532 OBP providing incorrect compatible property at CPU node
+6646461 OPL OBP Update copyright dates to reflect 2008
+6644446 POST does not offline by thread when failing tests
+6640485 post for maramba needs to be in 4x release gate
+6638972 wanboot very slow on maramba
+6638534 Maramba 2U with memory config. 24G and 48G on the mezzanine riser does not boot up the server.
+6636978 setting input/output device via ok prompt to keyboard/screen results in ERROR: message
+6634980 Possible Data corruption when using NVRAMRC kill or yank
+6634977 POST run in max mode fails with PLX 8112
+6634974 Incorrect Error reported on nvramrc CRC Error
+6634169 flx22265: JLL13: no power-off on hotswap causes mcnet to fail to come up on Jade satellites
+6633009 Can't boot off XAUI card on Maramba
+6631946 (init-program) causes illegal instruction trap if executed when cwp is not 0
+6631330 niu driver changes for goa
+6629201 maramba post dimm failures must call out the right dimm
+6628699 OBP needs to support Maramba platform
+6626045 Update Huron RNG OBP virtual-device node
+6623916 Software guest state updates generate too much traffic
+6623111 Huron system hung after completed POST with "Failed to set device address: 1" with FW 7.0.7
+6622775 Running POST with the Neptune FEM installed, disables the PCI-SWITCH
+6622444 Boot path switch feature is not work correctly during bootblock load
+6621175 False NIU FZC XMAC   Block Port 1 init test failure - RXMAC STATUS Reg. PHY_MDINT Bit
+6617193 POST offlines all L2 banks when it encounters a storm of DSC/FBRs
+6616363 Glendale's onboard port was not recognized when a Northstar QGC EM card was loaded into the system
+6612178 Rev52 Jasper320 cards with v1.13 FCode fails on all Sun platforms
+6612022 N1 POST hangs during Enable L2 Cache
+6611798 POST support for Turgo
+6609130 Monza platform support in OpenBoot
+6609024 FERG marks some e-reports from post as invalid and drops them
+6608466 GD Post nac names are incorrect
+6606197 remove product name from host flash version display
+6605782 OBP needs to support the Glendale platform
+6604845 Banner does not display the official platform names 
+6604051 POST Support for Monza 
+6601822 USB hub, keyboard, and/or mouse disappear from OBP device tree
+6601551 Use mailbox for systest arguments
+6600945 power-off doesn't power off the virtual machine OBP is running within
+6598829 ( logo-addr logo-len ) " oem-logo" $setenv is not persistent
+6596594 After resetsc, changing OBP nvram parameters do not take affect
+6596546 Montoya: "probe-ide" shows a non-existent device with garbage characters as ATAPI model
+6595500 Last Trap: Fast Data Access MMU Miss on VDS stress tests
+6594929 sun4v systems lost their scsi initiator settings after upgrade to 6.4.x+ firmware
+6594395 "Options: true false" menu interrupts OBP reset
+6593547 IO-Domain-Reset: ERROR: Last Trap: Watchdog Reset
+6593097 POST needs to support SEL_LO_ADR=1 memory addressing
+6592986 Add Unix flash update support for U45 MB_PN's 375-3552 and 375-3553 and U25 MB_PN 375-3556
+6592973 sata_drive Block error in Hitachi SATA HDDs occurred when power is cycled by s99zzzpc script
+6590912 POST needs to clear the FBD syndrome status register twice because of N@ errata #116
+6590384 V125(El paso): Could not read diag-level from NVRAM!
+6590254 POST is wrongly ASR disabling NIU port in a Single XAUI configuration.
+6589571 On OPL XIR at ok? prompt can cause OpenBoot to hang on systems with a large number of strands
+6589154 Unexpected traps, L2 UE and lots of error messages in POST when it is faced with FBUs
+6587533 HV Abort: &lt;Unknown?&gt; (82859d0) - PowerDown when starting guest domain that owns bus pci@780
+6586400 CR 6554358 breaks builds for excalibur in 4.26.x, 4.25.x,&amp; 4.23.x
+6585340 uadmin 2 0 and reboot reads old bootmode settings (should be cleared)
+6583392 POST timeouts during PCIE probing (plx errata #7)
+6581794 NVRAM configration variable to enable/disable Relaxed Ordering attribute (attr_RO)
+6581660 Remove "FBR Error Tally" message in normal verbosity mode
+6581490 ERROR: Slave timeout waiting for 6:7 to finish, offlining core 6!
+6581085 Can't boot over XAUI network interface
+6579294 Enhancements to Systest (test within debug menu)
+6576406 POST does not run correctly with disabled L2 cache banks[0-3]
+6575253 POST needs to report cpu status by strand
+6574105 Issuing a boot to the cdrom device hangs the system if no cdrom media is installed
+6574092 change post threshold for fbr screen
+6573618 Unused POST code
+6573367 Disabling cpu8, disables core1 with failed device:MB/CMP0 (CORE) MAU (ERROR: TEST = MAU GF2M MODEXP) 
+6572821 Support FWARC 2007/354.
+6570779 post reporting 1/2 of available memory while vbsc and solaris report full amount, 4GB memory only
+6570315 Post support for Glendale 
+6569526 V445 ships with incorrect devalias paths to interval drives when configured with LSI1068e
+6566732 IO operation fails randomly after switch-cpu
+6561957 OBP bge ethernet driver needs performnace improvement when load a big file (wanboot 108 MB)
+6561842 Putback n2-devel gate into 4.x
+6559998 Fix to cr 6520058 can cause FORTH stack corruption. 
+6558342 POST ends prematurely after "Copy POST to memory"
+6557874 Need clean CP2500 OBP smc kcs interface
+6554358 Panther L3Tag failures require a POST base test to be detected 
+6553004 Hotplug needs to be enabled on St. Paul
+6551724 Booting from DVD on Huron fails.
+6550784 Data corruption due to wrong sTLB mapping
+6550743 (RFE) Jupiter processor support for OPL platforms
+6550717 reset.bin too big. Change the N1 POST PROM offset from 1M to 2M
+6550398 flx17584: Observed "/console: error to writing to console"
+6550351 Issuing a boot to the cdrom device hangs the system if no cdrom is installed.
+6549753 Montoya RTM needs support booting from USB disks.
+6548060 Add support in 4.x for N2 based platforms
+6547428 the warning message has an incorrect spelling. WARNING: No response from Domain Service "Providor"
+6546593 WANboot should not reflect packets
+6545566 Sun4v call for dma-sync with zero-length buffer results in hypervisor errors
+6545200 OpenBoot should only start CPUs which are part of a domain, as indicated by MD
+6545197 OpenBoot should use HV API CPU_YIELD when looping in slave loop
+6543749 guest domain : wanboot "miniroot" download takes more than 30 minutes
+6543748 gust domain : ERROR: Last Trap Memory Address Not Aligned when "watch-net-all" is interrupted
+6543430 OBP should retry a cpu_send_mondo hcall if EWOULDBLOCK is returned
+6540632 Need definition of OBP power-off for LDOMs systems
+6539675 Fix bugs in Systest (performance counter overflow and malloc_bank for half pop systems)
+6538367 Huron ophir eeprom mac address is not getting programmed properly with ILOM
+6537035 NIU FCode driver needs to clear remote_fault_detected bit (new for N2 2.0 parts)
+6535840 POST needs to implement support for ops-mode
+6534031 Stack error in NIU FCode driver
+6534028 Unable to boot from NIU port 1 (XAUI0)
+6532334 When LDOMs had trouble loading up properly, serial port is unusable
+6529934 IO device probing on sun4v platforms needs to be hardware agnostic
+6529504 Dropping to ok prompt via send break from running OS causes red state exception
+6529467 POST should handle preceeding spaces gracefully
+6529207 Compile time complaint in USB2 FCode
+6528667 vnet FCode should restrict use of MAC address other then local-mac-address
+6528635 Changes to speed up dmake have caused lint_check.pl to misreport
+6527778 Net installation of multiple domains results in a hang due to out of order packets.
+6526870 OBP should automatically create devaliases based on the devalias properties given by zeus
+6526861 St Paul SAS WWID should not be programmed based on system-mac-address at run time.
+6526699 Doing a build on all products out of the POST tree is very slow
+6526454 St. Paul POST has PCI-EM slots reversed
+6526107 St. Paul needs to support booting from USB disks.
+6525913 "SUN PROPRIETARY/CONFIDENTIAL" message appears on boot on FCS seattle
+6525090 reboot-info can be lost on MD updates
+6524613 OpenBoot does not handle LDC resets properly
+6523823 St. Paul: EM -&gt; PCI-EM
+6523024 the /ebus@800 device nods should not show up in domains that do not also have /pci@780
+6521645 vdisk drivers should add a more conservative timeout when waiting for handshake packets
+6521605 vbsc times out while waiting for POST progress updates to the sequencer and gets reset
+6521198 Incorporate enhanced POST memory tests in POST debug menu
+6521186 Incorporate new Systest/Thrasher test in POST debug menu
+6520718 OBP should assign MAC addresses to on-board network adapters based on MD info from SP
+6520058 Schizo FCode driver does not support CDMA interrupts which can lead to Solaris panic
+6519943 after upgrading to fw 6.4.0.build_06, OBP NVRAM parameter "security-mode" gets corrupted
+6519920 flx20277: UTP - JLL9.2 OBP firmware breaks Jade/UTP tpdriver attachment, 2 UTP env.
+6518883 flx20174: obp command, "test-all", hangs on Jade Jalapeno host &amp; satellite.
+6518879 St Paul: POST dimm typo
+6518865 St. Paul: PEM -&gt; EM
+6518846 St. Paul: PEM -&gt; PCI-EM
+6517207 LDOMs OBP commands setenv, set-defaults, set-default to not work
+6517108 OBP shouldn't be hard-coding max-#cpus
+6516619 OPL showdomainstatus incorrectly reflects real state in XCP 1014
+6515491 security-mode has a "Default Value" of "none" instead of "No default".
+6513595 OBP needs to support the Sun Blade T6300
+6512892 Remove IPMI console abort to workaround 'Memory Address not Aligned' trap on Jade
+6512782 Ophir EEPROM reprogramming must be enabled on all platforms
+6512314 Jade obp shows 'Don't know the role!' after halt
+6512280 Add Device ID for new Shrink DIE of Sansung E$ SRAM to POST device database (POST allows device).
+6512278 NIU FCode device driver putback
+6511901 Jade console hits 'Memory Address not Aligned' trap
+6511659 The eeprom command does not work when running on the factory-default MD set
+6510722 errors are not printed out at OBP, when a device or devices are asr disabled
+6510693 Joint copyright for Sun/Fujitsu needs to be changed for the year 2007 for OPL OpenBoot binary
+6510676 OpenBoot will not build on Solaris 10
+6508906 post and obp build issues
+6508474 OPL OBP should refer to LSB bitmap instead of HWD data when syncing NVRAM data on all LSBs
+6508466 LSBID of new console (upon console switch) needs to be saved in SRAM
+6508449 Need to add "domain id" information to OPL OBP error log structure
+6508437 A STICK register parity error leaves OPL OBP in hung state
+6506771 OBP has platforms which don't build any more because of PROM growth
+6505760 when disable first thread of a core, post fails whole core after poweroff/on with FATAL ERROR.
+6505657 OPL OBP should restart the domain upon detecting an Oberon PCI Channel marked with a UE
+6505653 OPL OBP should reboot domain when encountering the memory UE
+6504375 local-mac-address? parameter for OPL OBP should default to true
+6504355 Openboot: non-functional sun4v retained-memory code places limitations on mblock size and alignment
+6503261 changing NVRAM paramter at OS level causes panic : BAD TRAP: type=31
+6500325 OPL OBP should not check Oberon link status if POST has already degraded because of link-up failure
+6500287 Release new OBP image for SESI Products with enhanced Panther 2100MHz timing.
+6500285 FW keying is required to support UltraIV+ high power modules.
+6498780 "Can't locate boot device" message on OPL FF1 and FF2 - IOU slot 0 might be the possible cause
+6498373 POST did not run after system firmware was upgraded to SIV 6.4.0_build_02
+6495912 VSW: "WARNING: exceeded number of permitted handshake attempts" or loss of network connectivity
+6494859 Device alias for "cdrom" is set to wrong path on DC systems
+6494774 Add guest-state support for Niagara platforms
+6491132 V445 AC power restoring causes OBP post fail
+6490115 OpenBoot vdisk driver should be compliant to VIO specification
+6488855 flx18074: ERROR: motherboard SEEPROM access failed
+6488846 FF2:jasper320 FCode checksum error during POST
+6487708 Strengthen request_resource function by adding spin lock around potential race condition
+6487438 LDOMs OBP does not correctly handle zero length ldom variable updates
+6487348 OBP needs to implement the ASR domain-service outlined in FWARC 2006/594
+6487343 OBP's virtual nexus probing code is inconsistent when looking for the "ino" md property
+6487332 Unable to update ldom-variables after a halt one a system without domaining enabled
+6487301 sun4v OBP does not track physmax correctly in the event of multiple mblocks
+6487292 Jade .alarms timer not running after Solaris halt
+6487287 The OBP LDC driver should conform to FWARC 2005/571
+6487277 ./dimmCheck hangs intermittently when we have 8 x Samsung dimms in a Chicago system
+6487271 Legacy nvram svc-channel support should be removed from sun4v OBP
+6485941 OBP times out prematurely during vdisk/vnet boot
+6485717 LDOMs OBP: "reboot-command" does not work as described in LDOM 1.0 OBP Design Spec v1.1
+6484976 Error exception before cpu-struct is initialized can cause the machine to hang-up
+6484677 Add support for USB2 under OBP
+6482540 Cleanup of POST build targets 
+6481980 FCodes for double precision math are broken
+6481526 Problem in builiding dropins that share files
+6480389 "ERROR: /memory: CPU1 Bank 0 DIMMs are from different vendors"
+6480310 Some of the CPU registers printed by OPL OBP do not match SPARC64 extension specification
+6478646 PCI bridge probing code does not need to execute config writes to nonexistent devices
+6478437 sun4u fire fcode driver initializes 32 bit memory list to incorrect size
+6478131 compatible properties for sun4v virtual devices are hard-coded in obp
+6474932 Seattle/Boston OBP need to define slot-names property
+6474333 POST needs to add support for the LDC console protocol
+6472605 Factor niagara-specific code out of sun4v-specific file
+6471999 Map-in/out of resources does not works when multiple instances of an Oberon node are opened &amp; closed
+6470888 OBP firmware will not update on N210s with 375-3471 mainboard
+6470510 Jade does not have transparent PCI-PCI bridge driver. (flx1915)
+6470467 Instruction flush and .trap-registers changes
+6469964 JLL5.1: POST fails when powering on Jalapeno with high CPU speed 
+6468359 POST needs to test all cpus when 'diag-level == min'
+6468284 "msi-address-ranges" property for Oberon programmed with wrong values
+6467470 Add both Unix and Standalone flash update support for Netra 2x0 R06 Motherboards
+6466695 setenv command shows "Usage: setsmcenv option-name valuse
+6466679 OPL OpenBoot generates incorrect error log when there is fault accessing Hardware Descriptor table
+6466655 OPL Openboot should not do retry when its Oberon leaf link-up attempt fails
+6466637 OPL OpenBoot does not accounts for 4k PCIe config space when identifying a faulty device
+6466624 OPL OpenBoot generates incorrect error log for faults at PCI-E switch upstream-port on PCI-E IO boat
+6466207 Fire PCI-E bridge version should be determined based on fire-revision# rather than module-revision#.
+6465254 Change OPL Openboot banner to show "using Domain console" instead of "using Pseudo-SU based console"
+6465220 APL/Niagara platforms need multipath boot support
+6464267 A single 1050 MHz module produces an error after a soft reset when in diag mode.
+6463668 Add Logical Domain Support to OBP source base
+6460934 Change messages printed by OPL OpenBoot to protect Sun "OpenBoot" trademark
+6460910 OPL OpenBoot should include Fujitsu's copyright in OpenBoot banner
+6459574 Need two fail bits to present two additional PCIE-PCIX bridges for better fault isolation in Pelton.
+6459548 If a faulty device cannot be isolated during boot we should try multipath-boot recovery
+6459543 Multipath boot should be applied on boot device failure only after image has been loaded from it
+6459524 Wrong PCI configuration information being sent to XSCF for PCI-X IOboat on DC model (OPL platform)
+6458997 LSI 1064/1068 FCode Port enable command adding too much time to system boot
+6457354 d&lt; is broken
+6456952 Jade needs to add jalapeno CPU support.
+6456885 POST trashes OBP flags
+6456539 Release new OBP image for SESI Products with enhanced Panther 2100MHz timing.
+6455202 "supported-network-types" on BGE will breaks with 1000Mbps settings
+6454051 LSI 1064E compatible property does not match Solaris driver aliases file in s10u2
+6452256 OPL OBP to support the new error log format and unit/part codes (name-id) of faulty device
+6452237 OPL OBP degrades all SCF paths if it send an SCF command while SCF is busy
+6452223 OBP should program "cache-line-size" register for PCIe devices also
+6452183 Panther 2100 Ecache timing number change.
+6451938 Add POST support for Elpaso
+6451762 Add Obp El Paso support
+6451721 flash-update command not working for Schumacher
+6451168 Fix the 1st level and 2nd level slot-count values for OPL systems
+6451159 OPL OBP to ignore bits 0 &amp; 1 of Oberon UBus Device ID reg when creating "module-revision#" property
+6451155 OPL OBP need to support IOUs with old (rev 4.3) and new (rev 4.5) NEC PCIE-PCIX bridge
+6450624 Disable NPWR_EN on Seattle
+6450457 OBP flashupdate from 4.22.11 to 4.22.13 fails with "flash device is write protected"
+6449659 Pelton POST PCI id test output incorrect for PCIX and PCIE slots.
+6449538 BGE properties hang net boot loading Solaris
+6448548 New MB and CP numbers to support Panther 2100.
+6448085 post fire2.1 support
+6447852 Incorrect value used for stick and tick timer mask
+6447824 Cleanup code for error detection/faulty device identification and save-registers-all command
+6447821 Chassis serial number should be increased from 8 bytes to 10 bytes on OPL machines
+6447820 Stick syncing code in OPL OBP should not use stick counter to check for timeouts
+6447818 OPL OBP should not refer to boot-mode flag in HWD to stop auto boot of OS
+6447815 SCF selection code would select the last selected SCF even when all the SCF paths have been degraded
+6447810 For OPL machine, %tba &amp; %tl should be restored in WDR handler when TBA/TL parity error is detected
+6447763 OPL needs Multipath boot support
+6447749 OPL OBP needs to create device aliases for 'disk', 'net' and 'cdrom' based on domain configuration
+6447642 LSI 1064 fcode modifies latency timer and cacheline size without updating corresponding properties
+6447326 Remove CPU speed configuration menu
+6447320 Remove OBP flash-update command
+6445593 Extra activities on V245's I2C bus may cause false POST failures
+6444152 Seattle Unix OBP flash update script needs to support new Seattle MB part numbers
+6443014 Sun4v OBP variations should use FWARC approved methods to parse Machine Description data
+6442350 U45,fails to negotiate w/the DSS-8+ switch and has no network access when init 6 or reset-all
+6441889 OBP needs to support Netra CP3060
+6441770 I2C workaround for EPIC access issue
+6438710 Platform name for Ontario and Erie has to be changed in POST
+6438649 I2C contention between OBP and ALOM
+6438159 Seattle OBP needs to support 2UEEL riser card
+6436371 OPL OBP need support to degrade a device that executes "abort" while FCode evaluation
+6436354 Oberon PCI IO space allocation should start with a non-zero address
+6436300 netconsole gets stuck while running obdiag with base fabric interface
+6436266 Pseudo-mc node for OPL should not be created for LSBs that have been marked as degraded in HWD
+6433152 Add flash update support for RoHS V210/V240 R06 MB_PN's
+6432504 Support Jalapeno+ processor on Boston.
+6431870 IO forwarding ranges not properly shut down in PCI bridge FCode
+6430572 Suppress FCODE map-in whine.
+6430500 preprober code touches all devices including devices that are marked bad/blacklisted
+6430219 PCI Preallocation code uses 'min' to compare PCI resources which treats value as signed number
+6430086 auto-boot? config variable should default to 'true' on OPL machines
+6430079 Method pcie-capability-regs in obp/dev/pci/device-props.fth should change as per CR 6420194
+6429329 Issuing XIR on OPL machine causes system hang
+6428946 Need work around in obp to fix farward reference bug in guest md
+6428852 putback for 6395675 panics Boston platform with ereport.io.fire.pec.cto.
+6427102 flx18074: ERROR: motherboard SEEPROM access failed
+6427093 flx18052: Hot swap may cause chassis-type to be set to zero, FW 4.22.4
+6426346	OPL OBP should setup Alive Check execution to detect machine hangs due to transient errors
+6425918 POST script needed to track duplicate function declarations
+6424812 ereport.io.fire.dmc.tte_inv seen on ontario and ontario+ using system firmware 6.1.9
+6424432 Negotiate hypervisor API version 1.0 for the interrupt group id on behalf of legacy Solaris
+6423803 OBP support for dynamically programming the SAS WWID
+6423795 Serrano support for Schumacher board
+6423788 Broadcom 57xx fcode driver support for IPMI/ASF firmware
+6423761 wait for doorbell failed,  LSI fcode 1.00.41 needed
+6423137 flx18017: netconsole does not get to ok prompt after xir on Jade satellite
+6423131	OPL OBP breaks compatibility with PCIe base spec by representing Oberon child devices at device#1
+6423090 Fire TLU Ctrl Reg NPWR_EN bit must be set to 0 on Boston.
+6423038 Third party graphics card (Barco) not recognized after upgrading OBP 4.9.7 to 4.17.1
+6422909 When first power on and at OBP level the wrong characters appear on screen...
+6422818 Solaris boot panics on pelton
+6422104 Rearrange Oberon driver code to share code between the Oberon leaves
+6421977 A WARNING message is seen in POST running with 1GB Infineon DIMM (seattle 1U S163)
+6421866 Boston-specific Fire GigaBlaze settings for Optimal PCI-E Signalling.
+6421833 Confusing POST error message "Address does not match in free call" for a CPU failure
+6421344 'slot-names' property not created if Oberon leaf link-up fails on OPL machines
+6421308 Incorrect "available" property for cmu-ch node in OPL platforms
+6420886 POST needs to be enhanced to support Montoya platform
+6420241 Make the PLX 8532 PCI-Express workaround for CR 6397497 standard probing procedure
+6420194 Need to protect find-std-capability and find-extd-capability from hang due to a bad hardware
+6420147 Method 'disable-children' in dev/pci-bridge/dec21152/pcibridg.fth does not disables all children
+6420137 Wrong mask used to clear pci errors in 'clear-pci-errs' method defined in obp/dev/pci/pcibus.fth
+6420097 phys.hi&gt;cfg-offset method does not work for non-PCIE bridges
+6419216 WANBoot : Cannot create ramdisk "ramdisk-bootfs"
+6418658 Fix incorrect ASR paths
+6418642 Net boot failed on Jade platform
+6417885 Backout INTX disabling fix (6377849) from OBP
+6416671 Jade smc smcenv-sync print wrong data
+6416658 POST needs to be enhanced to support Pelton platform
+6416169 flx17820: Dimm1 dimm0 devices disabled Fatal error on Jade
+6416142 Disabling components causes MMU miss error in obp probing
+6416036 Jade obdiag alarmdiag runs only 3 tests
+6415545 FW needs to dump the core shadow scan data on an IERR
+6415442 Change Branch Predictor Mode (BPM) in OBP for Panther USIV+.
+6414995 Pelton platform support in obp 4.x
+6414799 Seattle OBP needs extra guard pages for boot support
+6413698 reset-all displays many JBUS-PCI bridge master error logs on a RR chicago system with obp 4.22.5
+6413467 Boot from DVD does not works on OPL machines
+6412889 Fiesta products with 1MB flash roms do not fit with POST and OBDIAG in the second 512kb
+6412550 Montoya needs OBP slot-names property
+6412474 OBP find-drop-in? goes out side the flash size and hits the MMU Missing
+6412462 Jade sat's mcnet does not work properly on 4.22.4 OBP.
+6411912 POST fails scrub memory
+6411069 OBP PLL data writes should be consistent with POST.
+6411051 ASR disabling PCI slots does not always work.
+6409416 Add watchdog timer support to OBP
+6407889 Add 2UXXL support, remove 2UEXL support
+6407069 flx17690: ERROR: no valid memory configuration, System config failed, powering off on Jade
+6406577 Hotplug Allocation Support needed in OpenBoot
+6406195 "Change Southside obp's root name"
+6406142 PCI bridge code handles IO limit = 0 incorrectly
+6406091 Fix some stack comments and nits in common OBP code
+6406061 Fix the decoding of 'movr' instructions in OBP sources
+6404798 Host keeps on resetting when keyswitch is set to diag.
+6403073 Serranos with no memory may report false POST errors - CTRL/C; POST error &amp; poweroff(P1.0 S#133)
+6402909 PoST change required to implement Spread Spectrum J-Bus Clock
+6402905 OBP change required to implement Spread Spectrum J-Bus Clock.
+6401719 IO-Bridge Error - Data miss compare when running DMA loopback mode. 
+6401634 Olympus Product Line (OPL) system support in OBP 4.x gate
+6400408 Modify RX_EQLIZR_CTL bits in Seattle Fire LPU Gigablaze Glue Config2 Register to 0000 from default
+6400192 Boston OBP needs extra guard pages for boot support.
+6400117 cdrw -p24 command does not work correctly on T2000.
+6399627 Southside suport in post 
+6399215 Add Southside support
+6397564 calls to hypervisor version API need to be specific to a cpu architecture
+6397497 Boston (V445) will not boot with LSI20320-S (Meteor) HBA installed.
+6397170 missing device_type property on ebus bus node properties
+6396546 Remove pre-P1.0 hacks
+6396540 Program static SAS WWID at boot time
+6396533 Solaris flash-updater broken
+6396528 PCI-X out of band riser card interrupts should only be created if 2UEXL or 2UEEL riser card used
+6396519 OBDiag EPIC test fails
+6396464 interrupt-cells property in the ebus node has a typo in it.
+6396318 Printed date in OBP is off-by-one after 28-feb 2006.
+6395015 2Gigabit/Sec Single FC Host Adapter (JNI) Last Trap: Data Access Error.
+6394040 OBP doesn't handle low-cost keyboards without bCountryCode byte
+6393958 Jade (CP2500) needs to add hybricon chassis support.
+6393953 Updated P5 firmware/obp an entra "cr" in console-filter of ipmi-serial.fth
+6393665 Solaris flash-update script fails.
+6393492 Need to enforce memory CAS latency minimum of 2.5 on DIMMS running at more than 133MHz
+6392873 reset-all after asr-clear executed makes OBP ERROR: motherboard SEEPROM access failed.
+6392749 Add support for decoding Serrano specific AFSR register bits
+6392744 Netra 240 OBP should support Serrano and Jalapeno CPUs dynamically
+6392742 Netra 440 OBP should support Serrano and Jalapeno CPUs dynamically
+6392539 Volume type is being referenced instead of volume id in 1.00.39 1064 fcode
+6391455 Create reg property directly rather than with ebus code
+6391361 post and picl DIMM labels are different.
+6390564 Pelton does not provide slot-names property
+6390526 USB 2.0 Hub gets lost to OBP after Solaris EHCI driver run
+6389988 POST Prints out DIMM #'s instead of proper nomenclature
+6389161 Fire rxeq values not optimized for ontario
+6388925 Alom Obdiag subtests are not available in test option menu.
+6388673 POST fails IO-Bridge unit 1 at address 00000400.0f701400
+6388582 add hypervisor/supervisor split for n2
+6388093 Wanboot with S10_U1 miniroot panics with "map_prom: prom i/o page without side-effect"
+6387399 VPCI fcode: Access to PCIE extended config space does not work correctly
+6386341 post needs to check link width for onboard devices
+6386216 Changes to MD's in vBSC need to be reflected in OBP
+6385582 VBSC and POST have different memory size
+6384845 local-mac-address support does not works on OPL machines.
+6384335 chicago unable to boot off network port 1
+6383658 Dynamic FRUID writes cause OBP MB FRUPROM reads to fail
+6383237 nvramrc must be evaluated before probe-all
+6382974 Schumacher IPMC device node creation faults.
+6381818 stand-init debug functionality does not work as expected
+6381385 Upgrade LSI 1064 FCode to 1.00.39
+6381283 sun4v platform support
+6381281 bge fcode should support device args and properties specified in FWARC/2002/345
+6381279 Remove no-probe-list property from Fire nodes
+6381277 Interpreter workarounds for historical/legacy fcode prom bugs must be removed
+6381274 Code restructuring changes needed for proper vfcode tracking
+6381272 Use system-tick-speed instead of ms-factor to measure time
+6381271 All configuration variables should be set to defaults on NVRAM initialization
+6381242 Seattle platform support
+6381125 ERROR: The following devices are disabled: ide.
+6381115 mixed speed memory will not interleave in enchilada system
+6381105 obp needs to support RoHs scsi disk bkpln 501-7344 for Netra 440
+6381084 bootmode reset-rvram does not reset nvram variables.
+6381064 System cannot boot with input set to type-7 keyboard plugged into front Ontario T2000 usb port.
+6380975 "Chicago/Southside does not provide slot-names property"
+6380622 menus in post shows incorrect number of CPUs
+6380442 Seatle_P0.1-2U: FATAL: no exception frames available, forcing misaligned trap (S#S020)
+6379979 fcode: map-in of config space does not work correctly
+6379878 Chicago OBP should tune ebus chip select timing as an intermediate step towards meeting STARS 
+6379876 USB time out errors seen in OBP during power-cycle testing 
+6379703 POST for St Paul
+6377849 Need to disable INTX prior to boot
+6377208 Jade B8.1 : boot F/W debug messages has been seen druing reboot after updating SMC firmware
+6377038 Jade B8.1: In cPSB, "Warning: Fcode sequence resulted in a net stack depth change of -3" in reset
+6376657 OBP I2C Drivers should frame each unique addressed device with a START and STOP.
+6376524 show-sensors output values are incorrect.
+6375990 Make all I2C transactions including errors send a stop
+6375003 nvram access faults when dropping from Solaris to OBP.
+6374738 Address for PSU0's fruid prom needs to be 0x24 for P1.0 Boston.
+6372564 Preparing for new niagara platforms
+6372458	Boston PCIX interrupt maps incorrect.
+6370408 flx17072: Jade satellite goes to 'config" when powering off while rebooting. B8.
+6370405	flx17062: Jade satellite on B8 does not use the FRU Boot_Devices correctly.
+6370384 Need to have ability to print out CPU temperature from POST menus
+6370015 OBP should print out a message if it detects problem and resets RTC
+6369302 Hostbridge loopback tests cause errors in menu-min mode
+6368716 bringover -g; make from OBP 4.x gate fails for boston
+6368614 WARNING: devinfo: fault in private data at 60000d794e8
+6366606 Add in PLX eprom check
+6366588 fcode gives erroneuos values for config address &gt; 0xf.0000
+6365688 Additional DRAM address info needed in post memory error output
+6365656 Add a Niagara screen test for the L2-Writback (LDWC) error
+6365640 Add Block Memory schmoo test to the POST Menu
+6364700 "Add obdiag support for AM29LV017D and AM29LV033 flashprom devices"
+6364532 Add SeSi 2.1GHz UltraSPARC-IV+ support
+6364445 post, dynamic pci device probe, pci error check utilities
+6364139 OBP shows "ERROR - BCM5714 device 0 missing" with pci1 is disabled.
+6363976 debug flash-update tool from the ok prompt needs to be removed 
+6361563 POST failed: 0&gt;ERROR: TEST = IO-Bridge unit 1 int init test
+6361535 POST needs to be enhanced to support Netra(tm) CP2500
+6361097 post with verbosity debug mode fails
+6361002 Jade B7: obdiag hangs at serial console test
+6360432 Porting 4.x OBP to Jade (Netra CP2500) platform.
+6360367 post failed to correctly report number of bad DIMMs in the chicago system.
+6359716 Chicago POST needs to have workaround in order to head off PLX CE problem observed on Ontario
+6359345 Chicago should takes steps to avoid the "Stuck CE" issue seen on Ontario
+6358110 POST needs to check pcie link width.
+6358075 add 440 RoHS part number
+6358072 Spread spectrum clock programming for Boston
+6356915 OBP is unable to boot the system if CPU is in low power mode 
+6356687 Remove old CMD hardware workarounds from the ULI 1575 usb fcode driver
+6356644 Chicago OBP should flash the power LED rather than the fault LED during boot sequence
+6356637 msix-data-width property in fire nexus node reads: msix-date-width instead 
+6356428 Boston platform support.
+6354366 support for Four-Eye chip test
+6353715 USB devices missing from OBP device tree during power-cycling
+6352494 "Add obp support for AM29LV033 flashprom device"
+6352086 fix fire-i write false fail error
+6350004 tpm code updates.
+6349949 erie post DB9 uart init,
+6349827 POST needs to update keepalive counter to vbsc
+6349469 "RoHS V210: ERROR : pci14e4 Misc Local Control register"
+6348525 Need to add speed jumper support in P0.1 POST
+6347549 Request to have test name convention to identify between Test, subtest, message, etc. 
+6347502 Request for adding timestamps to POST code
+6347455 reg property in broadcom 5704, 5714, and 5715 does not match assigned-addresses property
+6347412 Increase slave timeout to handle 4 Serrano CPUs
+6347315 unused POST modules/routines
+6346885 OpenBoot does not handle Non-Resumable Error traps
+6346834 POST doesnt initialize ERROR_STEERING field
+6346813 Niagara POST dimm pin mapping wrong for 9 pins on  ch1,3
+6346530 sun4v OBP needs to support versioning APIs
+6346290 stack is not empty after a reset or power-on reset. 
+6346267 chicago su16550 driver disregards ttya-mode and ttyb-mode nvram variables
+6346222 Data access error from broadcom fcode when given unrecognized device arguments
+6345861 Exception taken while probing results in a dictionary overflow/hang rather than ok prompt
+6345852 flx16583: On Jade system the uname -i is reporting the wrong thing.
+6345808 Seattle POST hung the ALOM on R0C
+6345548 post id string update,
+6344992 Add generic Serrano CPU support.
+6344802 Skip external interrupt pins
+6344537 asr disable/enable of cpu and memory causes POST to fail
+6341068 Clean up dependencies for Schumacher build
+6340824 OBP needs to support the 108e,1678 Broadcom 5715 subsystem
+6340821 %bringover -g; make from OBP 4.x gate fails for chicago
+6340485 diag-out-console name should not be in chicago nvram configuration variables
+6339872 remove word "Error" from this message "Fire TLU-A OE Error status:"
+6339760 after a forthdebug breakpoint test case, failed completing boot unix with looping WARNING messages
+6338965 Ontario and Erie POST prints NULL characters as output, confuses and corrupts gnome-terminal
+6338777 Prevent ufsboot giving divide-by-zero from bad argument
+6336692 Latest Seattle POST can not detect LS1064 disk tape functions with device-id set to hex 50
+6335492 When CPUs on module B are disabled then CPUs on module A are effectively disabled.
+6334308 POST does not handle channel [1&amp;2] 2-channel mode correctly
+6333723 POST needs to be enhanced to support Schumacher (SUNW,Netra-CP3010) node board used in the ATCA platform. 
+6333659 Schumacher platform support needs to be integrated in 4.x gate
+6333076 ontario 1064 onboard support
+6332576 updates to pciid test for unknown devices
+6332106 Can't go to ESTAR mode when in MP mode
+6331616 Speed up Daktari/Cherrystone time-to-boot
+6329044 Post failed an IO bridge test, howerver, show-post-results printout is passed
+6327140 Set Mailbox in POST does not terminate when hit with CE
+6327114 Block Memory does not terminate correctly when hit with CEs
+6326930 Update SUNWSMSob package to align with SMS 1.6
+6326496 add workaround to USB FCode for Cypress CY7C65640 USB hub non-compliance
+6326441 Chicago OBP needs to be released out of an official gate
+6325917 Fire Loopback DMA test fails if dimms 0 and 1 are missing from CPU0
+6323590 need to check PLX seeprom to make sure workaround for Erratum 34 is present
+6323585 need POST support for new PLX port strapping for R0B2 and beyong
+6323579 CPU functional tests fail
+6323565 POST fails at check PLX seeprom if OBP is run before POST
+6322957 wrong POST and OBDiag version printed out at ok prompt
+6322907 Enchilada workstation name "2500" in POST output should be changed to reflect chicago product, name.
+6321482 Post selection menu entry 12 not possible
+6320921 More info desired on Hardware Fatal Reset
+6320918 V490/V890 XIR may spuriously fail
+6318305 Added MB_PN's 375-3359 and 375-3360 for Netra 210/240 and V210/240.
+6315148 nia_clean fails at top level
+6313800 OBP should read and print the 'test release' flag while printing H8 firmware version
+6313129 L2 cache scrub takes too long with Serranos
+6312957 Chicago PCI bus bandwidth is 6 times slower than Fiesta+ PCI 
+6312383 POST needs to be enhanced to support Netra 210 (Salsa-19) server
+6310450 error reporting AFSR/AFSR-ext using engineering thrasher test on camelot system
+6306001 POST Scan ring integrity message shows Jaguar/Panther CPU as Cheetah.
+6305975 Block Memory Test sometimes offlines the wrong dimms
+6305812 Block Memory test reports confusing error message at high memory frequencies
+6303388 SeSi new motherboard part numbers for Flash Update
+6300972 R04 netra 210 motherboard has AM29LV017D flash memory
+6300724 Need to add a TPM HW integrity test within POST
+6299605 erie post reports link training error on fire2.0
+6299482 Cannot schmoo jbus freq from POST Menu
+6299060 Need add a new motherboard part # for Netra 210 R04 motherboard
+6299053 OBP could not reset Broadcom 5704 ethernet controller phy (revision b0 - P20)
+6297477 Host bridge errors reported but POST still reports all devices pass
+6297463 POST support for Seattle
+6297452 Need to be able to select between dma loopback testing and pci-id tests in post menus mode
+6291681 POST hang on multi-thread niagara that does not default to core0:thread0
+6290779 Print out serial number of CPU chip when POST runs at any diag_level
+6288074 P3-Medium: POST 4.x gate needs to be synced up with Niagara POST sandbox 
+6286277 prtdiag showes wrong bus freq. for c5 slots
+6285982 POST drops chars for cut/paste in service console.
+6284318 Cheetah+ 1200MHz modules power on fail with Panther scheme
+6284105 add support for Netra 210 1U server.
+6282737 POST does not handle cpu rollover correctly
+6281593 If POST encounters a FATAL ERROR it returns status that all devices passed
+6276317 Remove Xmits 3.0 workaround from fcode driver
+6276146 Instance data is uninitialized at the time an instance is created 
+6273179 P2-High: bluemoon tree broken in 4.x 
+6273119 SeSi PMU update
+6265745 Code to clear PCI error status bits on the host bridge is incorrect
+6263301 System fails post initialization and is unable to boot.
+6257800 SeSi PMU updates
+6257778 Enhance Panther CPU error handling
+6256341 Disable the POST FPU Block register test for Panther CPUs
+6256337 Need to fix POST poll_mc_timing routine to support multiple timing configs
+6256336 Need TH2 timing values for 10:1 1500Mhz support
+6256046 RFE: help for "post" should bring up help for diag
+6255271 "Latest (March 05) release of ENxS and Netra 210/240 motherboad not supported by latest obp"
+6254839 Add CPU core test coverage to POST level "min" test script
+6244643 Need to modify initialization time of 2X Slimline DVD-R/-RW drive to much lesser time
+6234769 Fix POST command Warning message
+6230541 ERROR: Timeout on 0 waiting for resource type 2. after a ctrl-c when memory is being initialized
+6230349 Fix spelling in .controls word in obdiag/lib/error.fth
+6183557 forth.exe uses tokenize.exe which violates the SPARC ABI causing a SEGV crash
+6181985 local-mac-address of bge interface is seen on pci card when net  NVALIAS is duplicated
+5079227 This, ")" in between "Copyright" and "2004", is not in the right place.
+5079065 Make OBP support mapping devices into 64 bit address space on PCI-E bus
+5076888 asr disabling all memory banks and a reset causes the system to shutdown.
+5064141 post does not get triggered when the triggers are set to error-reset 
+5052695 post off doesn't run at diag-level off
+4946025 WARNING: ce0:interrupt #0 has been blocked
+4854322 The idprom node is missing its close method.
+4826050 RED_State exception does not trigger POST, OBDiag when error-reset trigger set 
+4794955 POST debug menu's help not implemented
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+ 
+Note:
+=====
+After the release of the first version of this patch (-01), a regression
+was discovered that affects only certain configurations of the UltraSPARC
+IIIi platforms using the first generation of PCI bus interface controller,
+including the platform utilizing this patch release.  The problem may cause
+a system to fail to boot if it has certain PCI cards installed in affected
+PCI slots.  If this problem occurs, the system will display the following
+error message on boot:
+ 
+     ERROR: &lt;pci_device_path&gt;/&lt;Unnamed&gt;: Last Trap: Data Access Error
+ 
+This is a known issue (CR 6890136) and is to be fixed in OBP 4.30.4.a.  For
+systems that experience this issue, there are two workarounds.  Either move
+the affected PCI card to a different slot, or downgrade your firmware to
+the prior release until the -02 version of this patch is available.  Full
+details on this issue are documented in CR 6890136.
+ 
+                &gt;&gt;&gt; END &lt;&lt;&lt;
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Thursday, February 11, 2010
+
+</pre></body></html>

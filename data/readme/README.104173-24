@@ -1,0 +1,414 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 104173-24
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: y2000 i18n metatool disk mirror stripe raid ha ap replica prepatch
+Synopsis: Solstice DiskSuite 4.1_x86: Product patch
+Date: Jan/02/2003
+
+
+Install Requirements: NA                      
+                      
+Solaris Release: 2.4_x86 2.5.1_x86 2.5_x86 2.6_x86
+
+SunOS Release: 5.4_x86 5.5.1_x86 5.5_x86 5.6_x86
+
+Unbundled Product: Disksuite
+
+Unbundled Release: 4.1
+
+Xref: 
+
+Topic: Solstice DiskSuite 4.1_x86: Product patch
+	NOTE 1: SDS4.1 and subsequent patches changed the permission of
+                /etc to 775.  Please change the permissions on /etc
+                appropriately before applying the patch.
+	NOTE 2: This patch enables Solstice DiskSuite to support
+                Alternate Pathing (AP).  AP provides fault recovery
+                associated with disk and network adapter failure.
+                For information on the use of AP, refer to the
+                following documentation:
+                Alternate Pathing 2.0 User's Guide      (805-0082-10)
+                Alternate Pathing 2.0 Reference Manual  (805-0083-10)
+                Alternate Pathing 2.0 Installation and Product Notes
+                                                        (805-0522-10)
+        NOTE 3: Please refer to the Special Instructions section
+                for path specification instructions.
+
+Relevant Architectures: i386
+
+BugId's fixed with this patch: 1204367 1242214 1244863 1247309 1250238 1253394 1255186 1258389 1265579 4004412 4004441 4004551 4004668 4005380 4005880 4006305 4007037 4007392 4007398 4007403 4010514 4012852 4012858 4013095 4013260 4013935 4014398 4015009 4016074 4016077 4016847 4019273 4022285 4023536 4028959 4037581 4041484 4043506 4045398 4047436 4053955 4054815 4055412 4056298 4057456 4059094 4069629 4071083 4086524 4087555 4088501 4092580 4094010 4096841 4107819 4109132 4112296 4115701 4125102 4125517 4126681 4132360 4137924 4152073 4152800 4165227 4172062 4172973 4175562 4180039 4182141 4190557 4193723 4208254 4220034 4243160 4250383 4253688 4259974 4262040 4265511 4327807 4343488
+
+Changes incorporated in this version: 4343488
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	/kernel/drv/md
+	/kernel/misc/md_hotspares
+	/kernel/misc/md_mirror
+	/kernel/misc/md_notify
+	/kernel/misc/md_raid
+	/kernel/misc/md_stripe
+	/kernel/misc/md_trans
+	/usr/lib/drv/config_md.so.1
+	/usr/lib/drv/preen_md.so.1
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/Editor.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/EditorTmpl.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/PerfMonWindow.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/concat.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/hsp.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/logs.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/md.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/mirror.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/physicalview.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/popups.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/raid.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/slice.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/slicer.uid
+	/usr/opt/SUNWmd/lib/X11/uid/Metatool/stripe.uid
+	/usr/opt/SUNWmd/man/man1m/metainit.1m
+	/usr/opt/SUNWmd/sbin/growfs
+	/usr/opt/SUNWmd/sbin/mdlogd
+	/usr/opt/SUNWmd/sbin/metaclear
+	/usr/opt/SUNWmd/sbin/metadb
+	/usr/opt/SUNWmd/sbin/metadetach
+	/usr/opt/SUNWmd/sbin/metahs
+	/usr/opt/SUNWmd/sbin/metainit
+	/usr/opt/SUNWmd/sbin/metaoffline
+	/usr/opt/SUNWmd/sbin/metaonline
+	/usr/opt/SUNWmd/sbin/metaparam
+	/usr/opt/SUNWmd/sbin/metarename
+	/usr/opt/SUNWmd/sbin/metareplace
+	/usr/opt/SUNWmd/sbin/metaroot
+	/usr/opt/SUNWmd/sbin/metastat
+	/usr/opt/SUNWmd/sbin/metasync
+	/usr/opt/SUNWmd/sbin/metatool
+	/usr/opt/SUNWmd/sbin/metattach
+	/usr/opt/SUNWmd/sbin/rpc.metamhd
+/etc/opt/SUNWmd/devpath
+
+Problem Description:
+
+4343488 : System performance degrades as threads block in page_lock()
+ 
+(from 104173-23)
+ 
+4327807 : patch 104172-20 cause unable to reserve diskset
+ 
+(from 104173-22)
+ 
+4259974 : Wrong information of DB Replica to view in DiskSuite Tool
+ 
+(from 104173-21)
+ 
+4152073 : Disks without serial numbers are filtered out of metatool
+ 
+(from 104173-20)
+ 
+4182141 : Access to a ufs filesystem on SDS volume hang
+ 
+(from 104173-19)
+ 
+4262040 : metatool - shows invalid disk information
+4265511 : metatool - Segmentation Fault
+ 
+(from 104173-18)
+ 
+4250383 : Not possible to add second host to metaset (rpc.metad: segmentation violation)
+4253688 : metatool panics with md_admin_ioctl trap
+ 
+(from 104173-17)
+ 
+4125102 : ufs_itrunc()/top_end_async() deadlock
+4243160 : 104172/104173 prepatch script is not jumpstart aware
+ 
+(from 104173-16)
+ 
+4220034 : Patch 104172-12 severely reduces performance on raw mirrors
+ 
+(from 104173-15)
+ 
+4208254 : Added documentation to explain the write-on-write problem
+ 
+(from 104173-14)
+ 
+4193723 : sds_4.1 panics the system in md_loadsubmod/strncpy with BAD TRAP
+4190557 : SUNWmd postremove script removes AP device entries
+ 
+(from 104173-13)
+ 
+4172973 : bp_mapin panics
+ 
+(from 104173-12)
+ 
+4165227 : metatool doesn't function with AP metadisks
+ 
+4172062 : Panic: Data fault due to an invalid access to a user address
+ 
+4175562 : SUNWmdm setting second mediator cause node to abort during takeover
+ 
+4180039 : 104172-11 causes metaset -r to hang
+ 
+(from 104173-11)
+ 
+4087555 : write-on-write condition isn t detected for raw and direct io
+ 
+4094010 : DiskSuite kernel thread (md_daemon) does not adhere to cpr callback protocol
+ 
+4132360 : SUNWmdg/lib/libi18n/i18n_mkmsgs does not generate .msg files in gencat
+ 
+4152800 : detaching a log from active trans sometimes causes filesystem damage
+ 
+(from 104173-10)
+ 
+1244863 : meta_get_hotspare_names can return a NULL error packet
+ 
+1255186 : cryptic error message when creating RAID with duplicate devices
+ 
+4057456 : Fixed prototype to pick up permissions and owner/group for
+known directories.
+ 
+4069629 : panic in raid_iosetup() on a RAID5 volume on an SSA
+ 
+4071083 : BAD TRAP in md_stripe due to an illegal access to a user address
+ 
+4086524 : During bootup receive message: cannot create md.logd.cf
+ 
+4109132 : sds: hang with heavy io when using logging
+ 
+4125517 : DiskSuite doesn't work with the Alternate Pathing project
+ 
+4126681 : metatool can dump core with AP changes
+ 
+4137924 : cannot install patch 104172-09 due to inconsistent patch pkg pkgmap files
+ 
+(from 104173-09)
+ 
+4115701 : Fix for Y2000
+ 
+4096841 : mdlogd core dumps every time a trap occurs
+ 
+4092580 : System crashes in stripe_set with BAD TRAP type=0x10
+ 
+4088501 : system panics after running metaclear
+ 
+4037581 : MetaTool must run as root, AdminSuite as nonroot
+ 
+4112296 : Hot swap with A5000 disks fails
+ 
+4107819 : SDS ADSM: ioctl with param DKIOCGAPART not supported
+ 
+(from 104173-08)
+ 
+1253394 : TStran's setup.out and cleanup.out files show bogus test names
+ 
+4055412 : bug in SDS 4.1 test driver causes SDS 4.1 event notification test fail
+s in 2.6
+ 
+4059094 : ODS 4.0 may cause panic in tstile_alloc+0x24
+ 
+(from 104173-07)
+ 
+4053955 - round % dirty regions up to nearest percent in metastat debug output
+ 
+4056298 - metastat debug output displays bad information after replicas
+          have been deleted
+ 
+4054815 - prevent devices &gt; INT_MAX blocks from overflowing device limits
+ 
+4047436 - Disksuite patch 104172-04 makes stomgr unusable (ESC# 509659)
+ 
+1250238 - libconfig doesn't return storage descriptors for all disks in a set.
+ 
+(from 104173-06)
+ 
+NOTE:  SDS 4.1 patch 104172-06 was only released as a T-patch.  See Bugs
+       corrected in revision 07 for bug fixes incorporated into this patch.
+ 
+(from 104173-05)
+ 
+4043506 - mirror_map_write() overwrites label on x86 during metareplace of mirror component
+ 
+4045398 - ODS syncing devices will cause a read to hang
+ 
+1258389 - on metasync -p failure, EQ_REGEN_DONE event returned instead of EQ_REGEN_FAILED
+ 
+1242214 - TSmd/setup sometimes fails if test suite temp directory contains files
+ 
+(from 104173-04)
+ 
+4041484 - system panics during ha-switch due to mirror_mark_resync_region
+ 
+(from 104173-03)
+ 
+4019273 - mirror not synchronizing properly with ODS 3.0 or ODS 4.0
+ 
+        In some circumstances, when an application is modifying pages
+        as they are being written, submirrors may momentarily contain
+        different copies of data. This fix narrows this window to a
+        much smaller time.
+ 
+4023536 - RAID5 needs to set 4 bytes alignment for write buffer
+ 
+4028959 - Incorrect size indicators are shown on Disk Information window.
+ 
+(from 104173-02)
+ 
+4004412 - add disk to diskset w/ stale dbases wipes out any existing
+	  configuration
+ 
+4004551 - taking set with 2 of 3 replicas bad &amp; mediators, returns 50/50
+	  instead of stale
+ 
+4005380 - loading a module when dbase is stale panics the machine
+ 
+4004668 - release then take of diskset with mediators and tagged replicas
+	  clears replicas
+ 
+4005880 - metaset -q shows and metaset -t -u accepts tags that are no
+	  longer available
+ 
+4006305 - fully qualified non-existent slice results in core dump,
+	  eg. /dev/dsk/c0t0d0s44
+ 
+1247309 - metaset takes a long time to take a set when a disk in an ssa
+	  is down
+ 
+4012852 - inability to update at least 50% of mediators results in a panic
+	  on take owner
+ 
+4012858 - SUNWmdm cannot be upgraded using standard pkgrm/pkgadd procedures
+ 
+4013095 - metaset(1M) does not always balance replicas properly on dual
+	  string configs
+ 
+4015009 - cannot forcible delete of a host and of a mediator host (host
+	  repair procedure)
+ 
+4016074 - metaset take ownership takes too long w/ unreachable mediator host
+ 
+4013260 - specifying diskset name prefix with device name stopped working;
+	  must use -s
+ 
+4016847 - metadb -s-a fails when mediators are installed and second cluster
+	  host is down
+ 
+4016077 - medstat(1M) takes too long w/ an unreachable mediator
+ 
+1204367 - Customers request ability to perform resync at disk speed
+ 
+1265579 - RAID-5 under extreme loads hangs for 10,000 seconds
+ 
+4004441 - Mirror and Stripe xcall performance slower on 2.6 than on 2.51
+ 
+1250238 - libconfig doesn't return storage descriptors for all disks in a set
+ 
+4022285 - metaset -s -t -f will allow takeover of string with stale data
+	  with no error
+ 
+(from 104173-01)
+ 
+4007392 - (i18n) metatool hangs when select Exit on the File menu.
+ 
+	  1) launch metatool under ja locale with both metatool.cat and
+	     Metatool for ja.
+	  2) select File -&gt; Exit
+	  3) metatool hangs
+ 
+4007398 - (i18n) Some items for Statistics Graph does not shown properly
+	  in ja locale.
+ 
+	  "Wait Queue", "15 Minute History (5 second intervals", "Totals",
+	  "Reads", "Writes" and "Load" are not shown properly in ja locale.
+ 
+	  The value for the divisions of the right scale of the graph does
+	  not show properly. It seems that the value is 0.0001, but it
+	  could not be shown.
+ 
+	  The value for the divisions of the left scale of the graph might
+	  have same problem as above.
+ 
+4007403 - (i18n) "Size" of "Disk Information" is not correctly i18ned.
+ 
+	  The "Size" option menu in the Disk Information window is not
+	  i18n'ed correctly.
+ 
+4007037 - (i18n) missing messages for metatool.
+ 
+	  "Tools" and it's menu items of metatool of SDS4.1 are not
+	  i18n'ed.
+ 
+4010514 - (i18n) some OK seems to be hard coded.
+ 
+	  The OK button labels are hard coded in some places.
+ 
+4013935 - "On Help..." does not show correct help messages
+ 
+	  The Help window, which comes up when selecting the "On help..."
+	  from the "Help" of DiskSuite tools (metatool, and so on),
+	  does not show the correct help message.
+ 
+4014398 - %s shows up in several error dialogs
+ 
+	  The error dialogs for some SSA operations have a %s in them
+	  that's not filled in by the object that the error occurs upon.
+
+Patch Installation Instructions:
+--------------------------------
+Refer to the Install.info file for instructions on using the
+generic 'installpatch' and 'backoutpatch' scripts provided with
+each patch.  Any other special or non-generic installation
+instructions should be described below as special instructions.
+
+Special Install Instructions:
+-----------------------------
+ 
+Reboot the system after patch installation.
+ 
+The only caveat when using AP with Solstice DiskSuite is that you
+must specify the full pathname when using AP with a DiskSuite
+command.  For instance:
+ 
+  # metahs -a hsp001 /dev/ap/dsk/mc3t0d0s2
+ 
+The differences are the use of the "ap" directory in the path
+and the addition of the "m" in front of the device name.
+ 
+It is not necessary to specify the full pathname when using the
+metatool graphical user interface.  Metatool finds the appropriate
+path.
+ 
+NOTE:   To get the complete fix for 4125102 (ufs_itrunc()/top_end_async()
+        deadlock), make sure to install the kernel update patch on your
+        system.  Here are the kernel update patch versions that have
+        the fix for 4125102:
+ 
+        Solaris 2.4 i386        101946-55 (or newer)
+        Solaris 2.5 i386        103094-22 (or newer)
+        Solaris 2.5.1 i386      103640-29 (or newer)
+        Solaris 2.6 i386        105182-17 (or newer)
+	Solaris 7 i386		106542-07 (or newer)
+
+README -- Last modified date:  Thursday, March 24, 2011
+
+</pre></body></html>

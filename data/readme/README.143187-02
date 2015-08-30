@@ -1,0 +1,400 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 143187-02
+
+NOTE:
+***********************************************************************
+Your use of the firmware, software and any other materials contained 
+in this update is subject to My Oracle Support Terms of Use, which 
+may be viewed at https://support.oracle.com.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: h7220aa30 2.0tb disk firmware sata 4540 and 4275 and for thor (x4540) boot drive, seagate st32000644ns st31000524ns 2.0t 1.0t disk firmware sata patch sun fire x2270 m2
+Synopsis: Hardware/SATA Disk Jupiter K 2.0T, Muskie 2.0T and 1.0T: firmware patch for S10_x86/RHEL
+Date: Mar/19/2013
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 10_x86
+
+SunOS Release: 5.10_x86
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: Hitachi Jupiter K 2.0TB SATA drives and Seagate Muskie 2.0T 1.0T SATA drives
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: i386
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+NOTE:
+	 Maintenance release for ST32000644NS ST31000524NS to SM04 
+SID Status
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	143187-02/.download
+	143187-02/Linux_download
+	143187-02/README.143187-02
+	143187-02/ata_disk_load32
+	143187-02/ata_disk_load64
+	143187-02/disktool.pl
+	143187-02/dload_sparc
+	143187-02/download
+	143187-02/download32
+	143187-02/download64
+	143187-02/firmware/H7220AA30.A28A.fw
+	143187-02/fwupd64x4500
+	143187-02/fwupdx4500
+	143187-02/image
+	143187-02/image/multiboot-143187-02
+	143187-02/image/x86.miniroot-143187-02
+	143187-02/linfwupd64x45xx
+	143187-02/linfwupdx45xx
+	143187-02/mdload
+	143187-02/megaraid
+	143187-02/megaraid/bitops.sh
+	143187-02/megaraid/linux_bitops
+	143187-02/megaraid/solaris_bitops
+	143187-02/mload
+	143187-02/nv_x32
+	143187-02/nv_x64
+	143187-02/patchinfo
+	143187-02/x86
+	143187-02/x86/mdload
+        143187-02/downloadx32
+        143187-02/downloadx64
+        143187-02/firmware/ST31001NS.SM04.fw
+        143187-02/firmware/ST32000NS.SM04.fw
+143187-02/firmware
+
+Problem Description:
+
+The patch has the following bug fixes:
+ 
+Previous History:
+ 
+Installation Instructions:
+ 
+--------------------------------
+ This Patch has disk drive Firmware Installer Utilities.
+ 
+ 1. This patch includes firmware downloading utility (disktool.pl)
+ that will upgrade code as needed on boot drives only Thor (4540) system ONLY 
+ 2. This patch includes firmware download utility disktool.pl 
+    for systems running Linux and Solaris in JBOD mode
+    The firmware can also be downloaded via (download) utility
+    if the system running un JBOD mode
+ 3. This patch includes firmware download procedure for systems
+    running the LSI MegaRaid HBA
+ 4. This patch includes firmware download utility (nv_x64 nv_x32) that will
+upgrade or download code to drive in x2270 M2 and GDG system 
+ 
+ This patch will be official released as 143187-02 
+ this is unbundled Tpatch.
+ 
+ The script(s) are intended for use on Sun host systems only.
+ 
+***********************************************************************
+ 
+ To install the contents of this Patch see the pertinent section below.
+ 
+ Sections Index
+  Initial Installation Instructions.
+1   Procedure for x4540 (Thor)
+1.1 Special installation instructions for Boot drive
+    And System related patch issues
+2   Procedure for general download 
+2.1 Linux JBOD env
+2.2 Procedure to Download to Drives behind LSI Megaraid HBA 
+2.3 x86 with Solaris 10 U5 or earlier 
+2.4 x86 with Solaris 10 U6 or later
+ 
+**************** Initial Installation Instructions************
+ 
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. The system MUST BE IDLE during the download process!  No other
+   programs should be running while using this utility is being
+   used.  Failure to do so may cause the devices being upgraded
+   to fail or the system to crash.
+ 
+   Any other computers sharing the same I/O bus as the host system
+   must be either disconnected or offline to prevent possible
+   disruption of the firmware download process.
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.out" and "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ 
+1. Procedure:
+ 
+1.1. This section is a disruptive procedure!! System must be brought down to
+maintenance mode. 
+To update system drives follow the "143187-02 Disk f/w image" procedure described below
+Note- This section is for x4540 if you meet the following criteria
+    b. x4540 (THOR) system disk.
+(This procedure can be used for upgarding all disks also.)
+ 
+a) In the patch directory, as root install the ramdisk image in /boot
+	# cp ./image/x86.miniroot-143187-02 /boot
+	# cp ./image/multiboot-143187-02 /boot
+ 
+b) Obtain the location of the active GRUB menu, by running the command
+   'bootadm list-menu' and create a backup of the GRUB active menu
+	# bootadm list-menu
+	The location for the active GRUB menu is: /boot/grub/menu.lst
+	default 0
+	timeout 10
+	0 Solaris 10 8/07 s10x_u4wos_12b X86
+	1 Solaris failsafe
+ 
+ 
+	# cp /boot/grub/menu.lst /boot/grub/menu.lst-pre143187-02
+ 
+c) Edit the active GRUB menu '/boot/grub/menu.lst' and append to the file
+ 
+	i). If the system is configured with a keyboard OR the Java Console
+	    Redirection is used, append the following
+ 
+	    #----------------- 143187-02 DISK f/w ---------------
+	    title 143187-02 Disk f/w image
+	    kernel /boot/multiboot-143187-02 kernel/unix -s
+	    module /boot/x86.miniroot-143187-02
+	    #--------------- END 143187-02 DISK f/w -------------
+ 
+	ii).If the console driven via the SP using 'start /SP/console' append
+	    the following
+ 
+	    #----------------- 143187-02 DISK f/w ---------------
+	    title 143187-02 Disk f/w image
+	    kernel /boot/multiboot-143187-02 kernel/unix -s -B console=ttya
+	    module /boot/x86.miniroot-143187-02
+	    #--------------- END 143187-02 DISK f/w -------------
+ 
+** IMPORTANT NOTE: **
+	The option '-B console=ttya' denotes the console device.
+ 
+	Possible values are ttya,ttyb and text. For confirmation of the setting
+	please view your active GRUB menu 'cat /boot/grub/menu.lst' paying
+	particular notice to the console device specified in the failsafe 
+	section and change in the above data to be appended where appropriate.
+ 
+d) Reboot the system and select "143187-02 Disk f/w image" in the GRUB boot
+   menu and select 'n' to not mount any system disks
+	SunOS Release 5.10 Version Generic_137138-09 32-bit
+	Copyright 1983-2008 Sun Microsystems, Inc.  All rights reserved.
+	Use is subject to license terms.
+	Booting to milestone "milestone/single-user:default".
+	Configuring devices.
+	Searching for installed OS instances...
+ 
+	Solaris 10 8/07 s10x_u4wos_12b X86 was found on /dev/dsk/c3t0d0s0.
+	Do you wish to have it mounted read-write on /a? [y,n,?] n
+ 
+	Starting shell.
+	#
+ 
+e) Install the new disk f/w and reboot
+	# cd /143187-02 
+	# ./disktool.pl
+	# init 6
+ 
+ 
+	Any device that is in-use by another application will not
+	be upgraded.  The following warning message will be
+	issued:   c1t3d0s0: Open failed, device busy
+ 
+ 
+ 
+2   Procedure for general download
+    ------------------------------
+- Untar the Patch
+TEST&gt; tar xvf 143187-02.tar 
+.
+.
+TEST&gt; cd 143187-02
+ 
+Note - If the patch is being downloaded via HBA's other than LSI then these HBA's 
+       should support the SCSI to Sata Translation (SATL) like the LSI HBA
+ 
+2.1 Linux JBOD env
+    --------------
+ 
+Linux_download or disktool.pl  for JBOD systems-
+ 
+Note- See section e under 1.1 of procedure 1 to find out how to run disktool.pl 
+ 
+Linux Download Example for RHEL 5.3
+Pre Conditions:
+A. Please make sure you have a Linux kernel of  2.4 or higher
+   [root@host1 fwdld]# uname -a
+   Linux host1 2.6.18-53.el5 #1 SMP Wed Oct 10 16:34:19 EDT 2007 x86_64 x86_64 x86_64 GNU/Linux
+ 
+B. Please make sure you reach devices through SG interface.
+   [root@host1 fwdld]# modprobe -al | grep sg
+   /lib/modules/2.6.18-53.el5/kernel/drivers/char/ipmi/ipmi_msghandler.ko
+   /lib/modules/2.6.18-53.el5/kernel/drivers/scsi/sg.ko
+ 
+Example -
+[root@scsvr-183 ~]# ./Linux_download -h
+VER-1.01
+Usage:   ./Linux_download: [&lt;option&gt; &lt;device&gt; [fw_file]]
+Option:  -i - Aingle drive inquiry
+         -d - download code to the drive
+         -h - Usage...AK
+         device - Use /dev/sgX as device, Where X hdd0 OR hdd1
+                                          OR      sd0 OR sd1 ...
+ 
+[root@scsvr-183 ~]# ./Linux_download -i /dev/sg2
+    Inquiry for device &lt;/dev/sg2&gt; -
+    ATA     HITACHI H7220AA3025CJP390VHQ04VLVA          PQual: 0    Device_type: 0
+.
+.
+[root@scsvr-183 ~]# ./Linux_download -d /dev/sg2  ./H7210CA30.A25C.fw
+!!! Please wait downloading firmware ...!!!
+Download Successful
+    Inquiry for device &lt;/dev/sg2&gt; -
+    ATA     HITACHI H7220AA3039DJP390VHQ04VLVA          PQual: 0    Device_type: 0
+ 
+ 
+2.2 Procedure to Download to Drives behind LSI Megaraid HBA 
+    --------------------------------------------------------
+A. Install the megaraid software for Linux or Solaris
+B. the software will be install under /opt/MegaRAID directory
+C. cd to this directory and one more level to the MegaCli directory
+ 
+D. To Check start the download find out the
+   Enclosure ID and the Slot ID for your drive by using this command
+ 
+   ./MegaCli64 -PDList -aall
+ 
+   You will get output something like this -
+   Adapter #0
+ 
+Enclosure Device ID: 9
+Slot Number: 0
+Device Id: 28
+.
+.
+Inquiry Data: HITACHI H7220AA30SUN2.0TA1600941K3T96E
+FDE Capable: Not Capable
+FDE Enable: Disable
+.
+.
+ 
+E. Copy the f/w file in the same directory as the MegaCli64
+     Run the bitops.sh  command as follows
+     cd 143187-02/megaraid
+     ./bitops.sh
+     This will generate the firmware file H7220AA30.A28A.fw under megaraid directory
+     of the patch use this file in step D
+ 
+D. Run the download command to install one drive in slot 0
+   under enclosure 9
+   MegaCli64 -PdFwDownload -PhysDrv[9:0] -f /141387-01/megaraid/H7220AA30.A28A.fw -aALL
+ 
+   For Multiple drives use the same command but with multiple drives
+ 
+   MegaCli64 -PdFwDownload -PhysDrv[9:0,9:2,9:3,9:4,9:5] -f /141387-01/megaraid/H7220AA30.A28A.fw -aALL
+ 
+2.3 x86 with Solaris 10 U5 or earlier 
+    --------------------------------- 
+ 
+EXAMPLE: Ultra40
+scsvr-27$PWD&gt; uname -a
+SunOS scsvr-27 5.10 Generic_127128-11 i86pc i386 i86pc
+scsvr-27/141468-07&gt; cat /etc/release
+                        Solaris 10 5/08 s10x_u5wos_10 X86
+           Copyright 2008 Sun Microsystems, Inc.  All Rights Reserved.
+                        Use is subject to license terms.
+                             Assembled 24 March 2008
+scsvr-27/141468-07&gt; 
+scsvr-27/141468-07&gt; ./ata_disk_load64 /dev/rdsk/c2d0s2 firmware/ST32000NS.SM04.fw
+ 
+Firmware download successful
+ 
+Drive Info  : SEAGATE ST32000NSSUN2.0T 07525069BN         SM049QJ069BN
+ 
+scsvr-27/141468-07&gt; 
+scsvr-27/141468-07&gt;  ./ata_disk_load64 /dev/rdsk/c3d0s2
+firmware/H7220AA30.A28A.fw
+ 
+Firmware download successful
+ 
+Drive Info  : HITACHI H7220AASUN2.0T 0724G344MA     GKAOA28AGTA000PAG344MA
+ 
+scsvr-27/141468-07&gt; 
+scsvr-27/141468-07&gt; 
+ 
+ 
+ 
+ 
+2.4 x86 with Solaris 10 U6 or later
+    -------------------------------
+EXAMPLE: Ultra40
+# cat /etc/release
+                       Solaris 10 10/08 s10x_u6wos_07b X86
+           Copyright 2008 Sun Microsystems, Inc.  All Rights Reserved.
+                        Use is subject to license terms.
+                            Assembled 27 October 2008
+# 
+# uname -a
+SunOS scsvr-27 5.10 Generic_137138-09 i86pc i386 i86pc
+# 
+# ./nv_x64 /dev/rdsk/c2t0d0s2 firmware/ST32000NS.SM04.fw
+ 
+###Firmware download to /dev/rdsk/c2t0d0s2 was a success	ATA
+SEAGATE
+ST32000N   SM04   
+ 
+# ./nv_x64 /dev/rdsk/c1t1d0s2 firmware/H7220AA30.A28A.fw
+ 
+###Firmware download to /dev/rdsk/c1t1d0s2 was a success	ATA
+HITACHI
+H7220AA   A28A   
+ 
+ 
+**************************************************************************
+ 
+ 
+README -- Last modified date:  Friday March/08/2013
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Monday, May 13, 2013
+
+</pre></body></html>

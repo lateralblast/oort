@@ -1,0 +1,147 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 124413-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire v445
+Synopsis: Hardware/PROM: Sun Fire V445 Flash PROM Update
+Date: Sep/27/2007
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.25.9, POST 4.25.9, OBDIAG 4.25.9
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sun fire v445
+
+BugId's fixed with this patch: 4854322 4946025 5052695 5076888 5079227 6181985 6230349 6256046 6332576 6338777 6346885 6347315 6347502 6347549 6377849 6381271 6381272 6381277 6381279 6381281 6381818 6383237 6385582 6386341 6387399 6388093 6391455 6392873 6396318 6397170 6401719 6406061 6406091 6409416 6411912 6416142 6417885 6419216 6420097 6420137 6420147 6420194 6420241 6425918 6430079 6430219 6430500 6430572 6447642 6447815 6447824 6447852 6449538 6451721 6452223 6454051 6454640 6458997 6459548 6468359 6470467 6474932 6480389 6481526 6482540 6484976 6488855 6491132 6500285 6504375 6505760 6508466 6508906 6512280 6521186 6521198 6525913 6546593 6550351 6559998 6561957 6569526 6572821 6579294 6592973
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunFire445
+unix.flash-update.SunFire445.sh
+
+Problem Description:
+
+6592973 sata_drive Block error in Hitachi SATA HDDs occurred when power is cycled by s99zzzpc script
+6579294 Enhancements to Systest (test within debug menu)
+6572821 Support FWARC 2007/354.
+6569526 V445 ships with incorrect devalias paths to interval drives when configured with LSI1068e
+6561957 OBP bge ethernet driver needs performnace improvement when load a big file (wanboot 108 MB)
+6559998 Fix to cr 6520058 can cause FORTH stack corruption.
+6550351 Issuing a boot to the cdrom device hangs the system if no cdrom is installed.
+6546593 WANboot should not reflect packets
+6525913 "SUN PROPRIETARY/CONFIDENTIAL" message appears on boot on FCS seattle
+6521198 Incorporate enhanced POST memory tests in POST debug menu
+6521186 Incorporate new Systest/Thrasher test in POST debug menu
+6512280 Add Device ID for new Shrink DIE of Sansung E$ SRAM to POST device database (POST allows device).
+6508906 post and obp build issues
+6508466 LSBID of new console (upon console switch) needs to be saved in SRAM
+6505760 when disable first thread of a core, post fails whole core after poweroff/on with FATAL ERROR.
+6504375 local-mac-address? parameter for OPL OBP should default to true
+6500285 FW keying is required to support UltraIV+ high power modules.
+6491132 V445 AC power restoring causes OBP post fail
+6488855 flx18074: ERROR: motherboard SEEPROM access failed
+6484976 Error exception before cpu-struct is initialized can cause the machine to hang-up
+6482540 Cleanup of POST build targets 
+6481526 Problem in builiding dropins that share files
+6480389 "ERROR: /memory: CPU1 Bank 0 DIMMs are from different vendors"
+6474932 Seattle/Boston OBP need to define slot-names property
+6470467 Instruction flush and .trap-registers changes
+6468359 POST needs to test all cpus when 'diag-level == min'
+6459548 If a faulty device cannot be isolated during boot we should trymultipath-boot recovery
+6458997 LSI 1064/1068 FCode Port enable command adding too much time to system boot
+6454640 missing device_type property on ebus node. ++422++
+6454051 LSI 1064E compatible property does not match Solaris driver aliases file in s10u2
+6452223 OBP should program "cache-line-size" register for PCIe devices also
+6451721 flash-update command not working for Schumacher
+6449538 BGE properties hang net boot loading Solaris
+6447852 Incorrect value used for stick and tick timer mask
+6447824 Cleanup code for error detection/faulty device identification and save-registers-all command
+6447815 SCF selection code would select the last selected SCF even when all the SCF paths have been degraded
+6447642 LSI 1064 fcode modifies latency timer and cacheline size without updating corresponding properties
+6430572 Suppress FCODE map-in whine.
+6430500 preprober code touches all devices including devices that are marked bad/blacklisted
+6430219 PCI Preallocation code uses 'min' to compare PCI resources which treats value as signed number
+6430079 Method pcie-capability-regs in obp/dev/pci/device-props.fth should change as per CR 6420194
+6425918 POST script needed to track duplicate function declarations
+6420241 Make the PLX 8532 PCI-Express workaround for CR 6397497 standard probing procedure
+6420194 Need to protect find-std-capability and find-extd-capability fromhang due to a bad hardware
+6420147 Method 'disable-children' in dev/pci-bridge/dec21152/pcibridg.fthdoes not disables all children
+6420137 Wrong mask used to clear pci errors in  'clear-pci-errs'  method defined in obp/dev/pci/pcibus.fth
+6420097 phys.hi&gt;cfg-offset method does not work for non-PCIE bridges
+6419216 WANBoot : Cannot create ramdisk "ramdisk-bootfs"
+6417885 Backout INTX disabling fix (6377849) from OBP
+6416142 Disabling components causes MMU miss error in obp probing
+6411912 POST fails scrub memory
+6409416 Add watchdog timer support to OBP
+6406091 Fix some stack comments and nits in common OBP code
+6406061 Fix the decoding of 'movr' instructions in OBP sources
+6401719 IO-Bridge Error - Data miss compare when running DMA loopback mode.
+6397170 missing device_type property on ebus bus node properties
+6396318 Printed date in OBP is off-by-one after 28-feb 2006.
+6392873 reset-all after asr-clear executed makes OBP ERROR: motherboard SEEPROM access failed.
+6391455 * Create reg property directly rather than with ebus code
+6388093 Wanboot with S10_U1 miniroot panics with "map_prom: prom i/o page without side-effect"
+6387399 VPCI fcode: Access to PCIE extended config space does not work correctly
+6386341 post needs to check link width for onboard devices
+6385582 VBSC and POST have different memory size
+6383237 nvramrc must be evaluated before probe-all
+6381818 stand-init debug functionality does not work as expected
+6381281 bge fcode should support device args and properties specified in FWARC/2002/345
+6381279 Remove no-probe-list property from Fire nodes
+6381277 Interpreter workarounds for historical/legacy fcode prom bugs must be removed
+6381272 Use system-tick-speed instead of ms-factor to measure time
+6381271 All configuration variables should be set to defaults on NVRAM initialization
+6377849 Need to disable INTX prior to boot
+6347549 Request to have test name convention to identify between Test, subtest, message, etc.
+6347502 Request for adding timestamps to POST code
+6347315 unused POST modules/routines
+6346885 OpenBoot does not handle Non-Resumable Error traps
+6338777 Prevent ufsboot giving divide-by-zero from bad argument
+6332576 updates to pciid test for unknown devices
+6256046 RFE: help for "post" should bring up help for diag
+6230349 Fix spelling in .controls word in obdiag/lib/error.fth
+6181985 local-mac-address of bge interface is seen on pci card when net  NVALIAS is duplicated
+5079227 This, ")" in between "Copyright" and "2004", is not in the right place.
+5076888 asr disabling all memory banks and a reset causes the system to shutdown.
+5052695 post off doesn't run at diag-level off
+4946025 WARNING: ce0:interrupt #0 has been blocked
+4854322 The idprom node is missing its close method.
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+
+Special Install Instructions:
+ 
+
+README -- Last modified date:  Thursday, September 27, 2007
+
+</pre></body></html>

@@ -1,0 +1,310 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 113669-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: st39103lc st318203lc 9g 18g 074b 074a disk firmware
+Synopsis: Hardware, 9G 18G Disks: Download program and 074B, 074A scsi firmware
+Date: Jul/28/2003
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Segate Cheetah3-family SCSI disks
+
+Unbundled Release: N/A
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+.download
+ST318203L.074A.fw
+ST39103L.074B.fw
+download
+download32
+download64
+patchinfo
+
+Problem Description:
+
+The Seagate SCSI 9G ST39103LC and 18G ST318203LC disk drives can experience an SRAM
+failure if in idle mode for extended periods of time. This new fw will relieve the
+conditions that cause this. This new code will also repair these disk drives once the
+failure condition happens. The typical failure is an unexpected "DRIVE NOT READY" or
+the drive is unexpectedly spun down and won't spin back up or come ready.
+ 
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. Volume managers such as Veritas, SDS, Arraymon, and Vold must
+   be idle and any disks unconfigured.  Note, due to an open/close
+   accounting bug (see bug 4129295) in sd and ssd drivers, you must
+   reboot the system after unconfiguring any disks used by them.
+   This accounting bug prevents the upgrade utility from acquiring
+   sole ownership of the disk so it will not be eligible for upgrade.
+   Note, Arraymon will be disabled during download startup and enabled
+   on exit.
+ 
+   Any other computers sharing the same I/O bus as the host system
+   must be either disconnected or offline to prevent possible
+   disruption of the firmware download process.
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.log" or "/var/tmp/download.log", "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+3. This package will only upgrade the identified Sun disks.
+ 
+4. This package does not support T3 subsystems.  Internal T3 disks
+   are upgraded as part of the T3-specific package.
+ 
+5. If the High Availability kernel device polling is running, it will
+   be disabled.  It will not be re-enabled.
+ 
+6. If using Veritas, "deport" the volume to release the volume from
+   Veritas control.  Do not "remove" the volume as this will erase
+   the data stored on the Volume.
+ 
+7. If you have reconfigured A1000/3000 SCSI systems, the /dev
+   directories may become corrupted.  Download will detect this problem
+   and ask for permission to repair the problem.  If not repaired,
+   affected devices will not be eligible for upgrade.
+ 
+8. If you have dual-active A1000/3000 controllers and one of the 
+   controllers has no luns, they will not be eligible for upgrade.
+   This is because an access path is only provided if a controller
+   has luns.  Without an access path, the controller cannot be
+   accessed and both controllers are required for upgrade operations.
+ 
+   The faster responding dual-active controller will be displayed.
+   So, there can be some display variation.  This does not impact
+   download operation as it uses both controllers.
+ 
+9. If you have dual-independent A1000/3000 controllers where each
+   controller is attached to a different host system, they will not
+   be eligible for upgrade unless one controller is removed from
+   the A1000/3000.  You will also need to manually determine which
+   disks are owned by the installed controller and manually specify
+   them for upgrade.  If you specify a disk owned by the removed
+   controller download will fail.  Once yo have upgraded one controller,
+   you need to switch controllers...that is installed the previously
+   removed controller and remove the installed controller.  Repeat
+   the upgrade process from the other host system.  After completion,
+   you can install the removed controller and resume normal operation.
+ 
+   If controllers have no luns, they will not be eligible for upgrade.
+   This is because an access path is only provided if a controller
+   has luns.  Without an access path, the controller cannot be
+   accessed and both controllers are required for upgrade operations.
+ 
+   The faster responding dual-active controller will be displayed.
+   So, there can be some display variation.  This does not impact
+   the download operation.
+ 
+10. Follow the instructions given below.  You may program one drive,
+   a range of drives, or all drives at once with this tool.
+ 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ 
+1. General guidelines for upgrading: 
+ 
+        Previous firmware versions which are upgradable to this level:
+ 
+                        034A
+                        054A
+                        054B
+ 
+        BACK UP ALL FILESYSTEMS.
+ 
+        STOP ALL APPLICATIONS. The system must be idle during the
+        firmware upgrade process.
+ 
+        UNMOUNT all file systems on the drives to be upgrade.
+        Disks with mounted file systems are not eligible for
+        upgrade.
+ 
+        UNCONFIGURE devices from volume manager.
+ 
+        REBOOT THE SYSTEM if you unconfigured any disks from
+        volume manager (e.g. Veritas).  Otherwise, you will
+        not be able to upgrade any previously configured disks.
+ 
+        UPGRADE the disks.  Follow the given instructions in
+        the procedure section below.
+ 
+        In case of any disruption or unforeseen events happening on the 
+        relevant bus during the firmware download process, it may be 
+        that the upgraded disk becomes non-functional.  In this event,
+        it will be necessary to swap out the disk. This would happen 
+        as a result of an incomplete or corrupted firmware file 
+        being downloaded.  Loss of power during the upgrade process
+        would also damage the disk.
+ 
+**NOTE**    If you cannot upgrade devices due to volume manager
+            interference,  try booting off the Solaris 2.6 release CD.
+ 
+**NOTE**    If a system disk is to be upgraded, the upgrade utility will
+            allow it to be upgraded if the system is in single-user mode
+            (e.g. "boot -s").  Otherwise, the system disk will not be
+            eligible for upgrade.
+ 
+        RECONFIGURE devices to volume manager.
+ 
+**NOTE**    As Download disables kernel high availability device polling,
+            it may be necessary to reboot the system to restart it.
+ 
+ 
+ 
+2. Procedure: 
+ 
+The procedure to be used for upgrading the ST39103LC ST318203LC drive
+firmware is explained below. Upgrade time will be approximately
+5 minutes for the system above Solaris 2.4.  For Solaris 2.4 and 2.3,
+the upgrade cycle will be 30 Seconds per disk.
+ 
+a) Unpack the patch (through tar) into any directory, say &lt;patchdir&gt;.
+   (Note, if the patch ends in a ".Z" suffix, you will need to first
+   uncompress it.)  So, you would type:
+        % su root
+        # cd &lt;patchdir&gt;
+        # tar xf &lt;patch tar file&gt;
+ 
+b) In the patch directory, as root, type the "download" command:
+        # ./download
+ 
+c). Enter the appropriate devices to be upgraded.  You can upgrade
+    a single device, a group of devices, or all devices at once. 
+ 
+** See the example below**.
+ 
+**NOTE**    A device that is in-use by another application will not
+            be upgraded.  The following warning message will be
+            issued:   c1t3d0s0: Open failed, you must be the sole user!
+ 
+**NOTE**    This upgrade can result in error messages in the console 
+            window and/or the terminal "download" window.  The disk
+            mode pages will also be restored to the default values.
+ 
+d). After the devices have been upgraded, the displayed device
+    list will be refreshed.  Devices remaining to be upgraded or
+    failed devices will be displayed.  Failed devices will be
+    marked with a "****" in the rev field.
+ 
+**NOTE**    If all devices have been upgraded, the following
+            message will be displayed:   No devices found to upgrade!
+ 
+e). To display the full list of devices including the upgrades ones,
+    type 'inquiry' (see example below).
+ 
+f). Quit the "download" program by typing 'quit'.
+ 
+ 
+************************************************************************** 
+**************************************************************************
+EXAMPLE: 
+ 
+# ./download
+Firmware Download Utility, V4.2
+ 
+**************************  WARNING  **************************
+NO OTHER ACTIVITY IS ALLOWED DURING FIRMWARE UPGRADE!!!
+No other programs including any volume manager (e.g. Veritas,
+SDS, or Vold) should be running.  Other host systems sharing
+any I/O bus with this host must either be offline or
+disconnected.  Any interruption (e.g. power loss) during
+upgrade can result in damage to devices being upgraded.
+ 
+Any disk to be upgraded should first have its data backed up.
+***************************************************************
+ 
+Searching for devices...
+ 
+DISK DEVICES
+Device           Rev   Product               
+c2t9d0-c2t10d0:  034A  ST318203L -- SUN18G 
+c2t12d0:         044B  ST39103LC -- SUN9.0G 
+Total Devices:  3
+ 
+ 
+Enter command: p
+Upgrading devices...
+ 
+c2t9d0: Successful download
+ 
+c2t10d0: Successful download
+c2t12d0: Successful download
+ 
+ 
+ 
+DISK DEVICES
+No devices found to upgrade!
+ 
+ 
+Enter command: Enter command: inq
+ 
+DISK DEVICES
+Device   Rev   Product               S/N
+c0t1d0:  042D  ST318304F -- SUN18G   0020L009AP 
+c2t9d0:  074A  ST318203L -- SUN18G   0006C45388 
+c2t10d0: 074A  ST318203L -- SUN18G   9932246130 
+c2t12d0: 074B  ST39103LC -- SUN9.0G  9916020689 
+ 
+Total Devices:  4
+ 
+ 
+Enter command: q
+ 
+#
+
+Special Install Instructions:
+-----------------------------
+
+None.
+
+README -- Last modified date:  Monday, July 25, 2011
+
+</pre></body></html>

@@ -1,0 +1,637 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 116748-07
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: 6120 raid storage drive firmware
+Synopsis: 6120 Disk drive firmware
+Date: Jun/24/2005
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Seagate Disk Drive Firmware
+
+Unbundled Release: N/A
+
+Xref: 
+
+Topic: Sun/Seagate 36GB drives Firmware Download
+
+Relevant Architectures: sparc
+NOTE:
+ *** Warning *** Warning *** Warning *** Warning *** Warning ***
+	This patch release is for the 6120 ARRAY and SE3510 RAID Storage systems
+	and also for NON RAID Storage systems that use Sun disk drives ONLY.
+	This PATCH DOES NOT APPLY TO the T3 OR T3B Array.
+	If you are looking to update with the latest patch release for the T3 
+	or T3B Array, please download their respective patches elsewhere.
+	The firmware in this patch is Sun Proprietary. It is not to be used outside
+	the context of this patch for any reason.
+
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+ NOTE: NO new fw changes in this patch. This patch was re-compiled with an
+  updated MLOAD utility to provide compatibility with SE3510 controller
+  fw version 4.11.
+ FW version 0449 enhancements include:
+ -Add modified "Servo Motor Start Retry" to M5 code base
+ -Implement work around to allow the drive to resume spinning if the drive Asserts.
+ -Include enhancement for a added retry during format w/retry 
+ -Add Flags "RESET_NO_INDEX" &amp; "SERVO_MOTOR_START_RETRY" to uniques.
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+  MLOAD
+  ST336753F.0449.fw    	        # 6120 Storage Drive Firmware, disk drive f/w
+  bitops
+  download             		# non-RAID File download Utility
+  mload	          	 	# SE3510 File download Utility  
+  patchtoc                      # 6120.sh: Files to Upload To Target 6120
+6120.sh                       # 6120 File Upload Utility
+
+Problem Description:
+
+-----------
+
+Patch Installation Instructions:
+-------------------------------- 
+ This Patch has three disk drive Firmware Installer Utilities.  
+ 
+ 1. This patch includes firmware uploading utility (6120.sh) that 
+ simplifies transferring the contents of this patch to a StorEdge
+ 6120 system. 
+ 2. This patch includes firmware installing utility (mload) that
+ is required for installing drive firmware in SE3510 RAID enclosures.
+ 3. This patch includes firmware downloading utility (download) 
+ that will upgrade or download code to drives in NON-RAID
+ environment. 
+ 
+ This script(s) are intended for use on Solaris host  systems only.  
+ 
+***********************************************************************
+ 
+ To install the contents of this Patch see the pertinent section below.
+ 
+ Sections Index
+ A. Initial Installation Instructions.
+ B. SE6120 Installation Instructions
+ C. SE3510 System Installation Instructions
+ D. Non RAID System Installation Instructions
+ 
+ 
+ 
+ A. **************** Initial Instructions************
+ 
+ *** Warning *** Warning *** Warning *** Warning *** Warning ***
+ BEFORE attempting to load firmware, be sure to stop all I/O 
+ activity from all attached host systems. All necessary host 
+ preparations needed to sustain this procedure should be made before 
+ starting.
+ 
+ 
+  To update the 6120 system or NON-T4 storage or systems with the 
+  entire contents of this patch follow the steps below after 
+  quiesc'ing I/Os from the host: 
+ 
+ 1. System Preparation
+    -&gt;Once the patch has been downloaded to a Solaris host,
+        change to the directory where the patch was downloaded.
+        Next extract the patch. If you are extracting the signed
+        patch, The jar file should be extracted using "unzip". 
+    That way the permissions will be preserved. Similarly,
+        if you are extracting the unsigned patch, you would need
+        to use the tar utility. After the extraction process, the
+        patch will be in directory format. You will be installing
+        the package delivered by the patch using the pkgadd utility. 
+ 
+        -&gt; Example: 
+ 
+# pkgadd -d .
+ 
+ 
+Processing package instance &lt;SUNWnw748&gt; from &lt;/tmp/116748-07&gt;
+ 
+Sun Seagate ST336753F Disk Firmware
+(sparc,i386) 0449
+Copyright 2001 Sun Microsystems, Inc. All rights reserved.
+Copyright 2001 Sun Microsystems, Inc. Tous droits r??serv??s.
+Using &lt;/&gt; as the package base directory.
+## Processing package information.
+## Processing system information.
+## Verifying disk space requirements.
+## Checking for conflicts with packages already installed.
+## Checking for setuid/setgid programs.
+ 
+Installing Sun Seagate ST336753F Disk Firmware as &lt;SUNWnw748&gt;
+ 
+## Installing part 1 of 1.
+/var/sadm/swimages/116748-07/6120.sh
+/var/sadm/swimages/116748-07/FILE1
+/var/sadm/swimages/116748-07/README.116748-07
+/var/sadm/swimages/116748-07/ST314680F.0449.fw
+/var/sadm/swimages/116748-07/bitops
+/var/sadm/swimages/116748-07/download
+/var/sadm/swimages/116748-07/download32
+/var/sadm/swimages/116748-07/download64
+/var/sadm/swimages/116748-07/mload
+/var/sadm/swimages/116748-07/patchtoc
+[ verifying class &lt;none&gt; ]
+ 
+Installation of &lt;SUNWnw748&gt; was successful.
+ 
+ 
+# tar -xvf 116748-07.tar
+   x 116748-07, 0 bytes, 0 tape blocks
+   x 116748-07/patchinfo, 0 bytes, 0 tape blocks
+   x 116748-07/README.116748-07, 9125 bytes, 18 tape blocks
+   x 116748-07/SUNWnw748, 0 bytes, 0 tape blocks
+   x 116748-07/SUNWnw748/pkgmap, 524 bytes, 2 tape blocks
+   x 116748-07/SUNWnw748/pkginfo, 720 bytes, 2 tape blocks
+   x 116748-07/SUNWnw748/install, 0 bytes, 0 tape blocks
+   x 116748-07/SUNWnw748/install/copyright, 119 bytes, 1 tape blocks
+   x 116748-07/SUNWnw748/reloc, 0 bytes, 0 tape blocks
+   x 116748-07/SUNWnw748/reloc/var, 0 bytes, 0 tape blocks
+   x 116748-07/SUNWnw748/reloc/var/sadm, 0 bytes, 0 tape blocks
+   x 116748-07/SUNWnw748/reloc/var/sadm/swimages, 0 bytes, 0 tape blocks
+   x 116748-07/SUNWnw748/reloc/var/sadm/swimages/116748-07, 0 bytes, 0 tape blocks
+   x 116748-07/SUNWnw748/reloc/var/sadm/swimages/116748-07/6120.sh, 4331 bytes, 9        tape blocks
+   x 116748-07/SUNWnw748/reloc/var/sadm/swimages/116748-07/README.116748-07,    9125 bytes, 18 tape blocks
+   x 116748-07/SUNWnw748/reloc/var/sadm/swimages/116748-07/ST336753F.0449.fw, 627712bytes, 1226 tape blocks
+   x /SUNWnw748/reloc/var/sadm/swimages/116748-07/patchtoc, 18 bytes, 1 tape blocks
+ 
+ 
+-&gt; To install the patch run this command
+# cd /116748-07
+# pkgadd -d .
+ 
+The following packages are available:
+  1  SUNWnw748     Sun StorEdge (tm) 6120 ST336753F Seagate 36GB 10k Disk 
+Firmware
+                   (sparc,i386) 2.0
+ 
+Select package(s) you wish to process (or 'all' to process
+all packages). (default: all) [?,??,q]: 1
+ 
+Processing package instance &lt;SUNWnw748&gt; from &lt;/116748-07&gt;
+ 
+Sun StorEdge (tm) 6120 Seagate Disk Firmware
+(sparc,i386) 2.0
+Copyright 2001 Sun Microsystems, Inc. All rights reserved.
+Copyright 2001 Sun Microsystems, Inc. Tous droits r\351serv\351s.
+ 
+This appears to be an attempt to install the same architecture and
+version of a package which is already installed.  This installation
+will attempt to overwrite this package.
+ 
+Using &lt;/&gt; as the package base directory.
+## Processing package information.
+## Processing system information.
+   6 package pathnames are already properly installed.
+## Verifying disk space requirements.
+## Checking for conflicts with packages already installed.
+## Checking for setuid/setgid programs.
+ 
+Installing ST336753F Seagate 36GB 10k Disk Firmware as &lt;SUNWnw748&gt;
+ 
+## Installing part 1 of 1.
+[ verifying class &lt;none&gt; ]
+ 
+Installation of &lt;SUNWnw748&gt; was successful.
+ 
+	-&gt; The resultant files will be located in the following directory:
+	   /var/sadm/swimages/116748-07
+ 
+***********************************************************************
+***********************************************************************
+ 
+B. ********************    SE6120 Instructions   **************
+ 
+   Note: 	Go to Section C for SE3510 Instructions    and 
+   		      Section D for non RAID Instructions
+ 
+  Installation instructions for downloading disk firmware to drives
+  in a 6120 system
+ 
+ i. Verify the 6120 system to be upgraded is reachable on the network:
+ 
+         $ ping 6120
+           6120 is alive
+ 
+ ii. Verify the 6120 system has a root password (the '6120.sh' patch utility 
+    uses ftp to transfer the files to the 6120 which requires a root 
+    password):
+ 
+            hdd39-44/net/hoohoo.ebay/usr/PATCHES/TEST&gt;telnet 10.4.36.123 
+            Trying 10.4.36.123...
+            Connected to 10.4.36.123.
+            Escape character is '^]'.
+ 
+            Unauthorized access is prohibited.
+ 
+            Login: root
+        Password:       &lt;---- Must type password here
+ 
+            6120 Release 3.0.2 Fri Feb 14 17:08:38 PST 2003 (10.4.36.123)
+            Copyright (C) 1997-2003 Sun Microsystems, Inc.
+            All Rights Reserved.
+ 
+            qatest:/:&lt;1&gt;
+ 
+   If no root password is set on the system, be sure to set one by logging 
+   into the 6120 system and using the 'passwd' command.
+ 
+ iii. Transfer the contents of this patch to 6120 system 
+ 
+    Note: There is limited space available in the 6120's reserved system 
+          area.  Therefore, it is important to be sure there is 
+          adequate space on the 6120 before proceeding with the 
+          procedure to ftp firmware images to the unit.  It is
+          not necessary to keep old images firmware, 
+          on the 6120 once those images have been loaded.
+ 
+ 
+ 	Installation Instructions
+	  ---------------------------
+ 
+	-&gt; cd to the patch location where it copies the patch files.  
+	   # cd /var/sadm/swimages/116748-07 
+ 
+	To start the installation script, first verify the target 6120
+	system can be reached through the local network (use ping to verify
+	the target 6120 system is reachable).  Once this has been confirmed,
+	the installation script can be started as follows:
+ 
+    ./6120.sh
+ 
+	(Note: Be sure the 6120.sh script is executable.)
+ 
+	The utility will prompt for information as follows:
+ 
+    Please Enter Hostname or IP Address Of 6120 To Be Upgraded:
+ 
+		* Enter the Hostname or IP address of the target 6120
+		  system
+ 
+    Please Enter Patch Location Pathname [.]: 
+ 
+        * Since you are already under the patch location you
+		  can just hit return or specify the path as 
+		  /var/sadm/swimages/116748-07
+ 
+    Looking For Patch Contents In [.]...
+ 
+ 
+        * Enter the root password for the 6120
+ 
+    At this point, the automatic ftp login/upload process should
+        begin.
+ 
+                EXAMPLE:
+# 6120.sh
+Please Enter Hostname or IP Address Of T4 To Be Ugpraded: 10.4.39.95
+10.4.39.95 is alive
+Please Enter Patch Location Pathname [.]:
+Looking For Patch Contents In [.]...
+    ----------------- ./patchtoc -------------------
+    ST336753F.0449.fw image located
+ 
+    Enter Your Home Directory Path [/]: 
+ 
+	    * The home directory of the user ID used when launching the
+		  6120.sh script (This is used by ftp to automatically load the patch
+		  file contents to the 6120).
+ 
+    Enter ftp user
+ 
+        * Enter the default 6120 root login
+ 
+    Enter ftp password
+ 
+        * Enter the root password for the 6120
+ 
+    At this point, the automatic ftp login/upload process should
+	begin.
+ 
+		EXAMPLE:
+# 6120.sh
+Please Enter Hostname or IP Address Of T4 To Be Ugpraded: 10.4.39.95
+10.4.39.95 is alive
+Please Enter Patch Location Pathname [.]:
+Looking For Patch Contents In [.]...
+----------------- ./patchtoc -------------------
+ST336753F.0449.fw image located
+Enter Your Home Directory Path [/]:
+Enter ftp user
+root
+Enter ftp password
+test
+Creating Auto ftp File In [//.netrc]...
+Invoking ftp
+Connected to 10.4.39.95.
+220 10.4.39.95 pSOSystem FTP server (@(#)(#)pVER IA/MIPS, Version 3.1.0, Built on
+12/03/1999) ready.
+331 Password required for root.
+230 User root logged in.
+bin
+200 Type set to I.
+prompt
+Interactive mode off.
+cd /
+250 CWD command successful.
+lcd /tmp/upload.13357
+Local directory now /tmp/upload.13357
+put ST336753F.0449.fw
+200 PORT command successful.
+150 Opening BINARY mode data connection for ST336753F.0449.fw
+226 Transfer complete.
+local: ST336753F.0449.fw remote: ST336753F.0449.fw
+627712 bytes sent in 23 seconds (26.43 Kbytes/s)
+quit
+221 Goodbye.
+ 
+Cleaning Up Temporary Files...
+ 
+ iv.  At this point login to the 6120 and type the following from 
+	 the 6120 command to install the drive firmware
+ 
+	  -&gt; Run disk download to download the firmware to the drives 
+		 make sure the image is no more than 12 characters and follows 6120
+		 naming convention
+ 
+             EXAMPLE:
+         You can download to a single drive or all the drives in a trays
+		 as shown in the following example:
+ 
+Firmware download in 6120 (T4)
+-----------------------
+hdd39-95:/:&lt;55&gt;disk download u1d08-14 ST336753F.0449.fw
+u1d08  u1d09  u1d10  u1d11  u1d12  u1d13  u1d14  pass
+ 
+	  -&gt; Check the disk to verify download was successful
+ 
+			 EXAMPLE:
+hdd39-95:/:&lt;56&gt;fru list u1d8-14
+ID      TYPE               VENDOR       MODEL        REVISION       SERIAL
+------  -----------------  -----------  -----------  -------------  --------
+u1ctr   controller card    0x301        5405559      50             001452
+u1d08   disk drive         SEAGATE      ST336753FSUN 0449           3HZ038JW
+u1d09   disk drive         SEAGATE      ST336753FSUN 0449           3HZ038GG
+u1d10   disk drive         SEAGATE      ST336753FSUN 0449           3HZ038XJ
+u1d11   disk drive         SEAGATE      ST336753FSUN 0449           3HZ03AG3
+u1d12   disk drive         SEAGATE      ST336753FSUN 0449           3HZ032VG
+u1d13   disk drive         SEAGATE      ST336753FSUN 0449           3HZ037Y4
+u1d14   disk drive         SEAGATE      ST336753FSUN 0449           3HZ032MH
+ 
+ 
+      -&gt; Congratulations you have successfully installed the patch
+ 
+ 
+*****************************************************************************
+*****************************************************************************
+ 
+C. ******************   SE3510 Instructions   ***************
+ 
+  Note: For Non RAID System Installation Instructions go to Section D .
+ 
+ Do not use the SCCLI or SSCS disk drive firmware download functions. Use this patch only to download f/w.
+ 
+ *For out-of-band upgrades, an Ethernet connection for the StorEdge
+   3510, or two connections if dual controllers are installed, with an
+   IP address assigned, allowing the user to connect to the array via
+   telnet, or a serial connection supporting a tip(1) connection to the
+   array.  Refer to the Sun StorEdge 3000 Family Installation,
+   Operation, and Service Manual for the Sun StorEdge 3510 Fibre Channel Array,
+   section 4.7 for procedures to connect to the array via tip.  Refer
+   to the Sun StorEdge 3000 Family Installation, Operation, and Service
+   Manual for the Sun StorEdge 3510 Fibre Channel Array, Appendix B, section B.2
+   for procedures to connect to the array via telnet.
+ 
+ * For in-band upgrades, a Fibre Channel connection to the array that is being
+   upgraded is needed.
+ 
+Unpack the patch into any convenient directory such as /var/tmp, and refer
+to the Special Install Instructions below.
+
+Special Install Instructions:
+----------------------------- 
+ 
+*** Warning *** Warning *** Warning *** Warning *** Warning ***
+ 
+This firmware upgrade procedure will prevent StorEdge 3510 arrays from
+servicing normal I/O requests for three to five minutes.  For this
+reason, all StorEdge 3510 logical disks should be unmounted from any
+Solaris hosts connected to the array for the duration of the install
+procedure. 
+1. Download the patch from sunsolve to the /tmp directory.
+3. ftp the 116748-07.tar.Z file to the /tmp directory in the machine used to monitor the system.
+4. rlogin to the machine used to monitor the system.
+5. Enter the commands:
+# cd /tmp
+# uncompress 116748-07.tar.Z
+# tar -xvf 116748-07.tar
+# pkgadd -d .
+ 
+	Add the 116748-07 package.
+ 
+6. Stop I/O to the StorEdge 3510 array.
+ 
+7.  Use the SCCLI to verify the current controller firmware using the firmware
+    application menu.  Choose "View System Information".  If the
+    firmware version reported is 3.27Q or later, this patch will work.
+ 
+8.  Make certain to quiesce the FC bus to the minnow.
+ 
+9.  Open a terminal window on the host that will be used to download the
+    firmware.  Change your working directory, if necessary, to the
+    directory in which the patch was unpacked and confirm that the
+     ST336753F.0449.fw  file is present using the "ls" command.
+ 
+10.  Type "./mload &lt;STOREdge3510 IP Address&gt;"  at the command prompt.  
+ 
+	  mload responds with "Please Enter Hostname or IP Address Of 3xxx platform for upgrade:"
+ 
+     Re-enter the IP &lt;STOREdge3510 IP Address&gt; of your STOREdge3510.
+ 
+ 
+11.  Download new firmware to all disks at the same time by typing 
+	the following command at the prompt:
+ 
+        download disk-firmware ST336753F.0449.fw "ST336753FSUN36G"
+ 
+   You will receive the following warning. Answer it as below:
+    WARNING: This is a potentially dangerous operation.
+    The controller will go offline for several minutes.
+    Data loss may occur if the controller is currently in use.
+    Are you sure? y
+    and then wait 4-5 minutes until the prompt appears again.
+ 
+12.  Verify that the latest disk firmware is downloaded by choosing the
+"show disks" command to view the DISK drive's firmware revision.
+ 
+ 
+ 
+ 
+*****************************************************************************
+*****************************************************************************
+ 
+D.********************   Non-RAID Instructions   ***********
+ 
+ 
+2B. Installation instructions for downloading disk firmware to drives
+    installed in a NON-6120/NON-T3/SE3510 JBOD system environment 
+ 
+ 
+i. General installation instructions before proceeding download
+ 
+ BACK UP ALL FILESYSTEMS.
+ 
+        STOP ALL APPLICATIONS. The system must be idle during the
+        firmware upgrade process.
+ 
+        UNMOUNT all file systems on the drives to be upgrade.
+        Disks with mounted file systems are not eligible for
+        upgrade.
+ 
+        UNCONFIGURE devices from volume manager.
+ 
+        REBOOT THE SYSTEM if you unconfigured any disks from
+        volume manager (e.g. Veritas).  Otherwise, you will
+        not be able to upgrade any previously configured disks.
+ 
+        UPGRADE the disks.  Follow the given instructions in
+        the section below.
+ 
+        In case of any disruption or unforeseen events happening on the
+        relevant bus during the firmware download process, it may be
+        that the upgraded disk becomes non-functional.  In this event,
+        it will be necessary to swap out the disk. This would happen
+        as a result of an incomplete or corrupted firmware file
+        being downloaded.  Loss of power during the upgrade process
+        would also damage the disk.
+ 
+**NOTE**    If you cannot upgrade devices due to volume manager
+            interference,  try booting off the Solaris release CD.
+ 
+**NOTE**    If a system disk is to be upgraded, the upgrade utility will
+            allow it to be upgraded if the system is in single-user mode
+            (e.g. "boot -s").  Otherwise, the system disk will not be
+            eligible for upgrade.
+ 
+        RECONFIGURE devices to volume manager.
+ 
+**NOTE**    As Download disables kernel high availability device polling,
+            it may be necessary to reboot the system to restart it.
+ 
+ii. Change directory to patch location and run the download command
+ 
+EXAMPLE:
+--------
+ 
+# cd /var/sadm/swimages/116748-07/
+# ls
+6120.sh            README.116748-07   download
+DOWNLOAD           ST336753F.0449.fw  patchtoc
+ 
+In the patch directory, as root, type the "download" command:
+        # ./download             -see example below-
+ 
+**NOTE**    A device that is in-use by another application will not
+            be upgraded.  The following warning message will be
+            issued:   c1t3d0s0: Open failed, you must be the sole user!
+ 
+**NOTE**    This upgrade can result in error messages in the console
+            window and/or the terminal "download" window.  The disk
+            mode pages will also be restored to the default values.
+ 
+ 
+EXAMPLE:
+-------
+# ./download
+Firmware Download Utility, V4.2
+ 
+**************************  WARNING  **************************
+NO OTHER ACTIVITY IS ALLOWED DURING FIRMWARE UPGRADE!!!
+No other programs including any volume manager (e.g. Veritas,
+SDS, or Vold) should be running.  Other host systems sharing
+any I/O bus with this host must either be offline or
+disconnected.  Any interruption (e.g. power loss) during
+upgrade can result in damage to devices being upgraded.
+ 
+Any disk to be upgraded should first have its data backed up.
+***************************************************************
+ 
+Searching for devices...
+ 
+DISK DEVICES
+Device           Rev   Product               
+c3t0d0:          0249  ST336753F -- SUN36GB 
+Total Devices:  1
+ 
+ 
+Enter command: p
+Upgrading devices...
+ 
+c3t0d0: Successful download
+c3: recovery delay, 62 sec.
+ 
+ 
+ 
+DISK DEVICES
+No devices found to upgrade!
+ 
+ 
+Enter command: inq
+ 
+DISK DEVICES
+Device   Rev   Product               S/N
+c0t1d0:  042D  ST318304F -- SUN18G   0020L009AP 
+c2t11d0: 0103  ST318404L -- SUN18G   0040T1PXB9 
+c2t14d0: 0103  ST318404L -- SUN18G   0040T1P9EV 
+c3t0d0:  0449  ST336753F -- SUN36G   0230B032VG 
+c3t1d0:  0449  ST336753F -- SUN36G   0221Y00AH2 
+c3t2d0:  0438  ST336605F -- SUN36G   0143P0PD75 
+c3t3d0:  0538  ST336605F -- SUN36G   0110P003JE 
+c3t4d0:  1526  ST318304F -- SUN18G   0012L0007W 
+c3t5d0:  1526  ST336704F -- SUN36G   0020D03L7T 
+c3t6d0:  1526  ST336704F -- SUN36G   0024D07KYG 
+c3t17d0: 1526  ST318304F -- SUN18G   0013L000NV 
+c3t18d0: 1526  ST336704F -- SUN36G   0019D03LJF 
+c3t19d0: 1526  ST336704F -- SUN36G   0012D01M7S 
+c3t20d0: 1526  ST318304F -- SUN18G   0012L000H6 
+c3t22d0: 114A  ST318203F -- SUN18G   0030J43766 
+Total Devices:  15
+ 
+ 
+Enter command: q
+ 
+#
+
+README -- Last modified date:  Friday, April 1, 2011
+
+</pre></body></html>

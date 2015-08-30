@@ -1,0 +1,119 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 121684-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire v210/v240 netra 240 obp rohs wanboot panther
+Synopsis: Hardware/PROM: Sun Fire V210/V240 Netra 240 Flash PROM Update
+Date: Jun/16/2006
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.18.10, POST 4.18.10, OBDIAG 4.18.10
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sun fire v210/v240 netra 240
+
+BugId's fixed with this patch: 4826050 5064141 5093266 6173881 6206729 6210939 6216428 6231224 6234769 6235884 6243243 6246407 6246421 6247508 6247511 6255271 6256336 6256337 6256341 6257778 6257800 6263301 6267632 6273119 6273213 6276317 6284105 6284318 6286277 6299053 6299060 6300972 6303388 6306001 6310450 6312383 6318305 6320918 6320921 6321482 6323579 6326496 6326566 6331616 6332920 6333193 6338675 6349469 6352494 6358075 6364004 6364700 6381105 6415442 6415545
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunFire240
+unix.flash-update.SunFire240.sh
+
+Problem Description:
+
+4826050 RED_State exception does not trigger POST, OBDiag when error-reset trigger set
+5064141 post does not get triggered when the triggers are set to error-reset
+5093266 Need POST support for Panther 
+6173881 Obdiag exits and prevents user from starting program again when hardware failure detected
+6206729 "qas" binary is to be removed from the post gate and be called from the compiler directory
+6210939 OBP Needs to get actual frequency from POST when IO slot is in  PCIX mode
+6216428 Move Starcat specific code from common PCI code into Starcat  PCI code
+6231224 system hang up when enter ":c" to leave kadb prompt and get  back into UNIX mode.
+6234769 "post" command does not work after dropping to "ok" prompt from OS after a "break"
+6235884 "NESTED ERRORs, going interactive forcing misaligned trap" seen  after probing devices
+6243243 OBP hangs on E25K after enable-reentry failure
+6246407 TFTP boot on WANboot capable proms hangs if duplicate TFTP data  blocks are received
+6246421 Limit number of TFTP timeout messages during boot
+6247508 system-tick-speed and the alarm interval need to be updated to  correct value
+6247511 support reentrancy in the memory list management
+6255271 (March 05) release of ENxS and Netra 210/240 motherboad not supported by latest obp. 
+6256336 Need TH2 timing values for 10:1 1500Mhz support
+6256337 Need to fix POST poll_mc_timing routine to support multiple  timing configs
+6256341 Disable the POST FPU Block register test for Panther CPUs
+6257778 Enchance Panther CPU error handling
+6257800 SeSi PMU update
+6263301 System fails post initialization and is unable to boot.
+6267632 .version command from ok prompt will print out the wrong POST version (POST 4.49.48)
+6273119 SeSi PMU update
+6273213 Need POST dev complete putback for Panther
+6276317 Remove Xmits 3.0 workaround from fcode driver
+6284105 add support for Netra 210 1U server.
+6284318 First boot to Solaris will panic after a POR with 1200MHz  modules installed.
+6286277 prtdiag showes wrong bus freq. for c5 slots
+6299053 OBP could not reset Broadcom 5704 ethernet controller phy (revision b0 - P20)
+6299060 Need add a new motherboard part # for Netra 210 R04 motherboard
+6300972 R04 netra 210 motherboard has AM29LV017D flash memory
+6303388 SeSi new motherboard part numbers for Flash Update
+6306001 POST Scan ring integrity message shows Jaguar/Panther CPU as Cheetah.
+6310450 error reporting AFSR/AFSR-ext using engineering thrasher test on camelot system
+6312383 POST needs to be enhanced to support Netra 210 (Salsa-19) server .
+6318305 Added MB_PN's 375-3359 and 375-3360 for Netra 210/240 and V210/240.
+6320918 V490/V890 XIR may spuriously fail
+6320921 More info desired on Hardware Fatal Reset
+6321482 Post selection menu entry 12 not possible
+6323579 fiesta/post CPU functional tests fail
+6326496 add workaround to USB FCode for Cypress CY7C65640 USB hub non-compliance6335492 When CPUs on module B are disabled then CPUs on module A are effectively disabled.
+6326566 Add flash update support for RoHS V210/V240 1.3GHz with MB_PN's 375-3344 and 375-3345
+6331616 Speed up Daktari/Cherrystone time-to-boot
+6332920 USB OBdiag test fails due to level2 method in dropins
+6333193 POST memory testing takes longer on Panther CPUs than on Jaguar CPUs
+6338675 Add support for RoHS V210/V240 Lower Interface Boards and 2x1.5GHz Motherboards
+6349469 "RoHS V210: ERROR   : pci14e4 Misc Local Control register"
+6352494 Add obp support for AM29LV033 flashprom device
+6358075 Add RoHS V440 numbers.
+6364004 Safari Invalid Commands on Panther CPU - POST maskes the Invalid Command Error
+6364700 Add obdiag support for AM29LV017D and AM29LV033 flashprom devices
+6381105 obp needs to support RoHs scsi disk bkpln 501-7344 for Netra 440    
+6415442 Change Branch Predictor Mode (BPM) in OBP for Panther USIV+.
+6415545 FW needs to dump the core shadow scan data on an IERR
+
+Patch Installation Instructions:
+==============================
+Please refer to the Install.info file for instructions on updating the firmware using the files included in this patch. 
+ 
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+Special Install Instructions:
+---------------------
+None.
+
+README -- Last modified date:  Friday, June 16, 2006
+
+</pre></body></html>

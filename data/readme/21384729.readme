@@ -1,0 +1,131 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Copyright 2012-2015, FUJITSU LIMITED. All rights reserved.
+Oracle and/or its affiliates provided technical input and review on portions
+of this material.
+Oracle and/or its affiliates and Fujitsu Limited each own or control
+intellectual property rights relating to products and technology described in
+this document, and such products, technology and this document are protected
+by copyright laws, patents, and other intellectual property laws and
+international treaties.
+This document and the product and technology to which it pertains are
+distributed under licenses restricting their use, copying, distribution, and
+decompilation. No part of such product or technology, or of this document, may
+be reproduced in any form by any means without prior written authorization of
+Oracle and/or its affiliates and Fujitsu Limited, and their applicable
+licensors, if any. The furnishings of this document to you does not give you
+any rights or licenses, express or implied, with respect to the product or
+technology to which it pertains, and this document does not contain or
+represent any commitment of any kind on the part of Oracle or Fujitsu Limited,
+or any affiliate of either of them.
+This document and the product and technology described in this document may
+incorporate third-party intellectual property copyrighted by and/or licensed
+from the suppliers to Oracle and/or its affiliates and Fujitsu Limited,
+including software and font technology. Per the terms of the GPL or LGPL, a
+copy of the source code governed by the GPL or LGPL, as applicable, is
+available upon request by the End User. Please contact Oracle and/or its
+affiliates or Fujitsu Limited. This distribution may include materials
+developed by third parties.Parts of the product may be derived from Berkeley
+BSD systems, licensed from the University of California. UNIX is a registered
+trademark in the U.S. and in other countries, exclusively licensed through
+X/Open Company, Ltd.
+Oracle and Java are registered trademarks of Oracle and/or its
+affiliates. Fujitsu and the Fujitsu logo are registered trademarks of Fujitsu
+Limited. 
+All SPARC trademarks are used under license and are registered trademarks of
+SPARC International, Inc. in the U.S. and other countries. Products bearing
+SPARC trademarks are based upon architectures developed by Oracle and/or its
+affiliates. SPARC64 is a trademark of SPARC International, Inc., used under
+license by Fujitsu Microelectronics, Inc. and Fujitsu Limited. Other names may
+be trademarks of their respective owners. 
+United States Government Rights - Commercial use. U.S. Government users are
+subject to the standard government user license agreements of Oracle and/or
+its affiliates and Fujitsu Limited and the applicable provisions of the FAR
+and its supplements. 
+
+Disclaimer: The only warranties granted by Oracle and Fujitsu Limited, and/or
+any affiliate of either of them in connection with this document or any
+product or technology described herein are those expressly set forth in the
+license agreement pursuant to which the product or technology is
+provided. EXCEPT AS EXPRESSLY SET FORTH IN SUCH AGREEMENT, ORACLE OR FUJITSU
+LIMITED, AND/OR THEIR AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES OF ANY
+KIND (EXPRESS OR IMPLIED) REGARDING SUCH PRODUCT OR TECHNOLOGY OR THIS
+DOCUMENT, WHICH ARE ALL PROVIDED AS IS, AND ALL EXPRESS OR IMPLIED CONDITIONS,
+REPRESENTATIONS AND WARRANTIES, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR
+NON-INFRINGEMENT, ARE DISCLAIMED, EXCEPT TO THE EXTENT THAT SUCH DISCLAIMERS
+ARE HELD TO BE LEGALLY INVALID. Unless otherwise expressly set forth in such
+agreement, to the extent allowed by applicable law, in no event shall Oracle
+or Fujitsu Limited, and/or any of their affiliates have any liability to any
+third party under any legal theory for any loss of revenues or profits, loss
+of use or data, or business interruptions, or for any indirect, special,
+incidental or consequential damages, even if advised of the possibility of
+such damages. 
+
+DOCUMENTATION IS PROVIDED gAS ISh AND ALL EXPRESS OR IMPLIED CONDITIONS,
+REPRESENTATIONS AND WARRANTIES, INCLUDING ANY IMPLIED WARRANTY OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT, ARE
+DISCLAIMED, EXCEPT TO THE EXTENT THAT SUCH DISCLAIMERS ARE HELD TO BE LEGALLY
+INVALID.
+
+==============================================================================
+
+XCP    : SPARC M10-4S/M10-4/M10-1
+         XSCF Control Package
+Date   : June 30, 2015
+Version: 2260
+
+==============================================================================
+
+The required systems are SPARC M10 systems in order to install XSCF Control 
+Package(abbreviated as XCP)2260. Reference 
+"Application Consideration" in this file before installing XCP2260.
+
+  - On installing the XCP2260
+  
+   &gt; Change the platadm privilege or fieldeng privilege in order to install 
+   &gt; XCP2260.
+   &gt; This XCP2260 will run on the system after installing XCP2260 completely.
+   &gt; Never put back privious version after installing XCP2260.
+   &gt; Never mind if installation is failed ,as current firmware has backed up.
+
+  - On the time required
+
+    Reference Chapter 16 in "Fujitsu M10/SPARC M10 Systems System Operation and 
+    Administration Guide". (note 1)
+
+
+1.CD-ROM content 
+
+  The file list included in the CD is shown below. xxxx indicates XCP version.
+  nnnn indicates MIB version.
+
+@  XCPxxxx CD
+      |      
+      +---- BBXCPxxxx.tar.gz     : XCP for M10-4S/M10-4/M10-1
+      |
+      +---- XSCF-SP-MIB_nnnn.mib : Extended MIB in order to register SNMP Agent.
+      |
+      +---- README_xxxx_jp.txt   : README(Japanese)
+      |
+      +---- README_xxxx_en.txt   : README(English)
+
+
+2.Method of application:
+
+  Reference Chapter 16 in "Fujitsu M10/SPARC M10 Systems System Operation and 
+  Administration Guide". (note 1)
+
+
+3.Additional Functions
+
+  Please refer to the "Product Notes" for the detail and other information.
+
+
+Note 1: See the latest version of "Fujitsu M10/SPARC M10 Systems System 
+        Operation and Administration Guide".
+
+
+Contact a sales representative or a certified service engineer if you have any
+questions.
+
+[End of Document]
+</pre></body></html>

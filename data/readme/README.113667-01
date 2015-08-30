@@ -1,0 +1,86 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 113667-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: st318404l 18g st39204l 9g scsi disk firmwarei
+Synopsis: Hardware, 18G SCSI Disk: Download program and ST318404L.0103.fw firmware
+Hardware, 9G SCSI Disk: Download program and ST39204L.0103.fw firmware
+Date: Dec/23/2003
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8
+
+SunOS Release: 5.5.1 5.6 5.7 5.8
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: Segate Cheetah4-family SCSI disks
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	ST318404L.0103.fw
+	ST39204L.0103.fw 
+	download
+	download64 
+    .download
+    download32 
+    patchinfo
+README.113667-01
+
+Problem Description:
+
+This patch is designed to download a special firmware for Seagate Cheetah4 SCSI Drives.
+This new firmware enables the Cheetah4 SCSI Drive to exercise the flashROM and SRAM 
+devices within the drive to prevent possible damage due to excessive periods of inactivity. 
+The firmware also provides the ability to determine the flashROM vendor (requires an 
+external, host-based utility included with this patch).
+ 
+The  patch has the following bug fixes :
+ 
+Previous History:
+
+Patch Installation Instructions:
+------------------------------
+ 
+see file: INSTALLATION_INSTRUCTIONS
+
+Special Install Instructions:
+----------------------------
+ 
+None.
+
+README -- Last modified date:  Monday, July 25, 2011
+
+</pre></body></html>

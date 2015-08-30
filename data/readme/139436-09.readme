@@ -1,0 +1,433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+<title>Patch README: 139436-09</title>
+<style type="text/css"> body {font-family: Arial, Helvetica, sans-serif; font-size: 12px; } h1 {font-size: 16px} table.readmeTable { border-width: 1px; border-color: gray; border-style: solid; border-spacing: 2px; } table.readmeTable th { border-width: 1px; padding: 4px; border-style: inset; border-color: gray; } table.readmeTable td { border-width: 1px; padding: 4px; border-style: inset; border-color: gray; } </style>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
+<meta http-equiv="pragma" content="no-cache">
+</head>
+
+<body>
+<h1><b>Patch-ID# </b><b>139436-09</b></h1><br>
+<a href="https://support.oracle.com/CSP/ui/flash.html#tab=PatchHomePage(page=PatchHomePage&amp;id=gnrgyece()),(page=PatchDetailPage&amp;id=gnrgyece(patchId=139436-09&amp;patchType=Patch&amp;patchName=139436-09))">Download this patch from My Oracle Support</a><br>
+<br>
+<table border="1">
+<tbody><tr>
+   <td><b>
+   Your use of the firmware, software and any other materials contained 
+   in this update is subject to My Oracle Support Terms of Use, which 
+   may be viewed at <a href="https://support.oracle.com">My Oracle Support</a>.
+   </b></td>
+</tr>
+<tr>
+   <td>
+   For further information on patching best practices and resources, please
+   see the following links:
+   <ul>
+   <li> 
+   <a href="http://www.oracle.com/technetwork/systems/patches">
+      Oracle Technology Network Patching Center</a>.
+   </li>
+   <li> 
+   <a href="https://support.oracle.com/CSP/ui/flash.html#tab=KBHome(page=KBHome&amp;id=()),(page=KBNavigator&amp;id=(bmDocID=1289614.1&amp;from=BOOKMARK&amp;bmDocDsrc=KB&amp;viewingMode=1143))">
+      Sun Patches and Updates Information Center</a>.
+   </li>
+   </ul>
+   </td>
+</tr>
+<tr>
+   <td><i>
+   Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
+   </i></td>
+</tr>
+</tbody></table><br>
+<b>Keywords: </b>firmware: netra t2000 6.7.13 firmware_metadata security<br>
+<b>Synopsis: </b>FIRMWARE: Netra T2000 - Sun System Firmware Update 6.7.13<br>
+<b>Date: </b>Oct/15/2013<br>
+<br>
+<br>
+<b>Install Requirements: </b>Additional instructions may be listed below<br>
+<br>
+<b>Solaris Release: </b>10<br>
+<br>
+<b>SunOS Release: </b>5.10<br>
+<br>
+<b>Unbundled Product: </b>Sun System Firmware<br>
+<br>
+<b>Unbundled Release: </b>6.7.13<br>
+<br>
+<b>Xref: </b><br>
+<br>
+<b>Topic: </b>Netra T2000 Sun System Firmware 6.7.13 flashprom update<br>
+<br>
+<b>Relevant Architectures: </b>sparc<br>
+<br>
+<b>Bugs fixed with this patch: </b><br>
+<br>
+<table class="readmeTable">
+<thead>
+<tr><th>Sun CR #</th>
+<th>Bug #</th>
+</tr></thead>
+<tbody><tr><td>6944722</td><td>15637171</td></tr>
+<tr><td>7143136</td><td>15771196</td></tr>
+<tr><td>7169011</td><td>15791835</td></tr>
+<tr><td></td><td>16064298</td></tr>
+<tr><td></td><td>16447062</td></tr>
+<tr><td></td><td>17470333</td></tr>
+<tr><td></td><td>17470453</td></tr>
+<tr><td>4794955</td><td>15138433</td></tr>
+<tr><td>6405423</td><td>15322074</td></tr>
+<tr><td>6478646</td><td>15354124</td></tr>
+<tr><td>6490038</td><td>15359563</td></tr>
+<tr><td>6500874</td><td>15365080</td></tr>
+<tr><td>6562812</td><td>15400134</td></tr>
+<tr><td>6579390</td><td>15409182</td></tr>
+<tr><td>6580761</td><td>15409977</td></tr>
+<tr><td>6613937</td><td>15428963</td></tr>
+<tr><td>6619512</td><td>15432443</td></tr>
+<tr><td>6630434</td><td>15438931</td></tr>
+<tr><td>6658777</td><td>15455547</td></tr>
+<tr><td>6670786</td><td>15462443</td></tr>
+<tr><td>6678291</td><td>15466712</td></tr>
+<tr><td>6684451</td><td>15470442</td></tr>
+<tr><td>6684784</td><td>15470641</td></tr>
+<tr><td>6688181</td><td>15472603</td></tr>
+<tr><td>6695189</td><td>15476551</td></tr>
+<tr><td>6697349</td><td>15477921</td></tr>
+<tr><td>6697604</td><td>15478045</td></tr>
+<tr><td>6701347</td><td>15479998</td></tr>
+<tr><td>6703492</td><td>15481085</td></tr>
+<tr><td>6710046</td><td>15484829</td></tr>
+<tr><td>6712384</td><td>15486148</td></tr>
+<tr><td>6719407</td><td>15490375</td></tr>
+<tr><td>6723191</td><td>15492686</td></tr>
+<tr><td>6724775</td><td>15493713</td></tr>
+<tr><td>6729411</td><td>15496695</td></tr>
+<tr><td>6729529</td><td>15496760</td></tr>
+<tr><td>6731027</td><td>15497750</td></tr>
+<tr><td>6731291</td><td>15497923</td></tr>
+<tr><td>6732222</td><td>15498436</td></tr>
+<tr><td>6732265</td><td>15498476</td></tr>
+<tr><td>6732414</td><td>15498591</td></tr>
+<tr><td>6734455</td><td>15499729</td></tr>
+<tr><td>6735159</td><td>15500214</td></tr>
+<tr><td>6736162</td><td>15500788</td></tr>
+<tr><td>6737476</td><td>15501602</td></tr>
+<tr><td>6740161</td><td>15503376</td></tr>
+<tr><td>6741949</td><td>15504469</td></tr>
+<tr><td>6744453</td><td>15505951</td></tr>
+<tr><td>6749018</td><td>15508775</td></tr>
+<tr><td>6750193</td><td>15509455</td></tr>
+<tr><td>6750196</td><td>15509459</td></tr>
+<tr><td>6750537</td><td>15509654</td></tr>
+<tr><td>6750539</td><td>15509656</td></tr>
+<tr><td>6750541</td><td>15509658</td></tr>
+<tr><td>6751051</td><td>15509963</td></tr>
+<tr><td>6751419</td><td>15510180</td></tr>
+<tr><td>6753218</td><td>15511319</td></tr>
+<tr><td>6754790</td><td>15512282</td></tr>
+<tr><td>6754807</td><td>15512296</td></tr>
+<tr><td>6754833</td><td>15512312</td></tr>
+<tr><td>6755211</td><td>15512545</td></tr>
+<tr><td>6755818</td><td>15512959</td></tr>
+<tr><td>6756295</td><td>15513262</td></tr>
+<tr><td>6756341</td><td>15513301</td></tr>
+<tr><td>6757022</td><td>15513713</td></tr>
+<tr><td>6757389</td><td>15513919</td></tr>
+<tr><td>6757622</td><td>15514076</td></tr>
+<tr><td>6759826</td><td>15515557</td></tr>
+<tr><td>6761652</td><td>15516678</td></tr>
+<tr><td>6763110</td><td>15517513</td></tr>
+<tr><td>6766240</td><td>15519387</td></tr>
+<tr><td>6768729</td><td>15520946</td></tr>
+<tr><td>6769672</td><td>15521547</td></tr>
+<tr><td>6772664</td><td>15523438</td></tr>
+<tr><td>6776320</td><td>15525487</td></tr>
+<tr><td>6781815</td><td>15528078</td></tr>
+<tr><td>6790244</td><td>15533033</td></tr>
+<tr><td>6794009</td><td>15535497</td></tr>
+<tr><td>6801976</td><td>15539997</td></tr>
+<tr><td>6804349</td><td>15541402</td></tr>
+<tr><td>6804926</td><td>15541725</td></tr>
+<tr><td>6808990</td><td>15544082</td></tr>
+<tr><td>6813603</td><td>15546760</td></tr>
+<tr><td>6815610</td><td>15547983</td></tr>
+<tr><td>6818705</td><td>15549815</td></tr>
+<tr><td>6819294</td><td>15550113</td></tr>
+<tr><td>6819790</td><td>15550329</td></tr>
+<tr><td>6819881</td><td>15550397</td></tr>
+<tr><td>6821303</td><td>15551252</td></tr>
+<tr><td>6823951</td><td>15552786</td></tr>
+<tr><td>6825151</td><td>15553455</td></tr>
+<tr><td>6828444</td><td>15555188</td></tr>
+<tr><td>6831677</td><td>15557313</td></tr>
+<tr><td>6835857</td><td>15559784</td></tr>
+<tr><td>6836570</td><td>15560189</td></tr>
+<tr><td>6836888</td><td>15560393</td></tr>
+<tr><td>6840227</td><td>15562379</td></tr>
+<tr><td>6843116</td><td>15564169</td></tr>
+<tr><td>6855850</td><td>15572747</td></tr>
+<tr><td>6860195</td><td>15575529</td></tr>
+<tr><td>6861787</td><td>15576562</td></tr>
+<tr><td>6863261</td><td>15577553</td></tr>
+<tr><td>6866918</td><td>15579387</td></tr>
+<tr><td>6867639</td><td>15579853</td></tr>
+<tr><td>6875992</td><td>15585155</td></tr>
+<tr><td>6876629</td><td>15585579</td></tr>
+<tr><td>6877162</td><td>15585942</td></tr>
+<tr><td>6884059</td><td>15591110</td></tr>
+<tr><td>6886045</td><td>15592593</td></tr>
+<tr><td>6891722</td><td>15596675</td></tr>
+<tr><td>6892125</td><td>15596942</td></tr>
+<tr><td>6904173</td><td>15605757</td></tr>
+<tr><td>6929662</td><td>15625446</td></tr>
+<tr><td>6938617</td><td>15632475</td></tr>
+<tr><td>6938938</td><td>15632752</td></tr>
+<tr><td>6939289</td><td>15633038</td></tr>
+<tr><td>6939292</td><td>15633040</td></tr>
+<tr><td>6942741</td><td>15635695</td></tr>
+<tr><td>6942743</td><td>15635697</td></tr>
+<tr><td>6944079</td><td>15636646</td></tr>
+<tr><td>6949047</td><td>15640461</td></tr>
+<tr><td>6952282</td><td>15643027</td></tr>
+<tr><td>6969975</td><td>15656718</td></tr>
+<tr><td>6974892</td><td>15660886</td></tr>
+<tr><td>6997177</td><td>15679098</td></tr>
+<tr><td>7012063</td><td>15691457</td></tr>
+</tbody></table>
+<br>
+<br>
+<b>Changes incorporated in this version: </b>17470453 17470333 16447062 16064298 15791835 15771196 15637171<br>
+<br>
+<b>Patches accumulated and obsoleted by this patch: </b><br>
+<br>
+<b>Patches which conflict with this patch: </b><br>
+<br>
+<b>Patches required with this patch: </b><br>
+<br>
+<b>Obsoleted by: </b><br>
+<br>
+<b>Files included with this patch: </b><br>
+<br>
+Netra_T2000_metadata.xml<br>
+Sun_System_Firmware-6_7_13-Netra_T2000.bin<br>
+sysfwdownload<br>
+<br>
+<b>Problem Description:</b><br>
+<br>
+
+<pre>17470453 Need to increase the number of retries on shell task cleanup
+17470333 Backport 17470333 to 1.7.3: LDC reset can get stuck
+15791835 SUNBT7169011 T1/T2 issues with ALOM after upgrade to <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=139434-09">139434-09</a> - slow console
+16447062 Backport 16447062 to 1.7.3: Problem with SYSFW-ALL / HYPERVISOR
+16064298 Backport 16064298 to 4.30.4: OpenBoot banner should reflect 2013
+15771196 SUNBT7143136 Need to update OBP copyright notice in the banner to 2012
+15637171 SUNBT6944722 OBP gates need to be able to build outside of openboot.sfbay
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=139436-08">139436-08</a> - Sun System Firmware 6.7.12)
+ 
+7012063 Update openboot copyright to 2011
+6997177 Performing large paste operations via a network console connection can break the conserver on ALOM.
+6974892 FIOCMP0/P19 device name is incorrectly reported after upgrading to SysFW 6.7.4
+6949047 Init 5 command fails to power off host
+6757622 prtdiag -v command on T6300 does not give full SysFw info
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=139436-07">139436-07</a> - Sun System Firmware 6.7.11)
+ 
+6969975 Oracle re-branding needed for sysfwdownload tool.
+6929662 T2000:System Controller:Causing "prtpicl -v" to hang
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=139436-06">139436-06</a> - Sun System Firmware 6.7.10)
+ 
+6952282 OBP Logo change for rebranding to Oracle
+6944079 T1000's may hang up after continued rebooting tests
+6942743 ALOM-CMT login banner needs to be changed for Oracle rebranding
+6942741 ALOM-CMT login banner date needs to be changed from 2008 to 2010
+6939292 Change copyright in POST banner to new format
+6939289 Change copyright in OBP banner to new format
+6938938 Fault LEDs on T6300 blades when installed with Gen2 Midplanes
+6938617 StPaul: SC Alert: SYS_FAN at MP/FM7/FOUT has FAILED.
+6877162 flashupdate list of available system flashprom shows wrong version
+6876629 Wrong OBP version is shown when ".version" is issued at OBP
+6863261 LDoms guest domains very slow to net boot using S10U6 and later
+6843116 No messages got printed by .nonresumable-errinfo after a non-resumable error trap
+6490038 Multiple bogus ereport.io.fire.pec.lup logged during poweron of T1000 if other PCIE errors occur
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=139436-05">139436-05</a> - Sun System Firmware 6.7.8)
+ 
+6904173 Montoya:Error messages on console related to 'tSwitchMonitor' after blade hotswap
+6892125 L2FO: Need SYSFW change to send the uplink status to the e1000g interface for CP3060 (MONTOYA)
+6886045 OS reboot failed problem reproduce with latest
+6884059 VPCI_IO_PEEK_01 caused HV abort on Ontario
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=139436-04">139436-04</a> - Sun System Firmware 6.7.6)
+ 
+6891722 ALOM4v mail alerts lost in delivery
+6875992 T2000 / SP still logging "SYS_FAN at FT0/FMx has FAILED" messages with 1.7.4 for fix CR6828444
+6867639 N1 platforms also need rcid properties for pcie
+6866918 Memory leak in SAS/SATA test
+6861787 Following multiple firmware updates using sysfwdownload -u fails to automatically update
+6860195 Add support to dump PLX FW from DEMON menu
+6855850 Need to extend the Maximum PCI probe depth
+6835857 Chip reset error occurs when OS boots
+6819881 Didn't receive RTR pkt! when powercycling huron and maramba systems
+6804926 Hypervisor page table not properly initialized sometimes
+6801976 PA to RA macro causes Hypervisor Abort
+6580761 OBP MMU miss handlers not correct for sun4v spec
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=139436-03">139436-03</a> - Sun System Firmware 6.7.5)
+ 
+6831677 ALOM hangs after several weeks of ssh usage
+6741949 ALOM hang after a period of time
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=139436-02">139436-02</a> - Sun System Firmware 6.7.4)
+ 
+6840227 ldmd-SC communication issues on integration_06 on ontario system
+6836888 Bootblock code in Solaris 10 Update 5 or earlier is incompatible with OpenBoot 4.30 or later
+6836570 Guest dependency probably doesn't work on fresh boot
+6828444 The fix in bug 6815610 needs to be implemented for the T2000 false fan failures
+6825151 OBP console chars are dropped/scrambled with USB keyboard
+6823951 Remove dummy dimm putback broke N1 build
+6821303 Possible memory corruption when relocating vector interrupt handlers
+6819790 Implement changes for FWARC 2009/161; max_guest_dependencies
+6819294 LDOM configuration lost when migrating SP to new replacement blade
+6818705 Migration structures are not properly relocated
+6815610 RFE T2000 systems may experience a shutdown with SC alert "Chassis cover removed"
+6813603 Improve POST thread setup to avoid execution bottleneck
+6808990 Host time goes back by 5 minutes after AC powercycle
+6804349 DVD will not boot -- OBP fix missing to compliment CR 4976792 (READ RETRY)
+6794009 Read failure of FRU_PROM at MP/SEEPROM seen on T6300 with firmware 6.7.1
+6790244 Add support to optionally stop other domains if control domain exits
+6781815 Some obp parameters change unexpectedly after sc resets and poweron
+6776320 FourEyes firmware 1.3 on StPaul requires support in ALOM-CMT
+6772664 WARNING: /pci@7c0/pci@0/pci@1/pci@0/isa@2: Could not open asr package
+6766240 DVD boot read failures from obp prompt (intermittent DVD DRIVE MISIDENTIFIED may be seen)
+6751419 SP passes incorrect minspeed value for tachometers to Solaris on T1000
+6735159 StPaul: Optimize midplane i2c bus traffic to support ILOM 3.0 on CMM (was RFE for VLAN support)
+6719407 'Device:' is output 5 times after reset-all on OBP
+6684784 ERROR: Init ASR DB: File: /scfs/vbsc/asrdb
+6678291 vBSC NFSVAR support is broken.
+6500874 Going from static ip to dhcp, accessing netmgt port during reset causes tDhcpcStateTask exception
+ 
+(from <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=139436-01">139436-01</a> - Sun System Firmware 6.7.0)
+ 
+4794955 POST debug menu's help not implemented
+6405423 Hypervisor need to provide APIs for Hybrid I/O
+6478646 PCI bridge probing code does not need to execute config writes to nonexistent devices
+6562812 The ldm list-config output can be confusing when issued after a delayed reconfiguration reset
+6579390 Disable a DIMM and reset-all, obp banner still shows the same number of memory available
+6613937 N1 platforms should print an error message when post timeout is encountered
+6619512 hv_ldc_copy should use optimized bcopy
+6630434 Machine description size is NOT equal to sizeof(md_hdr_t) + node_blk_sz + name_blk_sz + data_blk_sz
+6658777 Implement an optimized xcopy
+6670786 Support backoff/timeout in sram guest state poller to avoid case where SC becomes slow/unresponsive
+6684451 ASR pathnames for montoya PCI devices contain function numbers; these devices cannot be disabled
+6688181 VBSC needs to support notification of power button being pressed off
+6695189 Hypervisor builds with host stack.h and fsr.h
+6697349 cscope.files should include offsets.in files
+6697604 Move common/src/hcall_core.s
+6701347 Implement the ldc_revoke hcall
+6703492 Pushing the power button 7 - 10 times in a row makes ILOM unstable.
+6710046 reset functions don't use their argument
+6712384 Wrong ASI used in _PRINT_SPINLOCK_ENTER()
+6723191 HOST domain status is wrong after control domain reset when auto-boot is disable
+6724775 Support to boot from one or more vdisk server
+6729411 immu_err does not set context correctly
+6729529 Product definition cleanup
+6731027 After reset SP issue Solaris init 0 then halt will hang forever
+6731291 Remove exported funcs that allow ALOM/ILOM to directly toggle power
+6732222 nodefault-bytes is not persistent
+6732265 POST failures in pre-CMT platforms
+6732414 OpenBoot deblocker package additions for large disk support must be supported
+6734455 Crypto code isn't properly converting RA to PA before use
+6736162 T6300: showenvironment shows fan speed as UNKNOWN after hot plug
+6737476 OpenBoot disk label package fixes are mising from the large disk support changes
+6740161 Display POK register on POK failure
+6744453 Remove data_conv_t structure
+6749018 lint sources should be a derived entity
+6750193 ILOM can not power on/off the host after many reset loops (~122 times)
+6750196 pci_iommu_map /w bad iotte addr does not return ENORADDR on N1
+6750537 Domain Migration Phase 1
+6750539 Hypervisor debug binaries should support "-g" debugging information
+6750541 mdgen should support generic data blocks
+6751051 POST reports hundreds of free resource timeouts
+6753218 Build in Batoka platform failed due to change in CR 6579390
+6754790 PA2RA macros assume segment offset is constant per bucket
+6754807 The sequencer doesn't load cpus which causes the hot removal cpus at the end of poweron
+6754833 Intermittent failures seen on reboot and power cycle
+6755211 mach_vcpu_state_ doesn't need test for SUSPEND/RESTORE
+6755818 Corruption of "my-self" causing missing "idprom" property in root node
+6756295 Add support to test serial port from DEMON menu
+6756341 sc_powerondelay must be true to restore the host system's power prior to power loss
+6757022 Host getting wedged when resetting sc while host is already powered on
+6757389 ra2pa code include limit as in the segment, not out of it
+6759826 smd_rw_node doesn't fail when SMD_DATA node is too small
+6761652 mdgen dies trying to parse an array of strings
+6763110 NULL pointer dereference in vbsc_send_polled
+6768729 Domain becomes unusable when recovering from an interrupted migration
+6769672 Incomplete fix for 6757022
+</pre>
+<br>
+<br>
+<b>Patch Installation Instructions:</b><br>
+
+<pre>--------------------------------
+ 
+Please refer to the Install.info file for instructions on updating the firmware
+flashprom using the files included in this patch.
+</pre>
+<br>
+<br>
+<b>Special Install Instructions:</b><br>
+
+<pre>----------------------------
+ 
+NOTE 1: Firmware component revisions included with this release:
+ 
+	System Firmware 6.7.13 Netra[TM] T2000 2013/09/24 08:15
+	--------------------------------------------
+	ALOM-CMT v1.7.13  Sep 24 2013  07:58:50
+	VBSC 1.7.3.e Sep 24 2013  08:11:41
+	OBP 4.30.4.e 2013/09/23 16:08
+	Hypervisor 1.7.3.d 2013/09/24 07:19
+	Netra[TM] T2000 POST 4.30.4.b 2010/07/09 14:29 
+ 
+	Checksum of Sun_System_Firmware-6_7_13-Netra_T2000.bin : 2616623354
+	(generated by the /usr/bin/cksum command)
+ 
+NOTE 2: System Firmware 6.7.0 supports the following features on Netra T2000 Servers:
+ 
+	   - scadm
+	   - sun4u compatible picl
+	   - sun4u compatible prtdiag
+	   - 4 HDD configuration
+ 
+NOTE 3: Please refer to the online documentation for feature and version
+        compatibility between releases of Sun System Firmware and
+        Oracle VM Server for SPARC releases.  Documentation relevant to
+        this platform can be found at:
+        - OVM SPARC:   http://www.oracle.com/technetwork/documentation/vm-sparc-194287.html
+	- Netra T2000: http://download.oracle.com/docs/cd/E19596-01/index.html
+ 
+NOTE 4: If you are currently using LDoms 1.0 software, you must perform a full upgrade procedure
+        to upgrade to LDoms 1.2 (or later) software.  Refer to the Logical Domains (LDoms)
+        Administration Guide at http://www.oracle.com/technetwork/documentation/vm-sparc-194287.html.
+        You do not need to destroy configurations created with LDoms 1.0.1 or later software;
+        you only need to upgrade the software.
+ 
+Note 5: Upgrading to Sun System Firmware 6.7.0 (or later) requires Solaris 10 6/06
+     (Update 2) + <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=126237-05">126237-05</a> &amp; <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;bugfix_name=126238-04">126238-04</a> (or later) to be installed.  These patches
+     can be obtained by Oracle Service personnel when a Service Request is opened.
+ 
+Note 6: Make sure the following entry is added to the /etc/system file:
+		 set pcie:pcie_aer_ce_mask=0x1
+</pre>
+<br>
+<br>
+<b>README -- Last modified date:  </b>Monday, December 23, 2013<br>
+<br>
+
+
+
+
+</body></html>

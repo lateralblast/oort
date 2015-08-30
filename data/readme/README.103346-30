@@ -1,0 +1,449 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 103346-30
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: sun enterprise flashprom update 3.2.30 unix h/w
+Synopsis: Hardware/PROM: Sun Enterprise 3x00/4x00/5x00/6x00 flashprom update
+Date: Oct/30/2002
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP_3.2.30,POST_3.9.30
+NOTE:  IO Type 1/2: FCODE 1.8.30, iPOST 3.4.30; IO Type 3: FCODE 1.8.30, iPOST 3.0.30; IO Type 4/5: FCODE 1.8.30, iPOST 3.4.30
+    NOTE: This utility is *not* Solaris Release version dependent.
+	  The list of releases shown under the "Solaris Release" and
+	  "SunOS Release" sections may not be complete.
+	  Flash-update-10 or later version will run on any 32bit or 64bit OS.
+	  Flash-update-09 or earlier version will run on any 32bit OS,
+	  but not on any 64bit OS.
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc.sun4u
+
+BugId's fixed with this patch: 1229666 1232074 1244156 1244993 1245745 1246116 1246458 1248141 1250943 1254307 1254337 1256038 1256295 1260643 1260863 4006109 4006129 4010774 4014122 4018294 4024106 4026135 4027243 4041025 4045138 4055485 4056652 4058035 4070475 4071558 4073702 4078557 4086435 4088491 4092765 4102353 4102394 4105947 4115981 4116452 4117855 4119868 4120409 4123660 4126590 4126710 4129865 4131463 4132482 4132713 4136524 4136552 4141683 4144283 4145789 4145806 4145820 4148827 4161126 4161351 4166670 4168353 4169310 4171246 4175596 4175878 4176301 4176935 4177651 4178564 4180069 4182069 4182418 4188545 4189926 4195851 4196299 4196770 4199847 4200513 4204698 4204764 4205887 4207130 4207342 4207760 4207808 4207810 4207812 4207822 4207942 4208919 4209261 4210812 4212520 4212628 4215010 4216223 4219640 4220852 4221019 4223254 4224994 4227029 4229301 4233044 4236349 4240583 4246646 4247407 4250955 4252406 4267546 4274054 4276378 4276401 4276722 4278508 4287369 4292356 4295213 4298288 4298992 4307143 4307250 4309498 4309891 4310902 4313224 4316431 4317170 4317203 4319924 4320359 4323635 4325760 4333296 4333365 4337390 4338515 4338547 4342776 4343467 4344677 4344952 4345194 4350036 4352286 4358726 4363705 4363710 4367704 4369737 4372421 4372901 4376898 4382335 4382936 4390185 4390407 4392578 4401657 4403815 4412551 4427581 4430346 4431288 4452390 4469179 4546501
+
+Changes incorporated in this version: 4546501
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Copyright
+Install.info
+README.103346-30
+README.ARCHIVE
+README.CheckSums.103346-30
+flash-update-30
+
+Problem Description:
+
+(From 103346-30)
+4546501: T(rhfa) timing violation causing devices behind pci-pci bridge not probed
+ 
+(From 103346-29)
+4227029 Divide by zero detection bug (ffff,ffff,fff 1.0000.0000 /)
+4337390 Peripheral power supply p/n 300-1307 has a high failure rate in E3X00 systems.
+4363705 Redundant definitions of flush-cache
+4363710 Makefile changes for developer convenience.  No change to product.
+4367704 POST is not using correct values for determining overtemp
+4369737 OBP is not using correct values for determine overtemp
+4372421 Finding/Selecting device could break when current base is other than hex
+4372901 OBP/POST prohibits booting of E3000 if REDUNDANT Power has ...
+4376898 Counter-Timer fails after DR operation, sometimes
+4382335 POST SRAM initialization sequence update required
+4382936 "board#" [property] is not consistently available for all on-board devices.
+4392578 Remove unused variables and align better with 4.0.
+4401657 Stack-imbalance in  install-terminal-emulator
+4403815 Mixed E-Cache size on a board causes victim tag failure in POST
+4412551 POST ecache TAG test enhancement needed.
+4427581 Need to identify mirrored SRAM cpu modules (Sunfire+)
+4430346 "Central" device space is not encoded correctly.
+4431288 Sunfire slot-names property for PCI boards does not reflect the board labels
+4452390 upa-interrupt-handler  method for CPU/MEM-board FHC devices mis-coded
+4469179 Test time needs to be reduced
+ 
+(From 103346-28)
+4390185: CPU at MID 1 does not respond to Cross Call with certain memory configs
+4390407: The code that validates idprom contents incorrectly expects 0x80 at offset 1
+ 
+(From 103346-27)
+4010774: obp can overflow user (Was: dictionary) space with no warning.
+4207342: panic: assertion failed when psradm -n new 5:1 400 mhz 8MB modules.
+4227029: Divide by zero detection bug (ffff.ffff.ffff 1.0000.0000 /).
+4276378: E3X00-E6X00 OBP should support DHCP.
+4325760: E3X00-E6X00 PCI I/O card corrupts Fire Hose Controller Group Name Register.
+4333296: Cross calls are not retried if the interrupt dispatch fails.
+4333365: E3000 fails to set 5:1 clock ratio with 400/8 cpus.
+4338515: DR Dictionary allocation wastes physical memory in smaller systems.
+4338547: Improved usability of  flash-update  class of commands.
+4342776: Characters get truncated during probe-fcal-all.
+4343467: 'log2' incorrectly coded for systems with 64-bit cell-size.
+4344952: OBP should not clear AFSR - defer to POST.
+4344677: E3x00-E6x00 POST needs to display AFSR after FATAL reset.
+4345194: POST needs DlSpeed warning message and keypress clear.
+4350036: POST Ecache test enhancements are needed.
+4352286: DHCP code rejects the IP address asigned by the server if any ARP reply received.
+4358726: Ex000+SunSwift MTIMEOUT failures.
+ 
+(From 103346-26)
+4319924: POST detects hardware problem
+4323635: over 10G memory failures , 128m and 256m simms installed, obp 3.2.24
+ 
+(From 103346-25)
+4058035: "CPU tick sync" console message when restarting a powered-off CPU
+4119868: show-post-results  doesn't show correct type for PCI and SOC boards
+4148827: fcal drive is not recognized during probe-fcal-all on FC-100 PCI
+4169310: probe-fcal-all takes almost 10 minutes to complete if empty soc+ is
+4240583: probe-fcal-all does not "see" any FC A3x00 luns
+4246646: Speed and diag levels in POST
+4252406: on E3-6x00 I/O bd, need to complete  compatibility property for 
+         pci_pci bridges
+4267546: ctrace output should also display %o6 and %o7 registers values.
+4278508: Fatal Reset on board or PSU hotplug after 'cfgadm -c connect' of I/O
+         board
+4287369: PCI-device nodes mis-display power-consumption assigned-addresses and
+         alternate-reg
+4292356: ^W at beg of line on obp sometimes causes Fast Data Access MMU Miss
+4295213: Mis-spelled or unrecognized command in NVRAMRC will cause
+         unpredictable errors
+4298288: Frequency Margining in POST hangs the system for CPU modules
+4307143: Need to POST code for proper CPU module operation
+4307250: E3X00-E6X00 OBP retain-list destroyed during reboot
+4309498: Update E3X00-E6X00 OBP for correct rated-frequency identification of cpu 
+         modules
+4309891: OBP disregards the setting of configuration-policy during dr-attach  
+4310902: POST needs to initialize ECache SRAMs with two writes.
+4313224: "assigned-address" not aligned to page boundary breaks the
+         devicedriver on E4500
+4316431: prom-copy has unexpected stack effect
+4317170: Dictionary Overflow not correctly reported
+4317203: Fast Data Access MMU Miss" after "Dictionary Overflow" error.
+4320359: probe-fcal-all showing LUNS SCSI error when probe photon device
+ 
+(From 103346-24)
+4276401: Using disabled-memory-list results in FATAL RESET
+4276722: Wrong system board and CPU Module status...
+4298992: Arbitration method configured for E3000 to E5500 system causes
+         excessive noise.
+ 
+(From 103346-23)
+4141683: E10000 failed to boot from photon with "Invalid WW#" via a HA with 2 GB
+4175596: soc+ needs to provide link status (on multiinitiator)
+4180069: cannot boot from alternate devalias if primary unavailable
+4182418: E3500: cannot mount root with internal fcal-disks
+4200513: POST system board status displays only 1 of the 2 failing cpu's
+4212520: Incorrect DIMM being reported
+4220852: Fatal Reset on init 5 after DR operations
+4221019: Move definition of dma-alloc from where it is defined after being
+         called, to a file that is loaded earlier.
+4247407: obp, post failure, 128mb simms, obp 3.2.xx
+4250955: Fujitsu drive is not seen during bootup
+4274054: POST does get a fatal error when clearing memory, with new 256 MB DIMMs
+ 
+(From 103346-22)
+1229666: P1275 words "d#" and "h#" doesn't implement semantics described.
+1232074: q to quit long listing sometimes doesn't work
+1244156: q to quit long listing doesn't work on Sunfire prom
+4014122: OBP has heap memory leak.
+4027243: OBP limits @ 40 DR attaches of boards with HME cards on them.
+4070475: composite strings could be displayed better
+4176935: Mask# property changes.
+4205887: OBP ALARM handler can be broken by consecutive events.
+4207760: "Backtrace" capability for the Forth debugger
+4207808: Make the  list  command accessible
+4207810: Add a trap-state Param-Stack display command word,  pstrace.
+4207812: Separate out  pseudo-rs  operations.
+4207822: Forth debugger: step-range commands &lt;  and  &gt; don't work quite right.
+4207942: Apply  exit?  to *anything*.
+4209261: Fatal - MTIMEOUT UPA_A_ERR
+4210812: Post hangs when reseting clock speed after reset/reboot
+4215010: Post fails during DR connect on 168 MHz machine
+4216223: Sunfire DR: publish OBP object to indicate CPU/Mem boards supported
+4219640: "Memory Address not Aligned" message when probing the pci board at OBP
+4223254: System with 3.2.22_B4 hang during OS boot if PCI I/O Boards present.
+4224994: POST fatal with mixed E$ 400 mhz module in one corner case
+4229301: Hangs in post after HW power ON(cold start) and/or remote console 
+	 power reset
+4233044: At ok prompt, the ".properties" doesn't work under options node.
+4236349: Sunfire DR: memory timing incorrect after cpu/mem board connect.
+ 
+(From 103346-21)
+4161126: POST failure during reboot after DR operations.
+4168353: 400MHz module is not reported correctly in ".speed" command and 
+	 "prtdiag" file.
+4189926: fatal reset during i/o dr connect with 3.2.19 f/w sets.
+4195851: POST hangs/takes long time for completion during dr cpu-mem board
+	 connect.
+4196299: PCI hang problem.
+4196770: psradm -n of newly dr configured cpu will cause fatal error in one
+	 exception case.
+4199847: POST hangs because lost interrupt on 2nd connect during i/o dr
+	 operation.
+4204698: encodes the NVRAMRC patch.
+4204764: Post takes long time to report bad board during dr connect.
+4207130: POST DR does not correctly identify the speed of 400mhz modules.
+4208919: mix module will cause Fatal Error when the new 8M modules in
+	 lowest slot.
+4212628: Fatal FTC_PERR when insert a second board.
+ 
+1245745: Create unix version of flash-update for UltraEnterprise Servers Prom's
+ 
+(103346-20 does not exist)
+ 
+(From 103346-19)
+4131463: "... post fatals when connecting a slot lower than the 1st cpu board"
+4144283: 'ASR fail by "Data Access Error"'
+4161351: 'found lost system interrupt while running cfgadm test'
+	 'SF+ 3.2.18 FW and 400MHz cpu modules in E6.5k' &gt;12 boards
+	  or non-plus io boards does not downgrade to 336/84MHz.
+4171246: DR: 'connect fails with: "board s not capable of running
+	 at current system clock'
+4182069: 'Non-optimal memory interleave for certain configs.'
+4188545: 'clearing memory takes too much time'
+4132482: "OBP attach does not return error on failure sometimes"
+4175878: Some builds crash mysteriously after decompression
+4176301: $append-open leaves item on stack when file exists
+4178564: tick sync problem during dr cpu-mem
+4177651: 'vers 3.4.6 iPOST causes odd network traffic during boot
+	 on onboard hme (sunfire)'
+ 
+(From 103346-18)
+103346-18 is an emergency release to answer BugID 4166670
+4166670 - "400 MHz modules come up as 200 MHz modules on E3X00-E6X00" 
+ 
+(Note: 103346-14 103346-15 103346-16 and 103346-17 do not exist.  See note
+	under "Version -14 through Version -17 specific information".)
+ 
+(From 103346-13)
+4132713: "Fatal Reset MTIMEOUT in POST of E6000"
+4115981: "solaris 2.6, some sort of s/w bug caused hard hang and XIR 
+           did not work"
+4145789 (5/5):  (RFE)  Enhancements to Interactive Forth debugger
+4145806 (5/5):  (RFE)  A way around the limitation of  'user
+4145820 (5/5):  (RFE)  Give indication when padding to work around
+			 prober-alignment bug
+ 
+(From 103346-12)
+4105947 (3/5): Unknown message after POST
+4120409 (3/3): reboot fails after disconnect an i/o board
+4126710 (5/5): Confusing Power Supply error messages ...
+4123660 (5/5): spurious POST message at power-on, "TESTCASE RESET REASON ..."
+4129865 (2/2): Peeking/probing/poking is incorrectly coded for BlackBird CPU
+4126590 (3/2): OBP fails to handle TLB miss on valid address
+4136524 (3/3): "Tick" synchronization needs to pass along NPT bit from master
+4136552 (5/5): Sift-devs is broken
+ 
+(From 103346-11)
+4116452 (5/3): using POST  &gt;= 3.7.2 system won't boot with faulty SIMM
+4117855 (3/4): sunfire devalias disk not correct for non E3500 systems with IO
+	SOC+ bd at slot1
+ 
+(From 103346-10)
+4041025 (2/2): single-stepping over some sethi instructions is broken
+4024106 (2/1): kadb :c often causes panics
+4078557 (3/3): sunfire devalias net,cdrom,disk  not correct for PCI board
+4088491 (2/3): Console escape sequence panics sun4u systems
+4102394 (4/4): RFE to add default devaliases for FCAL internal drive for
+	Duraflame+ system.
+4102353 (3/2): hot-plug cpu/memory board, fatal reset at reboot, sunfire system
+ 
+(From 103346-09)
+4045138 (2/3): POST fails to detect faulty 167Mhz processor
+4092765 (2/3): E3000..E6000 POST hangs during fcopy operation with new
+	        Am29F040B flashprom.
+4086435 (2/2): UE6000 with latest kernel/OBP patches, fails to drop to kadb.
+4018294 (1/1): client-tte-handler not called for large addresses.
+ 
+(From 103346-08)
+4071558 (1/5): Fatal Error Reset message displays wrong year
+                (Year 2000 compliant issue)
+4073702 (2/2): E5000 hanging with messages: Fatal error
+ 
+(From 103346-07)
+4055485 (1/1): FFB2 fails OBP
+4056652 (1/1): E3X00-E6X00 proms have wrong parameters
+ 
+(From 103346-06)
+ 
+(From 103346-05)
+1260863 2 2 XIR can cause a fatal error
+1260643 E6000 OBP not masking failed component (CPU mod) fails POST
+ 
+(From 103346-04)
+1254337 System does not auto boot if component failures are discovered in POST
+4006129 Fatal Reset MTIMEOUT when POST enters OBP
+4006109 Some CPUs fail to checkin after the clock reset
+1256038 sunfire remote console needs to maintain continuous coverage
+1256295 FFB speed sort boards not supported
+ 
+(From 103346-03)
+4026135 Fatal Reset IPREP during POST
+ 
+(From 103346-02)
+1246116 OBP prints incorrect about of memory in its banner
+1244993 Unable to boot E3X00-E6X00 from NPI FDDI card 3.0/4.0
+1248141 OBP needs to inform failed SIMM information to system
+1250943 .speed command missing in Sunfire OBP
+1246458 OBP prints incorrect ratio frequency in 2/3 mode
+1254307 TODC checksum destroyed on power cycle
+
+Patch Installation Instructions:
+-------------------------------- 
+ 
+Note:
+Beginning with patch 103346-23, only the current flash-update will be shipped.
+This will reduce the size of the patch, and reduce download time.  
+ 
+Please refer to the Install.info file that accompanies this patch for 
+complete installation instructions.
+ 
+--------------------------------------------------------------------------------
+ 
+Version -30 specific information:
+---------------------------------
+ 
+The version -30 of flash-update in this directory contains the following rev
+of the firmware:
+ 
+        CPU/Memory Board:
+		OBP   3.2.30 2002/10/25 14:03
+		POST  3.9.30 2002/10/25 14:04
+ 
+        IO Graphics Board:
+		I/O Type 1 FCODE 1.8.30 2002/10/25 14:02
+		iPOST 3.4.30 2002/10/25 14:03
+ 
+        IO Graphics + Board:
+		I/O Type 2 FCODE 1.8.30 2002/10/25 14:02
+		iPOST 3.4.30 2002/10/25 14:03
+ 
+        Dual PCI IO Board:
+		I/O Type 3 FCODE 1.8.30 2002/10/25 14:02
+		iPOST 3.0.30 2002/10/25 14:03
+ 
+        Dual Sbus IO Board:
+		I/O Type 4 FCODE 1.8.30 2002/10/25 14:02
+		iPOST 3.4.30 2002/10/25 14:03
+ 
+        Dual Sbus + IO Board:
+		I/O Type 5 FCODE 1.8.30 2002/10/25 14:03
+		iPOST 3.4.30 2002/10/25 14:03
+ 
+ 
+CPU OBP/POST
+------------
+Bugs fixed in this release for the firmware:
+ 
+OBP bugs:
+4546501: T(rhfa) timing violation causing devices behind pci-pci bridge not probed
+ 
+POST bugs:
+ 
+iPOST bugs:
+None
+ 
+Enhancements/Features/Changes:
+None
+ 
+New hardware support:
+None
+ 
+Bugfixes that change messages in this PROM:
+None
+ 
+Known problems remaining in this PROM:
+None
+ 
+ 
+--------------------------------------------------------------------------------
+ 
+Copyright 2002 Sun Microsystems, Inc. 
+4150 Network Circle, Santa Clara, CA 95054 U.S.A. All rights reserved. 
+ 
+This product or document is protected by copyright and distributed 
+under licenses restricting its use, copying, distribution, and 
+decompilation.  No part of this product or related documentation may 
+be reproduced in any form by any means without prior written authorization 
+of Sun and its licensors, if any.  Third party software, including font 
+technology, if any, is copyrighted and licensed from Sun suppliers. 
+ 
+Sun, Sun Microsystems, Solaris, the Sun Logo and Enterprise are 
+trademarks or registered trademarks of Sun Microsystems, Inc in the U.S. 
+and other countries. All SPARC trademarks are used under license and are 
+trademarks or registered trademarks of SPARC International, Inc. in the 
+U.S. and other countries.  Products bearing SPARC trademarks are based 
+upon an architecture developed by Sun Microsystems, Inc.
+ 
+Federal Acquisitions: Commercial Software - Government users subject to 
+standard license terms and conditions.
+ 
+DOCUMENTATION IS PROVIDED "AS IS" AND ALL EXPRESS OR IMPLIED CONDITIONS. 
+REPRESENTATIONS AND WARRANTIES, INCLUDING ANY IMPLIED WARRANTY OF 
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT, 
+ARE DISCLAIMED, EXCEPT TO THE EXTENT THAT SUCH DISCLAIMERS ARE HELD TO
+BE LEGALLY INVALID. 
+ 
+--------------------------------------------------------------------------------
+ 
+Copyright 2002 Sun Microsystems, Inc., 
+4150 Network Circle, Santa Clara, CA 95054 Etats-Unis. Tous droits r?serv?s. 
+ 
+Ce produit ou document est prot?g? par un copyright et distribu? avec 
+des licences qui en restreignent l'utilisation, la copie, la distribution, 
+et la d?compilation.  Aucune partie de ce produit ou document ne peut ?tre 
+reproduite sous aucune forme, par quelque moyen 
+que ce soit, sans l'autorisation pr?alable et ?crite de Sun et de ses 
+bailleurs de licence, s'il y en a.  Le logiciel d?tenu par des tiers, 
+et qui comprend la technologie relative aux polices de caract?res, est 
+prot?g? par un copyright et licenci? par des fournisseurs de Sun.
+ 
+Sun, Sun Microsystems, Solaris, le Sun logo et Enterprise sont des 
+marques de fabrique ou des marques d?pos?es de Sun Microsystems, Inc. aux 
+Etats-Unis et dans d'autres pays. Toutes les marques SPARC sont utilis?es 
+sous licence et sont des marques de fabrique ou des marques d?pos?es de 
+SPARC International, Inc. aux Etats-Unis et dans d'autres pays.  Les 
+produits portant les marques SPARC sont bas?s sur une architecture 
+d?velopp?e par Sun Microsystems, Inc. 
+ 
+LA DOCUMENTATION EST FOURNIE "EN L'ETAT" ET TOUTES AUTRES CONDITIONS, 
+D?CLARATIONS ET GARANTIES EXPRESSES OU TACITES SONT FORMELLEMENT EXCLUES 
+DANS LA MESURE AUTORIS?E PAR LA LOI APPLICABLE, Y COMPRIS NOTAMMENT TOUTE 
+GARANTIE IMPLICITE RELATIVE ? LA QUALIT? MARCHANDE, ? L'APTITUDE ? UNE 
+UTILISATION PARTICULI?RE OU ? L'ABSENCE DE CONTREFA?ON.
+
+Special Install Instructions:
+----------------------------------
+
+Please reference the Install.info file.
+
+README -- Last modified date:  Thursday, March 24, 2011
+
+</pre></body></html>

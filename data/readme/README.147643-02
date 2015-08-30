@@ -1,0 +1,330 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 147643-02
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: st330057s st360057s 300gb 600gb disk firmware sas
+Synopsis: SunOS 5.10_x86: Hardware 300gb 600gb SAS Disk Drive Patch Download program and SAS Disk Drive firmware
+Date: Jun/06/2012
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: 300gb 600gb SAS disks
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: all
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: Update  ST330057S ST360057S FW to latest release 0B25
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	  ST360057S.0B25.fw
+        ST330057S.0B25.fw
+        download
+        download32
+        download64
+        downloadx32
+        downloadx64
+        mdload
+        mload
+        patchinfo
+        x86/mdload
+README.147643-02 
+
+Problem Description:
+
+This Patch is a SAS Patch for 300GB and 600GB SAS Drives bugs. 
+ 
+The patch has the following bug fixes:
+ 
+Fix for Queue Full Drive Offline issue and Network f/w roll.
+ 
+Previous History:
+ 
+Installation Instructions:
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. The system MUST BE IDLE during the download process!  No other
+   programs should be running while using this utility is being
+   used.  Failure to do so may cause the devices being upgraded
+   to fail or the system to crash.
+ 
+   Volume managers such as Veritas, SDS, Arraymon, and Vold must
+   be idle and any disks unconfigured.  Note, due to an open/close
+   accounting bug (see bug 4129295) in sd and ssd drivers, you must
+   reboot the system after unconfiguring any disks used by them.
+   This accounting bug prevents the upgrade utility from acquiring
+   sole ownnership of the disk so it will not be eligible for upgrade.
+   Note, Arraymon will be disabled during download startup and enabled
+   on exit.
+ 
+   Any other computers sharing the same I/O bus as the host system
+   must be either disconnected or offline to prevent possible
+   disruption of the firmware download process.
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.log" or "/var/tmp/download.log", "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+3. This package will only upgrade the identified Sun disks.
+ 
+4. If the High Availability kernel device polling is running, it will
+   be disabled.  It will not be re-enabled.
+ 
+5. If using Veritas, "deport" the volume to release the volume from
+   Veritas control.  Do not "remove" the volume as this will erase
+   the data stored on the Volume.
+ 
+6. Follow the instructions given below.  You may program one drive,
+   a range of drives, or all drives at once with this tool.
+ 
+7. To download the boot disk you must be in "single-user mode". To enter
+   "single-user mode" reboot with the command:
+   # reboot -- -s 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ 
+1. General guidelines for upgrading:
+ 
+        BACK UP ALL FILESYSTEMS.
+ 
+        STOP ALL APPLICATIONS. The system must be idle during the
+        firmware upgrade process.
+ 
+        UNMOUNT all file systems on the drives to be upgrade.
+        Disks with mounted file systems are not eligible for
+        upgrade.
+ 
+        UNCONFIGURE devices from volume manager.
+ 
+        REBOOT THE SYSTEM if you unconfigured any disks from
+        volume manager (e.g. Veritas).  Otherwise, you will
+        not be able to upgrade any previously configured disks.
+ 
+        UPGRADE the disks.  Follow the given instructions in
+        the procedure section below.
+ 
+        In case of any disruption or unforeseen events happening on the
+        relevant bus during the firmware download process, it may be
+        that the upgraded disk becomes non-functional.  In this event,
+        it will be necessary to swap out the disk. This would happen
+        as a result of an incomplete or corrupted firmware file
+        being downloaded.  Loss of power during the upgrade process
+        would also damage the disk.
+ 
+**NOTE**    If you cannot upgrade devices due to volume manager
+            interference,  try booting of the Solaris 2.6 release CD. Please be
+                         advised that you cannot see the ultra3 scsi card with solaris 2.10 media.
+            You also cannot use rm6 from the solaris 2.10 media and there are other
+                         circumstances under which 2.6 is not usefull. But it will work in many cases.
+ 
+**NOTE**    If a system disk is to be upgraded, the upgrade utility will
+            allow it to be upgraded if the system is in single-user mode
+            (e.g. "boot -s").  Otherwise, the system disk will not be
+            eligible for upgrade.
+ 
+        RECONFIGURE devices to volume manager.
+ 
+**NOTE**    As Download disables kernel high availability device polling,
+            it may be necessary to reboot the system to restart it.
+ 
+ 
+ 
+ 
+ 
+ 
+2. Procedure:
+ 
+The procedure to be used for upgrading the drive firmware is
+explained below. Upgrade time will be approximately 3 minutes per drive. 
+ 
+a) Unpack the patch (through tar) into any directory, say &lt;patchdir&gt;.
+   (Note, if the patch ends in a ".Z" suffix, you will need to first
+   uncompress it.)  So, you would type:
+        % su root
+        # cd &lt;patchdir&gt;
+        # tar -xvf &lt;patch tar file&gt;
+ 
+b) In the patch directory, as root, type the "download" command:
+        # ./download
+ 
+c). Select the devices to be upgraded (see example below).
+ 
+**NOTE**    Any device that is in-use by another application will not
+            be upgraded.  The following warning message will be
+            issued:   c1t3d0s0: Open failed, you must be the sole user!
+ 
+**NOTE**    This upgrade can result in error messages in the console
+            window and/or the terminal "download" window.  It is
+            normal for the SCSI link to go offline for a few
+            seconds and then return to the online state.  The disk
+            mode pages will also be restored to the default values.
+ 
+d). After the devices have been upgraded, the displayed device
+    list will be refreshed.  Devices remaining to be upgraded or
+    failed devices will be displayed.  Failed devices will be
+    marked with a "****" in the rev field.
+ 
+**NOTE**    If all devices have been upgraded, the following
+            message will be displayed:   No devices found to upgrade!
+ 
+e). To display the full list of devices including the upgrades ones,
+    type 'inquiry' (see example below).
+ 
+ 
+f). Quit the "download" program by typing 'quit' (see example below).
+ 
+ 
+ 
+**************************************************************************
+**************************************************************************
+EXAMPLES:
+ 
+ 
+bash-3.00# tar -xvf 147643-01.tar
+x 147643-01, 0 bytes, 0 tape blocks
+x 147643-01/firmware, 0 bytes, 0 tape blocks
+x 147643-01/download32, 299940 bytes, 586 tape blocks
+x 147643-01/download64, 371148 bytes, 725 tape blocks
+x 147643-01/.download, 175 bytes, 1 tape blocks
+x 147643-01/ST330057S.0A25.fw, 608256 bytes, 1188 tape blocks
+x 147643-01/ST360057S.0A25.fw, 608256 bytes, 1188 tape blocks
+x 147643-01/download, 884 bytes, 2 tape blocks
+x 147643-01/nload, 20340 bytes, 40 tape blocks
+x 147643-01/mload, 1924 bytes, 4 tape blocks
+x 147643-01/mdload, 3574636 bytes, 6982 tape blocks
+x 147643-01/x86, 0 bytes, 0 tape blocks
+x 147643-01/x86/mdload, 2910968 bytes, 5686 tape blocks
+x 147643-01/x86/ata_disk_load32, 12516 bytes, 25 tape blocks
+x 147643-01/x86/ata_disk_load64, 15648 bytes, 31 tape blocks
+x 147643-01/downloadx32, 277976 bytes, 543 tape blocks
+x 147643-01/downloadx64, 445648 bytes, 871 tape blocks
+x 147643-01/solaris, 0 bytes, 0 tape blocks
+x 147643-01/solaris/sparc, 0 bytes, 0 tape blocks
+x 147643-01/solaris/sparc/32, 0 bytes, 0 tape blocks
+x 147643-01/solaris/sparc/32/libSTORARC.so, 3973944 bytes, 7762 tape blocks
+x 147643-01/solaris/x86, 0 bytes, 0 tape blocks
+x 147643-01/solaris/x86/32, 0 bytes, 0 tape blocks
+x 147643-01/solaris/x86/32/libSTORARC.so, 3588736 bytes, 7010 tape blocks
+x 147643-01/download32_aac, 225956 bytes, 442 tape blocks
+x 147643-01/xdownload32_aac, 228928 bytes, 448 tape blocks
+x 147643-01/patchinfo, 199 bytes, 1 tape blocks
+x 147643-01/README.147643-01, 12317 bytes, 25 tape blocks
+scsvr-04# ls
+147643-01      147643-01.tar
+scsvr-04# cd 147643-01
+ 
+## Executing postinstall script.
+ 
+scsvr-04# ls
+download           downloadx32        mload              x86
+download32         downloadx64        patchinfo          ST360057S.0B25.fw
+download64         mdload             README.147643-02   ST330057S.0B25.fw
+ 
+#
+scsvr-04# ./download  
+Firmware Download Utility, V4.3.1
+ 
+**************************  WARNING  **************************
+NO OTHER ACTIVITY IS ALLOWED DURING FIRMWARE UPGRADE!!!
+No other programs including any volume manager (e.g. Veritas,
+SDS, or Vold) should be running.  Other host systems sharing
+any I/O bus with this host must either be offline or
+disconnected.  Any interruption (e.g. power loss) during
+upgrade can result in damage to devices being upgraded.
+ 
+Any disk to be upgraded should first have its data backed up.
+***************************************************************
+ 
+Searching for devices...
+ 
+DISK DEVICES
+Device         Rev   Product
+ 
+c2t3d0:        0805  ST360057S -- SUN600G
+c8t1d0:        0805  ST360057S -- SUN600G
+c9t3d0:        0805  ST330057S -- SUN300G
+Total Devices:  3
+ 
+Enter command: p
+Upgrading devices...
+ 
+ 
+ 
+ 
+c9t3d0: Successful download
+c9: recovery delay, 29 sec.
+ 
+ 
+ 
+DISK DEVICES
+No devices found to upgrade!
+ 
+ 
+Enter command: inq
+ 
+DISK DEVICES
+Device  Rev   Product              S/N
+c2t3d0: 0B25  ST360057S -- SUN600G 1023H08699
+c8t1d0: 0B25  ST360057S -- SUN600G 1045B6DL0P
+c9t3d0: 0B25  ST330057S -- SUN300G 1040J0N9VB
+Total Devices:  3
+ 
+ 
+Enter command: q
+ 
+#
+
+Special Install Instructions:
+--------------------------------
+ 
+None.
+ 
+README -- Last modified date:  Wednesday, April 25, 2012
+
+README -- Last modified date:  Wednesday, June 6, 2012
+
+</pre></body></html>

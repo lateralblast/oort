@@ -1,0 +1,83 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 114424-01
+Keywords: multiterabyte disk support
+Synopsis: SunOS 5.9_x86: Multiterabyte Disk Support - prtvtoc patch
+Date: Jul/17/2003
+
+
+Install Requirements: Install in Single User Mode                      
+                      Reboot after installation                      
+                      
+Solaris Release: 9_x86
+
+SunOS Release: 5.9_x86
+
+Unbundled Product: 
+
+Unbundled Release: 
+
+Xref: This patch available for SPARC as patch 114369
+
+Topic: SunOS 5.9_x86: Multiterabyte Disk Support - prtvtoc patch
+
+Relevant Architectures: i386
+
+BugId's fixed with this patch: 4334693 4622990 4716238
+
+Changes incorporated in this version: 4334693 4622990 4716238
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 114419-01 or greater
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+/usr/sbin/prtvtoc
+
+Problem Description:
+
+4716238 PSARC 2001/570 multi-terabyte disk support
+4334693 format command fails when configuring A3x00 RAID 5, 19+1 w/ Seagate 72GB drives
+4622990 Solaris should provide a complete UUID mechanism
+
+Patch Installation Instructions:
+--------------------------------
+ 
+For Solaris 2.0-2.6 releases, refer to the Install.info file and/or
+the README within the patch for instructions on using the generic
+'installpatch' and 'backoutpatch' scripts provided with each patch.
+ 
+For Solaris 7-9 releases, refer to the man pages for instructions
+on using 'patchadd' and 'patchrm' scripts provided with Solaris.
+Any other special or non-generic installation instructions should be
+described below as special instructions.  The following example
+installs a patch to a standalone machine:
+ 
+       example# patchadd /var/spool/patch/104945-02
+ 
+The following example removes a patch from a standalone system:
+ 
+       example# patchrm 104945-02
+ 
+For additional examples please see the appropriate man pages.
+
+Special Install Instructions:
+-----------------------------
+ 
+NOTE:  To get the complete Multi-terabyte feature, please install the following
+        patches:
+ 
+        114431-01 (or newer) sd &amp; ssd patch
+        114419-01 (or newer) abi_libefi.so.1 patch
+        114420-01 (or newer) libuuid patch
+        114421-01 (or newer) libadm.so.1 patch
+        113999-01 (or newer) devfsadm patch
+        114422-01 (or newer) fmthard patch
+        114423-01 (or newer) format patch
+
+README -- Last modified date:  Wednesday, July 23, 2003
+
+</pre></body></html>

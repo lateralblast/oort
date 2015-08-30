@@ -1,0 +1,94 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 121688-04
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire v880 v890 obp ierr rohs panther
+Synopsis: Hardware/PROM: Sun Fire V880 / V890 Flash PROM Update
+Date: Aug/10/2007
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.22.34, POST 4.22.34, OBDIAG 4.22.34
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sun fire v880 / v890
+
+BugId's fixed with this patch: 5079227 6181985 6370015 6376657 6379979 6392539 6412474 6415442 6415545 6421833 6423038 6448548 6452183 6455202 6456539 6464267 6500285 6500287 6512280 6520058 6550351 6554358 6559998 6572821
+
+Changes incorporated in this version: 6572821 6559998 6554358 6550351 6520058 6512280 6181985 5079227
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunFire880
+unix.flash-udpate.SunFire880.sh
+
+Problem Description:
+
+6572821 Support FWARC 2007/354.
+6559998 Fix to cr 6520058 can cause FORTH stack corruption. 
+6554358 Panther L3Tag failures require a POST base test to be detected 
+6550351 Issuing a boot to the cdrom device hangs the system if no cdrom is installed.
+6520058 Schizo FCode driver does not support CDMA interrupts which can lead to Solaris panic
+6512280 Add Device ID for new Shrink DIE of Sansung E$ SRAM to POST device database (POST allows device).
+6181985 local-mac-address of bge interface is seen on pci card when net NVALIAS is duplicated
+5079227 This, ")" in between "Copyright" and "2004", is not in the right place.
+ 
+(From 121688-02)
+ 
+6500287 Release new OBP image for SESI Products with enhanced Panther 2100MHz timing.
+6500285 FW keying is required to support UltraIV+ high power modules.
+6455202 "supported-network-types" on BGE will breaks with 1000Mbps settings
+ 
+(From 121688-01)
+ 
+6464267 A single 1050 MHz module produces an error after a soft reset when in diag mode.
+6456539 Release new OBP image for SESI Products with enhanced Panther 2100MHz timing.
+6452183 Panther 2100 Ecache timing number change.
+6448548 New MB and CP numbers to support Panther 2100.
+6423038 Third party graphics card (Barco) not recognized after upgrading OBP 4.9.7 to 4.17.1
+6421833 Confusing POST error message "Address does not match in free call" for a CPU failure
+6415545 FW needs to dump the core shadow scan data on an IERR
+6415442 Change Branch Predictor Mode (BPM) in OBP for Panther USIV+.
+6412474 OBP find-drop-in? goes out side the flash size and hits the MMU Missing
+6392539 Volume type is being referenced instead of volume id in 1.00.39 1064 fcode
+6379979 fcode: map-in of config space does not work correctly
+6376657 OBP I2C Drivers should frame each unique addressed device with a START and STOP.
+6370015 OBP should print out a message if it detects problem and resets RTC
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+ 
+                &gt;&gt;&gt; END &lt;&lt;&lt;
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Friday, August 10, 2007
+
+</pre></body></html>

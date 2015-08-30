@@ -1,0 +1,188 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 115193-16
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: ct820 cp2300 sparc and smc firmware update
+Synopsis: Hardware/PROM: CP2300 SPARC and SMC firmware update
+Date: Oct/26/2005
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 8 9
+
+SunOS Release: 5.8 5.9
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: SPARC 1.0.23 SMC 4.1.12
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 6241706 6252364 6252373 6282045
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	.diPatch
+	README.115193-16
+	boards_to_upgrade
+	check_clock_defect
+	check_clock_defect.readme
+	copyright
+        .FWupdate.info
+        FWBin/CP2300.SPARC.1.0.23
+        FWBin/CP2300.SPARC.1.0.23_SMC.4.1.12
+        FWBin/CP2300.SPARC.1.0.23_SMC.4.1.12.README
+        FWupdate
+FWBin/CP2300.SMC.4.1.12.FLASH
+
+Problem Description:
+
+6282045 There should be one common OBP to boot Solaris 8 and Solaris 9U6 and higher
+6241706 Snowbird  missing the SMC configuration values
+6252373 get-device-sdr command should return FFFF for last record.
+6252364 get-device-id command does not show that device SDRs are supported even though they are supported.
+
+Patch Installation Instructions:
+-------------------------------- 
+ 
+Refer to the special installation instructions described below.
+
+Special Install Instructions:
+----------------------------- 
+ 
+ 
+    This patch has following files:
+ 
+        FWBin/CP2300.SMC.4.1.12.FLASH
+        FWBin/CP2300.SPARC.1.0.23
+        FWBin/CP2300.SPARC.1.0.23_SMC.4.1.12
+        FWBin/CP2300.SPARC.1.0.23_SMC.4.1.12.README
+        FWupdate
+	README.115193-16
+	boards_to_upgrade
+	check_clock_defect
+	copyright
+        .FWupdate.info
+	.diPatch
+ 
+ 
+    It has the supporting tool for updating the SPARC and/or SMC firmwares.
+ 
+ 
+    Tool Name : FWupdate
+ 
+    Purpose   : To initiate system firmware update (SPARCFW &amp; SMCFW) from
+                Solaris, to be performed at OBP or Solaris level.
+ 
+    User      : Must be Super User to execute this script
+ 
+    Usage     : FWupdate [-h]
+                FWupdate [-F] -f &lt;filepath&gt; -d &lt;device&gt; -t &lt;FW type&gt;
+                FWupdate [-F] [-s] -f &lt;filepath&gt; -t &lt;FW type&gt;
+ 
+                -h : Help, show usage
+                -s : Update firmware from Solaris environment
+                -F : To Force the update when the Firmware is being downgraded
+                -f : Complete filepath &amp; filename specified by following
+                     argument
+                -t : Type of Firmware binary.
+                     Possible options={sparc, smc, sparc+smc}
+                -d : Complete path of device node or device alias specifying
+                     the device where file is located
+                     If disk is specified, the file must be in the root
+                     directory. Also, the file cannot of a Symbolic link
+ 
+ 
+    Points of interest:
+ 
+    1) The complete filepath &amp; filename must be specified using -f option.
+    2) Use -d option to specify the device from which the file may be loaded.
+       User may specify the device either using a OBP device alias or using the
+       complete path to the device node.
+    3) When updating from OBP level, if the file is located on a local disk
+       then it must be in the root directory and must not be a symbolic link.
+    4) The tool performs a check on the version of SPARC Firmware. If a
+       downgrade is detected then the script would notify the user. A 
+       downgrade can only be updated using the force (-F) option.
+    5) Tool does not perform a check on SMCFW version.
+    6) Update script FWupdate and info file FWupdate.info must be in same
+       directory.
+    7) User must reboot the system after updating the SPARC and/or SMC firmware
+       through Solaris environment as SMC related functionality may not be
+       available.
+ 
+ 
+    Sample usage:
+ 
+ 
+    Example 1:
+ 
+    ./FWupdate -f &lt;full_path&gt;/CP2300.SPARC.1.0.23_SMC.4.1.12 -d net -t sparc+smc
+ 
+    File is accessible from the TFTP boot server and is combined
+    OBP &amp; SMC image
+ 
+For example 2 and 3, make sure the binary file is in the root directory
+of the disk.  The example is for a PMC disk in slot A.  If the PMC disk
+is in slot B, then use "pmc1/disk" instead of "pmc0/disk". 
+ 
+    Example 2:
+ 
+    ./FWupdate -f /CP2300.SPARC.1.0.23_SMC.4.1.12 -d pmc0/disk -t sparc+smc
+ 
+    File is on a local disk in root directory
+ 
+ 
+    Example 3:
+ 
+    ./FWupdate -f /CP2300.SMC.4.1.12.FLASH -d pmc0/disk -t smc
+ 
+    File is SMC flash binary located on local disk
+ 
+    Example 4:
+ 
+    ./FWupdate -s -f /CP2300.SPARC.1.0.23_SMC.4.1.12 -t sparc+smc
+ 
+    To update SPARC and SMC Firmware from Solaris environment. It is
+    the users' responsbility to reboot the system to make new version
+    effective.
+ 
+    Example 5:
+ 
+    ./FWupdate -s -f /CP2300.SPARC.1.0.23.FLASH -t sparc
+ 
+    To update SPARC Firmware from Solaris environment. It is the users'
+    responsbility to reboot the system to make new version effective.
+ 
+ 
+    Example 6:
+ 
+    ./FWupdate -s -f /CP2300.SMC.4.1.12.FLASH -t smc
+ 
+    To update SMC Firmware from Solaris environment. It is the users'
+    responsbility to reboot the system to make new version effective.
+
+README -- Last modified date:  Wednesday, October 26, 2005
+
+</pre></body></html>

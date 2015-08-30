@@ -1,0 +1,285 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 106628-19
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: md mediator panic md_mirror top_end_async
+Synopsis: Solstice DiskSuite 4.2_x86: Product patch 4GB
+Date: Feb/28/2003
+
+
+Install Requirements: None                      
+Solaris Release: 2.6_x86 7_x86
+
+SunOS Release: 5.6_x86 5.7_x86
+
+Unbundled Product: Disksuite
+
+Unbundled Release: 4.2
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: i386
+
+BugId's fixed with this patch: 4125102 4152073 4175562 4176644 4182141 4190557 4193723 4208254 4221998 4232353 4243160 4250383 4253688 4259974 4262040 4265511 4281897 4327807 4343488 4344228 4477775 4511100 4519846 4621691 4623781 4662132 4675347 4695090 4777777
+
+Changes incorporated in this version: 4777777
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	/kernel/misc/md_hotspares
+	/kernel/misc/md_mirror
+	/kernel/misc/md_notify
+	/kernel/misc/md_raid
+	/kernel/misc/md_sp
+	/kernel/misc/md_stripe
+	/kernel/misc/md_trans
+	/usr/lib/drv/config_md.so.1
+	/usr/lib/drv/preen_md.so.1
+	/usr/opt/SUNWmd/lib/libap_dmd.so.1
+	/usr/opt/SUNWmd/lib/libssd.so.1
+	/usr/opt/SUNWmd/man/man1m/metaclear.1m
+	/usr/opt/SUNWmd/man/man1m/metadb.1m
+	/usr/opt/SUNWmd/man/man1m/metainit.1m
+	/usr/opt/SUNWmd/man/man1m/metarecover.1m
+	/usr/opt/SUNWmd/man/man1m/metaroot.1m
+	/usr/opt/SUNWmd/man/man1m/metastat.1m
+	/usr/opt/SUNWmd/man/man1m/metattach.1m
+	/usr/opt/SUNWmd/man/man4/md.tab.4
+	/usr/opt/SUNWmd/man/man7/md.7
+	/usr/opt/SUNWmd/sbin/growfs
+	/usr/opt/SUNWmd/sbin/mdlogd
+	/usr/opt/SUNWmd/sbin/metaclear
+	/usr/opt/SUNWmd/sbin/metadb
+	/usr/opt/SUNWmd/sbin/metadetach
+	/usr/opt/SUNWmd/sbin/metahs
+	/usr/opt/SUNWmd/sbin/metainit
+	/usr/opt/SUNWmd/sbin/metaoffline
+	/usr/opt/SUNWmd/sbin/metaonline
+	/usr/opt/SUNWmd/sbin/metaparam
+	/usr/opt/SUNWmd/sbin/metarecover
+	/usr/opt/SUNWmd/sbin/metarename
+	/usr/opt/SUNWmd/sbin/metareplace
+	/usr/opt/SUNWmd/sbin/metaroot
+	/usr/opt/SUNWmd/sbin/metastat
+	/usr/opt/SUNWmd/sbin/metasync
+	/usr/opt/SUNWmd/sbin/metatool
+	/usr/opt/SUNWmd/sbin/metattach
+	/usr/opt/SUNWmd/sbin/rpc.metamhd
+/kernel/drv/md
+
+Problem Description:
+
+4777777 Disksuite 4.2 soft partitioning fails on disks more than 4gb
+ 
+(from 106628-18)
+ 
+4623781 Need to re-visit the backport of soft partitioning to SDS 4.2
+4511100 metainit -p -e fails for some disk configurations
+4519846 metareplace -e fails to reattach errored soft partitions
+4662132 sp_open() does not close parent devices if it fails in sp_validate()
+ 
+(from 106628-17)
+ 
+4281897 disksuite panics after logging device failure
+4675347 Need to backout fix for 4664337
+4695090 resync region processing needs to get mt-safe
+ 
+(from 106628-16)
+ 
+(removed) 4664337 Deadlock between metaclear and resync region processing
+ 
+(from 106628-15)
+ 
+4344228 SC- HANFS haswitch fails on NFS Smoke test. "release of diskset failed"
+4621691 need to backout fix for 4515605
+ 
+(from 106628-14)
+ 
+(removed) 4515605 Dirty region bit maps at shutdown can cause long mirror resyncs on next boot
+ 
+(from 106628-13)
+ 
+(removed) 4435615 possible assertion failure when creating soft partitions on fragmented device.
+(removed) 4452985 Fix for 4429893 breaks '-p -e' option to metainit.
+(removed) 4459656 soft partitions on a system with mirrored root disappear
+(removed) 4467367 Tests in checkinstall scripts prevent installing SUNWmdr pkg from a 2.6 m/c
+4477775 Need to back out fix for 4361013
+ 
+(from 106628-12)
+ 
+(removed) 4361013 Dirty region bit maps at shutdown can cause long mirror resyncs on next boot
+ 
+(from 106628-11)
+ 
+4343488 System performance degrades as threads block in page_lock()
+ 
+(from 106628-10)
+ 
+4327807 unable to reserve diskset due to patch 104172-20
+ 
+(from 106628-09)
+ 
+4259974 Wrong information of DB Replica to view in DiskSuite Tool
+ 
+(from 106628-08)
+ 
+4182141 Access to a ufs filesystem on SDS volume hang
+ 
+(from 106628-07)
+ 
+4262040 metatool - shows invalid disk information
+4265511 metatool - Segmentation Fault
+ 
+(from 106628-06)
+ 
+4250383 Not possible to add second host to metaset (rpc.metad: segmentation violation)
+4253688 metatool panics with md_admin_ioctl trap
+ 
+(from 106628-05)
+ 
+4125102 ufs_itrunc()/top_end_async() deadlock
+ 
+(from 106628-04)
+ 
+4232353 DiskSuite4.2 metatool coredump
+4243160 106627/106628 prepatch script is not jumpstart aware
+ 
+(from 106628-03)
+ 
+4152073 Disks without serial numbers are filtered out of metatool
+4221998 BugID 4208254 requires documentation fix
+ 
+(from 106628-02)
+ 
+4208254 DiskSuite4.2 mirror performance down
+4193723 sds_4.2 panics the system in md_loadsubmod/strncpy with BAD TRAP
+4190557 SUNWmd postremove script removes AP device entries
+ 
+(from 106628-01)
+ 
+4175562 SUNWmdm setting second mediator cause node to abort during takeover.
+4176644 panic in mediator during a takeover.
+
+Patch Installation Instructions:
+--------------------------------
+ 
+For Solaris 2.0-2.6 releases, refer to the Install.info file and/or
+the README within the patch for instructions on using the generic
+'installpatch' and 'backoutpatch' scripts provided with each patch.
+ 
+For Solaris 7 release, refer to the man pages for instructions on
+using 'patchadd' and 'patchrm' scripts provided with Solaris.
+Any other special or non-generic installation instructions should be
+described below as special instructions.  The following example
+installs a patch to a standalone machine:
+ 
+       example# patchadd /var/spool/patch/104945-02
+ 
+The following example removes a patch from a standalone system:
+ 
+       example# patchrm 104945-02
+ 
+For additional examples please see the appropriate man pages.
+
+Special Install Instructions:
+-----------------------------
+ 
+Reboot the system after patch installation.
+ 
+NOTE 1: For Solaris 2.6, one must install the following patches:
+ 
+                105182-17 (or newer)    kernel update patch
+                106626-06 (or newer)    ufs patch
+ 
+ 
+NOTE 2: For Solaris 7, one must install this patch
+ 
+                106542-07 (or newer)    kernel update patch
+ 
+NOTE 3: Users who have created soft partitions on disks/slices larger than
+        4gb with SDS 4.2 patch 106628-18 installed will need to install
+        patch 106628-19 (or newer) and either
+ 
+        clear the softpartitions and recreate them
+ 
+        OR
+ 
+        regenerate the soft partition configuration information using the
+        metarecover command. Use the -m option which regenerates the
+        extent headers.
+ 
+ 
+Upgrading from SDS 4.2 with soft partitions to a later release.
+---------------------------------------------------------------
+ 
+If the soft partitioning feature, that is delivered by this patch, is used
+you cannot directly upgrade SDS 4.2 to a later release with this type of device.
+Instead you need to clear and re-create the devices on the later release,
+using the same start block and length. To do this, follow this procedure :
+ 
+        1. use metastat -p to gather the information needed to re-create
+           the existing soft partitions, eg :
+ 
+# metastat -p
+d0 -p c0t0d0s7 -o 2161 -b 204800
+d1 -p c0t0d0s7 -o 206962 -b 1024000
+d2 -p c0t0d0s7 -o 1230963 -b 102400
+d3 -p c0t0d0s7 -o 1333364 -b 2097152
+ 
+        2. metaclear the existing soft partitions ONLY. Comment out any
+           entries in /etc/vfstab that refer to them.
+ 
+        3. upgrade the software according the the release notes for the new
+           version. Ensure you have applied any necessary patches and
+           have re-created any necessary underlying metadevices.
+ 
+        4. use the previously collected information to re-create the
+           soft partitions, eg :
+ 
+# metainit d0 -p c0t0d0s7 -o 2161 -b 204800
+# metainit d1 -p c0t0d0s7 -o 206962 -b 1024000
+# metainit d2 -p c0t0d0s7 -o 1230963 -b 102400
+# metainit d3 -p c0t0d0s7 -o 1333364 -b 2097152
+ 
+           This will re-make the devices, using the same start and end points.
+ 
+        5. fsck and mount any filesystems on the soft partitions.
+ 
+Disksets
+--------
+ 
+If the soft partition feature, supplied by this patch, is being used
+within a diskset, then the procedure above must be followed for those
+soft partitions in the diskset with the additional steps of taking and
+releasing the set using the metaset (1M) command.
+ 
+If the diskset can be owned by different hosts, then consideration must
+be given as to when to convert the soft partitions, with the first node
+or the last node to be upgraded. Nodes must not import the diskset once
+it has been converted until they have been upgraded themselves.
+
+README -- Last modified date:  Saturday, March 26, 2011
+
+</pre></body></html>

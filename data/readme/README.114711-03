@@ -1,0 +1,79 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 114711-03
+Keywords: null value key property jni segv
+Synopsis: SunOS 5.9: usr/sadm/lib/diskmgr/VDiskMgr.jar Patch
+Date: May/05/2004
+
+
+Install Requirements: Reboot after installation                      
+                      
+Solaris Release: 9
+
+SunOS Release: 5.9
+
+Unbundled Product: 
+
+Unbundled Release: 
+
+Xref: This patch available for x86 as patch 114712
+
+Topic: SunOS 5.9: usr/sadm/lib/diskmgr/VDiskMgr.jar Patch
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4818306 4825948 4931702
+
+Changes incorporated in this version: 4931702
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+/usr/sadm/lib/diskmgr/VDiskMgr.jar
+
+Problem Description:
+
+4931702 Patches to the WBEM infrastructure stop and restart the WBEM
+ 
+(from 114711-02)
+ 
+4825948 Patches 114711-01 and 114712-01 Need postpatch and postbackout Scripts
+ 
+(from 114711-01)
+ 
+4818306 unexpected error when attempting to view partitions for c0t0d0:CIM_ERR_NOT_FOUND
+
+Patch Installation Instructions:
+--------------------------------
+ 
+For Solaris 2.0-2.6 releases, refer to the Install.info file and/or
+the README within the patch for instructions on using the generic
+'installpatch' and 'backoutpatch' scripts provided with each patch.
+ 
+For Solaris 7-9 releases, refer to the man pages for instructions
+on using 'patchadd' and 'patchrm' scripts provided with Solaris.
+Any other special or non-generic installation instructions should be
+described below as special instructions.  The following example
+installs a patch to a standalone machine:
+ 
+       example# patchadd /var/spool/patch/104945-02
+ 
+The following example removes a patch from a standalone system:
+ 
+       example# patchrm 104945-02
+ 
+For additional examples please see the appropriate man pages.
+
+Special Install Instructions:
+-----------------------------
+ 
+None.
+
+README -- Last modified date:  Wednesday, May 5, 2004
+
+</pre></body></html>

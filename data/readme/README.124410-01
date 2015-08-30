@@ -1,0 +1,108 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 124410-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun ultra 25
+Synopsis: Hardware/PROM: Sun Ultra 25 Flash PROM Update
+Date: Oct/19/2006
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.22.19, POST 4.22.19, OBDIAG 4.22.19
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 6312957 6322957 6325842 6339760 6339872 6340485 6345861 6346222 6346267 6346290 6347455 6353715 6356637 6356644 6356687 6356915 6359345 6359716 6360367 6361563 6363976 6366588 6368614 6370015 6379876 6379878 6379979 6380975 6381385 6384335 6390526 6391361 6399215 6399627 6406195 6413698 6421833 6423761 6423803 6442350 6448085 6454640 6456885 6466207
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunUltra25
+unix.flash-update.SunUltra25.sh
+
+Problem Description:
+
+6466207 Fire PCI-E bridge version should be determined based on fire-revision# rather than module-revision#.
+6456885 POST trashes OBP flags
+6454640 missing device_type property on ebus node.
+6448085 post fire2.1 support
+6442350 U45,fails to negotiate w/the DSS-8+ switch and has no network access when init 6 or reset-all
+6423803 OBP support for dynamically programming the SAS WWID
+6423761 wait for doorbell failed,  LSI fcode 1.00.41 needed
+6421833 Confusing POST error message "Address does not match in free call" for a CPU failure
+6413698 reset-all displays many JBUS-PCI bridge master error logs on a RR chicago system with obp 4.22.5
+6406195 "Change Southside obp's root name"
+6399627 Southside suport in post 
+6399215 "Add Southside support"
+6391361 post and picl DIMM labels are different.
+6390526 USB 2.0 Hub gets lost to OBP after Solaris EHCI driver run
+6384335 chicago unable to boot off network port 1
+6381385 Upgrade LSI1064 FCode to 1.00.39
+6380975 "Chicago/Southside does not provide slot-names property"
+6379979 fcode: map-in of config space does not work correctly
+6379878 Chicago OBP should tune ebus chip select timing as an intermediate step towards meeting STARS
+6379876 USB time out errors seen in OBP during power-cycle testing
+6370015 OBP should print out a message if it detects problem and resets RTC
+6368614 WARNING: devinfo: fault in private data at 60000d794e8
+6366588 fcode gives erroneuos values for config address &gt; 0xf.0000
+6363976 debug flash-update tool from the ok prompt needs to be removed 
+6361563 POST failed: 0&gt;ERROR: TEST = IO-Bridge unit 1 int init test
+6360367 post failed to correctly report number of bad DIMMs in the chicago system.
+6359716 Chicago POST needs to have workaround in order to head off PLX CE problem observed on Ontario
+6359345 Chicago should takes steps to avoid the "Stuck CE" issue seen on Ontario
+6356915 OBP is unable to boot the system if CPU is in low power mode 
+6356687 Remove old CMD hardware workarounds from the ULI 1575 usb fcode driver
+6356644 Chicago OBP should flash the power LED rather than the fault LED during boot sequence
+6356637 msix-data-width property in fire nexus node reads: msix-date-width instead 
+6353715 USB devices missing from OBP device tree during power-cycling
+6347455 reg property in broadcom 5704, 5714, and 5715 does not match assigned-addresses property
+6346290 stack is not empty after a reset or power-on reset. 
+6346267 chicago su16550 driver disregards ttya-mode and ttyb-mode nvram variables
+6346222 Data access error from broadcom fcode when given unrecognized device arguments
+6345861 Exception taken while probing results in a dictionary overflow/hang rather than ok prompt
+6340485 diag-out-console name should not be in chicago nvram configuration variables
+6339872 remove word "Error" from this message "Fire TLU-A OE Error status:"
+6339760 after a forthdebug breakpoint test case, failed completing boot unix with looping WARNING messages
+6325842 Ewrap selection limited to only one port
+6322957 wrong POST and OBDiag version printed out at ok prompt
+6312957 Chicago PCI bus bandwidth is 6 times slower than Fiesta+ PCI
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+ 
+                &gt;&gt;&gt; END &lt;&lt;&lt;
+
+Special Install Instructions:
+ 
+
+README -- Last modified date:  Thursday, October 19, 2006
+
+</pre></body></html>

@@ -1,0 +1,36 @@
+<html><head><title>OPL-M3-9000-XCP1120-SP-G-F README</title></head>
+<body>
+<br> <p>Sun SPARC Enterprise M-Series Server XCP firmware comes already pre-installed on your M-Series system controller. This XCP firmware download is being made available to all M-Series server customers that would like to upgrade to the latest release or reinstall the XCP firmware. Oracle always recommends that you upgrade your systems to the latest available software and firmware versions whenever possible.<br><br>To find out more detailed information about the contents of this specific XCP firmware release (i.e. integrated fixes, new feature content, or known issues &amp; limitations), please refer to your specific Sun SPARC Enterprise M-Series Server's Product Release Note(s) for XCP (see "Reference Links &amp; Documentation" at the bottom of this page).</p><p>Please visit <a href="http://oss.oracle.com/systems-opensourcecode/">http://oss.oracle.com/systems-opensourcecode/</a>to download the firmware's open source components that are required to be made available under open source licenses.</p>
+<br>
+<p><u><b> Required Files :</b></u>
+<table>
+	<tbody><tr><td width="230"></td><td width="1000"></td></tr>
+	<tr><td><b>IKXCP1120.tar.gz</b></td><td>Sun SPARC Enterprise M3000 Server Firmware<br><b>IMPORTANT: Under no circumstances, the filename of this firmware image  should be changed </b></td></tr>
+</tbody></table></p>
+<br><u></u><p><u> <b> Optional Files :</b></u>
+<table>
+	<tbody><tr><td width="230"></td><td width="1000"></td></tr>
+	<tr><td><b>M3-9000_XCP1120_MIB.mib</b></td><td>Sun SPARC Enterprise M-Series Server Firmware MIB File</td></tr>
+<tr><td><b>SUNWspsec_v1_11.tar.gz</b></td><td>Sun SPARC Enterprise M-Series Server Firmware Security Software Package for Viewing SP Audit Logs</td></tr>
+</tbody></table>
+</p>
+<br>
+<p><b><u>Bugs Fixed in this Release:</u></b>
+</p><li>19880721 sequence aborts due to SCDB_LOCK_NOT_HELD</li>
+<li>20460828 TZ update for XCP1120</li>
+<li>20412206 SCF-8006-WP fault produced due to error reading inode 3082</li>
+<li>20475002 apache http server upgrade to 2.14.12</li>
+<li>20375638 upgrade openssl to 0.9.8zd,1.0.0p,1.0.1k</li>
+<li>20464058 ghost vulnerability in glibc</li>
+<li>20953771 Unable to mount USB device in 1119</li>
+
+
+<br>
+<br>
+<p><b><u>Reference Links &amp; Documentation:</u></b>
+<br><br>This README supplements the Product Notes for previous XCP releases.All other documentation for previous releases also apply to XCP 1120. Please refer to the on-line documentation web site for all documentation:
+</p><li><a href="http://www.oracle.com/technetwork/documentation/sparc-mseries-servers-252709.html">Sun SPARC Enterprise M-Series Server Documentation </a><p></p>
+</li>
+
+
+</body></html>

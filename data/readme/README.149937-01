@@ -1,0 +1,161 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 149937-01
+
+NOTE:
+***********************************************************************
+Your use of the firmware, software and any other materials contained 
+in this update is subject to My Oracle Support Terms of Use, which 
+may be viewed at https://support.oracle.com.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: st3450856ss st3300656ss st3146356ss 450gb 300gb 146gb disk firmware scsi sas
+Synopsis: Hardware Hurricane SAS Disk Drive Patch : Download program and SAS Disk Drive firmware
+Date: Dec/08/2012
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: Hurricane SAS SCSI disks
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc i386
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+Note:
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+-rw-r--r--   1 root     root         208 Sep 18 17:25 patchinfo
+-rw-r--r--   1 root     root        9698 Sep 18 17:27 README.149937-01
+-rw-r--r--   1 root     root     1079448 Aug 26  2010 ST314656S.0B1C.fw
+-rw-r--r--   1 root     root     1079448 Aug 26  2010 ST330056S.0B1C.fw
+-rw-r--r--   1 root     root     1079448 Aug 26  2010 ST345056S.0B1C.fw
+-rwxr-xr-x   1 bin      bin       299940 Sep 18 17:25 download32
+-rwxr-xr-x   1 bin      bin       371148 Sep 18 17:25 download64
+-rwxr-xr-x   1 root     other       1924 Mar 24  2006 mload
+-rwxr-xr-x   1 root     other     277976 Jan 31  2008 downloadx32
+-rwxr-xr-x   1 root     other     445648 Jan 31  2008 downloadx64
+-rwxr-xr-x   1 root     other    3574636 Sep  6  2005 mdload
+-rwxr-xr-x   1 root     root         884 Sep 18 17:25 download
+-rwxr-xr-x   1 root     root       20340 May  4  2010 nload
+-rwxr-xr-x   1 root     root      225956 Feb  9  2009 download32_aac
+-rwxr-xr-x   1 root     root      228928 Feb  9  2009 xdownload32_aac
+drwxr-xr-x   2 root     root         512 Sep 18 17:25 firmware
+drwxr-xr-x   2 root     root         512 Sep 18 17:25 x86
+drwxr-xr-x   4 root     root         512 Sep 18 17:25 solaris
+
+Problem Description:
+
+This Patch is a SCSI Patch for all CobraD SAS SCSI Drives.
+ 
+The  patch has the following bug fixes :
+ 
+no bug id	
+ 
+Previous History:
+ 
+Installation Instructions:
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. The system MUST BE IDLE during the download process!  No other
+   programs should be running while using this utility is being
+   used.  Failure to do so may cause the devices being upgraded
+   to fail or the system to crash.
+ 
+   Volume managers such as Veritas, SDS, Arraymon, and Vold must
+   be idle and any disks unconfigured.  Note, due to an open/close
+   accounting bug (see bug 4129295) in sd and ssd drivers, you must
+   reboot the system after unconfiguring any disks used by them.
+   This accounting bug prevents the upgrade utility from acquiring
+   sole ownnership of the disk so it will not be eligible for upgrade.
+   Note, Arraymon will be disabled during download startup and enabled
+   on exit.
+ 
+   Any other computers sharing the same I/O bus as the host system
+   must be either disconnected or offline to prevent possible
+   disruption of the firmware download process.
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.log" or "/var/tmp/download.log", "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+3. This package will only upgrade the identified Sun disks.
+ 
+4. If the High Availability kernel device polling is running, it will
+   be disabled.  It will not be re-enabled.
+ 
+5. If using Veritas, "deport" the volume to release the volume from
+   Veritas control.  Do not "remove" the volume as this will erase
+   the data stored on the Volume.
+ 
+6. Follow the instructions given below.  You may program one drive,
+   a range of drives, or all drives at once with this tool.
+ 
+ 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ This Patch has one disk drive Firmware Installer Utilities.
+ 
+ 1. This patch includes firmware downloading utility (download)
+ that will upgrade or download code to drives in JBOD and certain
+ environments. 
+ 
+ This script(s) are intended for use on Solaris host  systems only.
+ 
+***********************************************************************
+ 
+ To install the contents of this patch see the pertinent section below.
+ 
+ Sections Index
+ A. JBOD and Non-SE33xx RAID Systems Installation Instructions
+ 
+ 
+*****************************************************************************
+*****************************************************************************
+ 
+A.******* JBOD System Installation Instructions *********
+
+Special Install Instructions:
+--------------------------------
+ 
+None.
+
+README -- Last modified date:  Saturday, December 8, 2012
+
+</pre></body></html>

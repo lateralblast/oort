@@ -1,0 +1,144 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 144317-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Big Admin Patching Center, http://www.sun.com/bigadmin/patches/ 
+***********************************************************************
+
+Keywords: sun blade 6000 ethernet switched nem 24p 10ge port-channel max-ports flow-control mtu firmware
+Synopsis: Hardware PROM: Sun Blade 6000 Ethernet Switched NEM 24p 10GE Firmware Update
+Date: Jul/22/2010
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 
+
+SunOS Release: 
+
+Unbundled Product: Sun Blade 6000 Ethernet Switched NEM 24p 10GE
+
+Unbundled Release: N/A
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: ppc
+
+BugId's fixed with this patch: 6886748 6892960 6894421 6897442 6901521 6902746 6907487 6907578 6910375 6910729 6911135 6911672 6912793 6914709 6916000 6918483 6920407 6927302 6927697 6930431 6931047 6936742 6937847 6938238 6945148 6949000 6949036 6949037 6956080
+
+Changes incorporated in this version: 6927302 6931047 6927697 6901521 6914709 6916000 6918483 6886748 6910729 6911672 6911135 6910375 6907487 6902746 6956080 6949000 6894421 6897442 6930431 6936742 6949037 6949036 6892960 6937847 6945148 6938238 6907578 6912793 6920407
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_Blade_6000_Ethernet_Switched_NEM_24p_10GE_sefos-1.0.1.6.pkg
+Sun_Blade_6000_Ethernet_Switched_NEM_24p_10GE_sefos-mibs1_0_1_6.zip
+
+Problem Description:
+
+6927302 I2C multi-master contention can cause i2c read/write errors
+6931047 Backplane ports are not enabled by default
+6927697 ISS CLI to display Port XCVR Information
+6901521 [CSR 7965337] Untagged ports can show up on default VLAN as well as where they are actually assigned
+6914709 ILOM version is incorrect
+6916000 ONEM ILOM displays incorrect DHCP IP discovery
+6918483 Cannot configure a "factory-default" NEM with DHCP for network configuration
+6886748 "port-channel max-ports" CLI mismatched with the number of ports can be configured in a port-channel
+6910729 Flow-control off cannot be retained after power cycling Opus NEM
+6911672 "interface range" mode parsing error when commands start &gt;=1 blank
+6911135 snmpwalk displays "No more variables left" for some MIBs
+6910375 MTU changes are not indicated to higher layer
+6907487 Reconfiguring Default VLAN results in incorrect VLAN information display
+6902746 [csr 8017662] Removing last vlan in mst instance does not remove instance
+6956080  ONEM should boot from the other bootable partition when one partition does not boot
+6949000  mst configuration is not preserved after upgrading
+6894421  user management changes needed to support sefos privilege levels
+6897442  Create Sun specific MIB descriptions
+6930431  some host-host communications blocked while MSTP+VLAN+LACP under stres
+6936742  ONEM dumps core when multiple scripts are run in parallel
+6949037  Flashing blue LED for OK2RM is sometimes seen when upgrading to anothe
+6949036  Max number of SEFOS users mismatches with the max number of ILOM users
+6892960  Need to change "no ip rip restransmit" to "no ip rip restranmission"
+6937847  If DHCP server offline and then online again, the DHCP configuration o
+6945148  Enhance fan control to better handle high temperatures
+6938238  Timezone info doesn't reflect daylight savings time
+6907578  Not able to return to SEFOS prompt after lock command
+6912793  Remove SEFOS guest account
+6920407  SNMP request for unsupported feature MIB should not return resourceUna
+
+Patch Installation Instructions:
+--------------------------------
+ 
+Please refer to the included Product Notes (Sun_Blade_6000_Ethernet_Switched_NEM_24p_10GE_ProductNotes.pdf) for more detailed instructions on upgrade.
+ 
+ 
+Upgrading the Sun Blade 6000 Ethernet Switched NEM 24p 10GE FW 
+==============================================================
+The patch directory will contain the new Firmware image and the MIB files.
+Please copy the Firmware image, Sun_Blade_6000_Ethernet_Switched_NEM_24p_10GE_sefos-1.0.1.6.pkg
+to your server and use tftp or ftp or ILOM Web interface to do the upgrade.
+ 
+Please note that you must have network configuration already done on the
+NEM. Please refer to the User's Guide, PN: 821-0330.
+ 
+The following example shows upgrading using FTP from a server with IP address
+192.168.1.100.
+ 
+*********************************************************************
+-&gt; load -source 'ftp://username:password@192.168.1.100/Sun_Blade_6000_Ethernet_Switched_NEM_24p_10GE_sefos-1.0.1.6.pkg'
+Downloading firmware image. This will take several minutes.
+ 
+ 
+NOTE: An upgrade takes about 6 minutes to complete. ILOM
+      will enter a special mode to load new firmware. No
+      other tasks can be performed in ILOM until the
+      firmware upgrade is complete and ILOM is reset.
+ 
+Are you sure you want to load the specified file (y/n)? y
+Preserve existing configuration (y/n)? y
+Starting FW upgrade. This will take approximately 3 minutes.
+ 
+Starting Root File System upgrade
+Upgrading Root File System image to partition 1
+.nand_erase: attempt to erase a bad block at page 0x00002e80
+nand_erase: attempt to erase a bad block at page 0x0001b500
+..............................................................................
+..............................................................................
+..............................................................................
+..............................................................................
+..............................................................................
+.................
+Starting kernel upgrade
+Upgrading kernel image to partition 1
+.......
+ 
+ 
+Firmware update is complete.
+The system must be reset for the new image to be loaded
+ 
+ 
+-&gt; reset /SP
+Are you sure you want to reset /SP (y/n)? y
+Performing reset on /SP
+
+Special Install Instructions:
+ 
+
+README -- Last modified date:  Thursday, July 22, 2010
+
+</pre></body></html>

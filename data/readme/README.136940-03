@@ -1,0 +1,254 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 136940-03
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: hardware/prom: sun blade t6340 server module 7.1.8.a flashprom
+Synopsis: Hardware/PROM: Sun Blade T6340 Server Module Sun System Firmware with LDOMS support
+Date: Apr/15/2009
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 7.1.8.a
+
+Xref: 
+
+Topic: Sun Blade T6340 Server Module Sun System Firmware 7.1.8.a flashprom update
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4794955 6504694 6516471 6517022 6525973 6562812 6568272 6580094 6582340 6594218 6609765 6612618 6615866 6654559 6656116 6663105 6670786 6685195 6692478 6694217 6694387 6698177 6701750 6708607 6709034 6710601 6710924 6713342 6716711 6718186 6719096 6719873 6722035 6722322 6723191 6724547 6724588 6725348 6729411 6729474 6729529 6730610 6731027 6731227 6731291 6731651 6732222 6732265 6732269 6735386 6735506 6737239 6737472 6738335 6738367 6738428 6739392 6740145 6740502 6740517 6740559 6740574 6740949 6741575 6743027 6743561 6743825 6744827 6744987 6745118 6745296 6745641 6747230 6747621 6748859 6749048 6749345 6749425 6749463 6749470 6749654 6750160 6750181 6750193 6750574 6750589 6750597 6750687 6750734 6751051 6751699 6753562 6754453 6754668 6754698 6754707 6754755 6754833 6755425 6755810 6755818 6755837 6757022 6757819 6759780 6759828 6760181 6760186 6760448 6761107 6761821 6762441 6763110 6766240 6767364 6768857 6769672 6770171 6770610 6770813 6771641 6772549 6773666 6774655 6776242 6776441 6776851 6777072 6778578 6778939 6781831 6782824 6787915 6787965 6789243 6789447 6790025 6790291 6790690 6790692 6790694 6791294 6792104 6793942 6797795 6799087 6800689 6801373 6802075 6802513 6803715 6804349 6807927 6808990 6811587 6813963
+
+Changes incorporated in this version: 6813963 6811587 6808990 6807927 6804349 6803715 6802513 6802075 6801373 6800689 6799087 6797795 6793942 6792104 6791294 6790694 6790692 6790690 6790025 6789447 6789243 6787965 6787915 6781831 6778939 6776441 6772549 6770171 6768857 6766240 6762441 6761821 6759780 6755810 6722322 6710601 6656116 6654559 6580094
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-7_1_8_a-Sun_Blade_T6340_Server_Module.pkg
+sysfwdownload
+
+Problem Description:
+
+6813963 Socket leak in Turgo and Congo fan speed control code
+6811587 SPARC blades sometimes don't set the slotid correctly 
+6808990 Host time goes back by 5 minutes after AC powercycle 
+6807927 VF System keeps power cycles and can't go to obp after POST test done. 
+6804349 DVD will not boot -- OBP fix missing to compliment CR 4976792 (READ RETRY) 
+6803715 'ipmitool fru list' fails with Invalid cmd on LUN' with bmc i/f on Thunder Monza Glendale 
+6802513 ALOM shell has ILOM prompt '-&gt;' 
+6802075 POST ops1 failed "FATAL ERROR 3", "Unexpected Trap" on N2 systems 
+6801373 vbsc 'install' rule cannot be build by dmake, causing WOS assembler to have to revert to make 
+6800689 need to provide tools to handle fruid corruption due to incomplete i2c writes 
+6799087 An IBIST failure with reconfigure sometimes leaves the memory control unit, MCU, in a strange state 
+6797795 sc_cliprompt didn't take effect 
+6793942 ILOM IPMI VbscIfc code does not properly check for log file size and offset 
+6792104 Another memory leak in libcfgdbaccess 
+6791294 libcfgdbaccess: Leaking memory 
+6790694 lib newstatus does not close lock file fd on fini 
+6790692 ipmi log file not closed in all cases.  Log file held open 
+6790690 snmpd does not close log file on logrotate 
+6790025 ealertd: Consuming many file descriptors 
+6789447 plathwsvcd: Apparently leaking sockets 
+6789243 Apparent memory leak in xxx_set_fault_data/xxx_clear_fault_id 
+6787965 At post sequence, a CPU core was disabled by mistake, when a faulted DIMM was installed 
+6787915 Apparent memory leak in capi_get_FRUData_private() 
+6781831 Solaris date/time jumps accordingly following ILOM date/time auto-adjusted with ntp server 
+6778939 'ipmitool fru list' fails with the message 'FRU Read failed: Invalid command on LUN' with bmc i/f 
+6776441 Faults not restored after a reboot 
+6772549 Scottsdale ServiceTag listener is not responding 
+6770171 Power supply should not be faulted when AC power is not present 
+6768857 V_VTTL reached non-recoverable threshold and the server powered off. 
+6766240 DVD boot read failures from obp prompt (intermittent DVD DRIVE MISIDENTIFIED may be seen) 
+6762441 Accuracy of output from 'showpower' isn't sufficient 
+6761821 powercycle -i fails to poweroff the system during the second iteration. 
+6759780 keyswitch_state unrecognized chassis message occurs 
+6755810 Maramba: FBDIMM high warning alert seen during OPS VTS testing. 
+6722322 C-Style guidelines for spacing around '++' not being enforced.
+6710601 ILOM shell could report Configured (orderable) Part Number for FRUs 
+6656116 Memory link training errors should not fault the MCU 
+6654559 SNMPWalk on ENTITY-MIB::entPhysicalName table gives zero results 
+6580094 Wrong traps sent for assertion/deassertion of sensors whose names end with  OK or GOOD 
+ 
+(from 136940-02 - Sun System Firmware 7.1.7.e)
+ 
+6782824 flx23361 - ILOM can not control host after VBSC failure 
+6790291 Glendale/Scottsdale need to support REM-less operation
+6778578 More dependencies needed to stop dmake races
+6777072 "ERROR: dt_allocprop: prop == NULL: Not enough memory to expand MD" during asr disable DIMM at CMP1
+6776851 "/SYS/MB/REM prom is  unreadable or corrupted" fault when REM is not present
+6776242 ipmi lan handler is not thread safe
+6774655 POST loops with "ERROR: No good memory bank/channel left in system"
+6773666 dmake race caused by a .o rule not having a dependency on the parent (sparc) directory
+6771641 initpower is not invoked on startup
+6770813 L2C scrubber code is faulty
+6770610 Node Reconfig 2P with CPM1 and CMP3 ERROR: POST timed out. Not all system components tested.
+6769672 Incomplete fix for 6757022
+6767364 Refine blade power calculation
+6763110 NULL pointer dereference in vbsc_send_polled
+6761107 Scottsdale srec does not display the correct fw version
+6760448 scc will coredump if no there's no mac address
+6760186 queue_test_timed() function fails to complete under some conditions
+6760181 Misc fixes needed for ilom_3.0_sparc b13
+6759828 Fix for CR 6740574 breaks SunMC fan fault alarm generation
+6757819 DAC ereport calls out wrong unum on sys with L2 index hashing (HV)
+6757022 Host getting wedged when resetting sc while host is already powered on
+6755837 When connecting from CMM to blade, user's CLI mode selection is not honored.
+6755818 Corruption of "my-self" causing missing "idprom" property in root node
+6755425 More POST threads starting than expected
+6754833 Intermittent failures seen on reboot and power cycle
+6754755 Signed JARs need to be checked into the Latest release branch
+6754707 Some sparc platforms missing entries in files.cps
+6754698 Wolf: IPMI is leaking sessions
+6754668 stlistener is using hundreds of sockets
+6754453 Maramba POST intermittently fails during the 100 power cycle with an LDOM created primary domain.
+6753562 Failures of a secondary CMP master are not handled properly
+6751699 Dynamic fruid should minimize creating/deleting new segments
+6751051 POST reports hundreds of free resource timeouts
+6750734 Continuous output of "ERROR: Failed to send a fma event(rc=11)" during POST
+6750687 Remove fpga_host_power vbsc ipc interface that allows ILOM to directly toggle power
+6750597 Scottsdale should calculate Total Required Power based upon CRUs actually installed
+6750589 Scottsdale blade should not treat unplugged AC power cords as a Service Condition
+6750574 Scottsdale should implement a more realistic Default Max Power Value
+6750193 ILOM can not power on/off the host after many reset loops (~122 times)
+6750181 Scottsdale power-on algorithm can cause entire blade system to lose power/shutdown
+6750160 showcomponent must show component /SYS/MB/NET for scottsdale
+6749654 ILOM inadvertently disables the XAUI
+6749470 Unable to reset SP password to default by setting the J0601 Pins 11 and 12
+6749463 PWROK stays FAILED only a few seconds and turns OK soon after for an unplugged power supply cord
+6749425 HVABORT still prints address of fatal_error
+6749345 N2/VF error storm prevention using CERER is incorrect
+6749048 dpdump shows a power supply as present even after inj is used to "unplug" it
+6748859 With Boot Timer, changing keyswitch position clears logs/event history &amp; event does not get logged
+6747621 RN50 fcode needs to support new memory
+6747230 "1:4:0&gt;ERROR: TEST = PIU intx interrupt test" is output during POST
+6745641 Scottsdale P1.1/RQT: MB/CPU0/ADT7483.MONITOR (0x54) Read Data Compare FAILED
+6745296 FMA ereport calls out wrong DIMM on some N2/VF systems
+6745118 C10/C48:After edit CMM's network in webgui,can not relog web by using new ip address.
+6744987 /usr/local/bin/scc segfaults on thunder SP
+6744827 SD needs to use common IIT feature
+6743825 POST menu IO-Bridge unit dump causes a crash
+6743561 A disabled XAUI card is detected by POST
+6743027 Upgrade of firmware with oem-logo values causes hang in OBP - N1 only
+6741575 PSU INPUT_POWER values are off
+6740949 POST Block Mem Schmoo Test is N1 only - Remove for N2/VF
+6740574 Incorrect SP message logged when fan-tach speed goes below lower critical threshold
+6740559 Set /SYS/PS0 prepare_to_remove_action returns power must be off error
+6740517 dpdump returns only minspeed value for fan-tach instead of different threshold values
+6740502 T6340: dpdump reports an unplugged fan as faulty instead of not present
+6740145 8-bit data element overflows when using 10-bit i2c addresses, plus general lightning cleanup
+6739392 Reset host causes POST to fail GBE tests
+6738428 disablecomponent CPU, power cycle causes reset errors
+6738367 ILOM IPMI VbscIfc should decode payload data when displaying log
+6738335 BUI test of Remote Power Control Graceful shutdown and PowerOn fails
+6737472 CMM not working with RADIUS server (RSA Ace Server with token card authentication)
+6737239 Remove unsupported power interfaces from all sun4v systems
+6735506 POST is mis-handling a FBR error, if the FBR occurs too early in POST
+6735386 /SP/powermgmt "policy" property values must change
+6732269 Many "lumain: (pam_ActDir-BE): ERROR" messages in /var/log/messages of SP after SP is reset
+6732265 POST failures in pre-CMT platforms
+6732222 nodefault-bytes is not persistent
+6731651 Immediate control domain reset request does not generate guest stopped messaged to vbsc.
+6731291 Remove exported funcs that allow ALOM/ILOM to directly toggle power
+6731227 "Invalid hypervisor argument(s). function:" when changing IO bus config, can't boot again
+6731027 After reset SP issue Solaris init 0 then halt will hang forever
+6730610 Memory holes on SE T5440 can cause overrun of MD allocations
+6729529 Product definition cleanup
+6729474 BUI powercycle needs to allow more time for gracefully host shutdown
+6729411 immu_err does not set context correctly
+6725348 Disabled CPU thread is not shown correctly
+6724588 JRC - L10n - French keyboard with Java 6u10 Alt Graph fix has some broken keys
+6724547 Update BUI Remote Power Control to include graceful/immediate SYS reset
+6723191 HOST domain status is wrong after control domain reset when auto-boot is disable
+6722035 Warn user after PEU fails to train with link width x8
+6719873 Lynx: Fault Management displays Chassis Intrusion Fault but Timestamp field empty...
+6719096 all ILOM: show /SYS SP data doesn't display with level all parameters
+6718186 Need VF MD house-keeping
+6716711 Provide BUI and SNMP methods for graceful reset of the system
+6713342 Failure with re-config will cause false L2 cache failures
+6710924 gemini/pegasus: change in DCHP address on gemini blade leaves 9501 out of date
+6709034 Andro CMM: Policy tab missing from GUI, available from CLI
+6708607 Fault Sensor VINOK0 at /SYS/PS0 asserted
+6701750 Empty HDD "container" entities have incorrect sunPlatEquipmentHolderStatus in ILOM/SNMP MIB
+6698177 ILOM does not allow hyphen "-" character in SNMP community string
+6694387 OBP NIU will try to run 10G copper at 1G
+6694217 Thumper: HDD state sensors send the same trap for different events
+6692478 The ILOM user name should be set with an alphabetical characters.
+6685195 Target /SP/diag is missing from CLI when login as an operator
+6670786 Support backoff/timeout in sram guest state poller to avoid case where SC becomes slow/unresponsive
+6663105 hvctl call failed because of out of memory errors.
+6615866 ILOM should print FRUID temperature records in human-readable degrees C
+6612618 SNMP sunPlatSensorTable missing PS0-5 &amp; RFM0-8 sensor data on Scorpio P0
+6609765 fault event generation code in sensors.c causes incorrect HW Trap MIB trap events
+6594218 poweron should not be allowed after flashupdate
+6582340 Write to vbsc: Illegal seek
+6568272 alom inj command should be hidden from customers
+6562812 The ldm list-config output can be confusing when issued after a delayed reconfiguration reset
+6525973 SC should log an event after flashupdate completes
+6517022 Inconsistent error messages seen on ilom (useradd, etc.). Different than alom cmt also.
+6516471 Attempt to set sc_clitimeout to non-integer value should return error
+6504694 Invalid confirmation answer not consistent and returns different string on ilom vs alom cmt
+4794955 POST debug menu's help not implemented
+
+Patch Installation Instructions:
+--------------------------------
+ 
+ 
+Please refer to the Install.info file for instructions on updating the firmware
+in the flashprom using the files included in this patch.  In particular, there
+is information on the differences involved with the ILOM-based Sun System
+Firmware (7.x) in connection with the use of the Solaris Sun Update Connection
+utility.
+
+Special Install Instructions:
+-----------------------------
+ 
+NOTE 1: Firmware component revisions included with this release:
+ 
+	Sun System Firmware 7.1.8.a 2009/03/15 15:01
+	--------------------------------------------
+	ILOM 2.0.4.28.a Mar 15 14:24:45 PDT 2009
+	Hypervisor 1.6.9 2009/03/12 08:41
+	OBP 4.29.2 2009/03/12 06:54
+	POST 4.29.2 2009/03/12 07:27
+	VBSC 1.6.9  Mar 15 2009  14:00:24
+ 
+	Checksum of Sun_System_Firmware-7_1_8_a-Sun_Blade_T6340_Server_Module.pkg : 2414931933
+	(generated by the /usr/bin/cksum command)
+ 
+NOTE 2: By using Sun System Firmware (Firmware) you agree to the terms of the
+	Software License Agreement and Entitlement (SLA/Entitlement) found in
+	FIRMWARE_SLA+Entitlement.txt in the Legal directory.  By using the 
+	Firmware, you agree to the terms of the SLA/Entitlement. If you do not 
+	agree to all of the terms promptly destroy the unused Firmware.
+ 
+NOTE 3: Please refer to the online documentation for feature and version
+	compatibility between Sun System Firmware and LDom Manager releases.
+	LDoms release notes are available on http://docs.sun.com under this title
+	and part number:Logical Domains (LDoms) 1.0.3 Release Notes 820-4895
+ 
+NOTE 4: Please visit http://www.sun.com/opensourcecode to download the
+	firmware's open source components that are required to be made available
+	under open source licenses.
+
+README -- Last modified date:  Wednesday, April 15, 2009
+
+</pre></body></html>

@@ -1,0 +1,573 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 106503-09
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: workgroup server flash prom update
+Synopsis: Hardware/PROM: Enterprise 250 Standalone Flash PROM Update
+Date: Dec/03/2003
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+	  NOTE: This utility is *not* OS-dependent.  The list of releases shown
+          under the "Solaris Release" and "SunOS Release" sections may not
+          be complete: The absence of a valid Solaris Release or SunOS
+          Release from the lists above does not preclude the installation
+          of this patch against the hardware.
+
+Unbundled Release: OBP_3.30.0,POST_6.1.0,OBDIAG_4.5.1
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc.sun4u
+
+BugId's fixed with this patch: 4360883 4483753
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+				802-3233-20.ps, flash-update-250-08,
+				copyright
+flash-update-250-latest, README.106503-09,
+
+Problem Description:
+
+3.30.0
+------
+4360883 DHCP IP address validation code must be more robust
+ 
+4483753 RARP replies which dont include ar$spa must be handled correctly
+ 
+ 
+3.28.0
+------
+4682972	In the E250 + PGX64 System, Fatal Reset occurs at the time of System Reset.
+ 
+3.26.0
+------
+4644899 E450s lack diagnosibility when a RED state exception is triggered.
+ 
+4472109 Can't boot E250/E450 from A1000 using PCI-SCSI HBA
+ 
+4191694 PCI E450 reports - Fatal SCSI error when booting off of RAID device RM 6.1
+ 
+4213915 glm fcode:  does not use correct msgout buffer in some RQS cases.
+ 
+4621868 Update scsi-debug single step table to match current SCSI Scripts
+ 
+4109428 tazmo, quark :probe-scsi or probe-scsi-all doesn't display complete
+        32XCD-ROM fi
+ 
+4155723 OBP probe-scsi" and "probe-scsi-all" don't show 20 bytes of vendor-specific
+        info
+4114057 "Drive not ready" message displayed when auto-boot with SEAGATE 9GB drive
+ 
+3.22.0
+------
+ 
+4389716 The code that valides idprom contents incorrectly expects 0x80 at offset 1
+ 
+4390598 mkpl forces 0x80 at offset 1 of the idprom
+ 
+4399746 E450/E250 do not conform to PCI2.2 T(rhfa) timing
+ 
+4375063 Need to add support for Blaze Modules
+ 
+4328305 UE/CE Error checking not enabled on slave processors
+ 
+4174299 Terminal emulator package sequence ESC-[&lt;n&gt;E broken
+ 
+4315168 Request for full DHCP boot support on E250 and E3x00 systems
+ 
+4375066 Incorrect entry in OBDIAG enctrl test ps-table
+ 
+4215364 Javelin Motherboard part number will change
+ 
+4212820 Add typeout of system timing mode to diagnostics power-on output, add .mc word
+ 
+4199860 Cheerio Ebus-based plug-in cards cause E450/E250 OBPs to fault during probe
+ 
+4219826 Remove "-a" from 'printenv' word, not 1275-compliant
+ 
+4145789 New features and abilities for interactive Forth debugger
+ 
+4161167 New ability to repeat/step "n" times in Forth debugger
+ 
+4207760 "Backtrace" capability for the Forth debugger
+ 
+4207822 Forth debugger: step-range commands  &lt;  and  &gt;  don't work quite right.
+ 
+4036853 Bringover Desktop 3.15 OBP bugs/rfes into WGS src base
+ 
+4223043 Wyse terminal on ttya of E250 with OBP 3.12.11 does not display at ok prompt
+ 
+4212155 Incorrect SCMP timings set with 400MHz Modules
+ 
+4195116 Fixed CPU2 timeout 
+ 
+4138125 Fixed 400 MHz psycho error test problem. 
+ 
+4108001 Heading on second OBDIAG help screen scrolls off screen.
+ 
+4156139 Redesign HELP command of obdiag, call OBP HELP for diag config. variables
+ 
+4043692 Should use the standard tokenizer for OBDiag library
+ 
+4068500 DIAG-THROW is a critical missing word from obdiag library set
+ 
+4073523 OBDiag use of version numbers should be clarified
+ 
+4072259 There is a dependency in both obdiag menu and the library on SELFTEST-ERRORS
+ 
+4059974 obdiag )error fcode depends on non-fcode no-P1275 DATE word
+ 
+4059979 obdiag )error fcode depends on number of no-fcode no-P1275 words for CALLER:
+ 
+4072262 There is a dependency on DIAG-PASSES, DIAG-VERBOSITY, DIAG-CONTINUE? in OBDiag
+ 
+4059967 obdiag )error fcode depends on non-fcode word PWD interfacing it from OBP
+ 
+4059990 obdiag menu tool depends on non-fcode non-P1275 PWD$ forth word from OBP
+ 
+4099630 The current obdiag source tree doesn't support compression of drop-in images
+ 
+4160480 ihandle&gt;devname and phandle&gt;devname consume dictionary space
+ 
+4039363 obdiag tool coomands doesn't allow spaces between arguments
+ 
+4055327 Add PARSE-SUBTESTS fcode to the obdiag library
+ 
+4160035 Remove MASK, MASK-AND, MASK-OR, add SET-MASKS and GET-MASKS to obdiag library
+ 
+4064073 Keyboard/Mouse Selftest will not run if Keyboard is attached and used as console
+ 
+4064076 The SAB82532 selftest method heavily depends on the OBP serial driver
+ 
+4075527 Merge kbd and mouse selftests into one. Use one source file, one dropin.
+ 
+4161758 SERIAL selftest sometimes fails with Timeout Error, need to read CMD reg twice
+ 
+4161734 SERIAL selftest missing DROP in flush-fifo code
+ 
+4151047 fans blast after execution of I2C selftest in version 7 PROM
+ 
+4152029 fan speed test fails in high-temp environment
+ 
+4190588 The default mask values are not set in the RSC selftest
+ 
+4186860 Obdiag UART test port B fails from mfg-x script
+ 
+4198002 The menutool output gets messed up in TERMINAL (xterminal) window
+ 
+4155410 Ensure that help screen in OBDIAG and OBP are "in sync"
+ 
+4051366 Need obp mechanisum for user to get list of valid values for setenv variables
+ 
+4163234 Need to update table in freq.fth to accomodate 400MHz
+ 
+4163255 Need to be able to support multiple fan speed tables
+ 
+4163247 at-speed does not work across PLL boundries
+ 
+4163238 Change cpu name type out to UltraSparc I and UltraSparc II
+ 
+1220439 "switch-cpu"  shows "Interrupt Vector" message
+ 
+4098422 test and test-all obp commands should support dynamic loading of drop-ins
+ 
+4099122 Fixed test-all from breaking if a selftest returns more than one argument onthe stack
+ 
+4098487 Fixed test-all command crashes with Fast Instruction Access MMU Miss if selftest throw
+ 
+4098469 Fixed test command from reporting "No selftest method" if selftest incorrectly executes throw
+ 
+4161167 New ability to repeat/step "n" times in Forth debugger
+ 
+4161092 probe-scsi-all ignores nvramrc setting of scsi-initiator-id on E450/OBP 3.7
+ 
+4127836 Openboot PROM 3.7 on Javalin and Tazmo does not support fddi client boots
+ 
+4066649 Fixed shutdown user interface to provide suffient time to abort shutdown
+ 
+4173531 SCIQ field in the UPA Config register incorrect
+ 
+4173712 Added 'flash-verify' command; 'flash-update' and 'flash-verify' will report thefirst 16 "fails" 
+ 
+4183587 Jav 400 machines with OpenBoot 3.12 400MHz-Beta1 prom cannot boot 2.5.1 off net
+ 
+4181093 OBP needs to establish "compatible" property under /pci/ebus/flashprom
+ 
+4194138 IP addresses specified as arguments to "boot net" not read correctly
+ 
+4119402 .properties doesn't display "compatible" property as a list of names
+ 
+4195747 Pending breaks should be cleared before console is installed.
+ 
+4138967 boot following XIR from RSC fails with watchdog reset
+ 
+4169493 Change TEST-ALL (and test-all script) SelfTests selection algorithm
+ 
+4199518 diag-verbosity default value incorrect
+ 
+4200617 "compatible" and "name" are incorrectly generated
+ 
+4212155 Incorrect SCMP timings set with 400MHz Modules
+ 
+4215364 Javelin Motherboard part number will change
+ 
+4212820 Add typeout of system timing mode to diagnostics power-on output, add .mc word
+ 
+4199860 Cheerio Ebus-based plug-in cards cause E450/E250 OBPs to fault during probe
+ 
+4219826 Remove "-a" from 'printenv' word, not 1275-compliant
+ 
+4145789 New features and abilities for interactive Forth debugger
+ 
+4161167 New ability to repeat/step "n" times in Forth debugger
+ 
+4207760 "Backtrace" capability for the Forth debugger
+ 
+4207822 Forth debugger: step-range commands  &lt;  and  &gt;  don't work quite right.
+ 
+4036853 Bringover Desktop 3.15 OBP bugs/rfes into WGS src base
+ 
+4223043 Wyse terminal on ttya of E250 with OBP 3.12.11 does not display at ok prompt
+
+Patch Installation Instructions:
+===============================
+ 
+Intro
+-----
+ 
+    This README is intended for users who wish to upgrade the firmware
+    in their Enterprise 250 system Flash PROM.
+ 
+Summary of the Patch Installation Process:
+------------------------------------------
+ 
+The installation shall comprise of the following steps
+ 
+1)  Determine the system's current Flash Prom firmware revision.
+ 
+2)  Compare the current Flash Prom firmware revision with the available or 
+    latest Flash Prom firmware revisions.
+ 
+3)  If the current Flash Prom firmware revision is lower than the latest
+    available firmware revision in this patch, then proceed to the next step. 
+    If NOT, STOP: DO NOT CONTINUE.
+ 
+4)  Prepare the system for the Flash Prom update
+ 
+5)  Running the Flash Prom Utility
+ 
+6)  Verifying successful Flash Prom Update
+ 
+7)  Restoring the system
+ 
+8)  Resume operations
+ 
+ 
+Patch Installation instructions (in detail):
+============================================
+ 
+NOTE: Due to differences in motherboard part numbers
+      on the E250, once the -04 or greater patch is installed, you
+      cannot return to the -01, -02, or -03 patch.
+ 
+The required steps are explained in greater detail below.
+ 
+1)  Determine the System's Current Firmware Revisions
+    -------------------------------------------------
+ 
+    While the OS is running the following command may be used to
+    determine the current system firmware revisions;
+ 
+	/usr/platform/sun4u/sbin/prtdiag -v | grep OBP
+	or
+	/usr/sbin/prtconf -V
+ 
+    The firmware revisions may also be determined from the PROM monitor's
+    "ok" prompt with the following command;
+ 
+	.version
+ 
+2)  Compare the current Flash Prom firmware revision with the available or 
+    latest Flash Prom firmware revisions.
+ 
+    Compare the output of the OBP line in the "prtdiag -v" or "prtconf -V"   	
+    output. Find the revision number and compare with the revision on the 
+    entries below that of the "flash-update-250-latest" line
+ 
+      Available Firmware Revisions
+      ----------------------------
+ 
+-latest flash-update-250-latest; flash-update-25-09
+	OBP 3.30.0 2003/10/24 14:13
+	POST 6.1.0 2000/12/20 16:21
+	OBDIAG 4.5.1 2000/12/20 16:21
+ 
+-08     flash-update-250-08
+	OBP 3.28.0 2003/02/07 17:08
+	POST 6.1.0 2000/12/20 16:21
+	OBDIAG 4.5.1 2000/12/20 16:21
+ 
+ 
+3)  Is the UPGRADE NECESSARY?
+ 
+    If the current Flash PROM revision matches the version numbers given under
+    the flash-update-250-latest line, then STOP Here. This UPGRADE IS NOT
+    NECESSARY.
+ 
+    If the current Flash Prom firmware revision is lower than the latest
+    firmware revision in this patch, then proceed to the next step.
+ 
+4) Preparing the System
+   ---------------------
+ 
+   Note: Please check the value of 'use-nvramrc' before any OBP FW upgrade
+   and restore afterwards if necessary.
+ 
+  a) As root, copy the "flash-update" files from the directory containing the 
+     patch to the root directory as follows:
+ 
+     # cp flash*latest  /
+     # chmod 755 /flash-update*
+ 
+     In order to boot the binary, it must be located within the root
+     partition.  If it is not already located within the root partition
+     then move it to /.  If the binary is already located elsewhere 
+     within the root partition then note the exact filepath so that the
+     binary can be booted later.
+ 
+  b) As root, exit the OS such that the system returns to the PROM's "ok"
+     prompt: 
+ 
+     # halt
+ 
+       ok
+ 
+  c) Jumper J2704 is factory-set so that the flash PROM is write-enabled. 
+     There is no need to switch the jumper before flash updating; however, 
+     you must ensure that the keyswitch is in the Power-on or Diagnostics 
+     position.  When the key switch is in the locked position the flash 
+     PROM is write protected.
+ 
+5)  Running the Flash Update Utility
+    --------------------------------
+ 
+  a) Reset the system.
+ 
+     Wait for the PROM's banner to appear, and then
+ 
+  b) use the Stop-A keys (or Break key, if running from a serial line) to
+     abort the auto-boot sequence.
+ 
+     ** NOTE **  If the flash update completes normally then the values
+     contained within the system's Non-Volatile RAM (NVRAM) configuration
+     variables will be retained.  However, if the update process is some-
+     how interrrupted then it is possible that any non-default values
+     contained in NVRAM will be lost.  For this reason it is recommended
+     that you note down on paper the contents of any NVRAM configuration
+     variable which has been customized so that they may be manually
+     restored at a later time, if necessary.  (Use the PROM's "printenv"
+     command to list the variables and their values.)
+ 
+  c) The system should now display the PROM monitor's "ok" prompt.
+     Now boot the Flash update utility as given below:
+ 
+     CAUTION: Do not boot/run revisions lower than the latest unless you
+	      are absolutely sure that that is what you want to do!
+ 
+     ok boot disk /flash-update-250-latest
+ 
+     NOTE: If your system's boot device is not "disk" then you will
+           have to specify the appropriate devalias (e.g. disk2).
+           If the binary is located in a location other than / then
+           provide the entire filepath after the boot device.
+ 
+     Answer the questions as prompted by the utility. 
+ 
+ 
++++++++++++++++++++++ example Flash update follows ++++++++++++++++++++++++
+++++++++ Note that this is an example only.  Much of the information ++++++
+++++++++ which is displayed by your system will be different from    ++++++
+++++++++ what is shown below.                                        ++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+Standalone Flash PROM Update Utility, Rev. 2.5
+			Ultra(tm) 1
+			Ultra(tm) 2
+			Ultra(tm) 5/10
+			Ultra(tm) 30
+			Ultra(tm) 60 / E220R
+			Ultra(tm) 80 / E420R
+			Ultra(tm) Enterprise(tm) 250
+			Ultra(tm) Enterprise(tm) 450
+			Sun Blade(tm) 100
+			Sun Blade(tm) 1000
+ 
+ 
+This utility allows you to interactively update the firmware
+revisions in specific system Flash PROM components.
+ 
+Type h for help, q to quit, Return or Enter to continue: 
+ 
+ 
+Every precaution should be taken to prevent the loss of system
+power during the Flash PROM programming process!
+ 
+Type h for help, q to quit, Return or Enter to continue: 
+ 
+ 
+       Firmware Release(s)                Firmware Release(s)
+ Currently Existing in the System      Available for Installation  /  Install?
+---------------------------------- -------------------------------------------
+OBP 3.20.1 2000/10/24 10:40        OBP 3.22.0 2000/12/20 16:20		no
+POST 6.0.9 2000/10/24 10:42	   POST 6.1.0 2000/12/20 16:21		no
+ 
+Type sa if you wish to select all available firmware releases for
+installation.  Type h for help, quit to exit, or cont to continue: sa
+ 
+ 
+       Firmware Release(s)                Firmware Release(s)
+ Currently Existing in the System      Available for Installation  /  Install?
+---------------------------------- -------------------------------------------
+OBP 3.20.1 2000/10/24 10:40        OBP 3.22.0 2000/12/20 16:20	        no
+POST 6.0.9 2000/10/24 10:42        POST 6.1.0 2000/12/20 16:21          no
+ 
+Type sa if you wish to select all available firmware releases for
+installation.  Type h for help, quit to exit, or cont to continue: cont
+ 
+ 
+The Flash programming process is about to begin.
+ 
+Type h for help, q to quit, Return or Enter to continue: 
+ 
+ 
+Erasing the top half of the Flash PROM.
+Programming OBP into the top half of the Flash PROM.
+Verifying OBP in the top half of the Flash PROM.
+ 
+Erasing the bottom half of the Flash PROM.
+Programming OBP into the bottom half of Flash PROM.
+Verifying OBP in the bottom half of the Flash PROM.
+ 
+Erasing the top half of the Flash PROM.
+Programming POST into the top half of Flash PROM.
+Verifying POST in the top half of the Flash PROM.
+ 
+Programming was successful.
+ 
+Resetting ... 
+ 
++++++++++++++++++++++ example Flash update ends ++++++++++++++++++++++++++
+ 
+ 
+  Once the PROM's banner reappears then use the Stop-A keys (or Break
+  key, if running from a serial line) to abort the auto-boot sequence
+  if the system begins to boot.
+ 
+6)  Verifying successful Flash Prom Update
+ 
+    Verify from the results of the .version command that the OBP
+    version matches the OBP version given above under the
+    flash-update-250-latest entry in Step 2.
+ 
+7)  Restoring the system
+ 
+    If the keyswitch position has changed (it was in the locked position
+    before flash updating) return it to its original position. 
+ 
+    If any problems should be encountered during the firmware upgrade
+    then consult the "Sun Flash PROM Guide for Workstations
+    and Workgroup Servers - Standalone Version".
+ 
+8)  Resume operations
+ 
+    a) Reset the system and allow the system to boot the operating system.
+ 
+    b) Once the system has rebooted you may wish to remove the Flash Update
+       binaries and documents since they will no longer be needed.
+ 
+       # rm /flash-update*
+ 
+    c) Remember to remove the files from their original location if
+       they were not extracted directly into the root directory.
+
+Special Install Instructions:
+----------------------------- 
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+*  PLEASE READ THE INSTRUCTIONS CAREFULLY AND ENTIRELY.  PLEASE FOLLOW THE
+   INSTRUCTIONS EXACTLY AS THEY ARE STATED.
+ 
+*  FAILURE TO FOLLOW INSTRUCTIONS COULD EITHER RESULT IN A DEFECTIVE BOARD OR
+   UNSUCCESSFUL FLASH PROM UPDATE.
+ 
+*  THIS IS NOT A STANDARD PATCH in that it does not use the installpatch
+   and backoutpatch scripts.
+ 
+*  THIS PATCH CANNOT BE INSTALLED ON AN ONLINE OPERATING SYSTEM BECAUSE
+   THE INSTALL INSTRUCTIONS REQUIRES THAT THE SYSTEM BE BROUGHT DOWN.
+   BE SURE TO SCHEDULE DOWN TIME TO INSTALL THIS PATCH.
+ 
+*  INSTALLATION OF THIS PATCH MAY REQUIRE A KEY SWITCH CHANGE. IF YOU ARE
+   UNSURE ON HOW TO OPEN THE SYSTEM BOX, PLEASE ENSURE THAT A QUALIFIED 
+   PERSON, WITH THE STATIC WRIST STRAP KIT NEEDED TO SERVICE ELECTRONIC
+   EQUIPMENT, IS AVAILABLE TO COMPLETE THIS ACTIVITY. FAILURE TO USE STATIC
+   PROTECTION KIT OR IMPROPER HANDLING COULD RESULT IN THE DAMAGE OF THE 
+   SYSTEM BOARD.
+ 
+*  PLEASE REVIEW NOT ONLY THIS README BUT ALSO ADDITIONAL DOCUMENTATION
+   GIVEN.
+   The file "802-3233-xx.ps" (where xx stands for the latest numeric
+   revision) is a PostScript copy of the "Sun Flash PROM Guide for Workstations
+   and Workgroup Servers - Standalone Version", which  provides the following;
+ 
+   (i) Emergency instructions in the unlikely event that the Flash
+        update should fail.
+ 
+   Note, however, that The Programming Guide was originally written for 
+   a user who is running the Flash PROM update utility from a bootable
+   CDROM, and thus it will not contain the proper boot commands for
+   installation of this patch.  Also note that the instructions in
+   the document for installing packages are not valid for this patch.
+ 
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+**************************************************************************
+**************************************************************************
+
+README -- Last modified date:  Saturday, March 26, 2011
+
+</pre></body></html>

@@ -1,0 +1,73 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 124412-02
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun ultra 25
+Synopsis: Hardware/PROM: Sun Ultra 25 Flash PROM Update
+Date: Sep/12/2007
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.25.9, POST 4.25.9, OBDIAG 4.25.9
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 5079227 6420241 6487277 6550351 6592973 6592986
+
+Changes incorporated in this version: 6592986 6592973
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunUltra25
+unix.flash-update.SunUltra25.sh
+
+Problem Description:
+
+6592986 Add Unix flash update support for U45 MB_PN's 375-3552 and 375-3553 and U25 MB_PN 375-3556
+6592973 sata_drive Block error in Hitachi SATA HDDs occurred when power is cycled by s99zzzpc script
+ 
+(From 124412-01)
+ 
+6550351 Issuing a boot to the cdrom device hangs the system if no cdrom is installed.
+6487277 ./dimmCheck hangs intermittently when we have 8 x Samsung dimms in a Chicago system
+6420241 Make the PLX 8532 PCI-Express workaround for CR 6397497 standard probing procedure
+5079227 This, ")" in between "Copyright" and "2004", is not in the right place.
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+ 
+                &gt;&gt;&gt; END &lt;&lt;&lt;
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Wednesday, September 12, 2007
+
+</pre></body></html>

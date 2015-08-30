@@ -1,0 +1,116 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 108620-04
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: netra t1 standalone user prom
+Synopsis: Hardware/PROM: Netra t1 Standalone User PROM Update
+Date: Feb/10/2000
+
+
+Install Requirements: NA                      
+                      
+Solaris Release: 2.6 7
+
+SunOS Release: 5.6 5.7
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: 1.0
+
+Xref: 
+
+Topic: Hardware/PROM: Netra t1 Standalone User PROM Update
+
+Relevant Architectures: sparc
+    NOTE: This utility is *not* OS-dependent.  The list of releases shown
+          under the "Solaris Release" and "SunOS Release" sections may not 
+          be complete: The absence of a valid Solaris Release or SunOS  
+          Release from the lists above does not preclude the installation 
+          of this patch against the hardware.
+    NOTE: sun4u Netra t1 only
+
+
+BugId's fixed with this patch: 4281143 4304776 4306969 4307608
+
+Changes incorporated in this version: 4307608
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Update.to.netrat1.userprom@OS
+
+Problem Description:
+
+4281143	 tty-control dropin on Netra t1 causes console to hang after break
+4304776	 OBP ''cdrom'' alias is wrong if external SCSI cdrom attached
+4306969	 The README file for patch T108620-02 doesn''t have a list of files included
+4307608	 Patch T108620-03 incorrectly delivers the README file for T108620-02
+
+Patch Installation Instructions:
+--------------------------------
+Copy the script provided with this patch, Update.to.netrat1.userprom@OS, to the 
+system to be upgraded. Log onto that system as root and run the script. You
+will see the following output:
+WARNING: This Program will write a new USERPROM image.
+         Are you sure you want to do this?
+Enter ''C'' to Continue installation or ''T'' to Terminate
+C
+Stripping bundled file: done
+Decoding and untaring: done
+Verifying checksums: done
+Installing uflash driver file: done
+WARNING:  Updating User PROM with new system firmware in progress...
+          It may take a few minutes.
+ ******   DO NOT INTERRUPT OR POWER-DOWN THE SYSTEM   *******
+userflash1 programmed successfully
+****************************************************************
+*   NOTE: updated Firmware takes effect after next reboot or   *
+*   Power cycle of the system.                                 *
+*   If there is any configuration support to become effective, *
+*   you have to use -r with your boot command                  *
+****************************************************************
+Then reboot your system.
+This image will replace the whole of the current userflash image with the image
+provided as part of the script. Do not run this script if you have added 
+custom dropins to your userflash image.
+
+Special Install Instructions:
+----------------------------- 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+*  PLEASE READ THE INSTRUCTIONS CAREFULLY AND ENTIRELY.  PLEASE FOLLOW THE
+   INSTRUCTIONS EXACTLY AS THEY ARE STATED.
+*  FAILURE TO FOLLOW INSTRUCTIONS COULD EITHER RESULT IN A DEFECTIVE BOARD OR
+   UNSUCCESSFUL FLASH PROM UPDATE.
+*  THIS IS NOT A STANDARD PATCH in that it does not use the installpatch
+   and backoutpatch scripts.
+*  THIS PATCH CANNOT BE INSTALLED ON AN ONLINE OPERATING SYSTEM BECAUSE
+   THE INSTALL INSTRUCTIONS REQUIRES THAT THE SYSTEM BE BROUGHT DOWN.
+   BE SURE TO SCHEDULE DOWN TIME TO INSTALL THIS PATCH.
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+**************************************************************************
+**************************************************************************
+
+README -- Last modified date:  Saturday, March 26, 2011
+
+</pre></body></html>

@@ -1,0 +1,308 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 116513-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: man3735fc 73g disk firmware
+Synopsis: Hardware, 73G Disk: Download program andMAN3735FC 1004 firmware
+Date: Nov/10/2003
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: Fujitsu_MAN3735FC_73G_disk
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4884947
+
+Changes incorporated in this version: 4884947
+NOTE:
+  1.Fix drive offline problem(bugid 4884947)
+    drive offline problem when used in dual loop configuration in V880
+    fixes the semaphore deadlock, formatter and microcontroller bugs
+    that were identified when the host attempts to access both ports
+    simultaneously.
+  2.Fix a drive command inquiry problem where the drive bypasses itself
+    when it comes on the loop
+  3.Fix firmware download problem, where if during the download it is
+    interupted by some other activity or a LIP, the download is corrupted
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+  MAN3735F.1004.fw       # 73 GB Fujitsu AL7LE Fibre Channel drive firmware
+  download, download32, download64, .download,  
+README.116513-01, patchinfo
+
+Problem Description:
+
+4884947  Sun Fire V880 internal Fujitsu 73GB disks going not ready
+
+
+This patch release is the initial firmware release for the
+  Fujitsu MAN3735FC drives.
+
+Patch Installation Instructions:
+-------------------------------- 
+1. General guidelines for upgrading:
+
+        Previous firmware versions which are upgradable to this level:
+
+                        0604 0704
+
+        BACK UP ALL FILESYSTEMS.
+
+        STOP ALL APPLICATIONS. The system must be idle during the
+        firmware upgrade process.
+
+        UNMOUNT all file systems on the drives to be upgrade.
+        Disks with mounted file systems are not eligible for
+        upgrade.
+
+        UNCONFIGURE devices from volume manager.
+
+        REBOOT THE SYSTEM if you unconfigured any disks from
+        volume manager (e.g. Veritas).  Otherwise, you will
+        not be able to upgrade any previously configured disks.
+
+        UPGRADE the disks.  Follow the given instructions in
+        the procedure section below.
+
+        In case of any disruption or unforeseen events happening on the
+        relevant bus during the firmware download process, it may be
+        that the upgraded disk becomes non-functional.  In this event,
+        it will be necessary to swap out the disk. This would happen
+        as a result of an incomplete or corrupted firmware file
+        being downloaded.  Loss of power during the upgrade process
+        would also damage the disk.
+
+**NOTE**    If you cannot upgrade devices due to volume manager
+            interference,  try booting off the Solaris 2.6 release CD.
+
+**NOTE**    If a system disk is to be upgraded, the upgrade utility will
+            allow it to be upgraded if the system is in single-user mode
+            (e.g. "boot -s").  Otherwise, the system disk will not be
+            eligible for upgrade.
+
+        RECONFIGURE devices to volume manager.
+
+**NOTE**    As Download disables kernel high availability device polling,
+            it may be necessary to reboot the system to restart it.
+
+2. Procedure:
+
+The procedure to be used for upgrading the drive firmware is explained
+below. Upgrade time will be approximately 5 minutes for the system above
+Solaris 2.4.  For Solaris 2.4 and 2.3, the upgrade cycle will be 30
+Seconds per disk.
+
+a) Copy patch 116513-01 to a directory, say /usr/tmp.
+   cd /usr/tmp   
+   Unpack the patch if is is tar file.  
+   To install the patch: do
+        # pkgadd -d . PKG        -see example below-
+
+b) In the patch directory, as root, type the "download" command:
+        # ./download             -see example below-
+
+c). Enter the appropriate devices to be upgraded.  You can upgrade
+    a single device, a group of devices, or all devices at once.
+
+** See the example below**.
+
+**NOTE**    A device that is in-use by another application will not
+            be upgraded.  The following warning message will be
+            issued:   c1t3d0s0: Open failed, you must be the sole user!
+
+**NOTE**    This upgrade can result in error messages in the console
+            window and/or the terminal "download" window.  The disk
+            mode pages will also be restored to the default values.
+
+d). After the devices have been upgraded, the displayed device
+    list will be refreshed.  Devices remaining to be upgraded or
+    failed devices will be displayed.  Failed devices will be
+    marked with a "****" in the rev field.
+
+**NOTE**    If all devices have been upgraded, the following
+            message will be displayed:   No devices found to upgrade!
+
+e). To display the full list of devices including the upgrades ones,
+    type 'inquiry' (see example below).
+
+f). Quit the "download" program by typing 'quit'.
+
+
+
+**************************************************************************
+EXAMPLE: pkgadd -d . PKG
+hoohoo #39 /usr/tmp/116513-01&gt;ls
+README.116513-01   SUNWfj001/         patchinfo
+hoohoo #718 /usr/tmp/116513-01&gt;pkgadd -d .
+
+The following packages are available:
+  1  SUNWfj001     Fujitsu Fibre Channel MAN3735FC Disk Firmware
+                   (sparc,i386) 2.0
+
+Select package(s) you wish to process (or 'all' to process
+all packages). (default: all) [?,??,q]: 
+
+Processing package instance &lt;SUNWfj001&gt; from &lt;/var/tmp/116513-01&gt;
+
+Fujitsu Fibre Channel MAN3735FC Disk Firmware
+(sparc,i386) 2.0
+Copyright 2001 Sun Microsystems, Inc. All rights reserved.
+Copyright 2001 Sun Microsystems, Inc. Tous droits riservis.
+
+This appears to be an attempt to install the same architecture and
+version of a package which is already installed.  This installation
+will attempt to overwrite this package.
+
+Using &lt;/&gt; as the package base directory.
+## Processing package information.
+## Processing system information.
+   4 package pathnames are already properly installed.
+## Verifying disk space requirements.
+## Checking for conflicts with packages already installed.
+## Checking for setuid/setgid programs.
+
+Installing Fujitsu Fibre Channel MAN3735FC Disk Firmware as &lt;SUNWfj001&gt;
+
+## Installing part 1 of 1.
+/var/sadm/swimages/116513-01/6120.sh
+/var/sadm/swimages/116513-01/DOWNLOAD/.download
+/var/sadm/swimages/116513-01/DOWNLOAD/MAN3735F.1004.fw
+/var/sadm/swimages/116513-01/DOWNLOAD/download
+/var/sadm/swimages/116513-01/DOWNLOAD/download32
+/var/sadm/swimages/116513-01/DOWNLOAD/download64
+/var/sadm/swimages/116513-01/DOWNLOAD/patch_dir/.download
+/var/sadm/swimages/116513-01/DOWNLOAD/patch_dir/MAN3735F.1004.fw
+/var/sadm/swimages/116513-01/DOWNLOAD/patch_dir/download
+/var/sadm/swimages/116513-01/DOWNLOAD/patch_dir/download32
+/var/sadm/swimages/116513-01/DOWNLOAD/patch_dir/download64
+/var/sadm/swimages/116513-01/MAN3735F.1004.fw
+/var/sadm/swimages/116513-01/README.116513-01
+/var/sadm/swimages/116513-01/download
+/var/sadm/swimages/116513-01/patchtoc
+[ verifying class &lt;none&gt; ]
+
+Installation of &lt;SUNWfj001&gt; was successful.
+
+The following packages are available:
+  1  SUNWfj001     Fujitsu Fibre Channel MAN3735FC Disk Firmware
+                   (sparc,i386) 2.0
+
+Select package(s) you wish to process (or 'all' to process
+all packages). (default: all) [?,??,q]: q
+hoohoo #719 /usr/tmp/116513-01&gt;ls
+README.116513-01   SUNWfj001/         patchinfo
+hoohoo #720 /usr/tmp/116513-01&gt;
+hoohoo #720 /usr/tmp/116513-01&gt;
+hoohoo #720 /usr/tmp/116513-01&gt;cd /var/sadm/swimages/116513-01/
+hoohoo #721 /var/sadm/swimages/116513-01&gt;ls
+6120.sh*           README.116513-01   cd                 patchtoc
+DOWNLOAD/          as                 download*          pkgadd
+MAN3735F.1004.fw   as:                ls
+hoohoo #722 /var/sadm/swimages/116513-01&gt;./download
+
+**************************************************************************
+EXAMPLE:
+hdd42-42# ./download
+Firmware Download Utility, V4.2
+
+**************************  WARNING  **************************
+NO OTHER ACTIVITY IS ALLOWED DURING FIRMWARE UPGRADE!!!
+No other programs including any volume manager (e.g. Veritas,
+SDS, or Vold) should be running.  Other host systems sharing
+any I/O bus with this host must either be offline or
+disconnected.  Any interruption (e.g. power loss) during
+upgrade can result in damage to devices being upgraded.
+
+Any disk to be upgraded should first have its data backed up.
+***************************************************************
+
+Searching for devices...
+
+WARNING: Kernel device polling is enabled!
+
+DISK DEVICES
+Device           Rev   Product
+c5t70d0-c5t72d0: 0704  MAN3735F -- SUN72G
+Total Devices:  3
+
+
+Enter command: p c5570d0-c5t72d0
+
+WARNING: Kernel device polling disabled!
+Upgrading devices...
+
+c5t70d0: Successful download
+c5t71d0: Successful download
+c5t72d0: Successful download
+c5: recovery delay, 79 sec.
+
+DISK DEVICES
+No devices found to upgrade!
+Enter command: inq
+
+DISK DEVICES
+Device   Rev   Product               S/N
+c0t0d0:  0605  MAG3182L -- SUN18G    9910500021
+c1t32d0: 084A  ST318203F -- SUN18G   9917026593
+c1t48d0: 1129  ST39102FC -- SUN9.0G  9831142027
+c4t5d0:  0401  MAP3147N -- SUN146G   0317400W5A
+c4t8d0:  0401  MAP3147N -- SUN146G   0317400W5F
+c4t9d0:  0401  MAP3735N -- SUN72G    0308Q0074U
+c4t10d0: 0401  MAP3367N -- SUN36G    02297003PY
+c4t12d0: PQ08  DK32EJ36N -- SUN36G   0223H10504
+c5t70d0: 1004  MAN3735F -- SUN72G    02041000FT
+c5t71d0: 1004  MAN3735F -- SUN72G    0233V23497
+c5t72d0: 1004  MAN3735F -- SUN72G    0233v24369
+Total Devices:  11
+
+A1000/3000 DISK DEVICES
+Device  Rev   Product              S/N
+c3t5d2: 0641  ST318305L -- SUN18G  0228KPD3B0
+c3t5d3: PQ08  DK32EJ36N -- SUN36G  0223H10078
+Total Devices:  2
+
+
+Enter command: q
+
+hdd42-42#
+
+Special Install Instructions:
+-------------------------------------------
+None.
+
+README -- Last modified date:  Monday, July 25, 2011
+
+</pre></body></html>

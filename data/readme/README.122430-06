@@ -1,0 +1,359 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 122430-06
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire t2000 sun system firmware 6.1.13 flashprom update sysfwdownload
+Synopsis: Hardware/PROM: Sun Fire T2000 Sun System Firmware Update
+Date: Apr/26/2007
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 6.1.13
+
+Xref: 
+
+Topic: Sun Fire T2000 Sun System Firmware 6.1.13 flashprom update
+
+Relevant Architectures: sparc
+Note: 
+The Sun System Firmware download utility is a new feature in 122430-03 (Sun System Firmware 6.1.10). Please see sysfwdownload.README for more information.
+
+Note:
+Upgrading to Sun System Firmware 6.1.13 requires Solaris 10 Update 1  or later to be installed. The system may experience boot or other problems with earlier version of Solaris (S10_HW2).
+
+Note:
+Firmware component revisions included with this release:
+
+System Firmware 6.1.13 Sun Fire[TM] T2000 2007/04/03 11:12
+----------------------------------
+ALOM-CMT v1.1.9  Apr  2 2007  11:02:27
+VBSC 1.1.6  Apr  2 2007  10:45:03
+Reset V1.1.6
+Hypervisor 1.1.4 2007/04/02 10:44
+OBP 4.20.6 2007/03/26 06:27
+Sun Fire[TM] T2000 POST 4.20.6 2007/03/26 06:48
+
+BugId's fixed with this patch: 5096203 6226247 6279155 6284647 6284966 6286751 6286754 6287524 6290852 6295365 6297061 6305131 6310016 6310471 6311697 6312364 6313442 6313545 6314090 6314142 6314837 6314974 6315231 6315414 6315592 6316435 6317135 6317730 6317915 6318226 6318491 6319238 6319350 6320355 6320711 6320836 6321387 6322032 6322630 6322907 6322957 6323357 6323510 6323513 6324014 6324050 6324112 6325092 6325181 6325185 6325251 6325313 6325795 6325917 6326276 6326307 6327045 6327114 6327140 6327331 6327485 6327503 6327533 6327646 6327739 6327816 6328181 6328764 6328794 6329044 6329303 6329467 6329529 6329933 6330039 6330629 6330754 6331236 6331254 6331264 6331900 6331961 6332106 6332483 6332552 6332576 6332940 6333003 6333005 6333076 6333237 6333329 6333651 6334098 6334308 6334425 6334558 6334561 6334835 6334914 6335464 6335476 6335592 6336013 6336128 6336304 6336489 6336528 6337208 6337307 6337452 6337857 6337997 6338203 6338211 6338272 6338279 6338673 6338965 6339038 6339253 6339586 6340208 6340335 6340920 6341385 6341463 6341491 6342050 6342287 6342835 6344334 6344464 6344537 6344838 6344839 6344870 6345336 6345537 6345548 6345607 6345644 6345647 6346116 6346128 6346144 6346155 6346196 6346274 6346392 6346401 6346834 6346885 6346963 6347511 6347552 6347915 6347962 6347974 6348038 6348122 6348740 6349224 6349348 6349744 6349827 6349857 6349936 6349949 6350004 6351311 6351670 6351799 6351815 6353703 6353798 6354380 6354915 6354933 6355033 6355729 6355910 6356585 6357251 6357703 6357829 6357934 6358003 6358157 6358452 6358456 6360262 6361061 6361436 6362750 6362997 6363959 6364445 6365640 6365656 6365688 6365723 6365727 6368102 6368108 6369302 6369706 6370140 6371420 6372379 6373682 6374072 6375732 6375927 6378559 6378603 6383100 6383620 6384613 6384916 6385582 6386341 6386868 6388093 6389027 6389159 6389161 6389168 6392539 6395063 6395141 6395798 6396865 6398390 6398825 6402971 6410008 6410285 6413230 6422101 6423761 6424812 6448085 6448446 6450065 6450605 6468800 6469249 6471063 6483215 6487428 6508906 6513000 6513604 6513621 6514875 6515640 6519183 6531232 6538717
+
+Changes incorporated in this version: 6346885 6508906 6513000 6513604 6513621 6514875 6515640 6519183 6531232 6538717
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-6_1_13-Sun_Fire_T2000.bin
+sysfwdownload
+
+Problem Description:
+
+6538717 Showfru reports Micron DIMMs as Seagate DIMMs 
+6531232 system hard hangs after injecting an fru error 
+6519183 showfru does not correctly report DIMM vendor 
+6515640 ALOM-CMT must support new IOBD 
+6514875 Need a vBSC interface to ALOM workaround of PLX PEX8532 link training bug 6513604 
+6513621 Hypervisor support needed to help resolve Bug ID 6479274, PCI CARDS do not appear present in T2000 
+6513604 Need VBSC interface to Hypervisor workaround of PLX PEX8532 link training bug #6479274 
+6513000 Update Copyright to 2007 
+6508906 post and obp build issues 
+6346885 OpenBoot does not handle Non-Resumable Error traps 
+ 
+ 
+(From 122430-05)
+ 
+6487428 Correct typo in jbi_regs.h that repeated a value
+6483215 Not all JBI errors are fatal
+6471063 Ontario systems with Fire 2.0 require workaround for Fire deadlock bug 636213
+6469249 race condition in strmpipe can leave open pipes
+6468800 memory leak when spawning a new ALOM task (such as connecting to ALOM via telnet)
+6413230 JBI_TRANS_TIMEOUT too short, not based on Fire's transaction timeout
+ 
+(From 122430-04)
+ 
+6450605 ALOM needs to adjust VBATT threshold lower, batteries being marked failed prematurely
+6450065 Add fire 2.1 hardware revision checking to hypervisor
+6448446 EAR after DSC should be handled with care
+6448085 post needs support for fire2.1 
+6410285 ALOM-CMT ops-clearing proceedure should not remove 'showhost' SysFw version information
+6396865 ALOM showfaults command lists wrong FRU for FMA diagnosis 
+ 
+(From 122430-03)
+6424812 ereport.io.fire.dmc.tte_inv seen on ontario and ontario+ using system firmware 6.1.9
+6423761 wait for doorbell failed,  LSI fcode 1.00.41 needed
+6422101 To flash the firmware on T2000 without using a network connection to system controller , lom -g 1280
+6410008 T2000/ALOM 1.1.2 is unable to use sendmail for email event notification due to IP domain in address.
+6395798 To flash the firmware on T2000 without using a network connection to system controller , lom -g 1280
+ 
+(From 122430-02)
+ 
+6402971 Three "Host power state: Off" messages in vbsc.log
+6398825 vBSC does not poweroff the server when two DIMMs are missing from Channel 0 and Channel 2
+6398390 Unimplemented FCODE token encountered (465) in sequencer
+6395141 MB/V_VCORE undervoltage warning during SC boot
+6395063 vbsc log file can grow larger than 2MB in size
+6392539 Volume type is being referenced instead of volume id in 1.00.39 1064 fcode
+6389168 ALOM should filter out false-undervolt conditions while PSU is ramping up
+6389161 Fire rxeq values not optimized for ontario
+6389159 Fire rxeq values not optimized for ontario
+6389027 Sysfw 6.1.3 and 6.2 allow an Ontario+ to be downgraded to unsupported 6.1.2
+6388093 Wanboot with S10_U1 miniroot panics with "map_prom: prom i/o page without side-effect"
+6386868 notify alom of target vcore voltage during SC warm reset with host powered on
+6386341 post needs to check link width for onboard devices
+6385582 VBSC and POST have different memory size
+6384916 vcore adjusted back to 1.3V if 'resetsc' while host power is on
+6384613 vcore not adjusted properly on SC warm reset when host is powered on
+6383620 SC serial connection dies (tRSCSerial Exception) when running SC automated tests.
+6383100 banner Copyright shown the year of 2005 instead of 2006. Needs to be updated to 2006
+6378603 Remove LSI1064 dropin Fcode driver version from binary
+6378559 Rear Fault led is not always extinguished when ac input power has been restored.
+6375927 The date changed with 'date' command persists across reboots of the guest but not reboots of the SC
+6375732 Need to add obp command set-sas-wwid, show-sas-wwid, show-volumes, activate-volume for 1064e raid
+6373682 Normal shutdown with press and release Power ON/OFF button
+6372379 vbsc doesn't notify post of lsi1064 configuration
+6371420 "HOST_TYPE_NONE" causes SC keep rebooting.
+6370140 Incorrect showhost firmware version after flashupdate from 6.1 to 6.0 to 6.1
+6369706 add per part vdd support to vbsc
+6369302 Hostbridge loopback tests cause errors in menu-min mode
+6368108 ALOM-CMT must support variable-voltage CPU chips
+6368102 snapshot command fails with large persistent event log. Decrease the size of persistent log file from 2M bytes to 100k bytes
+6365727 UNKNOWN flashupdate date after initial upgrade to 6.1.0
+6365723 Downgrade from 6.1.0 to 6.0.4 fails to downgrade ALOM firmware
+6365688 Additional DRAM address info needed in post memory error output
+6365656 Add a Niagara screen test for the L2-Writback error
+6365640 Add Block Memory schmoo test to the POST menu
+6364445 post pci utilities for dynamic bus enumeration and future pci development
+6362750 ALOM must handle new RoHS Ontario Part Numbers.
+6360262 memory leak when polling voltages if host power is shut off during pollcycle
+6358452 LTC data (not ecc bit) errors can cause FATAL resets or guest hangs
+6345607 add table driven SPD policy and mixed dimm support
+6333076 POST must track 1064 status from vbsc
+6332576 The POST PCI id test for "unknown devices" is inconsistant
+6322957 wrong POST and OBDiag version printed out at ok prompt
+6312364 system console performance degrades under heavy channel/alom tasks load
+6310471 Intermittent false overtemp messages on ALOM.
+ 
+ 
+(from 122430-01)
+ 
+6374072 undo vbsc dimm serial number change in md
+6365723 Downgrade from 6.1.0 to 6.0.4 fails to downgrade ALOM firmware
+6363959 Change uncertified DIMM message from "FAILED" to "NOT CERTIFIED"
+6362997 Memory addresses for DAC errors are not being decoded
+6361436 ALOM-CMT needs to support rev 2.0 of the SPD data recording specification.
+6361061 Niagara systems failing to boot with JBI INTACK Timeout error (workaround) 
+6358456 On clearasrdb, ALOM prints "All components reenabled by user." before the FRUPROM(s) are updated 
+6358157 update dimm serial number in md
+6358003 jbc.jte missing part of epkt info 
+6357934 ALOM requires 'spdformat' command to allow OPS to program new SPD format DIMMs
+6357829 enable invalid ereports on non-debug images 
+6357703 Quick poweron after graceful poweroff results in shutdown in progress message.
+6357251 require JBI error entry for vbsc table of abort codes to abort strings
+6356585 Require vBSC interface to report CPU Cores present
+6355910 fix to 6279155 broke build for simulation
+6355729 Sequencer Failed to Load
+6355033 disable_asr_cmd() needs capability to receive a reason for disabling
+6354933 hypervisor L2$ flush fix breaks simulation environment
+6354915 Two tasks using the same file descriptor.
+6354380 SC hangs during SC-CLI/nvram-sc_escapechars test.
+6353798 Niagara IRU error hangs the system
+6353703 VBSC passes bad pointer to ALOM when refreshing ASRDB after reset
+6351815 ALOM 'showfru' prints DIMM serial numbers containing null bytes incorrectly
+6351799 Seeing null characters in serial line after setupsc and in virtual console.
+6351670 use socket-based interface for alom cli cmds and improve asr error messaging
+6351311 ALOM scc muck5 command should program high order hostID byte appropriately
+6350004 tpm code updates.
+6349949 erie post DB9 uart init,
+6349936 IO ereports for erie should reference motherboard for hc-name
+6349857 Hypervisor fire getvaild() needs srlx before mask, change srl to srlx for other shifts
+6349827 POST needs to update keepalive counter to vbsc
+6349744 Erie P1.1B PSU FRU recording PS0 fail when power cord is pulled
+6349348 when both primary and secondary fire errors on csr occur HV sends vbsc bad data
+6349224 Dimm and CPU status needs to be piped up to SunMC via libpcp
+6348740 erie post debug verbosity change,
+6348122 showfru accepts invalid options
+6348038 ALOM battery faults should call out the Battery as the FRU in 'showfaults'
+6347974 erie envpoller is not polling circuit breakers for faults
+6347962 BCM5714 v3.20.Sun.atmel removes net device added entry for pci14e4,1668.108e.1668 in dropins.src
+6347915 if temp is 100 degrees or greater, columns in showenvirment will be offlined
+6347552 SP diags should verify fpga hash result
+6347511 Interal ALOM i2c stack optimizations.
+6346963 Pasting large inputs to ALOM results in garbled output
+6346834 POST doesnt initialize ERROR_STEERING field
+6346401 fix config mem leaks
+6346392 forth engine not rewinding throws back to catch
+6346274 need support for 'diagpriv' mode
+6346196 Alom i2c bus is wedged when osp diags are stopped
+6346155 Copy and Paste SC commands into ALOM cli appears to hang the cli.
+6346144 Error from cd missing carriage return.
+6346128 Upgrading from ALOM-CMT 1.0 to ALOM-CMT 1.1 (build 3) produces spurious messages in showlogs.
+6346116 After using valid options w/setdefaults command, invalid options are allowed (Should Error w/Usage)
+6345647 ALOM has port 111 open (RPC service)
+6345644 telnet port 42 on Alom is open and gives interesting logo
+6345548 post id string update,
+6345537 ALOM-CMT showhost prints &gt; character in MPT version; inconsistent with 'what' output
+6345336 callout thread hangs during services teardown
+6344870 no telemetry or error output for certain JBI errors (intr_to, unmap_wr, nonex_wr)
+6344839 Different bracket notations in Alom help commands are non descriptive
+6344838 RFE - include showlogs persistent log in snapshot
+6344537 asr disable/enable of cpu and memory causes POST to fail
+6344464 sun4v FCode driver does not implement 'dma-sync'
+6344334 do not allocate 8K SectorBuffer on stack, malloc from mem pool then dealloc
+6342835 setup_devops routine uses %o0 without initializing first
+6342287 a host configuration error should not require a resetsc
+6342050 vbsc hack to workaround PLX chip bug
+6341491 sc build release is reporting build 01 for 1.1.0 build02
+6341463 Fire ereports, ereport specification inconsistent.
+6341385 ereport ENA format is incorrect.
+6340920 SC freezes when disable/enable components under certain conditions.
+6340335 Ontario panics with cross trap sync timeout during the MAXDB run
+6340208 vBSC should rebuild memory configuration if the chassis is opened and then closed.
+6339586 poweroff immediately after poweron results in three problems
+6339253 vbsc asyncio problems
+6339038 channel enable workaround required to set proper PVT codes
+6338965 Ontario and Erie POST prints NULL characters as output, confuses and corrupts gnome-terminal
+6338673 obp banner prints "No Keyboard" eventhough there is keyboard installed
+6338279 px driver does not panic on DLP error
+6338272 no guest epkts on some fire errors
+6338211 Alom should shut down the system when a combination of disk drive blower and a PSU fail
+6338203 Cannot re-connect to virtual console after resetsc when host channels are in use
+6337997 vbsc cleanup
+6337857 enable hardware memory/l2cache scrubbers
+6337452 when both primary and secondary fire errors occur we get invalid ereports.
+6337307 obp fails to boot when the real address is more than 32 bits
+6337208 Hypervisor aborts cause system to power off with only a notice. They should powercycle with
+6336528 spdiag output missing in showlogs (RTI #: 304485)
+6336489 enablecomponent without any parameters should only display asr-keys currently blacklisted
+6336304 Bogus Ophir message on misconfigured system
+6336128 dimm failure on random power cycles
+6336013 dimm failure on random power cycles
+6335592 VBSC is not updating available memory correctly after a POST memory failure
+6335476 SC hang after "Loading the runtime image...".
+6335464 console locks up under system stress
+6334914 SC NVRAM erase causes SC flashupdate date to reset
+6334835 setsc diag_trigger to bogus value causes hard hang w/ALOM
+6334561 no telemetry for DRU and LDRU errors
+6334558 resetsc is required to reboot host after injecting certain errors
+6334425 system hard hangs at twirlies after a reset when MB/CMP0/CORE0 is asr disabled
+6334308 POST does not handle channel [1&amp;2] 2-channel mode correctly
+6334098 Need to be able to query for System Firmware version via ALOM
+6333651 vBSC FATAL state message needs a linefeed
+6333329 remove cores from the showcomponents keylist and asr state output
+6333237 hypervisor 1.1 Makefile cleanup
+6333005 When low temp shutdown is reached the ALOM console reports it as a High Hard Shutdown
+6333003 Intermittent SCC NVRAM data problems after ALOM password recovery.
+6332940 ALOM-CMT should log data to DDR2 DIMMs in sun_80byte_spd spec format
+6332552 Cache line sizes are incorrect
+6332483 System hang when "resetsc" after update to ontario fw18_respin5 and erie 6.1.0_build1
+6332483 SC exception when resetsc after flashupdate, may hang SC.
+6332106 Can't go to ESTAR mode when in MP mode
+6331961 fix compiler warnings and nits
+6331900 powerstate memory functionalty is failing on erie.
+6331264 Ophir MAC address must be programmed correctly in EEPROM
+6331254 ALOM must pass vBSC/OBP an even-number based MAC address, increment SCC base if not even
+6331236 POST binary cannot be built. Compiler s license expired
+6330754 multiple poweron attempts due to a failed poweron causes invalid guest md data and data corruption
+6330629 Setting input-device to keyboard results in Error No keyboard support found
+6330039 The interfaces for handling event/fault logging on diskonchip should be more dynamic.
+6329933 usage for flashupdate claims -s and -f options are option, but they are mandatory
+6329529 Fire "TLU Other Event" error cause VBSC console into infinite ereport loop
+6329467 Erie has incorrect disk path and quantity in guest MD
+6329303 removefru thinks PS0000000000000001 is a valid PS
+6329044 Post failed an IO bridge test, howerver, show-post-results printout is passed
+6328794 Ophir driver 'watch-net' command should not exit if a link is not established right away
+6328764 ALOM-CMT should report FPGA's power "glitch" register status
+6328181 Add BCM-5714 A2 support to Erie P1.0A
+6327816 ERROR: /virtual-devices@100/nvram@3: Last Trap: TSB Data Miss
+6327739 flashupdate should only disable poweron after checking that the cli arguments are ok
+6327646 SunMC memory leak (RTI #: 304109)
+6327533 If flashupdate is used while another flashupdate is in progress, poweron is enabled
+6327503 When asked to reset, sometimes the server powers off and cannot be powered back on
+6327485 bootmode reset_nvram re-initializes NVRAM variables
+6327331 The sytem is still able to boot after ASR disabling pcix0 which has the sas card
+6327140 Set Mailbox in POST does not terminate when hit with CE
+6327114 Block Memory does not terminate correctly when hit with CEs
+6327045 possibly-sticky error classification should be promoted to sticky
+6326307 vbsc log file management
+6326276 MB/V_VCORE cannot be set to higher than 1.5V using setmrg cmds
+6325917 Fire Loopback DMA test fails if dimms 0 and 1 are missing from CPU0
+6325795 fire ereport class names are misspelled
+6325313 VxDiag tests fail if networking is disabled
+6325251 vBSC twirly prints NULL characters, confuses gnome-terminal
+6325185 combhdr and obphdr usage output should be directed to stderr
+6325181 cleanup ALOM build dependencies
+6325092 ALOM should wait until poweron disabled message completes before prompting user for username
+6324112 Incorrect warning message when changing disk devaliases
+6324050 certain invalid usage of break command returns usage for reset
+6324014 (RTI 304155): fixed check-trigger word to work with diag_trigger = all-resets
+6323513 disablecomponent does not have same error behavior as enablecomponent
+6323510 component names with lowercase letters cannot be enabled/disabled
+6323357 ALOM should not log message=FALSE list.suspect to DoC 'current' faults log.
+6322907 Enchilada workstation name "2500" in POST output should be changed to reflect chicago product, name.
+6322630 second time setdefaults command is used, diag_trigger is set to incorrect value
+6322032 Remove "Guest: 0 console " from guest console output
+6321387 flashupdate should display error/usage if used without -f option
+6320836 powercycle command doesn't accept abbreviated options.
+6320711 Probing code should use common messaging
+6320355 fire 1.x support must be removed from hypervisor
+6319350 Incorrect grammer in help for diag_trigger
+6319238 error-type for DAU and DSC errors should be Unknown
+6318491 remove tlb workaround code from sequencer and reset
+6318226 check the asr state of the component before adding it to the device tree
+6317915 fix the compatible property to report SUNW,sun4v-tod
+6317915 added TOD virtual device node
+6317730 ALOM is not detecting Erie chassis cover removal
+6317135 Single Fan Failure on Erie does not shutdown system
+6316435 vBSC does not perform .h dependency checking of vxworks files
+6315592 ALOM4v is not aware of FRU replacements inside the Ontario chassis while stand by power is present
+6315414 Command usage for reset command is incorrect (has -a option)
+6315231 system fan failure on onterio and erie should report 0 for speeds less than 1617 rpm
+6314974 ALOM-CMT cannot be compiled to run WindView
+6314837 some variables not set to default after bootmode reset_nvram, 'NVRAM contents invalid'
+6314142 ALOM does not record "reason" for disabling component
+6314090 Invalid 0 value for verbosity
+6313545 vbsc Memory configuration does not identify Erie as Two Channel mode only
+6313442 Erie asr Machine Descriptor keylist is incorrect
+6311697 ALOM DIMM name to i2c address correlation is wrong
+6310016 System hard hangs when unimplemented real memory address range is accessed.
+6305131 SC allows setsc diag_trigger all-resets and none together (plus other invalid options). 
+6297061 sun4v OBP hard codes CPU "compatible" property to indicate Niagara
+6295365 DIMMs disabled as faulty on one system should not be enabled when inserted into another system
+6290852 ALOM4v should automatically 'repair' any FRU automatically repaired by FMA
+6287524 VBSC does not process POST error status for the PCIE devices
+6286754 Heartbeat mechanism required for POST to wiggle so vbsc does not use infinite timeout.
+6286751 vbsc needs to pass POST io 1064 config
+6284966 sun4v SP reset config block should preserve error register contents across fatal-reset
+6284647 netsc_tpelinktest can be removed for 885-based OSP
+6279155 hypervisor needs to handle cpu-in-error state
+6226247 hypervisor should handle N1 FRC error like it does for IRC error
+5096203 bge obp driver causes BCM5704 card to leave interrupt asserted
+
+Patch Installation Instructions:
+----------------------------- 
+ 
+Please refer to the Install.info file for instructions on updating
+the firmware flashprom using the files included in this patch.
+
+Special Install Instructions:
+The Sun System Firmware download utility is a new feature in 122430-03 (Sun System Firmware 6.1.10). Please see sysfwdownload.README for more information
+
+README -- Last modified date:  Tuesday, May 29, 2007
+
+</pre></body></html>

@@ -1,0 +1,287 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 116345-11
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: cp2140 obp smc firmware ct410/810 ct400/800
+Synopsis: Hardware/PROM: CP2140 SPARC and SMC firmware update
+Date: May/01/2006
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 8 9
+
+SunOS Release: 5.8 5.9
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: SPARC 1.1.19 SMC 3.6.2
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 6341133 6373550 6384231 6410503
+
+Changes incorporated in this version: 6410503 6384231 6341133 6373550
+
+Patches accumulated and obsoleted by this patch: 113814-01
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+.FWupdate.info
+.diPatch
+FWBin/CP2140.SMC.3.6.2
+FWBin/CP2140.SMC.BOOT.3F9.bin
+FWBin/CP2140.SPARC.1.1.19
+FWBin/CP2140.SPARC.1.1.19_SMC.3.6.2
+FWBin/CP2140.SPARC.1.1.19_SMC.3.6.2.README
+FWupdate
+MemSpeedUpdt
+README.116345-11
+copyright
+
+Problem Description:
+
+(116345-11)
+6410503 - RoHs CP2140 intel user flash could not be accessed after failover on starcat
+6384231 - RoHs Othello+ is not support in CORE and break Starcat POST
+6341133 - OBP reports wrong memory size
+ 
+ 
+(116345-10)
+6323625 - Othello+ OBP could not get right Host ID with new mac address 0:14:4f:x:y:z
+6248107 - SMC corruption during OBP 1.0.18 (RRL7.1) FW download
+6250393 - cp2140 1.1.14 FW (RRL7.1) breaks jumpstart in ct400 server
+ 
+(116345-09)
+6174630 - CPU hangs during the initialization. This has been observed in Gilbert.
+5070183 - During probing Gemini Card, host CPU failed with MMU access missed
+5086951 - E die 512MB modules fail memory tests on Othello+ boards
+5067893 - CP2160 reboots fail intermittently: Timeout waiting for BOOTP/DHCP reply. Retryi
+ 
+(116345-08)
+5057825 - AC xir command not working in O+ in MC/T config
+5050522 - requires Memory bus speed increase on Othello+
+5041492 - SCPU sits with Watchdog Timer Warning Cleared after power-cycle
+5056728 - Starcat SC post (SSCPOST) fails with Makaha RRL6.2 Firmware Release
+ 
+ 
+Special Installation Instructions: 
+-------------------------------- 
+ 
+ 
+1. Install from OS level: 
+-------------------------
+ 
+    This patch has following files:
+ 
+        FWupdate
+        FWBin/CP2140.SPARC.1.1.16_SMC.3.6.2.README
+        FWBin/CP2140.SPARC.1.1.16_SMC.3.6.2
+        FWBin/CP2140.SPARC.1.1.16
+        FWBin/CP2140.SMC.3.6.2
+        FWBin/CP2140.SMC.BOOT.3F9.bin
+	copyright
+        .FWupdate.info
+	.diPatch
+ 
+    It has the supporting tool for updating the SPARC and/or SMC firmwares.
+ 
+    Tool Name : FWupdate
+ 
+    Purpose   : To initiate system firmware update (SPARCFW &amp; SMCFW) at Solaris
+                level.
+ 
+    User      : Must be Super User to execute this script
+ 
+    Usage     : FWupdate [-h]
+                FWupdate [-F] -f &lt;filepath&gt; -d &lt;device&gt; -t &lt;FW type&gt;
+ 
+                -h : Help, show usage
+                -F : To Force the update when the Firmware is being downgraded
+                -f : Complete filepath &amp; filename specified by following 
+                     argument
+                -t : Type of Firmware binary.
+                     Possible options={sparc, smc, sparc+smc}
+                -d : Complete path of device node or device alias specifying
+                     the device where file is located
+                     If disk is specified, the file must be in the root
+                     directory. Also, the file cannot of a Symbolic link
+ 
+ 
+    Points of interest:
+ 
+    1) The complete filepath &amp; filename must be specified using -f option.
+    2) Use -d option to specify the device from which the file may be loaded.
+       User may specify the device either using a OBP device alias or using the 
+       complete path to the device node.
+    3) If the file is located on a local disk then it must be in the root 
+       directory and must not be a symbolic link.
+    4) The tool performs a check on the version of SPARC Firmware. If a 
+       downgrade is detected then the script would notify the user. A 
+       downgrade can only be updated using the force (-F) option.
+    5) Tool does not perform a check on SMCFW version.
+    6) Update script FWupdate and info file FWupdate.info must be in same 
+       directory.
+ 
+ 
+    Sample usage:
+ 
+    Example 1:
+ 
+    FWupdate -f &lt;full_path&gt;/CP2140.SPARC.1.1.16_SMC.3.6.2 -d net -t sparc+smc
+ 
+    File is located on the NFS and is combined OBP &amp; SMC image
+ 
+ 
+    Example 2:
+ 
+    FWupdate -f /CP2140.SPARC.1.1.16_SMC.3.6.2 -d disk -t sparc+smc
+ 
+    File is on a local disk in root directory 
+ 
+ 
+    Example 3:
+ 
+    FWupdate -f /CP2140.SMC.3.6.2 -d disk -t smc
+ 
+    File is SMC flash binary located on local disk
+ 
+ 
+ 
+2. Install image from OBP 'ok' prompt:
+--------------------------------------
+ 
+The images for flash-update
+ 
+	CP2140.SPARC.1.1.16_SMC.3.6.2	- Combined Sparc and SMC image 
+	CP2140.SPARC.1.1.16		- Sparc image
+	CP2140.SMC.3.6.2		- SMC image
+	CP2140.SMC.BOOT.3F9.bin		- SMC boot image
+ 
+ 
+ 
+o   From OS, do 'halt' and system will go to OBP 'ok' prompt.
+ 
+o   Disable auto boot, if it is set to true.
+ 
+	ok setenv auto-boot? false
+ 
+ 
+o   Before flash-update the image, do 'reset-all' to reset the board.
+ 
+ 
+o   Update image:
+ 
+  *   Update Combined Sparc and SMC image
+ 
+	ok flash-update &lt;binary-path&gt;/CP2140.SPARC.1.1.16_SMC.3.6.2
+ 
+ 
+  *   Update Sparc image
+ 
+  	ok flash-update &lt;binary-path&gt;/CP2140.SPARC.1.1.16
+ 
+ 
+  *   Update SMC image
+ 
+	ok smc-flash-update &lt;binary-path&gt;/CP2140.SMC.3.6.2
+ 
+ 
+  *   If the SMC boot image lost, it needs to do:
+ 
+	ok smc-flash-update &lt;binary-path&gt;/CP2140.SMC.BOOT.3F9.bin
+ 
+ 
+o   After update Sparc only image, do 'reset-all' to reset the CP2140 board.
+ 
+    Notice:
+	After flash-update a combined image or a smc-flash-update SMC image,
+	the CP2140 board will take a hardware reset as soon as the update 
+	process is finished.
+ 
+ 
+o   Set auto-boot? to true if it is needed.
+ 
+	ok setenv auto-boot? true
+ 
+ 
+3. Change memory bus speed
+--------------------------
+ 
+   There are two memory bus speed can set:
+ 
+	High memory bus speed 108.00 MHz
+	Low memory bus speed 092.57 MHz
+ 
+ 
+   The ways to change memory bus speed:
+ 
+   (1). Keyboard: 
+ 
+	CTRL-L	-	setting memory bus speed low.
+	CTRL-H	-	setting memory bus speed high.
+ 
+        When power on or reset of the board, hold the keys 'Control' 
+	and 'L' or 'H' down. 
+ 
+	Note: The window of O+ board to pick up the key entry is short. 
+	      Keep the keys down when power on or reset the board. 
+ 
+   (2). OBP command:
+ 
+	set-high-mem-speed	-	set memory to high bus speed
+	set-low-mem-speed	-	set memory to low bus speed
+	read-mem-speed		-	read nvram memory bus speed setting
+ 
+	.speed			-	check system speeds
+ 
+        After run those command, reset the board. 
+ 
+ 
+   (3). Script:
+ 
+	From os, run the script "MemSpeedUpdt" to set memory high and low.
+ 
+        Reset the board to run the setting memory bus speed.	
+ 
+ 
+    Note:
+	a. The Double-wide memory is not supported at high memory bus speed. If user
+    inadvertantly sets high bus speed on a board with double-wide memory, it may 
+    hit a trap and not reach OBP 'ok' prompt. 
+	Use keyboard command to reduce memory bus speed to low in this instance. 
+ 
+	b. 2x512 MByte memory only runs low memory bus speed.
+ 
+	c. When the diag-switch? is off, the window slot to catch the Ctrl-L 
+    key entry is short. User can use Ctrl-D to turn on the diag-switch? then 
+    use Ctrl-L to change memory bus speed.
+
+Patch Installation Instructions:
+-----------------------
+
+None.
+
+Special Install Instructions:
+-------------------------------------------
+None.
+
+README -- Last modified date:  Monday, May 1, 2006
+
+</pre></body></html>

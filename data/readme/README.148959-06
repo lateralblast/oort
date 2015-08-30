@@ -1,0 +1,266 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 148959-06
+
+NOTE:
+***********************************************************************
+Your use of the firmware, software and any other materials contained 
+in this update is subject to My Oracle Support Terms of Use, which 
+may be viewed at https://support.oracle.com.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: disk firmware sas hus1560scsun600g 600gb hus1530scsun300g 300gb
+Synopsis: Hardware/SAS Disk ViperC 600GB 300GB: firmware patch for S10/OEL
+Date: May/27/2015
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 9 9_x86 10 10_x86
+
+SunOS Release: 5.9 5.9_x86 5.10 5.10_x86
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: Hitachi ViperC 600GB 300GB SAS drives
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc i386
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+NOTE: Maintenance release for HUS1560SCSUN600G and HUS1530SCSUN300G to A820 
+SID Status
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+x, 0 bytes, 0 tape blocks
+x/.download, 175 bytes, 1 tape blocks
+x/HUS1530SC.A820.fw, 950272 bytes, 1856 tape blocks
+x/HUS1560SC.A820.fw, 950272 bytes, 1856 tape blocks
+x/README.148959-06, 8963 bytes, 18 tape blocks
+x/download, 884 bytes, 2 tape blocks
+x/download32, 299940 bytes, 586 tape blocks
+x/download32_aac, 225956 bytes, 442 tape blocks
+x/download64, 371148 bytes, 725 tape blocks
+x/downloadx32, 277976 bytes, 543 tape blocks
+x/downloadx64, 445648 bytes, 871 tape blocks
+x/firmware, 0 bytes, 0 tape blocks
+x/mdload, 3574636 bytes, 6982 tape blocks
+x/mload, 1924 bytes, 4 tape blocks
+x/nload, 20340 bytes, 40 tape blocks
+x/patchinfo, 199 bytes, 1 tape blocks
+x/solaris, 0 bytes, 0 tape blocks
+x/solaris/sparc, 0 bytes, 0 tape blocks
+x/solaris/sparc/32, 0 bytes, 0 tape blocks
+x/solaris/sparc/32/libSTORARC.so, 3973944 bytes, 7762 tape blocks
+x/solaris/x86, 0 bytes, 0 tape blocks
+x/solaris/x86/32, 0 bytes, 0 tape blocks
+x/solaris/x86/32/libSTORARC.so, 3588736 bytes, 7010 tape blocks
+x/x86, 0 bytes, 0 tape blocks
+x/x86/ata_disk_load32, 12516 bytes, 25 tape blocks
+x/x86/ata_disk_load64, 15648 bytes, 31 tape blocks
+x/x86/mdload, 2910968 bytes, 5686 tape blocks
+x/xdownload32_aac, 228928 bytes, 448 tape blocks
+
+Problem Description:
+
+The patch has the following bug fixes:
+ 
+Previous History:
+ 
+Installation Instructions:
+ 
+--------------------------------
+ This Patch has disk drive Firmware Installer Utilities.
+ 
+ 1. This patch includes firmware download utility download. 
+ 2. This patch includes firmware download procedure for systems
+    running the LSI MegaRaid HBA
+ 
+ This patch will be official released as. 
+ 
+ The script(s) are intended for use on Sun host systems only.
+ 
+***********************************************************************
+ 
+ To install the contents of this Patch see the pertinent section below.
+ 
+ Sections Index
+  Initial Installation Instructions.
+1   Procedure for firmware download 
+2   Linux JBOD env
+3   Procedure to Download to Drives behind LSI Megaraid HBA 
+ 
+**************** Initial Installation Instructions************
+ 
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. The system MUST BE IDLE during the download process!  No other
+   programs should be running while using this utility is being
+   used.  Failure to do so may cause the devices being upgraded
+   to fail or the system to crash.
+ 
+   Any other computers sharing the same I/O bus as the host system
+   must be either disconnected or offline to prevent possible
+   disruption of the firmware download process.
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.out" and "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ 
+1. Procedure:
+ 
+The procedure to be used for upgrading the drive firmware is
+explained below. Upgrade time will vary according to the system.
+The approximate time to upgrade each disk is three minutes.
+ 
+a) Unpack the patch (through tar) into any directory, say &lt;patchdir&gt;.
+   (Note, if the patch ends in a ".Z" suffix, you will need to first
+   uncompress it.)  So, you would type:
+        % su root
+        # cd &lt;patchdir&gt;
+        # tar xf &lt;patch tar file&gt;
+ 
+b) In the patch directory, as root, type the "download" command:
+        # ./download
+ 
+c). Select the devices to be upgraded (see example below).
+ 
+**NOTE**    Any device that is in-use by another application will not
+            be upgraded.  The following warning message will be
+            issued:   c1t3d0s0: Open failed, you must be the sole user!
+ 
+**NOTE**    This upgrade can result in error messages in the console 
+            window and/or the terminal "download" window.  It is
+            normal for the SCSI link to go offline for a few
+            seconds and then return to the online state.  The disk
+            mode pages will also be restored to the default values.
+ 
+**NOTE**    For A3000/1000's, the internal disk "C" and "T" numbers
+            are derived from the first active controller found.  The
+            "D" number is encoded to indicate it's position using the
+            following formula:  D = (tray_number * 100) + target_id.
+ 
+d). After the devices have been upgraded, the displayed device
+    list will be refreshed.  Devices remaining to be upgraded or
+    failed devices will be displayed.  Failed devices will be
+    marked with a "****" in the rev field.
+ 
+**NOTE**    If all devices have been upgraded, the following
+            message will be displayed:   No devices found to upgrade!
+ 
+e). To display the full list of devices including the upgrades ones,
+    type 'inquiry' (see example below).
+ 
+f). Quit the "download" program by typing 'quit' (see example below).
+ 
+ 
+ 
+2 Linux JBOD env
+    --------------
+ 
+Linux_download or disktool.pl  for JBOD systems-
+ 
+Note- See section e under 1.1 of procedure 1 to find out how to run disktool.pl 
+ 
+Linux Download Example for OEL 6.4
+ 
+Example -
+[root@scsvr-183 ~]# ./nload -h
+VER-1.01
+Usage:   ./nload: [&lt;option&gt; &lt;device&gt; [fw_file]]
+Option:  -i - single drive inquiry
+         -d - download code to the drive
+         -h - Usage...AK
+         device - Use /dev/sgX as device, Where X hdd0 OR hdd1
+                                          OR      sd0 OR sd1 ...
+ 
+ 
+[root@scsvr-183 ~]# ./nload -d /dev/sg2  ./HUS1560SC.A820.fw
+!!! Please wait downloading firmware ...!!!
+Download Successful
+    Inquiry for device &lt;/dev/sg2&gt; -
+    SAS     HITACHI HUS1560SCSUN600G           PQual: 0    Device_type: 0
+ 
+ 
+ 
+3 Procedure to Download to Drives behind LSI Megaraid HBA 
+    --------------------------------------------------------
+A. Install the megaraid software for Linux or Solaris
+B. the software will be install under /opt/MegaRAID directory
+C. cd to this directory and one more level to the MegaCli directory
+ 
+D. To Check start the download find out the
+   Enclosure ID and the Slot ID for your drive by using this command
+ 
+   ./MegaCli64 -PDList -aall
+ 
+   You will get output something like this -
+   Adapter #0
+ 
+Enclosure Device ID: 9
+Slot Number: 0
+Device Id: 28
+.
+.
+Inquiry Data: HITACHI HUS1560SCSUN600GA1600941K3T96E
+FDE Capable: Not Capable
+FDE Enable: Disable
+.
+.
+ 
+E. Copy the f/w file in the same directory as the MegaCli64
+     Run the bitops.sh  command as follows
+     cd/megaraid
+     ./bitops.sh
+     This will generate the firmware file HUS1560SC.A820.fw under megaraid directory
+     of the patch use this file in step D
+ 
+D. Run the download command to install one drive in slot 0
+   under enclosure 9
+   MegaCli64 -PdFwDownload -PhysDrv[9:0] -f /148959-06/megaraid/HUS1560SC.A820.fw -aALL
+ 
+   For Multiple drives use the same command but with multiple drives
+ 
+   MegaCli64 -PdFwDownload -PhysDrv[9:0,9:2,9:3,9:4,9:5] -f /148959-06/megaraid/HUS1560SC.A820.fw -aALL
+ 
+ 
+**************************************************************************
+
+Special Install Instructions:
+README -- Last modified date:  Monday, February 10, 2014
+
+README -- Last modified date:  Wednesday, May 27, 2015
+
+</pre></body></html>

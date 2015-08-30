@@ -1,0 +1,427 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 127580-05
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: hardware/prom: sparc enterprise t5120 &amp; 5220 7.0.9.c flashprom
+Synopsis: Hardware/PROM: Sparc Enterprise T5120 &amp; 5220 Sun System Firmware with LDOMS support
+Date: Jan/30/2008
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 7.0.9.c
+
+Xref: 
+
+Topic: Sparc Enterprise T5120 &amp; 5220 Sun System Firmware 7.0.9.c flashprom update
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 6437995 6521418 6528559 6528563 6530597 6533841 6536440 6538408 6540384 6545522 6549028 6550710 6550717 6551735 6551748 6551753 6558533 6562375 6563227 6564026 6564186 6566424 6567147 6567193 6568261 6568954 6569432 6569699 6571945 6572472 6572598 6576736 6577512 6577528 6577750 6577796 6578802 6579040 6579041 6579853 6579858 6580570 6580778 6582850 6582853 6584860 6585408 6586624 6586938 6587476 6587869 6587919 6588139 6588999 6589043 6589102 6589123 6589125 6589214 6589734 6590210 6590773 6590915 6591340 6591369 6591441 6591639 6591641 6591711 6592292 6592299 6592695 6592706 6592723 6593132 6593547 6593846 6594270 6594439 6594796 6594851 6594929 6595293 6595500 6595602 6595963 6596331 6596432 6596474 6596509 6596546 6596594 6596989 6597003 6597020 6597024 6597045 6597761 6597805 6597993 6598000 6598313 6598317 6598430 6598601 6598640 6598676 6598822 6599022 6599333 6599334 6599575 6599972 6600131 6600521 6600759 6601281 6601293 6601822 6601925 6602324 6602467 6602848 6602913 6602994 6603306 6603325 6603385 6603422 6603988 6604051 6604239 6604305 6604564 6604565 6604585 6605107 6605185 6605188 6605189 6605237 6605782 6605784 6606053 6606077 6606139 6606189 6606197 6606251 6606705 6606813 6606936 6606941 6607416 6607863 6607936 6608020 6608253 6608377 6608466 6608830 6608861 6608922 6609024 6609044 6609071 6609077 6609122 6609130 6609134 6609221 6609485 6609762 6609765 6609806 6610097 6610363 6610663 6610861 6610894 6611076 6611077 6611080 6611115 6611245 6611375 6611568 6611620 6611700 6611798 6612022 6612209 6612223 6612323 6612325 6612327 6612364 6612658 6613140 6613244 6613249 6613402 6613481 6613619 6613667 6613833 6613898 6614098 6614154 6614202 6614687 6614689 6614819 6614892 6615262 6615336 6615550 6615785 6615792 6615795 6615886 6616053 6616257 6616259 6616363 6616438 6616450 6616536 6616972 6617012 6617037 6617179 6617193 6617228 6617489 6617506 6617731 6617764 6618148 6618178 6618303 6618415 6618585 6618676 6618725 6618773 6618898 6619249 6619281 6619401 6619407 6619424 6619797 6619827 6620060 6620096 6621175 6621658 6621663 6621762 6621885 6622225 6622384 6622444 6623111 6623166 6623526 6623725 6623728 6624724 6624790 6625143 6625575 6626250 6626645 6627308 6627658 6627792 6628128 6628904 6629273 6629419 6629755 6629996 6630011 6630310 6630378 6630623 6631555 6631816 6631946 6632404 6632440 6632730 6632923 6632924 6633562 6633790 6634497 6634977 6635118 6635636 6635748 6637313 6637322 6637421 6637960 6638481 6638639 6638692 6639691 6639694 6639704 6640071 6640399 6642106 6643849 6648296 6649757
+
+Changes incorporated in this version: 6587919 6597020 6597045 6598430 6598822 6611115 6611620 6615336 6619281 6623725 6627658 6632404 6632923 6632924 6637322 6638692 6639691 6639694 6639704 6640071 6640399 6642106 6643849 6648296 6649757
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-7_0_9_c-Sparc_Enterprise_T5120+5220.pkg
+sysfwdownload
+
+Problem Description:
+
+6649757 Monza RFE: ILOM needs to support FPGA update remotely from ShMM 
+6648296 Glendale: Need increase sspoller timeout 
+6643849 sccd fails when netmgmt_state_feature disabled 
+6642106 Turgo: add a workaround to avoid fan failures 
+6640399 singlesignon not working on glendale from cmm 
+6640071 Turgo: Description of PCI-X slots shows up as "PCI Express" in picl output 
+6639704 Typo in netmgmt backend 
+6639694 ALOM-CMT Backward compatibility CLI needs to be in sync with backends 
+6639691 sccd logrotate file should be delivered from the common area, not the platform mods area 
+6638692 HDD3 shows as "Not Present" 
+6637322 "bind: Cannot assign requested address" messages when SP is reset 
+6632924 alomsh setalarm needs usage info 
+6632923 alomsh setalarm doesn't log events 
+6632404 can't commit ser_commit changes if serial console has been used 
+6627658 BP Alarm port output not synchronized with Alarm settings 
+6623725 merge singlesignon feature changes from trunk 
+6619281 DIMM at MB/CMP0/BR0/CH0/D0 needs updated system firmware to be recognized 
+6615336 Turgo showcomponent not showing PCIE5 slot 
+6611620 Update the paths to vbsc and prom.bin in the vbsc GNUmakefile for Turgo
+6611115 power supply fault reporting 
+6598822 Blade OK2RM not turned off after host is powered on 
+6598430 removeblade command displays blade ready for removal message too soon 
+6597045 Turgo: PICL snmpplugin daemon error 
+6597020 i2ctest &amp; envtest fails 
+6587919 first time execution of `show /SYS &lt;property&gt;` for some properties returns none 
+ 
+(from 127580-04)
+ 
+6638639 the turgo showcomponent could not see PCI  /SYS/MB/PCI_MEZZ/PCIE5
+6638481 XAUI nodes not present in OBP even though HW exists in the system
+6637960 showenvironment indicators display is too long for Glendale 
+6637421 frud/pla*d/vbsc startup problems 
+6637313 power supply status displayed incorrectly for glendale 
+6635748 web GUI not properly displaying error messages that contain backslash '\' characters 
+6635636 LE4 domain hang with no ILOM phenomenon, when temporary AC off occur 
+6635118 web gui not properly displaying admin/oper groups with backslashes '\'. 
+6634977 POST run in max mode fails with PLX 8112
+6634497 servicetag information incorrectly populated 
+6633790 cannot quit Pause show /SP/console/history display 
+6633562 md mismatch causes breakage when booting off of saved configs or for warm-start
+6632730 RFE: Change write interval for swClockInit 
+6632440 Turgo: showsc of ser_parity &amp; ser_stopbits return error "not able to get value" 
+6631946 (init-program) causes illegal instruction trap if executed when cwp is not 0
+6631816 MONZA - cannot update Monza SysFW with clia flashupdate command 
+6631555 SP shell hangs if Ctrl-C when asked 'Are you sure you want to powercycle the system' 
+6630623 cancelling a multi-step delayed reconfig on a MD parse failure confuse guest domains
+6630378 make "send break to host" (CR 6577528) as a compiler feature 
+6630310 ActiveDir diag message formats are not compatible with web gui
+6630011 add support for Pelton 4 HDD configuration
+6629996 migrating rmc-comm channel from glvc to ldc service for pelton
+6629755 PRI config code should only operate on factory default MD sets
+6629419 need to reduce VBSC memory usage for N2 platforms
+6629273 un-initialized data in libami may cause crash 
+6628904 Monza ILOM shall handle Asynchronous IPMI Messages to Payload 
+6628128 Monza needs the official swordfish id support 
+6627792 RFEN: ActDir - Bank Of America changes for 'Dynamic Groups' based on sAMAccount name rather than DN 
+6627308 core dump in spsh when tabbing down the /SP/faultmgmt tree 
+6626645 web gui MS ActDir - should accept ip addres of "" to clear ip addres for primary and alternate svrs
+6626250 not having default 'admin' account on ILOM break Netconsole/hostconsole 
+6625575 upgrade interfaces file hard codes slot ip in interfaces file 
+6625143 no guest error packet for non-resumable DAUs
+6624790 USB is missing from 'showcomponent' command on Huron
+6624724 cannot show blade properties via drill-down on CMM 
+6623728 the console does not switch back to serial after the netconsole is terminated 
+6623526 need to supply capability for a 2 core configuration 
+6623166 no environmental data appears to be available over the SNMP channel 
+6623111 Huron system hung after completed POST with "Failed to set device address: 1" with FW 7.0.7
+6622444 boot path switch feature is not work correctly during boot block load
+6622384 support for telco_alarm LDC channel
+6622225 some platform_inventory.dat files still contain threshold masking 
+6621885 Monza ILOM shall suppress the SP interface indication message 
+6621762 ping to ILOM from the net fails after bcm switch config changes 
+6621663 fruimage needs to create xml file in the form hostid.xml 
+6621658 Updates to the bootset PRI are not reflected in existing user MDs.
+6621175 false NIU FZC XMAC   Block Port 1 init test failure - RXMAC STATUS Reg.PHY_MDINT Bit
+6620060 Monza ipmi driver returns ioctl error upon 1st receive command 
+6619827 Trunk Build Can't set preferred message received after the load -source command completes 
+6619797 Power Management feature in core ILOM 
+6619424 EAR values reported by hypervisor differ from the actual addresses leading to incorrect diagnoses
+6619407 i2ctest produces failures for unpopulated FBDIMMs slots 
+6619401 sptest and i2ctest target some devices which are not present on the i2c bus 
+6619249 i2ctest intermittent failure on PS0/PCF8574A.EXPANDER 
+6618898 properties under /SYS/BL? is incorrect 
+6618773 missing mcu init causing ibist failures
+6618725 need to configure Monza Onboard Switch BCM5397 
+6618676 webgo dies if hostname is not localhost and eth0 not configured 
+6618585 /SP/serial/external/pendingstopbits and pendingparity are settable, should the be? 
+6618415 XAUI interfaces are not supported
+6618303 niu logical page register hcalls need access protection
+6618178 PIU error interrupt redistribution code does not work
+6618148 Lumain log is too chatty impacting performance 
+6617764 update webhelp for NMI generation
+6617731 Monza putback causes minor regression in mac address distribution in MD
+6617506 setting /SP/serial/host properties should not be allowed on sparc platforms 
+6617489 After starting (and escaping from) console via ilom cli, user cannot commit serial baud changes 
+6617228 showcomponent intermittently printout /SYS/MB/PCIE and "Error reading component state" message
+6617193 POST offlines all L2 banks when it encounters a storm of DSC/FBRs
+6617179 Monza needs a MPC SPI driver to configure on board switch 
+6617037 can't set internal or external serial baudrate via ilom BUI 
+6617012 PSU0 fan failure fault not generated when fan failure occurs
+6616972 ILOM web support for OEM and Fujitsu/Fujitsu-Siemens branding 
+6616536 showenvironment and prtdiag report status of unplugged fan as OK 
+6616450 all link list data should be accessed within mutex lock 
+6616438 SensorMonitor: simple fault injection support in capidirect is broken 
+6616363 Glendale's onboard port was not recognized when a Northstar QGC EM card was loaded into the system.
+6616259 does Turgo have a PDB fault sensor? 
+6616257 various component listing inconsistencies 
+6616053 PIU interrupt redistribution code does not work
+6615886 capi_get_branding_ui_mode() needs to be enhanced to distinguish between Fujitsu and Fujitsu-Siemens 
+6615795 Turgo: servicetag entry does not contain correct info 
+6615792 recent enum cleanup has made MS ActDir 'defaultRole' snmp object report errors for default setting
+6615785 ilom needs to make available zlib headers/libs to vbsc 
+6615550 Glendale SP could not control the S_THERM_N pin caused the fans to blast 
+6615262 glendale fmd will coredump or exit on startup 
+6614892 all Front Panel LED indicators turn on during reboot cycle causing SP to hang 
+6614819 PIU error interrupt redistribution code is not invoked
+6614689 Turgo - remove extra fields from showenvironment 
+6614687 Turgo - add support for 2HDD system 
+6614202 add support for C++ and Assembly code files to the hotamale build system 
+6614154 P2 system fans are always blasting 
+6614098 dbu error can cause HV to wedge
+6613898 ILOM not usable when external serial baudrate is set to 115200 
+6613833 change default MCU FAWIN value to 14
+6613667 German umlaut characters do not work through JavaRConsole 
+6613619 Glendale Error in sensor data record for MB/PO/CBUS_BIT6 
+6613481 ASRDB gets corrupted frequently if some component such as USB or a pci slot is disabled
+6613402 FBDIMM AMB Error Status Registers need to be cleared on startup
+6613249 Monza needs the support of 44 MAC addr in iLOM 
+6613244 Monza needs E-FUSE support in iLOM 
+6613140 Monza needs to auto boot to OBP ok prompt 
+6612658 ILOM needs to provide rack location to SunMC 
+6612364 pages with UEs are not immediately retired
+6612327 Glendale needs to use lan-based chassis polling/network configuration 
+6612325 add support for single-sign-on/drilldown BUI/CLI from CMM 
+6612323 add support for Chassis VLAN 
+6612223 "Fcode sequence resulted in a net stack depth change of -3" messages since upgrading to SysFW 7.0.5
+6612209 The showenvironment output of /SYS/PS1/VINOK0 and /SYS/PS1/PWROK0 are incorrect while using inj 
+6612022 N1 POST hangs during Enable L2 Cache
+6611798 POST support for Turgo
+6611700 XVR-200 in T2000 with LDOM 1.0 installed and configured fails to display video on KVM
+6611568 IBIST retry count not sufficient when testing both MCU channels
+6611375 2 different Chassis serial number displayed by showplatform command on the same blade 
+6611245 Turgo-SunMC: Current sensor table is empty 
+6611080 retry ibist to workaround false failure
+6611077 glendale midplane 'serial' number via pcp should return the lower 10 chars 
+6611076 need channel1 test for ibist
+6610894 installation record is updated everytime the sp boots 
+6610861 prompt and character sequence for dropping to u-boot is inconsistent with already released platforms 
+6610663 read_product_conf will always return 00 for rack location 
+6610363 blade must display rack location when in a C48 
+6610097 StPaul: cfgadm -al output failed to show PCI-EMO
+6609806 plhwsvc.log show lot of "plat_hwsvc_main.c:778:plat_hwsvc_main():pstate =" 
+6609765 fault event generation code in sensors.c causes incorrect HW Trap MIB trap events 
+6609762 ILOM needs to modify bit definitions/locations for the front panel PS, temp and fan leds 
+6609485 Glendale needs to detect C48 rack location 
+6609221 product_name in glendale /SYS doesn't match swoRDFish id 
+6609134 enable IPMI LDC  for the monza platform
+6609130 Monza platform support in OpenBoot
+6609122 Monza platform support in vBSC
+6609077 alarm LEDs critical &amp; major stay lit 
+6609071 Monza P1 : Error picld[111]:PICL snmpplugin: cannot fetch object value (err=-1) in prtdiag -v output 
+6609044 Variety of commands are not being logged 
+6609024 FERG marks some e-reports from post as invalid and drops them
+6608922 intermittent IBIST failures requires vbsc workaround
+6608861 javarconsole screen is black after initiating remote redirection from cmm on Vista client 
+6608830 Glendale fan control is not working properly 
+6608466 GD Post nac names are incorrect
+6608377 reading serial number from midplane should return product serial, not board serial 
+6608253 scc should use libubenv instead of copied files 
+6608020 plat*d will coredump when the host sends fma data 
+6607936 Monza P1 : showplatform -v does not give correct output on Monza. 
+6607863 SP_Plat_get_fru_data() is returning incorrect information 
+6607416 glendale snmpd should export the blade product number under /SYS etc 
+6606941 Setting REF_FREQ_333 to 0xa06 helps SpecJBB performance 1%
+6606936 envtest failing on glendale blade#425 
+6606813 showenvironment /SYS fault fields need removed 
+6606705 ilom can disconnect login 
+6606251 JavaRConsole: need a shortcut for right-alt key 
+6606197 remove GD product name from host flash version display
+6606189 L2 scrubber should be disabled
+6606139 ctrl-c for flashupdate fails to stop update 
+6606077 determine size of max_mechanism_map and max_indicator_mech_map dynamically in libcapidirect 
+6606053 open source tarball script is stale 
+6605784 vBSC needs to support the Glendale platform
+6605782 OBP needs to support the Glendale platform
+6605237 missing /SPD/Vendor field for Qimonda 
+6605189 boot-time warning: snmpplugin: sunPlatSensorClass 0 unsupported (row=23) 
+6605188 /SYS/MIDPLANE prom is unreadable or corrupted 
+6605185 showplatform does not display chassis serial number 
+6605107 setkeyswitch CLI displaying the last event that was generated. 
+6604585 GD Beta: unable to extrace blade serial# from CH/CMM 
+6604565 showsc -v version misspells "firmware" as "fimrware" 
+6604564 ilom: libipmi leaks file descriptor if IPMI session fails and retries. 
+6604305 VBSC did not detect memory one time: ERROR: MB/CMP0/BR3/CH0/D0 must be populated, 
+6604239 PRINT_ERROR_TABLE_ENTRY macro should only read trap regs when TL&gt;0
+6604051 POST Support for Monza
+6603988 need netconsole and comman proxy support on Monza !! 
+6603422 Blade SP reports NEM presence incorrectly 
+6603385 major showlogs showing insertion and removal of blades across chassis 
+6603325 when using powercycle command, extra message occurs: SP firmware VBSC version 
+6603306 BUI: Chassis physical view needs to detect and draw proper graphic for Scorpio blade 
+6602994 ILOM needs to return FRU shortname 
+6602913 ipmi chassis power cycle does not always work 
+6602848   The value of /SYS/TEMP_FAULT failed to turn on when Critical temperature thresholds crossed 
+6602467 showfru printing FRU's on C10 Chassis like PS and Blade with sysfw build 15 
+6602324 HV/dumbreset needs update for simulation support
+6601925 Voltage indicators for power supplies reported as failed 
+6601822 USB hub, keyboard, and/or mouse disappear from OBP device tree
+6601293 make sspoller usable by other platforms 
+6601281 power Supply fru info not updating 
+6600759 setfru -c  gets FD segment write errors. 
+6600521 Pelton panic after multiple Solaris reboots: Fatal error has occurred in: PCIe root complex.
+6600131 Glendale netconfd does not startup 
+6599972 DVD not recognized by cli 
+6599575 console session stops printing critical/major/minor events when rundiag was running 
+6599334 when either NIU port in the N2 CPU is disabled the corresponding XAUI should not be configured
+6599333 if XAUI0 or XAUI1 are disabled via disablecomponent the network devices are still created in OBP
+6599022 there are two SET_SIZE(niu_reset) statements in niu.s
+6598822 Blade OK2RM not turned off after host is powered on 
+6598676 front panel locator led doesn't light 
+6598640 HV should send non-resumable ereport for precise ldau
+6598601 HV should record l2 bank info for L2 ND errors
+6598430 removeblade command displays blade ready for removal message too soon 
+6598317 can't read sunoem leds 
+6598313 alarms don't work 
+6598000 dump_l2_cache may store incorrect bank info
+6597993 dump_dbu_data doesn't change TL when reading %tpc etc
+6597805 bzero missing branch target
+6597761 rm-io followed by multiple set-vcpu operations causes HV abort or ldmd core dump.
+6597024 system fan status not reported 
+6597003 help messages not current 
+6596989 DAU ereports not being received for memory UE's
+6596594 after resetsc, changing OBP nvram parameters do not take affect
+6596546 Montoya: "probe-ide" shows a non-existent device with garbage characters as ATAPI model
+6596509 need Monza Platform Specific Software in ILOM 
+6596474 v1 crypto api breaks after a bit
+6596432 SNMP: Mib values are not correctly populated for sunPlatEquipmentAlarmStatus for some x4200 sensors 
+6596331 ILOM SNMP agent should provide a /SYS/MIDPLANE node on blades 
+6595963 ok2rm blade led randomly turns on 
+6595602 capi_get_chassis_ops_info() must return the product info for the chassis 
+6595500 Last Trap: Fast Data Access MMU Miss on VDS stress tests
+6595293 WDR traps are handled at the wrong trap level
+6594929 sun4v systems lose their scsi initiator settings after upgrade to 6.4.x+ firmware
+6594851 Maramba needs a way to turn threshold checking off and then on, without having to set the thresholds 
+6594796 SNMP: HW-TRAP-MIB traps on Huron, invalid value of sunHwTrapSuspectComponentName varbind 
+6594439 ASR "showcomponent" adds another line of info when a component is disabled.
+6594270 Error in sensor data record for MB/PO/CBUS_BIT6 
+6593846 merge cfile change (r21648) into sparc_2.0 
+6593547 IO-Domain-Reset: ERROR: Last Trap: Watchdog Reset
+6593132 changes to obp variables w/non default LDOM cfg do not persist
+6592723 absent/poorly connected SSCC generates i2c_writeread failed 121 error and infinite reboot loop 
+6592706 showusers: Issue w/web users and sometimes confused about login time and client IP addr 
+6592695 vBSC must supply chassis information in PRI
+6592299 SharedMem.h change for slow systems 
+6592292 Port SPARC specific sensor injection mechanism to common code 
+6591711 "sccd: sccd.c:561: sccd_handle_event... failed" messages when SP is reset via IPMItool 
+6591641 naming for IPMI FRUs should be consistent with previous platforms 
+6591639 DIMM frus must be presented via the ipmi interface 
+6591441 IPMI needs to generate NMI via capi 
+6591369 "client connect: /var/run/VBSC: Connection refused" message when HOST_AUTO_POWER_ON is enabled 
+6591340 For an absent HDD, the PRSNT node's Expected value is "true" instead of "Present" in the PICL tree 
+6590915 AndroCMM: Service tag not stopping / extra console output 
+6590773 add turgo support to vbsc
+6590210 add a "BLINKING MESSAGE" if system is using a sensor.xml from /persist 
+6589734 T2000 6.4.6 causes cacaoadm key generation to fail
+6589214 ILOM SNMP agent doesn't adjust the exponent when it changes the scale of sensor readings 
+6589125 MSAD: needs a more graceful upgrade procedure. 
+6589123 MSAD: CitiGroup request for debug view to ActDir failures... 
+6589102 ilom should not log sp diag verbose messages when verbose flag is turned off
+6589043 if there are fewer than 21 entries in the event log, showlogs displays none of the events 
+6588999 reset /SP using ilom cli (ssh connection) results in error message 
+6588139 /SYS/MIDPLANE target is required on Constellation blade 
+6587869 Use of consolehistory -e results in SP becoming unusable (need SP reboot) 
+6587476 CMM spsh mishandling some attempts to set blade values 
+6586938 add "show components" to cli dmtf argument alias 
+6586624 physical-platform information missing from prtpicl and prtdiag
+6585408 SPARC platforms need to delay polling at boot and also need to stop/start polling while running 
+6584860 PICL snmpplugin: no acceptable slot types 
+6582853 showfaults shows the MB as the FRU instead of DIMM(s) for FMA memory faults 
+6582850 showfaults ID is 0 for all faults with mutiple faults in system 
+6580778 ferg.invalid message appears because HV sends a SER with no error bits
+6580570 BUI: Unneeded web files can be removed to reclaim much needed flash filesystem space 
+6579858 Add support for configuring multiple AD Domain Controllers (minimum three) 
+6579853 MSAD: Add support for authenticating with nested-groups. 
+6579041 add Netconfig related support in Glendale ILOM 
+6579040 add ILOM support to monitor Fans/PS status 
+6578802 ereport is not generated for the SOC dmu internal error
+6577796 Power Mgmt - memory leaks 
+6577750 S10U3: when host is at UNIX, after "resetsc" completes, console IO is lost
+6577528 SP serial line "send break" does not bring the system down to minimenu or kmdb 
+6577512 corefile names don't include host or process for new-style platforms. 
+6576736 no alerts generated for canary ball 7 faults 
+6572598 c10cmm: AlertManager, Syntax error in mailbox address "ilom-alert@???.???? when emailing alerts 
+6572472 need a mechanism to inform vbsc about the SASBP device_type 
+6571945 SP_Plat_get_fru_data should be able to take NULL arguments 
+6569699 remove -a from setdefaults options in help listing 
+6569432 Slow performance displaying Power Management Data via GUI and CLI 
+6568954 all ILOM 2.0: CLI not parsing quoted parameters correctly 
+6568261 SP event log reports Sync Flood as involving /SYS/P1/V_Vddio 
+6567193 some ilomCtrlSparc objects out of sync with CLI 
+6567147 user w/operator role is allowed to execute clearfaults command. 
+6566424 ILOM 2.0: JavaRConsole, platform dependent JAR files need to be rebuild 
+6564186 libcapidirect should allow comments in the XML file 
+6564026 SNMP - Some sunPlat*.1 entries return noSuchInstance 
+6563227 RFE to add "showpower" command to ALOM shell 
+6562375 JavaRConsole-can't open multiple sessions to one host 
+6558533 plathwsvcs should get sensor threshold flags from sensor definition, not platform_inventory.dat 
+6551753 ILOM cli requires an easy to use mechanism to display service processor settings. 
+6551748 ILOM cli needs a facility to display console history 
+6551735 ILOM cli should display all active faults in a concise form and through a user friendly interface 
+6550717 reset.bin too big.  Change the N1 POST PROM offset from 1M to 2M
+6550710 reset.bin too big. Move the N1 PROM components around
+6549028 intermittent issue with netsc commit and showsc hang 
+6545522 LAN process - high cpu utilization during SNMP get-next on ilomCtrlEventLog=poor performance 
+6540384 need ability for sunservice account in ILOM to show chassis/slot locations stored within fruid 
+6538408 disabling / re-enabling core sequences 
+6536440 slot information should be recorded and dynamically updated in blade's dynamic fru data 
+6533841 do not generate ferg.invalid ereport when PIU is in drain state
+6530597 setlocator should be allowed as user with 'operator' role 
+6528563 remove none from diag_level help and setupsc 
+6528559 remove telnet from if_connection help 
+6521418 incorporate alom cmt bug fixes for ssh-keygen into ilom 
+6437995 SP should provide a UI command to trigger an NMI from GUI/CLI 
+ 
+(from 127580-03)
+ 
+6620096 dmmu fault addresses not sign-extended
+
+Patch Installation Instructions:
+--------------------------------
+ 
+ 
+Please refer to the Install.info file for instructions on updating the firmware
+in the flashprom using the files included in this patch.  In particular, there
+is information on the differences involved with the ILOM-based Sun System
+Firmware (7.x) in connection with the use of the Solaris Sun Update Connection
+utility.
+
+Special Install Instructions:
+-----------------------------
+ 
+NOTE 1: Firmware component revisions included with this release:
+ 
+	Sun System Firmware 7.0.9.c 2008/01/14 22:56
+	--------------------------------------------
+	ILOM 2.0.4.19 Jan 14 2008 22:36:41 
+        VBSC 1.5.14  Jan 14 2008  22:19:45
+	Hypervisor 1.5.6 2007/11/30 08:29
+        OBP 4.27.10 2007/12/07 10:45
+        POST 4.27.10 2007/12/07 11:10
+ 
+ 
+	Checksum of Sun_System_Firmware-7_0_9_c-Sparc_Enterprise_T5120+5220.pkg : 2496739458
+        (generated by the /usr/bin/cksum command)
+ 
+ 
+NOTE 2: By using Sun System Firmware (Firmware) you agree to the terms of the
+        Software License Agreement and Entitlement (SLA/Entitlement) found in
+        Entitlement-Sun_System_Firmware.txt.  By using the Firmware, you agree
+        to the terms of the SLA/Entitlement. If you do not agree to all of the
+        terms promptly destroy the unused Firmware.
+ 
+NOTE 3: Upgrading to Sun System Firmware 7.0.9.c or later for this platform
+        requires Solaris 10 Update 4 plus patches (or later) to be installed.
+ 
+NOTE 4: Please refer to the online documentation for feature and version
+        compatibility between Sun System Firmware and LDom Manager releases.
+        LDoms release notes are available on http://docs.sun.com under this title
+        and part number: Logical Domains (LDoms) 1.0.1 Release Notes 820-3269
+ 
+NOTE 5: Sun will update this posting in the future with a link to the GPL ILOM
+        source code. Until then, to request a copy of the GPL ILOM source code,
+        please contact ilom-gpl-source-request@sun.com.
+
+README -- Last modified date:  Tuesday, November 18, 2008
+
+</pre></body></html>

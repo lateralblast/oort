@@ -1,0 +1,542 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 104288-09
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: desktop standalone flash prom update security
+Synopsis: Hardware/PROM: Ultra 1E Standalone Flash PROM Update
+Date: May/24/2004
+
+
+Install Requirements: See Special Install Instructions                      
+                      Additional instructions may be listed below                      
+                      
+Solaris Release: 2.5 2.5.1 2.6 7 8 9
+
+SunOS Release: 5.5 5.5.1 5.6 5.7 5.8 5.9
+
+Unbundled Product: Hardware/PROM
+    NOTE: This utility is *not* OS-dependent.  The list of releases shown
+          under the "Solaris Release" and "SunOS Release" sections may not  
+          be complete: The absence of a valid Solaris Release or SunOS  
+          Release from the lists above does not preclude the installation  
+          of this patch against the hardware.
+
+
+Unbundled Release: OBP 3.35.0 POST 3.11.4
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc.sun4u
+                 NOTE:  there are 3 binaries included in this patch, for three platforms
+			flash-update-Ultra1E-Model140E-latest for Ultra 1E Model 140E
+			flash-update-Ultra1E-Model170E-latest for Ultra 1E Model 170E
+			flash-update-Ultra1E-Model200E-latest for Ultra 1E Model 200E
+
+BugId's fixed with this patch: 1196888 1196894 1205113 1209912 1214856 1218110 1219424 1219550 1219781 1220685 1221158 1221163 1221618 1222894 1224980 1230619 1232074 1232486 1235702 1240664 1240665 1244597 1246093 1252098 1253032 1257925 4011853 4018294 4023467 4024106 4028057 4041025 4076224 4088491 4091949 4119827 4123985 4176300 4203447 4310258 4325933 4338343 4360883 4407855 4407869 4483753 4945380
+
+Changes incorporated in this version: 5023498
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+				 copyright, 802-3233-20.ps
+				 flash-update-Ultra1E-Model200E-latest,
+                                 flash-update-Ultra1E-Model170E-latest,
+README.104288-09, flash-update-Ultra1E-Model140E-latest,
+
+Problem Description:
+
+BugId 5023498: loadultra.fth contains compares using a hardcoded manufacturer id of 17
+ 
+BugId 4945380: Latest OBP 3.25.0 on Ultra 1 is unable to handle new MAC-Addresses
+ 
+BugId 4483753: RARP replies which dont include ar$spa must be handled correctly
+ 
+BugId 4407869: probe-scsi and probe-scsi-all need to recognize device_type-scsi*
+ 
+BugId 4360883: DHCP IP address validation code must be more robust
+ 
+BugId 4123985: erroneous divide by zero bug in OBP
+ 
+BugId 4325933: Branch on register intructions are broken in assem.fth
+ 
+BugId 4338343: fb8: "Memory Address not Aligned" error in fb8-insert-lines
+ 
+BugId 4176300: Draw logo doesn't clip, returns negative number for line# to draw at.
+ 
+BugId 4203447: setting nvram variables when config-valid? is false leaves parameters on stack
+ 
+Bugid 4407855: Code that validates idprom contents incorrectly expects 0x80 at offset 1
+ 
+Bugid 4310258: Add support for DHCP.
+ 
+Bugid 4091949: Flashprom updates for Sun4u systems may cause NVRAM contents to change.
+ 
+Bugid 1240664: Retained memory that crosses a 32Mb boundary gets corrupted by PROM sizing memory.
+ 
+Bugid 1240665: Two machine resets without a prom_retain cause retained memory to be cleared.
+ 
+Bugid 1235702: FCode32 versions of &gt;&gt;A and RSHIFT may give incorrect results.
+ 
+Bugid 1222894: Fusion OBP is missing the "dl" serial download command.
+ 
+Bugid 1232486: SUNW,retain does not seem to be able to re-retain a retained page.
+ 
+Bugid 1230619: popc not disassembled by obp.
+ 
+Bugid 1232074: q to quit long listing sometimes doesn't work.
+ 
+Bugid 1205113: "dev /SUNW,UltraSPARC@0,0" fails.
+ 
+Bugid 1218110: canon client interface strips options strings.
+ 
+Bugid 1209912: ^C deletes the line in nvramrc.
+ 
+Bugid 1221158: OBP does not output POST failures to display device.
+ 
+Bugid 1219781: &lt;L1-A&gt; on "boot disk" followed by "boot disk"  results in soft hang.
+ 
+Bugid 1220685: L1/A after banner hangs with "The selected input device has no read routine".
+ 
+Bugid 1219550: Need to put some delay in the power-off command for sun4u platforms.
+ 
+Bugid 1214856: Missing sym, sym&gt;value words.
+ 
+Bugid 1196894: Missing user interface words.
+ 
+Bugid 1196888: Missing properties.
+ 
+Bugid 1221618: boot -r on SPARCstation 11 (neutron) gives cpu0 and trap error.
+ 
+Bugid 1221163: boot panic: bop_alloc failed.
+ 
+Bugid 1219424: reboot will cause a hard hang with cgthree as console.
+ 
+Bugid 1224980: obp crash with 'physical address in use'.
+ 
+Bugid 1253032: Soft reset at the ok prompt may fail.
+ 
+Bugid 1252098: Booting from floppy disk now works.
+ 
+Bugid 4011853: Adds reads after stores to flush e$ line.
+ 
+Bugid 1257925: In FCode32 "within" was aliased to "l-between" rather than "l-within".
+ 
+Bugid 1246093: OBP word ".exception" incorrectly decodes description for "Spill" in "Other" traps.
+ 
+4119827: Add prom keymap support for Eastern European countries: Hungary, Poland, Czech, Russian, Greek, Turkey, Latvia, Lithuania.
+ 
+Bugid 4076224: Can't boot through net when connected to a Synoptics 28115 100Mb hub.
+ 
+Bugid 4088491: Console escape sequence panics sun4u systems.
+ 
+Bugid 1244597: L1/A after banner hangs with "The selected input device has no read routine".
+ 
+Bugid 4023467: Sending brk/L1-A during boot with kadb will get "Mem Addr not Aligned" error.
+ 
+Bugid 4024106: kadb :c often causes panics.
+ 
+Bugid 4028057: sbus-probe-list has no options for on-board devices.
+ 
+Bugid 4018294: client-tte-handler not called for large addresses.
+ 
+Bugid 4041025: Single-stepping over some sethi instructions is broken.
+
+Patch Installation Instructions:
+===============================
+ 
+ 
+Intro
+-----
+ 
+    This README is intended for users who wish to upgrade the firmware
+    in their Ultra 1 system Flash PROM.
+ 
+Summary of the Patch Installation Process:
+------------------------------------------
+ 
+The installation shall comprise of the following steps
+ 
+1)  Determine the system's current Flash PROM firmware revision.
+ 
+2)  Compare the current Flash PROM firmware revision with the available or 
+    latest Flash PROM firmware revisions.
+ 
+3)  If the current Flash PROM firmware revision is lower than the latest
+    available firmware revision in this patch, then proceed to the next step. 
+    If NOT, STOP: DO NOT CONTINUE.
+ 
+4)  Prepare the system for the Flash PROM update
+ 
+5)  Running the Flash PROM Utility
+ 
+6)  Verifying successful Flash PROM Update
+ 
+7)  Restoring the system
+ 
+8)  Resume operations
+ 
+ 
+Patch Installation instructions (in detail):
+============================================
+ 
+The required steps are explained in greater detail below.
+ 
+1)  Determine the System's Current Firmware Revisions
+    -------------------------------------------------
+ 
+    While the OS is running the following command may be used to
+    determine the current system firmware revisions;
+ 
+        /usr/sbin/prtconf -V
+        or
+	/usr/platform/sun4u/sbin/prtdiag -v | grep OBP
+ 
+    The firmware revisions may also be determined from the PROM monitor's
+    "ok" prompt with the following command;
+ 
+	.version
+ 
+2)  Compare the current Flash PROM firmware revision with the available or 
+    latest Flash PROM firmware revisions.
+ 
+    Compare the output of the OBP line in the "prtdiag -v" or "prtconf -V"
+    output. Find the revision number and compare with the revision on the
+    entries below. 
+ 
+      Available Firmware Revisions
+      ----------------------------
+ 
+-08/140 Model 140: flash-update-Ultra1E-Model140E-latest
+         Sun Ultra 1 UPA/SBus 3.35 Version 0 created 2004/04/19 12:17
+         Sun Ultra Enterprise 1 UPA/SBus POST 3.11.4 5/27/1997 02:26 PM   
+ 
+-08/170 Model 170: flash-update-Ultra1E-Model170E-latest
+         Sun Ultra 1 UPA/SBus 3.35 Version 0 created 2004/04/19 12:17
+         Sun Ultra Enterprise 1 UPA/SBus POST 3.11.4 5/27/1997 02:26 PM   
+ 
+-08/200	Model 200: flash-update-Ultra1E-Model200E-latest
+         Sun Ultra 1 UPA/SBus 3.35 Version 0 created 2004/04/19 12:18
+         Sun Ultra Enterprise 1 UPA/SBus POST 3.11.4 5/27/1997 02:26 PM   
+ 
+3)  Is the UPGRADE NECESSARY?
+ 
+    If the current Flash PROM revision matches the version numbers given under
+    the flash-update-Ultra1-latest line, then STOP Here. This UPGRADE IS NOT
+    NECESSARY.
+ 
+    If the current Flash PROM firmware revision is lower than the latest
+    firmware revision in this patch, then proceed to the next step.
+ 
+4) Preparing the System
+   ---------------------
+ 
+  a) As root, copy the "flash-update" files from the directory containing the 
+     patch to the root directory as follows:
+ 
+     # cp flash*latest  /
+     # chmod 755 /flash-update*
+ 
+     In order to boot the binary, it must be located within the root
+     partition.  If it is not already located within the root partition
+     then move it to /.  If the binary is already located elsewhere 
+     within the root partition then note the exact filepath so that the
+     binary can be booted later.
+ 
+  b) As root, exit the OS such that the system returns to the PROM's "ok"
+     prompt: 
+ 
+     # halt
+ 
+       ok
+ 
+  c) Power off the system.
+     Check that you have security-mode = none in the PROM setup.
+     This is necessary because it is possible the upgrade process
+     will corrupt the PROM password.
+ 
+       ok printenv
+ 
+     If you do, set the security mode to none
+ 
+       ok setenv security-mode none
+ 
+  d) Power off the system.
+ 
+  ** CAUTION **  Do not attempt to access any part of the system hardware
+                  with the system power still on!
+ 
+  e) Remove the system top cover.  (If you unsure how to do this then
+     consult your system "Installation Guide" or "Service Manual".)
+ 
+  f) Set J2003 to write enable at 2+3. Default is write protect at 1+2
+ 
+     Locate jumper J2003.  NOTE that a plug-in card may be installed in
+     the system which covers J2003 - if this is the case then you will
+     have to remove the plug-in card in order to access J2003.
+ 
+     Jumper J2003 provides a write enable/disable mechanism for the
+     Flash PROM.  J2003 normally connects pins 1+2, which causes the
+     Flash PROM to be write protected.  To enable patch installation,
+     write enable the Flash PROM by MOVING the J2003 jumper from pins 1+2 
+     to pins 2+3.
+ 
+     **IMPORTANT NOTE**: If this jumper is NOT set to WRITE ENABLE, the 
+     Flash update will fail.
+ 
+     (If you have difficulty locating J2003 then consult Figure 1-1 in the 
+     "Sun Flash PROM Guide for Workstations and Workgroup Servers -
+     Standalone Version").
+ 
+     If a plug-in card was removed to access J2003 in the step above
+     then reinstall the card now.
+ 
+  g) Replace the system top cover.
+ 
+ 
+5)  Running the Flash Update Utility
+    --------------------------------
+ 
+  a) Power on the system
+ 
+     Wait for the PROM's banner to appear, and then
+ 
+  b) use the Stop-A keys (or Break key, if running from a serial line) to
+     abort the auto-boot sequence.
+ 
+     ** NOTE **  If the flash update completes normally then the values
+     contained within the system's Non-Volatile RAM (NVRAM) configuration
+     variables will be retained.  However, if the update process is some-
+     how interrrupted then it is possible that any non-default values
+     contained in NVRAM will be lost.  For this reason it is recommended
+     that you note down on paper the contents of any NVRAM configuration
+     variable which has been customized so that they may be manually
+     restored at a later time, if necessary.  (Use the PROM's "printenv"
+     command to list the variables and their values.)
+ 
+  c) The system should now display the PROM monitor's "ok" prompt.
+     Now boot the Flash update utility as given below:
+ 
+     CAUTION: Do not boot/run revisions lower than the latest unless you
+	      are absolutely sure that that is what you want to do!
+ 
+     ok boot disk /flash-update-Ultra1-ModelxxxE-latest
+ 
+     NOTE: If your system's boot device is not "disk" then you will
+           have to specify the appropriate devalias (e.g. disk2).
+           If the binary is located in a location other than / then
+           provide the entire filepath after the boot device.
+ 
+     Answer the questions as prompted by the utility. 
+ 
+ 
++++++++++++++++++++++ example Flash update follows +++++++++++++++++++++++
+++++++++ Note that this is an example only.  Much of the information ++++++
+++++++++ which is displayed by your system will be different from    ++++++
+++++++++ what is shown below.                                        ++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+ 
+Standalone Flash PROM Update Utility, Rev. 2.4
+                        Ultra(tm) 1
+                        Ultra(tm) 2
+                        Ultra(tm) 5/10
+                        Ultra(tm) 30
+                        Ultra(tm) 60 / E220R
+                        Ultra(tm) 80 / E420R
+                        Ultra(tm) Enterprise(tm) 250
+                        Ultra(tm) Enterprise(tm) 450
+ 
+ 
+This utility allows you to interactively update the firmware
+revisions in specific system Flash PROM components.
+ 
+Type h for help, q to quit, Return or Enter to continue:
+ 
+Every precaution should be taken to prevent the loss of system
+power during the Flash PROM programming process!
+ 
+Type h for help, q to quit, Return or Enter to continue:
+ 
+ 
+       Firmware Release(s)                Firmware Release(s)
+ Currently Existing in the System      Available for Installation  /  Install?
+---------------------------------- -------------------------------------------
+OBP 3.1.2 1996/03/28 17:08         OBP 3.1.5 1996/08/27 16:13           no
+POST 3.1.4 1996/04/09 03:23        POST 3.1.5 1996/06/28 11:54          no
+ 
+Type sa if you wish to select all available firmware releases for
+installation.  Type h for help, quit to exit, or cont to continue: sa
+ 
+ 
+ 
+       Firmware Release(s)                Firmware Release(s)
+ Currently Existing in the System      Available for Installation  /  Install?
+---------------------------------- -------------------------------------------
+OBP 3.1.2 1996/03/28 17:08         OBP 3.1.5 1996/08/27 16:13           YES
+POST 3.1.4 1996/04/09 03:23        POST 3.1.5 1996/06/28 11:54          YES
+ 
+Type sa if you wish to select all available firmware releases for
+installation.  Type h for help, quit to exit, or cont to continue: cont
+ 
+ 
+The Flash programming process is about to begin.
+ 
+Type h for help, q to quit, Return or Enter to continue:
+ 
+Erasing the top half of the Flash PROM.
+Programming OBP into the top half of the Flash PROM.
+Verifying OBP in the top half of the Flash PROM.
+ 
+Erasing the bottom half of the Flash PROM.
+Programming OBP into the bottom half of Flash PROM.
+Verifying OBP in the bottom half of the Flash PROM.
+ 
+Erasing the top half of the Flash PROM.
+Programming POST into the top half of Flash PROM.
+Verifying POST in the top half of the Flash PROM.
+ 
+Programming was successful.
+ 
+Resetting ...
+ 
+ 
+Restoring previous NVRAM environment settings...
+ 
+&lt;If any NVRAM configuration variables have custom values installed then
+ you will see a list of the variables/values which are being restored.&gt;
+#power-cycles =       10
+auto-boot? =          false
+security-#badlogins =  0
+OK
+Resetting ...
+ 
+ 
++++++++++++++++++++++ example Flash update ends ++++++++++++++++++++++++++
+ 
+  Note that the section "Restoring previous NVRAM environment settings..."
+  up to the "Resetting ..." line will only be displayed on serial port A.
+  If you are running from the keyboard/console devices then you will not
+  see those lines displayed.
+ 
+  Once the PROM's banner reappears then use the Stop-A keys (or Break
+  key, if running from a serial line) to abort the auto-boot sequence
+  if the system begins to boot.
+ 
+6)  Verifying successful Flash PROM Update
+ 
+    Verify from the results of the .version command that the OBP
+    version matches the OBP version given above under the
+    flash-update-Ultra1-latest entry in Step 2.
+ 
+7)  Restoring the system
+ 
+    The system should be restored to the original set-up as follows:
+ 
+    a) Turn the power to the system off.
+    b) Remove the top cover and move jumper J2003 to pins 1+2.
+    c) Replace the top cover.
+ 
+    If any problems should be encountered during the firmware upgrade
+    then consult the "Sun Flash PROM Guide for Workstations and Workgroup
+    Servers - Standalone Version".
+ 
+8)  Resume operations
+ 
+    a) Turn on the system power and allow the system to boot the
+       operating system.
+ 
+    b) Once the system has rebooted you may wish to remove the Flash Update
+       binaries and documents since they will no longer be needed.
+ 
+       # rm /flash-update*
+ 
+    c) Remember to remove the files from their original location if
+       they were not extracted directly into the root directory.
+ 
+ 
+9)  Restoring PROM security mode settings
+ 
+    If you wish to turn on security-mode=command or security-mode=full
+    in the PROM, ensure you set the password first. For example:
+ 
+      ok  setenv password
+ 
+      ok  setenv security-mode command
+ 
+    Failing to set the password before the security-mode can leave you
+    locked out of the system.
+
+Special Install Instructions:
+----------------------------- 
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+*  PLEASE READ THE INSTRUCTIONS CAREFULLY AND ENTIRELY.  PLEASE FOLLOW THE
+   INSTRUCTIONS EXACTLY AS THEY ARE STATED.
+ 
+*  FAILURE TO FOLLOW INSTRUCTIONS COULD EITHER RESULT IN A DEFECTIVE BOARD OR
+   UNSUCCESSFUL FLASH PROM UPDATE.
+ 
+*  THIS IS NOT A STANDARD PATCH in that it does not use the installpatch
+   and backoutpatch scripts.
+ 
+*  THIS PATCH CANNOT BE INSTALLED ON AN ONLINE OPERATING SYSTEM BECAUSE
+   THE INSTALL INSTRUCTIONS REQUIRES THAT THE SYSTEM BE BROUGHT DOWN.
+   BE SURE TO SCHEDULE DOWN TIME TO INSTALL THIS PATCH.
+ 
+*  INSTALLATION OF THIS PATCH REQUIRES A HARDWARE JUMPER CHANGE. IF YOU ARE
+   UNSURE ON HOW TO OPEN THE SYSTEM BOX, PLEASE ENSURE THAT A QUALIFIED 
+   PERSON, WITH THE STATIC WRIST STRAP KIT NEEDED TO SERVICE ELECTRONIC
+   EQUIPMENT, IS AVAILABLE TO COMPLETE THIS ACTIVITY. FAILURE TO USE STATIC
+   PROTECTION KIT OR IMPROPER HANDLING COULD RESULT IN THE DAMAGE OF THE 
+   SYSTEM BOARD.
+ 
+*  PLEASE REVIEW NOT ONLY THIS README BUT ALSO ADDITIONAL DOCUMENTATION
+   GIVEN.
+   The file "802-3233-xx.ps" (where xx stands for the latest numeric
+   revision) is a PostScript copy of the "Sun Flash PROM Guide for Workstations
+   and Workgroup Servers - Standalone Version", which  provides the following;
+ 
+   (i) A board-level diagram that gives the approximate location of the 
+       hardware jumpers (that will need to be changed).
+ 
+   (ii) Emergency instructions in the unlikely event that the Flash
+        update should fail.
+ 
+   Note, however, that The Flash PROM Guide was originally written for 
+   a user who is running the Flash PROM update utility from a bootable
+   CDROM, and thus it will not contain the proper boot commands for
+   installation of this patch.  Also note that the instructions in
+   the document for installing packages are not valid for this patch.
+ 
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+**************************************************************************
+**************************************************************************
+
+README -- Last modified date:  Saturday, March 26, 2011
+
+</pre></body></html>

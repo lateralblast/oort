@@ -1,0 +1,151 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 122431-05
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire t1000 sun system firmware 6.1.12 flashprom update sysfwdownload
+Synopsis: Hardware/PROM: Sun Fire T1000 Sun System Firmware Update
+Date: Nov/16/2006
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 6.1.12
+
+Xref: 
+
+Topic: Sun Fire T1000 Sun System Firmware 6.1.12 flashprom update sysfwdownload
+
+Relevant Architectures: sparc
+Note:
+The Sun System Firmware download utility was a new feature in 122431-03 (Sun System Firmware 6.1.10). Please see sysfwdownload.README for more information.
+Note:
+Upgrading to Sun System Firmware 6.1.12 requires Solaris 10 Update 1 or later to be installed. The system may experience boot or other problems with earlier version of Solaris (S10_HW2).
+
+Firmware component revisions included with this release:
+
+System Firmware 6.1.12 Sun Fire[TM] T1000 2006/11/02 08:37
+----------------------------------------------------------
+ALOM-CMT v1.1.8  Oct 30 2006  07:18:02
+VBSC 1.1.5  May  9 2006  11:28:17
+Reset V1.1.5
+Hypervisor 1.1.3 2006/10/31 06:45
+OBP 4.20.4 2006/05/12 14:13
+Sun Fire[TM] T1000 POST 4.20.5 2006/08/11 17:05
+
+BugId's fixed with this patch: 6310471 6312364 6322957 6332576 6333076 6345607 6358452 6360262 6362750 6364445 6365640 6365656 6365688 6365723 6365727 6368102 6368108 6369302 6369706 6370140 6371420 6372379 6373682 6375732 6375927 6378559 6378603 6383100 6383620 6384613 6384916 6385582 6386341 6386868 6388093 6389027 6389159 6389161 6389168 6392539 6395063 6395141 6395798 6396865 6398390 6398825 6402971 6410008 6410285 6413230 6422101 6423761 6424812 6448085 6448446 6450065 6450605 6468800 6469249 6471063 6483215 6487428
+
+Changes incorporated in this version: 6413230 6468800 6469249 6471063 6483215 6487428
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-6_1_12-Sun_Fire_T1000.bin
+sysfwdownload
+
+Problem Description:
+
+6487428 Correct typo in jbi_regs.h that repeated a value
+6483215 Not all JBI errors are fatal
+6471063 Ontario systems with Fire 2.0 require workaround for Fire deadlock bug 636213
+6469249 race condition in strmpipe can leave open pipes
+6468800 memory leak when spawning a new ALOM task (such as connecting to ALOM via telnet)
+6413230 JBI_TRANS_TIMEOUT too short, not based on Fire's transaction timeout
+ 
+(From 122431-04)
+ 
+6450605 ALOM needs to adjust VBATT threshold lower, batteries being marked failed prematurely
+6450065 Add fire 2.1 hardware revision checking to hypervisor
+6448446 EAR after DSC should be handled with care
+6448085 post needs support for fire2.1 
+6410285 ALOM-CMT ops-clearing proceedure should not remove 'showhost' SysFw version information
+6396865 ALOM showfaults command lists wrong FRU for FMA diagnosis 
+ 
+ 
+(From 122431-03)
+ 
+6424812 ereport.io.fire.dmc.tte_inv seen on ontario and ontario+ using system firmware 6.1.9
+6423761 wait for doorbell failed,  LSI fcode 1.00.41 needed
+6422101 To flash the firmware on T2000 without using a network connection to system controller , lom -g 1280
+6410008 T2000/ALOM 1.1.2 is unable to use sendmail for email event notification due to IP domain in address.
+6395798: To flash the firmware on T2000 without using a network connection to system controller , lom -g 1280
+ 
+ 
+(From 122431-02)
+ 
+6402971 Three "Host power state: Off" messages in vbsc.log
+6398825 vBSC does not poweroff the server when two DIMMs are missing from Channel 0 and Channel 2
+6398390 Unimplemented FCODE token encountered (465) in sequencer
+6395141 MB/V_VCORE undervoltage warning during SC boot
+6395063 vbsc log file can grow larger than 2MB in size
+6392539 Volume type is being referenced instead of volume id in 1.00.39 1064 fcode
+6389168 ALOM should filter out false-undervolt conditions while PSU is ramping up
+6389161 Fire rxeq values not optimized for ontario
+6389159 Fire rxeq values not optimized for ontario
+6389027 Sysfw 6.1.3 and 6.2 allow an Ontario+ to be downgraded to unsupported 6.1.2
+6388093 Wanboot with S10_U1 miniroot panics with "map_prom: prom i/o page without side-effect"
+6386868 notify alom of target vcore voltage during SC warm reset with host powered on
+6386341 post needs to check link width for onboard devices
+6385582 VBSC and POST have different memory size
+6384916 vcore adjusted back to 1.3V if 'resetsc' while host power is on
+6384613 vcore not adjusted properly on SC warm reset when host is powered on
+6383620 SC serial connection dies (tRSCSerial Exception) when running SC automated tests.
+6383100 banner Copyright shown the year of 2005 instead of 2006. Needs to be updated to 2006
+6378603 Remove LSI1064 dropin Fcode driver version from binary
+6378559 Rear Fault led is not always extinguished when ac input power has been restored.
+6375927 The date changed with 'date' command persists across reboots of the guest but not reboots of the SC
+6375732 Need to add obp command set-sas-wwid, show-sas-wwid, show-volumes, activate-volume for 1064e raid
+6373682 Normal shutdown with press and release Power ON/OFF button
+6372379 vbsc doesn't notify post of lsi1064 configuration
+6371420 "HOST_TYPE_NONE" causes SC keep rebooting.
+6370140 Incorrect showhost firmware version after flashupdate from 6.1 to 6.0 to 6.1
+6369706 add per part vdd support to vbsc
+6369302 Hostbridge loopback tests cause errors in menu-min mode
+6368108 ALOM-CMT must support variable-voltage CPU chips
+6368102 snapshot command fails with large persistent event log. Decrease the size of persistent log file from 2M bytes to 100k bytes
+6365727 UNKNOWN flashupdate date after initial upgrade to 6.1.0
+6365723 Downgrade from 6.1.0 to 6.0.4 fails to downgrade ALOM firmware
+6365688 Additional DRAM address info needed in post memory error output
+6365656 Add a Niagara screen test for the L2-Writback error
+6365640 Add Block Memory schmoo test to the POST menu
+6364445 post pci utilities for dynamic bus enumeration and future pci development
+6362750 ALOM must handle new RoHS Ontario Part Numbers.
+6360262 memory leak when polling voltages if host power is shut off during pollcycle
+6358452 LTC data (not ecc bit) errors can cause FATAL resets or guest hangs
+6345607 add table driven SPD policy and mixed dimm support
+6333076 POST must track 1064 status from vbsc
+6332576 The POST PCI id test for "unknown devices" is inconsistant
+6322957 wrong POST and OBDiag version printed out at ok prompt
+6312364 system console performance degrades under heavy channel/alom tasks load
+6310471 Intermittent false overtemp messages on ALOM.
+
+Patch Installation Instructions:
+----------------------------- 
+ 
+Please refer to the Install.info file for instructions on updating
+the firmware flashprom using the files included in this patch.
+
+Special Install Instructions:
+The Sun System Firmware download utility was a new feature in 122431-03 (Sun System Firmware 6.1.10). Please see sysfwdownload.README for more information
+
+README -- Last modified date:  Wednesday, June 20, 2007
+
+</pre></body></html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" style="display: block;"><head>
+<title> Single Sign On - Login
+</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="user-scalable=no,width=device-width,initial-scale=1.0,maximum-scale=1.0" name="viewport">
+<link rel="stylesheet" href="/mysso/sso_loginui/external_style.css?v=4.0" type="text/css">
+<script type="text/javascript" language="JavaScript" src="/mysso/sso_loginui/moc_lib.js?v=2.0"></script>
+<script type="text/javascript" language="JavaScript" src="/mysso/sso_loginui/sso_check.js?v=3.0"></script>
+<script type="text/javascript" src="/mysso/sso_loginui/jquery.js"></script>
+<!--[if lte IE 8]>
+<style type="text/css">
+.terms_condition{
+border:1px solid #ccc;
+}
+</style>
+<![endif]-->
+<style> html{display : none ; } </style>
+<script>
+if (self == top)
+{
+document.documentElement.style.display = 'block';
+}
+else
+{
+top.location = self.location;
+}
+</script>
+<script>stripHTML();</script>
+</head>
+<body onload="doLoad(); setFocus();" style="zoom: 1;">
+<div class="f01bg"></div>
+<div id="pageone" class="wrapper">
+<div class="header">
+<a href=" http://www.oracle.com/index.html
+" class="logo" alt="Oracle" tabindex="1">Oracle</a>
+</div>
+<div class="content_part content-part-m">
+<div class="left_column">
+<div class="form_holder">
+<h1> Sign In
+</h1>
+<form method="post" action="/oam/server/sso/auth_cred_submit" name="LoginForm" autocomplete="off">
+<ul>
+<input type="hidden" name="v" value="v1.4">
+<input type="hidden" name="request_id" value="6380256275761111273">
+<input type="hidden" name="OAM_REQ" value="VERSION_4~%2bkbxtsPvc5apiSAzFiU3fj68ptlX3%2fXiUoRODB%2brnjW7SDdJgo1rsff14ZpAUITuPajWoVotQNr2r7OXIR4eFBUSf3NFni6jGovyPFzy%2fjMas2e9lwrH1QD1JoqVCqk7%2flUcjKf8NGO%2fTRYRz1j6%2bVvrnRDTfw13k5NhK9XlBkEnXJsbRAV4K3EEVGNrZoVTcrMvVum5k%2fNDe0DFyPlGP7rKmTqFiFAPBgmlxUW8CJbeCKMcbUJn%2fHNU4tzD1IaLqhKbQRAgzoQLZYkL3WaRoiHJ899hd1EIpz7dwjqzIsps8o%2fz9rVEPo3t2euDGw%2brtqDXO1Gn9gOezz0jjkgtXg3kZe6s5ZxhMMa5e9HHBZ3R17W%2bd99PhrXNiIDdM%2fkFy8qgOMyrUKV7BsYEbkGFuLCK1k%2flLY5KGicRiMVPI04RDvNUI%2fwgbbMNQcowC%2bGsaWsDUJYgfLiv8yshtQHcXfwbiOpc2iqo52wM3bTFsrdpi%2flBMiM6n6mFimMT4VEAdH4AI4c681P5bGxPZ5WGZUyqut4X%2fL74ZA4xFIwYfEIhBZU2Pv5uw%2fTAu5eBGxebGnLiOncIUMvmAGMtm6DhSzZHVw8w%2b%2bjRgDXJl4dG8kWB%2fIHZZmRPUngzTQJR8zxkRDH0ZU26ZVfiyjVmSZfZvS77%2bvR7%2bmwf%2b0AHdpF%2fuaiYWbtHaii%2brV9Zkg4V13DQMz9An1IPR9eUI9w6Yq9c3HxrVaMiACZ65VLqybM61uzLoup8CWezvkhMZcjsf0n1yItjOaeCJsIAPR%2fH6GkQcd46jAxPI9CeiMDWJFIi8kckHRbWJ%2f4N8b6hquvOWpOVE0kP0IoPa4mRGFPQZH%2bspvQht3ePPh3SvnPUCRoR6DPYyFqgd9d1xzOFmTM%2bd2sHtX7Y5cWUEEZciBPNbc3SuU5xYvhhyq%2fj9nyww8ype4VCkU73zT1xI7%2fxBR5Tqah3P83axcmvPlGETD1F5bfcppOHLOeWG8xsDOllnoxXmaihF3ji87pwmqEkp6I5raNj1qSbFncuYDoKT9d%2fcBXuZ%2bVGTTrPYdvrpESKgf3UtZk66gNuaxlsK6EqzujxfLkYTxEvdXKAyMDgI3a3Slq7G01Nne22vfHzB9Xgq2JylplPd%2fsg9ca8Uml%2bzbASt%2fU8AcS7LgCVP9EwCj8ZbddeLn5KR1AAvV5HXySd9N%2bLFOHB2UQCcn%2fS22puDTdQKztUY4yY2jQgUlF2KLBfvUv6yBjAkXlfzlUvVdq9OXF4UwDphTriUIH7ogtqMRRwUDQHQ6TFGgu9X7U8wstNg4cwBn46Y4w%2f44z0wZBvmO03tBAvlISX%2bZ%2bbW9VIH8g4H2jk%2fMHAMVIRdxOd9jVyPunJ%2bQl4bYE8KVQKqPo27iGJdzivkF9ThavPv7bvflWO2z%2bqLQFF8gioGmqPJ3fMF9ZIRhtrpaPbHrzJqSj4yUOS9rvw%2fEI8UZDTBKk3yxaAS6pE77N0lkugygOkXQXGGN2fEE1njLYYB%2bw3Eq7Yrqi9p%2f6jiFymh7zlXjWqaGGxb3JQvSSgJJXqosX4UHUBVevmFFncVpgI0xruxDSRgdf98Bmz0Opew0l0FqYv5pkUvKc2UrYq4gsq9XT6nyFH%2b5uBKo8sc7VQieKtzJy2jLkRn%2beVYo2ZSdZhn8vZOdJnAlJug1V%2bgUhvzPQKhKrOmXsnLArXgV3d5ZOoTyquZvQW13LswTMPdwNq9bruUdrMlQ5x4SpCmEoBgL3Q%2f0WYBsm5kZ75RwW5fADVnp2B3BvVjH7aCuLQCZtSDtIfgWzoflXA1mMnK9LnHsVWMsgtDGxrtw%3d%3d">
+<input type="hidden" name="site2pstoretoken" value="v1.2~E4066BF0~B55BCD78CB54DA5C4B9711C99626A487CDF47FF1EEF8C1BD7D9E8651943D6C2E347B3BE1373354DB673625DA966D33FAB64E52418EE5C6FAAE588175450F74EE822D67AA2560FFE7A14F97E9B86B0A839C05258991EB1D005C527D74F082E402389711207DB4B075007BE07BD89F2B4E7D30663A3CF64204F46CA47BD3B043C1B4ADC78617FDEA0EE739325C29F790A34C8C613F321DEA082A6A8C2424003B82F7D09ECC8A2FC7AC01F6E088431F7F2569EB556383B3133F08EDE0406FB0FEADC09E885A2FB1C7C95A241F6E65792A78">
+<input type="hidden" name="locale" value="">
+<li>
+<label for="sso_username"> Username
+<span class="hideFromScreen">
+<span id="readerunameerrormsg" class="error-show"></span>
+<span id="readerunamerequired" class="error-hide"> ERROR:
+Please enter your Username and Password
+</span>
+</span>
+</label>
+<input type="text" id="sso_username" name="ssousername" title=" Please enter a Username
+" maxlength="80" value="" placeholder=" Your username is usually your email address
+" tabindex="2/">
+<a href=" https://profile.oracle.com/myprofile/account/forgot-username.jspx
+" tabindex="5"> Forgot Username?
+</a>
+<div class="clear"></div>
+</li>
+<li>
+<label for="ssopassword"> Password
+<span class="hideFromScreen">
+<span id="readerpwderrormsg" class="error-show"></span>
+<span id="readerpwdrequired" class="error-hide"> ERROR:
+Please enter your Username and Password
+</span>
+</span>
+</label>
+<input type="password" id="ssopassword" name="password" title=" Please enter a Password
+" value="" maxlength="255" tabindex="3/">
+<a href=" https://profile.oracle.com/myprofile/account/forgot-password.jspx
+" tabindex="6"> Forgot Password?
+</a>
+<div class="clear"></div>
+</li>
+<span id="required" class="error-hide">
+Please enter your Username and Password
+</span>
+<span class="logerror-instruct">
+</span>
+<li class="network-policy network-policy-external">
+<a href="#" id="network-policy"> Oracle's Network Use Policy
+</a>
+<div class="clear"></div>
+</li>
+<li>
+<a href="javascript:doLogin(document.LoginForm);" class="submit_btn" title=" Please click here to sign in
+" tabindex="4"> Sign In
+</a>
+<a href=" http://www.oracle.com/us/corporate/contact/manage-your-account-070504.html
+" class="help_btn"> Need Help?
+</a>
+<div class="clear"></div>
+</li>
+</ul>
+</form>
+</div>
+<!-- ************** form holder ends here *************** -->
+</div>
+<!-- ************** left column ends here *************** -->
+<div class="right_column">
+<h3> Dont have an <br class="hide-small">Oracle Account?
+</h3>
+<p> A free Oracle Account gives you access to Oracle online applications and services, support, events, communities, and more.
+</p>
+<a href=" https://profile.oracle.com/myprofile/account/create-account.jspx?nexturl=https%3A%2F%2Flogin.oracle.com%2Fpls%2Forasso%2Forasso.wwsso_app_admin.ls_login%3Fsite2pstoretoken%3Dv1.2%7EE4066BF0%7EB55BCD78CB54DA5C4B9711C99626A487CDF47FF1EEF8C1BD7D9E8651943D6C2E347B3BE1373354DB673625DA966D33FAB64E52418EE5C6FAAE588175450F74EE822D67AA2560FFE7A14F97E9B86B0A839C05258991EB1D005C527D74F082E402389711207DB4B075007BE07BD89F2B4E7D30663A3CF64204F46CA47BD3B043C1B4ADC78617FDEA0EE739325C29F790A34C8C613F321DEA082A6A8C2424003B82F7D09ECC8A2FC7AC01F6E088431F7F2569EB556383B3133F08EDE0406FB0FEADC09E885A2FB1C7C95A241F6E65792A78
+" class="create_account"> Create Account
+</a>
+</div>
+<!-- ************** right column ends here *************** -->
+<div class="clear"></div>
+</div>
+<div class="terms_condition"> This site is intended solely for use by Oracles authorized users. Use of this site is subject to the <a href=" http://www.oracle.com/us/legal/privacy/overview/index.html
+">Legal Notices</a>,<a href=" http://www.oracle.com/us/legal/terms/index.html
+">Terms of Use</a>, and <a href=" http://www.oracle.com/us/legal/privacy/overview/index.html
+">Privacy Statement</a> located on this site. Use of the site by customers and partners, if authorized, is also subject to the terms of your contract(s) with Oracle. Use of this site by Oracle employees is also subject to company policies, including the Code of Conduct. Unauthorized access or breach of these terms may result in termination of your authorization to use this site and/or civil and criminal penalties.
+</div>
+<div class="footer">
+<div class="footer-inner-left">
+<a href=" http://www.oracle.com/us/corporate/index.html
+" class="footer_tech"> Integrated Cloud Applications and Platform Services
+</a>
+<p class="footer_menu"> <a href=" http://www.oracle.com/us/corporate/index.html
+">About Oracle</a> |
+<a href=" http://www.oracle.com/us/corporate/contact/index.htm
+">Contact Us</a> |
+<a href=" http://www.oracle.com/us/legal/privacy/overview/index.html
+">Legal Notices</a> |
+<a href=" http://www.oracle.com/us/legal/terms/index.html
+">Terms of Use</a> |
+<a href=" http://www.oracle.com/us/legal/privacy/overview/index.html
+">Privacy Policy</a>
+</p>
+</div>
+<div class="social-wrap">
+<ul class="social-icons clearfix">
+<li><a href=" http://www.oracle.com/us/social-media/facebook/index.html
+" class="facebook" title=" Oracle on Facebook
+">Facebook</a></li>
+<li><a href=" http://www.oracle.com/us/social-media/linkedin/index.html
+" class="linkedin" title=" Oracle on Linkedin
+">Linkedin</a></li>
+<li><a href=" http://www.oracle.com/us/social-media/twitter/index.html
+" class="twitter" title=" Oracle on Twitter
+">Twitter</a></li>
+<li><a href=" https://plus.google.com/u/0/+Oracle/posts
+" class="gplus" title=" Oracle on Google+
+">gplus</a></li>
+<li><a href=" http://www.youtube.com/oracle/
+" class="youtube" title=" Watch Oracle on youtube
+">Youtube</a></li>
+<li><a href=" http://www.oracle.com/us/syndication/feeds/index.html
+" class="rss" title=" Oracle RSS Feeds
+">rss</a></li>
+</ul>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<div data-role="page" id="pagetwo" class="wrapper sso_internal" style="display: none;">
+<div class="header">
+<a href=" http://www.oracle.com/index.html
+" class="logo" alt="Oracle">Oracle</a>
+</div>
+<div class="content_part content-part-m">
+This site is intended solely for use by Oracles authorized users. Use of this site is subject to the <a href=" http://www.oracle.com/us/legal/privacy/overview/index.html
+">Legal Notices</a>,<a href=" http://www.oracle.com/us/legal/terms/index.html
+">Terms of Use</a>, and <a href=" http://www.oracle.com/us/legal/privacy/overview/index.html
+">Privacy Statement</a> located on this site. Use of the site by customers and partners, if authorized, is also subject to the terms of your contract(s) with Oracle. Use of this site by Oracle employees is also subject to company policies, including the Code of Conduct. Unauthorized access or breach of these terms may result in termination of your authorization to use this site and/or civil and criminal penalties.
+</div>
+<a href="#" id="back-previous"> Back
+</a>
+</div>
+<script type="text/javascript">
+$(function(){
+$('#pagetwo').hide();
+$('#network-policy').click(function(){
+$('#pagetwo').show();
+$('#pageone').hide();
+});
+$('#back-previous').click(function(){
+$('#pagetwo').hide();
+$('#pageone').show();
+});
+});
+</script>
+
+
+</body></html>

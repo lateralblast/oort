@@ -1,0 +1,246 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 108694-24
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: metaset rpc dcs db replica mirror resync snapshot
+Synopsis: Solstice DiskSuite 4.2.1_x86: Product patch
+Date: Aug/21/2007
+
+
+Install Requirements: Reboot after installation, an alternative may be in Special Install Instructions                      
+                      
+Solaris Release: 8_x86
+
+SunOS Release: 5.8_x86
+
+Unbundled Product: Disksuite
+
+Unbundled Release: 4.2.1
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: i386
+
+BugId's fixed with this patch: 4245611 4259974 4281897 4285224 4286503 4289828 4292555 4298103 4298595 4308079 4317508 4317655 4319412 4323134 4330572 4343488 4344228 4361013 4403570 4406417 4424910 4429893 4435615 4448414 4452985 4459656 4467367 4469980 4471653 4476076 4477775 4518313 4518317 4519846 4606600 4621691 4623121 4633012 4641992 4662132 4675347 4693188 4695090 4698878 4747101 4843197 4866715 4886250 4893952 4933180 4949217 4954374 4963065 4964245 6228827 6273310 6277113 6515641
+
+Changes incorporated in this version: 6515641
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+/kernel/drv/md
+/kernel/misc/md_hotspares
+/kernel/misc/md_mirror
+/kernel/misc/md_notify
+/kernel/misc/md_raid
+/kernel/misc/md_sp
+/kernel/misc/md_stripe
+/kernel/misc/md_trans
+/usr/lib/drv/config_md.so.1
+/usr/lib/drv/preen_md.so.1
+/usr/lib/locale/C/LC_MESSAGES/SUNW_MD.po
+/usr/sbin/mdlogd
+/usr/sbin/metaclear
+/usr/sbin/metadb
+/usr/sbin/metadetach
+/usr/sbin/metahs
+/usr/sbin/metainit
+/usr/sbin/metaoffline
+/usr/sbin/metaonline
+/usr/sbin/metaparam
+/usr/sbin/metarecover
+/usr/sbin/metarename
+/usr/sbin/metareplace
+/usr/sbin/metaroot
+/usr/sbin/metaset
+/usr/sbin/metastat
+/usr/sbin/metasync
+/usr/sbin/metatool
+/usr/sbin/metattach
+/usr/sbin/rpc.metamhd
+/usr/share/man/man1m/metaclear.1m
+/usr/share/man/man1m/metadb.1m
+/usr/share/man/man1m/metainit.1m
+/usr/share/man/man1m/metarecover.1m
+/usr/share/man/man1m/metaroot.1m
+/usr/share/man/man1m/metastat.1m
+/usr/share/man/man1m/metattach.1m
+/usr/share/man/man4/md.tab.4
+/usr/share/man/man7/md.7
+
+Problem Description:
+
+6515641 Deadlock on nm_lock (stripe_error on failing disk) - SDS 4.2.1
+ 
+(from 108694-23)
+ 
+6277113 kstat qlen == 0 panic during completion of mirrored write
+ 
+(from 108694-22)
+ 
+4693188 using metainit w/ -a option for soft partitioned metadevs doesn't work right
+ 
+(from 108694-21)
+ 
+6228827 B_FAILFAST code in Disksuite 4.2.1 is broken
+6273310 metattach - does not update the md.cf file when used to grow soft partition
+ 
+(from 108694-20)
+ 
+4343488 System hangs as threads block in page_lock().
+4448414 panic in mirror kstat code when device is removed.
+4949217 metastat -i generate an invalid argument message
+ 
+(from 108694-19)
+ 
+4518313 Disksuite should use new buf flag B_FAILFAST for submirrors
+4518317 SVM should provide faster cluster failover times when updating the mddb's
+4893952 panic'd in kstat_q_panic while panic'ing
+4954374 SVM failfast code is not complete
+4963065 mddb_setexit is missing in several places in md_mddb.c
+ 
+(from 108694-18)
+ 
+4964245 Inconsistency with output from SDS metastat -p command
+ 
+(from 108694-17)
+ 
+4933180 metaclear fails and returns the message "no error"
+ 
+(from 108694-16)
+ 
+4866715 Unable to perform metattach with active ufs snapshots
+ 
+(from 108694-15)
+ 
+4886250 Disksuite: invalid slice number for drive name
+ 
+(from 108694-14)
+ 
+4843197 metainit has file descriptor leak
+ 
+(from 108694-13)
+ 
+4476076 error messages display incorrect info about failed device
+4519846 metareplace -e fails to reattach errored soft partitions
+4633012 Attempts to run metareplace return "No space left on device"
+4662132 sp_open() does not close parent devices if it fails in sp_validate()
+4698878 metastat displays corrupted output string for Concatenated devices
+ 
+(from 108694-12)
+ 
+4747101 SDS 4.2.1 does not support DKIOCGAPART ioctl() for soft partitions
+ 
+(from 108694-11)
+ 
+4281897 disksuite panics after logging device failure
+4675347 Need to backout fix for 4664337
+4695090 resync region processing needs to get mt-safe
+ 
+(from 108694-10)
+ 
+4403570 bad trap - metaset:trap type = 0x31
+4406417 bad trap in module "md" due to null pointer dereference
+(removed) 4664337 Deadlock between metaclear and resync region processing
+ 
+(from 108694-09)
+ 
+4344228 SC- HANFS haswitch fails on NFS Smoke test. "release of diskset failed"
+4606600 md: driver should not use block size greater than 128k
+4621691 need to backout fix for 4515605
+4623121 One node panic'ed when taking over diskset
+4641992 SDS 4.2.1 panics in build_rec_hdr_list() when taking ownership of set
+ 
+(from 108694-08)
+ 
+(removed) 4515605 Dirty region bit maps at shutdown can cause long mirror resyncs on next boot
+ 
+(from 108694-07)
+ 
+4424910 BAD TRAP: occurred in module "genunix" due to a NULL pointer dereference
+ 
+(from 108694-06)
+ 
+4435615 possible assertion failure when creating soft partitions on fragmented device.
+4452985 Fix for 4429893 breaks '-p -e' option to metainit.
+4459656 soft partitions on a system with mirrored root disappear
+4467367 Tests in checkinstall scripts prevent installing SUNWmdr pkg from a 2.6 machine
+4469980 'metainit -a' fails with multiple soft partitions on different devices
+4471653 Invalid soft partition can be created on zero-length slice.
+4477775 Need to back out fix for 4361013
+ 
+(from 108694-05)
+ 
+4429893 metainit can cause disk corruption on disks connected via a fibre channel
+(removed) 4361013 Dirty region bit maps at shutdown can cause long mirror resyncs on next boot
+ 
+(from 108694-04)
+ 
+4323134 metaset trans device goes into hard error state during switchovers
+ 
+(from 108694-03)
+ 
+4319412 killing clustd on master node panics master node and backup node.
+4292555 Can't add DID disk to a diskset
+4317655 metaset: segmentation fault when deleting a host that is at the OBP
+4317508 metaset command outputs disk info as /dev/global/dsk/d# instead of d#
+4298595 Force option to remove a metaset's host will cause differences in dcs vs metaset
+ 
+(from 108694-02)
+ 
+4330572 The version in the 4.2.1 T108693-01/T108694-01 patch SUNWmdr pkg does not match the FCS version
+ 
+(from 108694-01)
+ 
+4245611 Need improved RPC authentication for SC3.0
+4298103 metaset disappears on one of the nodes
+4286503 bad trap - metaset:trap type = 0x31
+4308079 creation of metaset does not register with the DCS
+4289828 setconvert needs to take ownership of set first
+4285224 if service doesn't have any nodes core dumps occur
+4259974 Wrong information of DB Replica to view in DiskSuite Tool
+
+Patch Installation Instructions:
+-------------------------------- 
+ 
+For Solaris 2.0-2.6 releases, refer to the Install.info file and/or
+the README within the patch for instructions on using the generic
+'installpatch' and 'backoutpatch' scripts provided with each patch.
+ 
+For Solaris 7-8 releases, refer to the man pages for instructions on
+using 'patchadd' and 'patchrm' scripts provided with Solaris.
+Any other special or non-generic installation instructions should be
+described below as special instructions.  The following example
+installs a patch to a standalone machine:
+ 
+       example# patchadd /var/spool/patch/104945-02
+ 
+The following example removes a patch from a standalone system:
+ 
+       example# patchrm 104945-02
+ 
+For additional examples please see the appropriate man pages.
+
+Special Install Instructions:
+----------------------------- 
+ 
+Reboot the system after patch installation
+
+README -- Last modified date:  Tuesday, August 21, 2007
+
+</pre></body></html>

@@ -1,0 +1,307 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 126403-02
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun blade t6300 modular server sun system firmware 6.4.6a flashprom update sysfwdownload ldoms
+Synopsis: Hardware/PROM: Sun Blade T6300 Modular Server Sun System Firmware Update LDOMS
+Date: Jul/25/2007
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 6.4.6a
+
+Xref: 
+
+Topic: Sun Blade T6300 Modular Server Sun System Firmware 6.4.6a flashprom update
+
+Relevant Architectures: sparc
+Note:
+6.4.6a is a special point release for the Sun Blade T6300 product only and has a one-time change to default to disabling the new SNMP feature, due to problems found during testing.  Note that Patch ID #126403-01 was never released, 126403-02 is the first 6.4 Sun System Firmware version released for the Sun Blade T6300 Modular Server product.
+Note:
+By using Sun System Firmware (Firmware) you agree to the terms of the Software License Agreement and Entitlement (SLA/Entitlement) found in Sun_System_Firmware-6_4-download_SLA_and_Entitlement.txt.  By using the Firmware, you agree to the terms of the SLA/Entitlement. If you do not agree to all of the terms promptly destroy the unused Firmware.
+Note:
+Upgrading to Sun System Firmware 6.4.6a (or later) requires Solaris 10 Update 3 + patches (or later) to be installed.
+120824-08 or greater
+120068-03 or greater
+122032-04 or greater
+123910-03 or greater
+125100-04 or greater (You must install kernel update patch 118833-36 first.)
+Note:
+Firmware component revisions included with this release:
+System Firmware 6.4.6a Sun Blade[TM] T6300 2007/07/06 07:47
+-----------------------------------------------------------
+ALOM-CMT v1.4.2  Jul  6 2007  07:33:09
+VBSC 1.4.3  Jun 24 2007  17:18:36
+Hypervisor 1.4.1 2007/04/02 16:37
+OBP 4.26.2 2007/06/25 07:10
+Sun Blade T6300 Server Module POST 4.26.0 2007/03/26 16:49
+
+BugId's fixed with this patch: 5079065 6423055 6425912 6444156 6453300 6457354 6458195 6459945 6460821 6463668 6464837 6464845 6465220 6466012 6466509 6469476 6474333 6475491 6478437 6479408 6481980 6482026 6482085 6485055 6485071 6485397 6485412 6485565 6485717 6485718 6485792 6485941 6486175 6486396 6486432 6487159 6487161 6487165 6487271 6487287 6487301 6487332 6487343 6487348 6487354 6487405 6487438 6487497 6487501 6487502 6487503 6487504 6487505 6487507 6487553 6487564 6488548 6489106 6489432 6489450 6490084 6490115 6490166 6490211 6491486 6493645 6494856 6495798 6495810 6495912 6496088 6496142 6496472 6496475 6496482 6496701 6496882 6497312 6497345 6497793 6498338 6498373 6498706 6499111 6499117 6499345 6499457 6499508 6499839 6500619 6500906 6501189 6501196 6501197 6501246 6501449 6501638 6501758 6501766 6502196 6503175 6503221 6503261 6504355 6504797 6504826 6505351 6505655 6505942 6506329 6506532 6509294 6510364 6510722 6511106 6511659 6512258 6512289 6512298 6512550 6512740 6512748 6512936 6513294 6513630 6513639 6513750 6514230 6514683 6515491 6515642 6515954 6516191 6516616 6516693 6517134 6517183 6517207 6517243 6517333 6517690 6517700 6518271 6518458 6518459 6518462 6518486 6518938 6519362 6519473 6519475 6519532 6519538 6519941 6519943 6519969 6519972 6520718 6520793 6521054 6521175 6521186 6521198 6521605 6521645 6521895 6522153 6523024 6523074 6523079 6523196 6523243 6523325 6523699 6523708 6523818 6523840 6524234 6524782 6524816 6525090 6526459 6527416 6527422 6527778 6528046 6528667 6529426 6529641 6530452 6530904 6530917 6531222 6531247 6531605 6532420 6532561 6532945 6532964 6533302 6533539 6533734 6533993 6534917 6535387 6535529 6535559 6535977 6536424 6537019 6537361 6538367 6538907 6539366 6542689 6543168 6546477 6546593 6548085 6550351 6564792
+
+Changes incorporated in this version: 6546593 6550351 6564792
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-6_4_6a-Sun_Blade_T6300_Modular_Server.bin
+sysfwdownload
+
+Problem Description:
+
+6564792 When upgrading FW 6.4.4 if system hasn't been posted and booted to the OS corrupts service processor
+6550351 Issuing a boot to the cdrom device hangs the system if no cdrom is installed
+6546593 WANboot should not reflect packets
+ 
+(From 126403-01)
+ 
+6548085 Host channel can spin-lock if an application sends data then dies before it reads the response
+6546477 vbsc needs to disable the watchdog timer when running on an LDoms Configuration
+6543168 fujitsu platform name should be SPARC_Enterprise_T2000 when ldoms configure
+6542689 System firmware 6.4.3 vbsc does not poweron host on Montoya platform
+6539366 WARNINGs: Unable to update ldom variable or open asr package 
+6538907 race between vbsc and snmp. If snmp wins, ALOM can be stripped of network connection
+6538367  Ophir eeprom mac address is not getting programmed properly with ILOM
+6537361 heart beat disabled on LDOMS (regression)
+6537019 vbsc does not export version/note properties in the rom_img nodes 
+6536424 Need new PRI property to specify whether system supports warm reset of I/O devices 
+6535977 picld hangs when both the snmp and pri plug-ins simultaneously attempt to gather data 
+6535559 LDOMs variable changes at OpenBoot are not persistent after LDOMs manager executes 
+6535529 "Missing network-vpd MD node" warning message for onboard network device on Montoya with sysfw6.4 
+6535387 ERROR: Serializer: failed checksum - reinitializing /scfs/vbsc/serial.bin 
+6534917 vBSC does not support multiple users of ASR interfaces at once 
+6533993 ALOM must not run FPGA test if power is on 
+6533734 ALOM snmp agent needs to populate the entPhysicalIsFRU property 
+6533539 Adding a fwd arc to the root node may move the node the arc is pointing to 
+6533302 Guest domain panic/reset instead kicking off user in handling uddau 
+6532964 ldmd hangs waiting for pri when sc is reset
+6532945 Guest soft state get copies data string to bogus location 
+6532561  Need MD properties to support IOMMU bypass disable 
+6532420 logical domain manager fails to start once the ds_pri driver has been added 
+6531605 fire_iommu_map/unmap doesn't validate the mapping range or ntte arguments properly 
+6531247 domain service registrations do not happen automatically on boot 
+6531222 vbsc needs to be able to add property to root node without moving it in md
+6530917 Memory leak in asrkey_is_valid  
+6530904 entPhysicalContainedIn in the snmpwalk of the entity MIB reads 0 for some entities. 
+6530452 vBSC on Ontario SP is limited to storing MDs of 128K or less
+6529641 reboot hangs intermittently with RC3 on T2000 
+6529426 OBP dedicated DS channel fails to handshake on first attempt
+6528667 vnet FCode should restrict use of MAC address other then local-mac-address
+6528046 NVRAM parameter changes does not take affect after reset-all (after config of control-domain) 
+6527778 Net installation of multiple domains results in a hang due to out of order packets.
+6527422 Blank descriptions for some entities in the snmpwalk of entityMIB with alom-cmt snmp agent 
+6527416 Missing entities in snmpwalk of entityMIB with alom-cmt snmp agent 
+6526459 force dependency checking when building vbsc.o for vxworks 
+6525090 reboot-info can be lost on MD updates
+6524816 must support 64bit offsets for placement of MDs in memory 
+6524782 adding variables to backing store doesn't remove previous copies marked for deletion 
+6524234 preserve the currently selected boot configuration across sc resets 
+6523840 Unbinding a guest that has requested a reboot causes a HV abort 
+6523818 ldom variable and md storage chain unlinking broken 
+6523708 mmu_map_perm_addr(): Unmapping addresses after receiving ETOOMANY causes HV panic 
+6523699 cpu_mondo_send(): Deallocating receiver's queue while transmitter active leads to panic 
+6523325 hv should not assume that a guest's first mblock has the lowest RA 
+6523243 remove unused properties from the hypervisor md 
+6523196 unsent_pkt PCI error report flag is not accessed correctly 
+6523079 Hypervisor generates incorrect utilisation stats for guests and cpus 
+6523074 cleanup more compile warnings 
+6523024 the /ebus@800 device nods should not show up in domains that do not also have /pci@780
+6522153 debug hypervisor can get stuck in a loop if watchdog timer expires in simulation environment 
+6521895 remove intrtgt property from hypervisor md 
+6521645 vdisk drivers should add a more conservative timeout when waiting for handshake packets
+6521605 vbsc times out while waiting for POST progress updates to the sequencer and gets reset
+6521198 Incorporate enhanced POST memory tests in POST debug menu
+6521186 Incorporate new Systest/Thrasher test in POST debug menu - fix builds
+6521175 reboot stalls until guest receives input from virtual console 
+6521054 support single domain service on multiple ports 
+6520793 Domain Service related LDC WARNINGS when rebooting the control domain 
+6520718 OBP should assign MAC addresses to on-board network adapters based on MD info from SP
+6519972 Memory corruption when SNMP traps are enabled in ALOM-CMT
+6519969 ALOM-CMT could build snmp in parallel to speed up the build process
+6519943 after upgrading to fw 6.4.0.build_06, OBP NVRAM parameter "security-mode" gets corrupted
+6519941 boot net panics: Could not install the isa driver
+6519538 synchronize vbsc with hv abort code types for meaningful messages 
+6519532 cpu in error handling is broken 
+6519475 hv prints incorrect pc when a UE in HPRIV mode occurs 
+6519473 JBI errors print garbage to the hv console 
+6519362 Remove SNMP configuration version from System Firmware 'what'
+6518938 HV abort during a split-pci LDom reset after a pcie fabric err 
+6518486 RC2: MAC address of direct-io HW nodes is being modified if mixed with virtual nodes 
+6518462 SC 'showfru' should accept proxied FRU names and print those FRU's proxied status 
+6518459 need to add asrstate command to asr domain service 
+6518458 need to add support for updates command to ldom variables domain service 
+6518271 changes for review comments, code cleanup, and code comments 
+6517700 setting a very large obp variable crashes vbsc 
+6517690 LDOMs firmware doesn't prevent error storms 
+6517333 IOMMU bypass mode should be configurable via hypervisor machine description 
+6517243 A HV abort should result in an unambiguous error message 
+6517207 LDOMs OBP commands setenv, set-defaults, set-default to not work
+6517183 ERROR: HV Abort: Uncorrectable Error in Hyperpriv mode (1e) 
+6517134 'Bad interrupt' HV abort while stopping a guest LDom 
+6516693 spconfig command does not work as expected 
+6516616 Erie shows incorrect bus name for I/O devices in list-devices. 
+6516191 need to eliminate intrtgt property from HV MD 
+6515954 Openboot should not assign 64bit PCI addresses until the px driver in Solaris supports them
+6515642 Potential race condition can place FRUID power records out of order 
+6515491 security-mode has a "Default Value" of "none" instead of "No default".
+6514683 Can't boot T2000 with Ldoms firmware build 6.4.0_build_05 / build_05a 
+6514230 Reboot of primary domain restores factory-default config 
+6513750 showsc displays incorrect value for  netsc_ipnetmask 
+6513639 SNMP support in ALOM-CMT 
+6513630 ALOM-CMT fails to import faults from FRUproms if any current faults exist.
+6513294 HV aborts during a delayed reconfiguration operation 
+6512936 Backing store does not parse carriage returns correctly 
+6512748 md store domain service protocol should return more descriptive error values 
+6512740 support arc approved pri domain-service protocol 
+6512550 cleanup more compile warnings from initial ldoms putback 
+6512298 bump MAX_SP_LDC_CHANNELS to 14 to match its VBSC equivalent 
+6512289 Openboot requires its own domain-service channel on the factory-default bootset 
+6512258 iodevice node needs a bus name property 
+6511659 The eeprom command does not work when running on the factory-default MD set
+6511106 ds_handle_unreg_req() tries to acquire the same lock twice 
+6510722 errors are not printed out at OBP, when a device or devices are asr disabled
+6510364 "War Mode" in ALOM-CMT is required by the US NAVY which is currently missing
+6509294 RC1: Fire FMA error injection does not panic solaris 
+6506532 domain hangs in ncp on shutdown; or "system/webconsole:console failed fatally"
+6506329 factory-default set can be removed using ldm remove-sets. 
+6505942 support longer mdset names for storage of zeus configs 
+6505655 Unable to reach the ok prompt under the simulation environment with 6.4 sysfw 
+6505351 RC1: Fire FMA error injection does not generate ereports/diagnosis. 
+6504826 PCI-E fabric error panics seen on reboot 
+6504797 ldm use-set does not work correctly. 
+6504355 Openboot: non-functional sun4v retained-memory code places limitations on mblock size and alignment
+6503261 changing NVRAM parameter at OS level causes panic : BAD TRAP: type=31
+6503221 Control domain hang following reboot 
+6503175 POST does not work properly - POST gets aborted. 
+6502196 Epkts using MMU TFAR/TFSR encoded incorrectly
+6501766 rename domain0 to primary and domain0zpd to primary-ldom
+6501758 bootmode config="&lt;name&gt;" should have a one-shot effect on a single poweron 
+6501638 ldm remove-set and use-set require a preceding list-set 
+6501449 Memory op size warnings in hypervisor build 
+6501246 Cleanup for Ldoms phase 1 
+6501197 scrub fpga sram region for the md download before starting hypervisor 
+6501196 specify obp memblock offset, size and alignment requirements in the PRI 
+6501189 console endpoint in guest and collapse guest/hv/sp endpoints to single node 
+6500906 Hypervisor UE following control domain reboot 
+6500619 Guests should not get access to all devops by default 
+6499839 HV needs to support delayed reconfiguration 
+6499508 the hypervisor should export a way to panic any LDom in the system 
+6499457 debug hypervisor aborts with 'elemp != NULL' assert 
+6499345 Use of bootload() in Legion context can lead to bus errors 
+6499117 SC Alert: Can't connect to port 2800/2900 is seen each time sc is reset
+6499111 Setting SC parameters slows down with sysfw 6.4.0_build_02 
+6498706 vbsc does not reconstuct MD set list following a firmware upgrade 
+6498373 POST did not run after system firmware was upgraded to SIV 6.4.0_build_02
+6498338 preserve ldom variables as obp nvram variables when downgrading to fw without ldoms support
+6497793 SP initiated guest panic/shutdown support should work with LDoms 
+6497345 sending of messages on hvctl channel needs to be serialized 
+6497312 cleanup compile warnings and dead code 
+6496882 domain services code cleanup 
+6496701 Hypervisor needs to support multiple memory blocks in HV machine description 
+6496482 send ldom variable updates to ldom mgr on the md store domain service 
+6496475 do not list the asr set in the ldom mgr list-sets command 
+6496472 boot default config instead of ldom mgr config if ASR state of cpus/io or memconfig changes 
+6496142 px panics when injecting mmu_tteprtp
+6496088 Bad output from uptime and prstat with LDoms firmware 
+6495912 VSW: "WARNING: exceeded number of permitted handshake attempts" or loss of network connectivity
+6495810 vintr_cookie APIs need to be supported in Interrupt API group v1.0 
+6495798 debug build of hypervisor fatal resets when send_dev_mondo calls CLRQENTRY 
+6494856 enable domain services to the guest 
+6493645 No FMA telemetry on a guest ldom ldg1 
+6491486 PRI should contain data on hypervisor limits 
+6490211 split reconf.c to create separate files for each managed resource. 
+6490166 HV Abort: bad guest error queue (1d) - PowerDown 
+6490115 OpenBoot vdisk driver should be compliant to VIO specification
+6490084 Hypervisor interrupt API group incorrect after LDoms integration 
+6489450 Cannot abort a continuous-output process from console 
+6489432 montoya boot fails with FATAL: Port is already in use 
+6489106 CLI: add-set/use-set require a remove-set if re-using the same set name. 
+6488548 enabling guest to sp domain services port hangs console 
+6487564 FATAL: ../../src/sc/ldc_skt.c:381: ASSERT Failed: ldcsktp-&gt;afd 
+6487553 ERROR: Not enough memory to expand MD for new node dimm_data 
+6487507 vbsc needs to support get setlist cmd in its mdstore domain service 
+6487505 convert and restore obp nvram variables on flash upgrade and downgrade from ldoms fw 
+6487504 vbsc needs to support asr domain service for obp 
+6487503 vbsc must support delivery of a multi domain configuration to hyperviser after memory is scrubbed 
+6487502 vbsc needs to support wanboot keystore domain service for obp 
+6487501 vbsc needs to support ldom variable domain service for obp and solaris 
+6487497 need to compile without warnings 
+6487438 LDOMs OBP does not correctly handle zero length ldom variable updates.
+6487405 platform node property name change required (max-vcpus -&gt; max-cpus) 
+6487354 guest exit and CPU start race condition 
+6487348 OBP needs to implement the ASR domain-service outlined in FWARC 2006/594
+6487343 OBP's virtual nexus probing code is inconsistent when looking for the "ino" md property
+6487332 Unable to update ldom-variables after a halt one a system without domaining enabled
+6487301 sun4v OBP does not track physmax correctly in the event of multiple mblocks
+6487287 The OBP LDC driver should conform to FWARC 2005/571
+6487271 Legacy nvram svc-channel support should be removed from sun4v OBP
+6487165 HV needs to support initial configurations containing multiple guests 
+6487161 HV needs to support guest state APIs 
+6487159 HV needs to support sending of asynchronous notifications on the hvctl channel 
+6486432 need to reconnect to vbsc socket ports on a powercycle
+6486396 Crypto causes DR failure.
+6486175 cpu/strand split of error handling 
+6485941 OBP times out prematurely during vdisk/vnet boot
+6485792 Need to add UNKNOWN value for INTR block epkts, where msi32/msi64 cannot be determined
+6485718 MD has VIO devices during initial boot. 
+6485717 LDOMs OBP: "reboot-command" does not work as described in LDOM 1.0 OBP Design Spec v1.1
+6485565 persistent storage of MD sets downloaded by ldom manager 
+6485412 PRI update 
+6485397 IO segmented memory support 
+6485071 vbsc needs version #s updated to 1.4 
+6485055 update alom-cmt version #s for 1.4 
+6482085 ldoms 1.0
+6482026 Logical Domains (LDoms) v1.0 support 
+6481980 FCodes for double precision math are broken
+6479408 T2000 Correctable Memory Errors in POST can be confusing 
+6478437 sun4u fire fcode driver initializes 32 bit memory list to incorrect size
+6475491 implement vBSC backend for software guest state support as described by FWARC 2006/473 
+6474333 POST needs to add support for the LDC console protocol
+6469476 FATAL: ../../src/sc/ds.c:411: Free memory not alloc'd 
+6466509 /opt/ldoms/startld1 dumps core - Unable to create guest domain 
+6466012 "unable to store boot command for use" Message appears while trying to download MD and reboot 
+6465220 APL/Niagara platforms need multipath boot support
+6464845 ALOM-CMT needs CLI ability to select default MDs for booting
+6464837 Need vbsc interface to select default MDs for booting
+6463668 Add Logical Domain Support to OBP source base
+6460821 machine description has different number of "fwd" arc and "back" arc 
+6459945 T1000 locks with message SC Alert: Dropping ereports, message queue is full. 
+6458195 memory leak allocating for MDs on every reset
+6457354 d&lt; is broken
+6453300 unable to bring system to OK prompt 
+6444156 LDOM needs to support SC warm start 
+6425912 vdev_intr_generate race condition when multiple threads sending to common cpu target
+6423055 board-part-# guest MD property belongs in the platform node 
+5079065 Make OBP support mapping devices into 64 bit address space on PCI-E bus
+
+Patch Installation Instructions:
+----------------------------- 
+ 
+Please refer to the Install.info file for instructions on updating
+the firmware flashprom using the files included in this patch.
+
+Special Install Instructions:
+None:
+
+README -- Last modified date:  Wednesday, July 25, 2007
+
+</pre></body></html>

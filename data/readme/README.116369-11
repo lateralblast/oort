@@ -1,0 +1,550 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 116369-11
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: dk32ej36n st336704l st336605l st336607l st336753l man3367m map3367n mas3367n mau3036n 36gb disk firmware scsi
+Synopsis: Hardware 36GB SCSI Disk Drive Patch : Download program and SCSI Disk Drive firmware
+Date: Nov/23/2005
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: 36GB SCSI disks
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 5069315 5077456 6272112
+
+Changes incorporated in this version: 5077456 5069315 6272112
+Note:
+    Hitachi Model - DK32EJ36N
+        1. for details refer to ECO 27772
+        2. F/W changes incorporated in this patch  
+            i. Hitachi SCSI drive FW PQ0A was mis reporting write fault error 04/03/89.
+            ii.FW update:  Enhance 04/03/89 detection  by using same algorithm to calculate 
+               cylinder numbers as used in head positioning control at end of write operation.
+	3. For details refer to ECO 31438
+   Seagate Model - ST336704L
+        1. Initial code release to patch
+   Seagate Model - ST336605L
+        1. Initial code release to patch
+   Seagate Model - ST336607L
+                1. F/W changes incorporated in this patch:
+                   i.   Added SMART feature that detects early spindle motor failure and posts   		                 01/5d fru42 predictive fail warning/error message.
+   Seagate Model - ST336753L
+                1. for details refer to ECO 28203
+                2. F/W changes incorporated in this patch:
+                   i.   status returned twice when retraining occurs in U320/packetized mode 
+                   ii.  U320:  Paused WCE write does not get restarted in packetized mode.
+                   iii. Status transfer during multi-initiator gets an assert failure.
+                   iv.  Bus hang occurs on multi-command packets.
+                   v.   Mode Page 19, subpage 3, RTI bit not reporting properly.
+                   vi.  Selection Timeout after Abort Task Set.
+   Fujitsu Model MAN3367M
+        1. Initial code release to patch
+   Fujitsu Model MAP3367N
+        1. Initial code release to patch
+   Fujitsu Model MAS3367N
+            1. Initial code release to patch
+	Fujitsu Model MAU3036N
+            1. Fixed command timeout bug.
+			 2. Added Background Medium Scan(BMS) feature.
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	.download
+	download32
+	download64
+	patchinfo
+        README.116369-11
+        download
+        mdload
+        mload
+    DK32EJ36N.PQ0F.fw
+    MAP3367N.0401.fw
+    MAS3367N.0301.fw
+    MAU3036N.1503.fw
+    ST336605L.0638.fw
+    ST336607L.0707.fw
+    ST336704L.0326.fw
+    ST336753L.0449.fw
+MAN3367M.1804.fw
+
+Problem Description:
+
+This Patch is a SCSI Patch for all 36GB SCSI Drives. The issue addressed is "Hardware 36GB SCSI Disk Drive Patch : Download program and SCSI Disk Drive firmware"
+ 
+The  patch has the following bug fixes :
+ 
+no bug id	
+ 
+Previous History:
+
+Patch Installation Instructions:
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. The system MUST BE IDLE during the download process!  No other
+   programs should be running while using this utility is being
+   used.  Failure to do so may cause the devices being upgraded
+   to fail or the system to crash.
+ 
+   Volume managers such as Veritas, SDS, Arraymon, and Vold must
+   be idle and any disks unconfigured.  Note, due to an open/close
+   accounting bug (see bug 4129295) in sd and ssd drivers, you must
+   reboot the system after unconfiguring any disks used by them.
+   This accounting bug prevents the upgrade utility from acquiring
+   sole ownnership of the disk so it will not be eligible for upgrade.
+   Note, Arraymon will be disabled during download startup and enabled
+   on exit.
+ 
+   Any other computers sharing the same I/O bus as the host system
+   must be either disconnected or offline to prevent possible
+   disruption of the firmware download process.
+ 
+   If it is deemed desirable to also download the book disk it will be
+   necessary to reboot the machine. PLEASE NOTE THAT FOR THIS CASE ALL 
+   PRECAUTIONS NECCESARY FOR REBOOT MUST BE OBSERVED OR DATA LOSS WILL OCCUR.
+	In that case, and that case only, 
+   perform the following:
+	A. su to root
+	B. enter the root password
+	C. enter the command "init 0"
+	D. at the "ok" prompt, give the command boot -s
+	When the computer completes bootup it will be in single-user mode.	
+	When all download procedures are complete, give the command "init 6".
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.log" or "/var/tmp/download.log", "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+3. This package will only upgrade the identified Sun disks.
+ 
+4. If the High Availability kernel device polling is running, it will
+   be disabled.  It will not be re-enabled.
+ 
+5. If using Veritas, "deport" the volume to release the volume from
+   Veritas control.  Do not "remove" the volume as this will erase
+   the data stored on the Volume.
+ 
+6. Follow the instructions given below.  You may program one drive,
+   a range of drives, or all drives at once with this tool.
+ 
+7. FTP the .tar file to the machine used to monitor the system.
+ 
+8. rlogin to the machine used to monitor the system.
+ 
+9. Enter the command #gunzip 116369-11.tar.Z
+ 
+9. Enter the command #tar -xvf 116369-11.tar
+ 
+10. Enter the command #cd  116369-11
+ 
+ 
+ 
+************************************************************************** 
+**************************************************************************
+Installation Notes:
+--------------------------------
+ This Patch has two disk drive Firmware Installer Utilities.
+ 
+ 1. This patch includes firmware installing utility (mload) that
+ is required for installing drive firmware in SE3310 RAID enclosures.
+ 2. This patch includes firmware downloading utility (download)
+ that will upgrade or download code to drives in NON-RAID
+ environment.
+ 3. This patch is for SUN SCSI JBOD and A3xxx series only.
+    The patch CANNOT be downloaded if the drives are in a RAID
+	environment EXCEPT for SE3310, A1000, A3000 and A3500.
+	Before installing this patch any and all Software AND OR
+	Hardware RAID should be disabled EXCEPT for SE3310, A1000, A3000 and A3500.
+ 4. This script(s) are intended for use on Solaris SPARC host systems only.
+ 
+***********************************************************************
+ 
+ To install firmware via this patch see the pertinent section below.
+ 
+ Sections Index
+ A. SE3310 Drive Firmware Download Instructions
+ B. JBOD and Non-SE33xx Drive Firmware Download Instructions
+ 
+ 
+*****************************************************************************
+*****************************************************************************
+ 
+A. *******************SE3310 Drive Firmware Download Instructions************
+ 
+  Note: For Non 33xx Raid System Installation Instructions go to Section B.
+ 
+   An Ethernet connection for the StorEdge
+   SE3310 is needed. An IP address assigned is also needed. This allows the 
+   user to connect to the array via telnet, or a serial connection supporting
+   a tip(1) connection to the array.  Two network connections are required 
+   for dual-controller configurations, one for each controller.  Refer to 
+   the Sun StorEdge 3000 Family Installation, Operation, and Service Manual 
+   for the Sun StorEdge 3310 SCSI Array, section 5.4.1 for procedures to 
+   connect to the array via tip.  Refer to the Sun StorEdge 3000 Family 
+   Installation, Operation, and Service Manual for the Sun StorEdge 3310 SCSI 
+   Array, Appendix B, section B.2 for procedures to connect to the array 
+   via telnet.
+ 
+ 
+Unpack the patch into any convenient directory such as /var/tmp, and refer
+to the instructions below.
+ 
+*** Warning *** Warning *** Warning *** Warning *** Warning ***
+ 
+This firmware upgrade procedure will prevent StorEdge 3310 arrays from
+servicing normal I/O requests for three to five minutes.  For this
+reason, all StorEdge 3310 logical disks should be unmounted from any
+Solaris hosts connected to the array for the duration of the install
+procedure.
+ 
+1.  Stop I/O to the StorEdge 3310 array.
+ 
+2.  Verify the current controller firmware using the firmware
+    application menu.  Choose "View System Information".  If the
+    firmware version reported is 3.25Q or later, this patch will work.
+ 
+ 
+3.  Make certain to quiesce the SCSI bus to the minnow.
+ 
+4.  Open a terminal window on the host that will be used to download the
+    firmware.  Change your working directory, if necessary, to the
+    directory in which the patch was unpacked and confirm that the
+    DK32EJ36N.PQ0F.fw  file is present using the "ls" command.
+ 
+5.  Type "./mload"
+  at the command prompt. 
+  mload will respond with:
+ 
+Please Enter HOSTNAME OR IP ADDRESS Of SE 3xxx for upgrade: 
+ 
+Enter the name or the IP Address of your System and Return.
+ 
+6. To determine what type of disk drives you have, at the prompt type:
+ 
+		mdload&gt; show disks
+ 
+You will get a response that looks something like this:
+ 
+Ch  Id      Size   Speed  LD     Status   IDs                      Rev  
+------------------------------------------------------------------------
+ 0   0   33.67GB   160MB  NONE   NEW      SEAGATE ST336704LSUN36G  abcd 
+                                              S/N 3CD0N79N00007113
+ 0   1   33.67GB   160MB  NONE   NEW      SEAGATE ST336605LSUN36G  efgh 
+                                              S/N 3FP007XQ00002137
+ 0   2   33.67GB   160MB  NONE   NEW      SEAGATE ST336607LSUN36G  ijkl 
+                                              S/N 3JA037EK00007304
+ 0   3   33.67GB   160MB  NONE   NEW      FUJITSU MAP3367N SUN36G  mnop 
+                                              S/N UPL0P27004UD
+ 0   4   33.67GB   160MB  NONE   FRMT     FUJITSU MAS3367N SUN36G  qrst 
+                                              S/N A001P34005S3
+ 0   5   33.67GB    80MB  NONE   NEW      FUJITSU MAN3367M SUN36G  uvwx 
+                                              S/N 00X03428    
+ 0   8   33.67GB   160MB  NONE   NEW      FUJITSU MAS3367N SUN36G  yz01 
+                                              S/N A001P34007R8
+ 0   9   33.67GB   160MB  NONE   NEW      FUJITSU MAS3367N SUN36G  2345 
+                                              S/N A001P34007T8
+ 0  10   33.67GB   160MB  NONE   NEW      FUJITSU MAS3367N SUN36G  6789 
+                                              S/N A001P34007YV
+ 0  11   33.67GB   160MB  NONE   NEW      FUJITSU MAS3367N SUN36G  abcd 
+                                              S/N A001P34007SN
+ 0  12   33.67GB   160MB  NONE   NEW      FUJITSU MAS3367N SUN36G  efgh 
+                                              S/N A001P340068U
+ 0  13   33.67GB   160MB  NONE   NEW      FUJITSU MAS3367N SUN36G  ijkl 
+                                              S/N A001P3400808
+ 
+ 
+7.  Download new firmware to all disks at the same time by typing
+     the following command at the prompt:
+ 
+mdload&gt; download disk-firmware ST336607L.0707.fw "ST336607LSUN36G"
+ 
+and then wait 4-5 minutes until the prompt appears again.
+ 
+mdload&gt; download disk-firmware ST336605L.0638.fw "ST336605LSUN36G"
+ 
+and then wait 4-5 minutes until the prompt appears again.
+ 
+mdload&gt; download disk-firmware ST336704L.0326.fw "ST336704LSUN36G"
+ 
+and then wait 4-5 minutes until the prompt appears again.
+ 
+mdload&gt; download disk-firmware ST336753L.0449.fw "ST336753LSUN36G"
+ 
+and then wait 4-5 minutes until the prompt appears again.
+ 
+mdload&gt; download disk-firmware DK32EJ36N.PQ0F.fw "DK32EJ36NSUN36G"
+ 
+and then wait 4-5 minutes until the prompt appears again.
+ 
+mdload&gt; download disk-firmware MAN3367M.1804.fw "MAN3367M SUN36G"
+ 
+and then wait 4-5 minutes until the prompt appears again.
+ 
+mdload&gt; download disk-firmware MAP3367N.0401.fw "MAP3367N SUN36G"
+ 
+and then wait 4-5 minutes until the prompt appears again.
+ 
+mdload&gt; download disk-firmware MAS3367N.0101.fw "MAS3367N SUN36G"
+ 
+and then wait 4-5 minutes until the prompt appears again.
+ 
+mdload&gt; download disk-firmware MAU3036N.1503.fw "MAU3036NCSUN36G"
+ 
+and then wait 4-5 minutes until the prompt appears again.
+ 
+ The output of a download command looks something like this:
+"mdload&gt; download disk-firmware ST336605L.0638.fw "ST336605LSUN36G"
+      WARNING: This is a potentially dangerous operation.
+      The controller will go offline for several minutes.
+      Data loss may occur if the controller is currently in use.
+      Are you sure? y
+      mdload: controller is shut down and ready for disk
+      firmware download
+      mdload: Sending disk firmware data.....................
+      mdload: flashing firmware data, please wait...
+ 
+      Download Status Report
+      - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      Disk Firmware download completed  (CH 0 ID 0)
+      Disk Firmware download completed  (CH 0 ID 1)
+      Disk Firmware download completed  (CH 0 ID 2)
+      Disk Firmware download completed  (CH 0 ID 3)
+      Disk Firmware download completed  (CH 0 ID 4)
+      Disk Firmware download completed  (CH 0 ID 5)
+      Disk Firmware download completed  (CH 0 ID 8)
+      Disk Firmware download completed  (CH 0 ID 9)
+      Disk Firmware download completed  (CH 0 ID 10)
+      Disk Firmware download completed  (CH 0 ID 11)
+      Disk Firmware download completed  (CH 0 ID 12)
+      Disk Firmware download completed  (CH 0 ID 13)
+      Disk Firmware download completed  (CH 2 ID 0)
+      Disk Firmware download completed  (CH 2 ID 1)
+      Disk Firmware download completed  (CH 2 ID 2)
+      Disk Firmware download completed  (CH 2 ID 3)
+      Disk Firmware download completed  (CH 2 ID 4)
+      Disk Firmware download completed  (CH 2 ID 5)
+      Disk Firmware download completed  (CH 2 ID 8)
+      Disk Firmware download completed  (CH 2 ID 9)
+      Disk Firmware download completed  (CH 2 ID 10)
+      Disk Firmware download completed  (CH 2 ID 11)
+      Disk Firmware download completed  (CH 2 ID 12)
+      Disk Firmware download completed  (CH 2 ID 13)
+      - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      mdload: Resetting controller...Done
+      mdload&gt;"
+ 
+If an attempt is made to download an improper code you may get the response:
+"mdload&gt; download disk-firmware ST336704L.0326.fw "ST336704LSUN36G"
+WARNING: This is a potentially dangerous operation.
+The controller will go offline for several minutes.
+Data loss may occur if the controller is currently in use.
+Are you sure? y
+mdload: controller is shut down and ready for disk firmware download
+mdload: Sending disk firmware data.
+CH 0 ID 0 failed to get response (cmd_status 0000 tgt_status 02 sense 05 asc/ascq 26/99):"
+ 
+ 
+ 
+9.  Verify the latest disk firmware is downloaded by choosing the
+"show disks" command to view the DISK drive's firmware revision.
+ 
+ 
+ 
+ 
+*****************************************************************************
+*****************************************************************************
+ 
+B.******* JBOD and Non-SE33xx Drive Firmware Download Instructions **********
+ 
+The procedure to be used for upgrading the drive firmware is explained below. 
+Upgrade time will be approximately 2 minutes per drive for systems.
+ 
+a) Unpack the patch (through tar) into any directory, say &lt;patchdir&gt;.
+   (Note, if the patch ends in a ".Z" suffix, you will need to first
+   uncompress it.)  So, you would type:
+	% su root
+	# cd &lt;patchdir&gt;
+	# tar xf &lt;patch tar file&gt;
+ 
+b) In the patch directory, as root, type the "download" command:
+	# ./download
+ 
+c). Select the devices to be upgraded (see example below).
+ 
+**NOTE**    Any device that is in-use by another application will not
+            be upgraded.  The following warning message will be
+            issued:   c1t3d0s0: Open failed, you must be the sole user!
+ 
+**NOTE**    This upgrade can result in error messages in the console 
+            window and/or the terminal "download" window.  It is
+            normal for the SCSI link to go offline for a few
+            seconds and then return to the online state.  The disk
+            mode pages will also be restored to the default values.
+ 
+**NOTE**    For A3000/1000's, the internal disk "C" and "T" numbers
+            are derived from the first active controller found.  The
+            "D" number is encoded to indicate it's position using the
+            following formula:  D = (tray_number * 100) + target_id.
+ 
+d). After the devices have been upgraded, the displayed device
+    list will be refreshed.  Devices remaining to be upgraded or
+    failed devices will be displayed.  Failed devices will be
+    marked with a "****" in the rev field.
+ 
+**NOTE**    If all devices have been upgraded, the following
+            message will be displayed:   No devices found to upgrade!
+ 
+e). To display the full list of devices including the upgrades ones,
+    type 'inquiry' (see example below).
+ 
+f). Quit the "download" program by typing 'quit' (see example below).
+ 
+ 
+ 
+************************************************************************** 
+**************************************************************************
+EXAMPLES: 
+ 
+ 
+# tar -xvf 116369-11.tar
+x 116369-11, 0 bytes, 0 tape blocks
+x 116369-11/DK32EJ36N.PQ0F.fw, 617984 bytes, 1207 tape blocks
+x 116369-11/MAN3367M.1804.fw, 404480 bytes, 790 tape blocks
+x 116369-11/MAP3367N.0401.fw, 406528 bytes, 794 tape blocks
+x 116369-11/ST336605L.0638.fw, 602112 bytes, 1176 tape blocks
+x 116369-11/ST336607L.0707.fw, 627712 bytes, 1226 tape blocks
+x 116369-11/ST336704L.0326.fw, 570496 bytes, 1115 tape blocks
+x 116369-11/ST336753L.0449.fw, 627712 bytes, 1226 tape blocks
+x 116369-11/download, 673 bytes, 2 tape blocks
+x 116369-11/download32, 300800 bytes, 588 tape blocks
+x 116369-11/download64, 367784 bytes, 719 tape blocks
+x 116369-11/.download, 2954 bytes, 6 tape blocks
+x 116369-11/README.116369-11, 9160 bytes, 18 tape blocks
+x 116369-11/patchinfo, 229 bytes, 1 tape blocks
+ 
+# pwd
+/116369-11
+# ls -a
+.                  download           MAN3367M.1804.fw   README.116369-11   
+ST336753L.0449.fw
+..                 download32         MAP3367N.0401.fw   ST336605L.0638.fw
+.download          download64         MAS3367N.0101.fw   ST336607L.0707.fw
+DK32EJ36N.PQ0F.fw  download64.log     patchinfo          ST336704L.0326.fw
+# ./download
+Firmware Download Utility, V4.2
+ 
+**************************  WARNING  **************************
+NO OTHER ACTIVITY IS ALLOWED DURING FIRMWARE UPGRADE!!!
+No other programs including any volume manager (e.g. Veritas,
+SDS, or Vold) should be running.  Other host systems sharing
+any I/O bus with this host must either be offline or
+disconnected.  Any interruption (e.g. power loss) during
+upgrade can result in damage to devices being upgraded.
+ 
+Any disk to be upgraded should first have its data backed up.
+***************************************************************
+ 
+Searching for devices...
+rmt/0: Mode Sense for default pages failed!
+ 
+DISK DEVICES
+Device         Rev   Product              
+c2t3d0:        0301  MAP3367N -- SUN36G 
+c3t1d0:        0626  ST336704L -- SUN36G 
+c3t3d0:        0538  ST336605L -- SUN36G 
+c8t1d0:        PQ0B  DK32EJ36N -- SUN36G 
+c8t2d0:        0249  ST336753L -- SUN36G 
+c9t1d0:        0507  ST336607L -- SUN36G 
+c9t3d0:        PQ0B  DK32EJ36N -- SUN36G 
+Total Devices:  7
+ 
+ 
+Enter command: p
+NOTICE: Cannot access kernel, kvm_open did not succeed!
+Upgrading devices...
+ 
+c2t3d0: Successful download
+c2: recovery delay, 82 sec.
+c8t1d0: Successful download
+c9t3d0: Successful download
+c9t1d0: Successful download
+c9: recovery delay, 57 sec.
+c8t2d0: Successful download
+c8: recovery delay, 44 sec.
+c3t3d0: Successful download
+c3t1d0: Successful download
+c3: recovery delay, 14 sec.
+ 
+ 
+ 
+DISK DEVICES
+No devices found to upgrade!
+ 
+ 
+Enter command: inq
+ 
+DISK DEVICES
+Device  Rev   Product              S/N
+c0t0d0: 0638  ST336605L -- SUN36G  0111P0086W 
+c2t1d0: 0101  MAS3367N -- SUN36G   0315400E2N 
+c2t3d0: 0401  MAP3367N -- SUN36G   0414N09TT3 
+c3t1d0: 0326  ST336704L -- SUN36G  0040D0N775 
+c3t3d0: 0638  ST336605L -- SUN36G  0111P007YY 
+c8t1d0: PQ0F  DK32EJ36N -- SUN36G  0223H10504 
+c8t2d0: 0449  ST336753L -- SUN36G  0239H01GXC 
+c8t3d0: 0101  MAS3367N -- SUN36G   03197000A0 
+c9t1d0: 0707  ST336607L -- SUN36G  0243A0BGZ8 
+c9t3d0: PQ0F  DK32EJ36N -- SUN36G  0223H04892 
+Total Devices:  10
+ 
+ 
+Enter command: q
+ 
+#
+
+Special Install Instructions:
+------------------------------------
+None.
+
+README -- Last modified date:  Monday, July 25, 2011
+
+</pre></body></html>

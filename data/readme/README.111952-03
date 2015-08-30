@@ -1,0 +1,186 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 111952-03
+Keywords: netra x1
+Synopsis: Hardware/PROM: Netra X1 / Sun Fire V100 PROM upgrade patch
+Date: May/20/2003
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 8 9
+
+SunOS Release: 5.8 5.9
+
+Unbundled Product: Netra X1
+
+Unbundled Release: 1.0
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc.sun4u
+
+BugId's fixed with this patch: 4385804 4390270 4391201 4391203 4394181 4396903 4397743 4398420 4400477 4401049 4401102 4402189 4402986 4404651 4405349 4408135 4410739 4413357 4414628 4425430 4458722 4625783 4651343 4686990
+
+Changes incorporated in this version: 4651343 4686990
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 111092-02 or greater
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Update.to.flapjack_lite.4.0.18@OS
+
+Problem Description:
+
+4686990	 V100 doesn't handle short power outages very well
+4651343	 V100 requires support for higher speed CPU
+ 
+(from 111952-02)
+ 
+4625783	 RFE: require OBP support for Sun Fire V100
+ 
+(from 111952-01)
+ 
+4458722	 prom 4.0.7 has broken power button orderly power down functionality
+4425430	 require M5819 support in the prom
+4414628	 Data Access Exception error encountered on power on
+4413357	 flash-update doesn't work with P2 flapjack lite.
+4404651	 No Utility for upgrading OBP via solaris.
+4385804	 WARNING: ds1287_attach: Failed to add interrupt: RTC driver
+4390270	 Davicom ethernet gives access errors.
+4391201	 OBP firmware reads the speed jumper settings from the wrong address
+4391203	 OBP firmware command ".speed" broken, commands exits with data access error
+4394181	 require 12 digit MAC address compatibility in prom
+4396903	 Davicom driver compatible property is incorrect.
+4397743	 'set-time' sets the year incorrectly.
+4398420	 dmfe driver should unmap and free resources on close.
+4402189	 OBP requires obdiag test for davicom 9102 chip.
+4401102	 require fix for 4400935 to support Solaris 9 in prom
+4401049	 OBP should not create energystar-v2 property.
+4400477	 require pci compatibility property (grover bugid 4397383)
+4402986	 require correct model property in flashprom node.
+4408135	 System does not boot to OBP after changing ttyb-mode variable
+4405349	 reboot test corrupts CORE area of SCC.
+4410739	 OBP interrupt map does not contain entry for isa power node.
+4413357	 flash-update doesn't work with P2 flapjack lite.
+4404651	 No Utility for upgrading OBP via solaris.
+
+Patch Installation Instructions:
+--------------------------------
+This is not an OS patch and is not installed with the standard
+patchadd(1M) command.  After unpacking the patch, follow the "Special
+Install Instructions" below to upgrade the system PROM.
+ 
+This patch is not OS-dependent.  The list of releases shown under the
+"Solaris Release" and "SunOS Release" sections may not be complete.
+The absence of the running Solaris Release or SunOS Release from the
+lists above does not preclude the installation of this patch on the
+hardware.
+
+Special Install Instructions:
+-----------------------------
+Bring the system to be upgraded down to single user mode, and log in
+as root.  Run the script provided within this patch, as follows:
+ 
+  # chmod +x Update.to.flapjack_lite.4.0.18@OS
+  # ./Update.to.flapjack_lite.4.0.18@OS
+ 
+The following output will be seen:
+ 
+  # ./Update.to.flapjack_lite.4.0.18@OS 
+ 
+  **************************************************
+  *   Running upg.1827     
+  *   Generated Fri Mar 14 16:20:31 GMT 2003       
+  **************************************************
+ 
+   WARNING: This Program will write a new PROM image.
+           Are you sure you want to do this?
+ 
+  Enter 'C' to Continue installation or 'T' to Terminate
+  C
+ 
+  Stripping bundled file: done
+  Decoding and untaring: done
+  Verifying checksums: done
+  Installing flashprom driver file: done
+ 
+  WARNING:  Updating Flash PROM with new system firmware in progress...
+            It may take a few minutes.
+   ******   DO NOT INTERRUPT OR POWER-DOWN THE SYSTEM   *******
+ 
+  Updating Netra X1  PROM
+  1 Erasing ... Done.
+  1 Verifying Erase ... Done.
+  1 Programming ... Done.
+  1 Verifying Program ... Done.
+  ***** upg.1827 Completed Successfully
+ 
+  ****************************************************************
+  *   NOTE: updated Firmware takes effect after next reboot or   *
+  *   Power cycle of the system.                                 *
+  *   If there is any configuration support to become effective, *
+  *   you have to use -r with your boot command                  *
+  ****************************************************************
+  # 
+ 
+When the upgrade is complete, shut down and then power cycle the
+system.  After the system has been rebooted, the unpacked patch may be
+removed if desired.
+ 
+After performing the above, the upgrade may be verified using one of
+the following methods:
+ 
+  1.  At OBP, use the '.version' command.  The firmware versions
+      displayed should be:
+ 
+        ok .version
+        Firmware CORE Release 1.0.18 created 2002/5/23 18:22
+        Release 4.0 Version 18 created 2002/05/23 18:22
+        cPOST version 1.0.18 created 2002/5/23
+        CORE 1.0.18 2002/05/23 18:22
+        ok 
+ 
+ 
+  2.  When running Unix, use the prtconf(1M) command.  The version
+      displayed should be:
+ 
+        # prtconf -V
+        OBP 4.0.18 2002/05/23 18:22
+        #
+ 
+******************************************************************************
+** WARNING **** WARNING **** WARNING **** WARNING **** WARNING **** WARNING **
+******************************************************************************
+ 
+*  Please read the instructions carefully and completely.  Please follow the
+   instructions exactly as stated.
+ 
+*  Failure to follow the instructions could result in either a defective
+   system board or an unsuccessful flash PROM update.
+ 
+*  This patch cannot be installed on a running system because the installation
+   requires that the system be brought down.  Be sure to schedule down time to
+   install this patch.
+ 
+*  Any "Required" patches specified above must be installed on the system
+   before performing the PROM upgrade.  If the patches are not installed,
+   the upgraded system will not boot.
+ 
+*  The upgrade will replace the whole of the current system PROM image
+   with the new image provided in this patch.  Do not perform the upgrade
+   if you have added custom dropins to the system PROM.
+ 
+******************************************************************************
+** WARNING **** WARNING **** WARNING **** WARNING **** WARNING **** WARNING **
+******************************************************************************
+
+README -- Last modified date:  Tuesday, August 19, 2003
+
+</pre></body></html>

@@ -1,0 +1,285 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 140685-02
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Big Admin Patching Center, http://www.sun.com/bigadmin/patches/ 
+***********************************************************************
+
+Keywords: sun fire v215/ v245
+Synopsis: Hardware/PROM: Sun Fire V215 / V245 Flash PROM Update
+Date: Oct/01/2009
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 9 10
+
+SunOS Release: 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.30.4, POST 4.30.4, OBDIAG 4.30.4
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4794955 6478646 6494774 6498780 6529207 6529467 6543749 6547428 6550717 6550743 6580761 6581085 6585340 6588214 6590384 6593547 6594395 6594929 6595500 6596546 6596594 6600945 6601822 6604051 6605782 6606197 6608466 6609024 6609130 6611798 6612022 6612178 6616363 6617193 6621175 6622444 6622775 6623111 6623916 6626045 6628699 6629201 6631330 6631946 6633009 6634169 6634974 6634977 6634980 6636978 6638534 6638972 6640485 6644446 6646461 6646532 6646995 6647462 6647984 6650227 6650783 6651513 6652016 6652046 6654860 6654865 6655556 6656072 6657721 6660206 6661787 6662162 6664365 6665538 6666961 6669255 6669488 6670340 6671070 6672367 6674578 6675519 6675677 6675793 6676561 6677840 6678885 6678924 6681061 6682845 6683328 6684123 6684913 6686172 6687097 6688605 6689868 6690618 6690844 6690952 6690978 6693035 6693734 6693906 6694304 6694387 6694497 6697436 6698815 6704491 6705064 6705118 6706303 6706473 6708044 6708234 6708608 6710322 6712358 6712366 6712395 6712683 6713501 6716256 6717373 6719274 6719316 6719407 6720177 6720401 6720575 6721020 6721347 6724265 6724775 6725256 6725717 6726148 6728454 6729529 6730281 6730282 6730722 6731112 6732222 6732265 6732414 6734408 6735506 6736372 6737081 6737476 6737895 6738373 6739392 6740949 6743825 6747230 6747621 6750734 6751051 6753562 6754453 6755425 6755818 6756295 6760186 6762055 6766240 6770610 6772664 6774655 6777379 6780222 6782337 6787965 6790291 6791196 6791232 6795793 6797789 6802075 6803726 6804349 6807094 6807927 6808167 6809434 6810138 6810143 6812437 6813603 6813715 6816141 6819881 6821770 6825151 6830927 6835857 6835860 6836888 6836962 6839482 6842259 6842274 6855840 6855850 6855865 6858855 6859020 6859443 6860195 6862099 6862229 6866918 6868081 6869577
+
+Changes incorporated in this version: 6869577 6868081 6866918 6862229 6862099 6860195 6859443 6859020 6858855 6855865 6855850 6855840 6842274 6842259 6839482 6836962 6836888 6835860 6835857 6830927 6825151 6821770 6819881 6816141 6813715 6813603 6812437 6810143 6810138 6809434 6808167 6807927 6807094 6804349 6803726 6802075 6797789 6795793 6791232 6791196 6790291 6787965 6780222 6777379 6772664 6766240 6762055 6738373 6737895 6725717 6588214 6580761
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunFire245
+unix.flash-update.SunFire245.sh
+
+Problem Description:
+
+6869577 Insufficient memory allocated to the resolution buffer in the ast fcode.
+6868081 Probe for TPM support in OpenBoot
+6866918 Memory leak in SAS/SATA test 
+6862229 speedup of mailbox test
+6862099 Multiple resets observed
+6860195 Add support to dump PLX FW from DEMON menu
+6859443 POST sometimes picks the wrong channel in single channel mode
+6859020 POST register assumption
+6858855 Integrate AST2100 Fcode into source tree
+6855865 Need to increase hotplug-memsize and hotplug-mem64size
+6855850 Need to extend the Maximum PCI probe depth
+6855840 Add the PCIe Root Port support for RCs containing RPs.
+6842274 Speed up of L2 caches tests
+6842259 Some of the internal L2 arrays are not being fully tested
+6839482 Need to remove clock-divisors from v445
+6836962 Various errors reported during Tenaya P1.0 POST HDD testing, thought to be related to FMODs
+6836888 Bootblock code in Solaris 10 Update 5 or earlier is incompatible with OpenBoot 4.30 or later
+6835860 POST timed out sometimes occurs
+6835857 chip reset error occurs when OS boots
+6830927 Some healthy components was disabled by a faulted DIMM
+6825151 OBP console chars are dropped/scrambled with USB keyboard
+6821770 POST error occured on Neptune XAUI 10G Loopback Test
+6819881 Didn't receive RTR pkt! when powercycling huron and maramba systems
+6816141 virtual storage devices are not getting created under OBP
+6813715 POST Niu and Neptune Code Merge
+6813603 POST thread bottleneck
+6812437 DEMON selectable Systest BusFS causing NoData UEs
+6810143 FMOD failures in POST SAS/SATA device test
+6810138 Tenaya POST Support
+6809434 OBP handles all resumable errors as request to shutdown
+6808167 DEMON selectable Systest General test subtest conflict
+6807927 VF System keeps power cycles and can't go to obp after POST test done
+6807094 Congo:Need OBP changes for Firmware Progress State Sensor
+6804349 DVD will not boot -- OBP fix missing to compliment CR 4976792 (READ RETRY)
+6803726 Tenaya system (more than 1) hits fbr errors during Enhanced Memory testing
+6802075 POST ops1 failed "FATAL ERROR 3", "Unexpected Trap" on N2 systems
+6797789 Confusing error messages when using PCIe cards with 64 bit prefetchable BAR
+6795793 POST look for display device on T6320
+6791232 Monza: Need OBP changes for Firmware Progress Sensor
+6791196 POST fails NIU Link Check Test w/ P1 Copper XAUI
+6790291 Glendale/Scottsdale need to support REM-less operation
+6787965 At post sequence, a CPU core was disabled by mistake, when a faulted DIMM was installed
+6780222 The neptune fcode driver would break if bufsz0 were not set to 2K
+6777379 Post support for T6320 G2
+6772664 WARNING: /pci@7c0/pci@0/pci@1/pci@0/isa@2: Could not open asr package
+6766240 DVD boot read failures from obp prompt (intermittent DVD DRIVE MISIDENTIFIED may be seen)
+6762055 Booting from SATA DVD drives under LSI1068 fails
+6738373 Correct Cheetah+ erratum 34 DTLB issue in Starcat OBP
+6737895 Some non-critical Neptune/NIU FCode clean up
+6725717 V480 onboard CE failed OBDiag test intermittently
+6588214 Need to remove clock-divisors from v440
+6580761 OBP MMU miss handlers not correct for sun4v spec
+ 
+(From 140685-01)
+ 
+6782337 POST disk test fails on phy7
+6774655 POST loops with "ERROR: No good memory bank/channel left in system" 
+6770610 Node Reconfig 2P with CPM1 and CMP3 ERROR: POST timed out. Not all system components tested.
+6760186 queue_tests_timed() function fails to complete under some conditions
+6756295 Add support to test serial port from DEMON menu
+6755818 Corruption of "my-self" causing missing "idprom" property in root node
+6755425 More POST threads starting than expected
+6754453 Maramba POST intermittently fails during the 100 power cycle with an LDOM created primary domain.
+6753562 Failures of a secondary CMP master are not handled properly
+6751051 POST reports hundreds of free resource timeouts
+6750734 continuous output of "ERROR: Failed to send a fma event(rc=11)" during POST
+6747621 RN50 fcode needs to support new memory
+6747230 "1:4:0&gt;ERROR: TEST = PIU intx interrupt test" is output during POST
+6743825 POST menu IO-Bridge unit dump causes a crash
+6740949 POST Block Mem Schmoo Test is N1 only
+6739392 reset host causes POST to fail GBE tests
+6737476 OpenBoot disk label package fixes are mising from the large disk support changes
+6737081 POST fails PIU PCI id test with ARTM
+6736372 DVD boot error from IOU#2 or IOU#6 on DC machines generates wrong error log
+6735506 POST is mis-handling a FBR error, if the FBR occurs too early in POST
+6734408 Support change from remote-keyboard to rkeyboard in OBP
+6732414 OpenBoot deblocker package additions for large disk support must be supported
+6732265 POST failures
+6732222 nodefault-bytes is not persistent
+6731112 Default case in init-xmac-xif sets mii-gmii-mode incorrectly 
+6730722 LDOM Device RESET Control reg. is programmed with Maramba value in Scottsdale.
+6730282 link up status message includes confusing "duplex = 0"
+6730281 netboot via Maramba's Neptune port2 or 3 fails if a copper XAUI is plugged in
+6729529 Product definition cleanup
+6728454 remove support for N2 erratum 106
+6726148 Power-cycling approx. 10 times causes disk devices to disappear.
+6725256 Miscellaneous fixes for OPL platforms
+6724775 Support to boot from one or more vdisk server
+6724265 Initial PUTBACK of Scottsdale Blade to 4.28 and 4.x Gate
+6721347 POST fails when X4447A-Z card present in slot PCIE3 or slot PCIE7
+6721020 OpenBoot should handle "shutdown" request from Hypervisor
+6720575 Add OBP support for Scottsdale Platform
+6720401 POST should not fail the GBE device unless it is absolutely certain that the GBE is at fault.
+6720177 POST fails with CMP0 missing on T5440
+6719407 'Device:' is output 5 times after reset-all on OBP
+6719316 USB Failure in POST indicts wrong device
+6719274 Thrasher does not work on VF platforms
+6717373 cpu-table should be clean before use
+6716256 Thunder needs to pick updated OBP which has Scottdale fixes
+6713501 Improve PCIE test and scan from post menus.
+6712683 POST mistake the slot of the faulted DIMM
+6712395 POST times out with 8GB FBDIMMs
+6712366 Monitor preferred resolution does not work
+6712358 POST print function confusion
+6710322 Turgo POST fails when T1 PCI-X card is pluged in
+6708608 master cpu timeout occuring on T5140/T5240
+6708234 Glendale - watch-net-all terminates and jump by itself to OK when is looking at /niu@80/network@0
+6708044 ipmi driver regression: broken on s10u3
+6706473 post fails with 3-way config
+6706303 post interrupt test fails on n1 platforms
+6705118 Intermittent XAUI Lane Synchronization Failure at Flex.
+6705064 POST, block memory test fails if thread 0 is asr disabled
+6704491 OBP doesn't display all disabled devices
+6698815 POST interrupt test updates
+6697436 1G won't work if on Goa if a Goa in slot 1 is not inserted
+6694497 POST incorrectly reports timeouts
+6694387 OBP will try to run 10G copper at 1G
+6694304 DMA function fails
+6693906 probe-scsi-all generates Fast Data Access MMU Miss
+6693734 Platforms that support MEM64 and PCI hotplug are using invalid memory sizes
+6693035 Thunder POST still refers to non existent XAUI ports
+6690978 Incorrect diagnosis of a memory UE
+6690952 POST code implementation of Node reconfigure for T5440
+6690844 Confusing PCIID test error messages
+6690618 niu reset from guest doesn't properly prepare niu for 10g mode after running in 1g mode
+6689868 With FW 7.1.3_build_02 "boot net - install" doesn't work
+6688605 flx22610: Jade host hangs on a reboot with message ERROR: motherboard SEEPROM access failed
+6687097 virtual-console device always returns NUL the very first character
+6686172 TPM code incorrectly included in Congo POST makefile
+6684913 Optimise enhanced POST Systest tests for N2 products
+6684123 On OPL OBP can cause OBP to Display incorrect information
+6683328 failure of some io devices disabled incorrectly
+6682845 2 Unexpected trap37 when running memory screen
+6681061 POST support for Thunder platform
+6678924 Link width issue with plx version BC chip on pelton 
+6678885 Link width issue with plx version BC chip on pelton
+6677840 Enhanced POST memory tests on VF platforms should test local memory only
+6676561 Changing NVRAM parameter at OS level causes panic : BAD TRAP: type=31
+6675793 post hangs if diag verbosity=debug
+6675677 POST membist test fails when CH0/D0 is disabled on a branch
+6675519 Problem with LSB Degradation
+6674578 Sparse CPU support for cpu-struct table
+6672367 If a cmp has missing threads/cores in N1, then post will not test some regions of memory
+6671070 POST diagnoses to a wrong dimm if a faulty dimm is in either D2 or D3 slots
+6670340 Optimise enhanced POST memory tests for N2 products
+6669488 POST times out with verbosity min
+6669255 Domains fail to boot from the right devalias name
+6666961 max level POST on Batoka with memory CE's gets unexpected trap to address 0
+6665538 Ikkaku platform support
+6664365 flx20948: CP2500 boot-device can be corrupted with a bad read from the AC
+6662162 watch-net-all not testing interfaces
+6661787 POST support for Batoka
+6660206 Huron POST spelling error: "Lopback" missing an "o". eg:"ERROR: TEST = BCM8704 Internal Lopback".
+6657721 POST should offline the failing DIMM module in the event of a CE.
+6656072 post cpu tests failures, hardware under test is wrong field may state/fail wrong core
+6655556 Updated P3 congo/post POST Support for Congo
+6654865 OBP development for xaui copper
+6654860 POST code setup for xaui copper
+6652046 XAUI Conflicting error message
+6652016 Sun Blade T6320 has no XAUI
+6651513 version negotiation in obp's vnet/vdisk doesn't adhere to the protocol
+6650783 PCI Probe error messages could cause problems
+6650227 bootmode reset_nvram fails to reset obp to defaults
+6647984 Thunder platform support in OBP.
+6647462 Problem with T2000 SysFW 6.5.5, won't see DVD rom device after upgrade
+6646995 POST output does not appear to be correct - POST is not correctly using SC's diag_&lt;var&gt; values
+6646532 OBP providing incorrect compatible property at CPU node
+6646461 OPL OBP Update copyright dates to reflect 2008
+6644446 POST does not offline by thread when failing tests
+6640485 post for maramba needs to be in 4x release gate
+6638972 wanboot very slow on maramba
+6638534 Maramba 2U with memory config. 24G and 48G on the mezzanine riser does not boot up the server.
+6636978 setting input/output device via ok prompt to keyboard/screen results in ERROR: message
+6634980 Possible Data corruption when using NVRAMRC kill or yank
+6634977 POST run in max mode fails with PLX 8112
+6634974 Incorrect Error reported on nvramrc CRC Error
+6634169 flx22265: JLL13: no power-off on hotswap causes mcnet to fail to come up on Jade satellites
+6633009 Can't boot off XAUI card on Maramba
+6631946 (init-program) causes illegal instruction trap if executed when cwp is not 0
+6631330 niu driver changes for goa
+6629201 maramba post dimm failures must call out the right dimm
+6628699 OBP needs to support Maramba platform
+6626045 Update Huron RNG OBP virtual-device node
+6623916 Software guest state updates generate too much traffic
+6623111 Huron system hung after completed POST with "Failed to set device address: 1" with FW 7.0.7
+6622775 Running POST with the Neptune FEM installed, disables the PCI-SWITCH
+6622444 Boot path switch feature is not work correctly during bootblock load
+6621175 False NIU FZC XMAC   Block Port 1 init test failure - RXMAC STATUS Reg. PHY_MDINT Bit
+6617193 POST offlines all L2 banks when it encounters a storm of DSC/FBRs
+6616363 Glendale's onboard port was not recognized when a Northstar QGC EM card was loaded into the system
+6612178 Rev52 Jasper320 cards with v1.13 FCode fails on all Sun platforms
+6612022 N1 POST hangs during Enable L2 Cache
+6611798 POST support for Turgo
+6609130 Monza platform support in OpenBoot
+6609024 FERG marks some e-reports from post as invalid and drops them
+6608466 GD Post nac names are incorrect
+6606197 remove product name from host flash version display
+6605782 OBP needs to support the Glendale platform
+6604051 POST Support for Monza 
+6601822 USB hub, keyboard, and/or mouse disappear from OBP device tree
+6600945 power-off doesn't power off the virtual machine OBP is running within
+6596594 After resetsc, changing OBP nvram parameters do not take affect
+6596546 Montoya: "probe-ide" shows a non-existent device with garbage characters as ATAPI model
+6595500 Last Trap: Fast Data Access MMU Miss on VDS stress tests
+6594929 sun4v systems lost their scsi initiator settings after upgrade to 6.4.x+ firmware
+6594395 "Options: true false" menu interrupts OBP reset
+6593547 IO-Domain-Reset: ERROR: Last Trap: Watchdog Reset
+6590384 V125(El paso): Could not read diag-level from NVRAM!
+6585340 uadmin 2 0 and reboot reads old bootmode settings (should be cleared)
+6581085 Can't boot over XAUI network interface
+6550743 (RFE) Jupiter processor support for OPL platforms
+6550717 reset.bin too big. Change the N1 POST PROM offset from 1M to 2M
+6547428 the warning message has an incorrect spelling. WARNING: No response from Domain Service "Providor"
+6543749 guest domain : wanboot "miniroot" download takes more than 30 minutes
+6529467 POST should handle preceeding spaces gracefully
+6529207 Compile time complaint in USB2 FCode
+6498780 "Can't locate boot device" message on OPL FF1 and FF2 - IOU slot 0 might be the possible cause
+6494774 Add guest-state support for Niagara platforms
+6478646 PCI bridge probing code does not need to execute config writes to nonexistent devices
+4794955 POST debug menu's help not implemented
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Thursday, October 1, 2009
+
+</pre></body></html>

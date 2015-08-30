@@ -1,0 +1,92 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 119245-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire v440 netra 440
+Synopsis: Hardware/PROM: Sun Fire V440 and Netra 440 Flash PROM Update
+Date: Jun/28/2006
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.18.10, POST 4.18.10, OBDIAG 4.18.10
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sun fire v440, netra 440
+
+BugId's fixed with this patch: 4826050 5057046 5064141 5074012 6173881 6191858 6201101 6207436 6210939 6234769 6256336 6256337 6263301 6265745 6267632 6290205 6310450 6320921 6321482 6323579 6326496 6332920 6335492 6349469 6352494 6358075 6364700 6381105
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunFire440
+unix.flash-update.SunFire440.sh
+
+Problem Description:
+
+6381105 obp needs to support RoHs scsi disk bkpln 501-7344 for Netra 440
+6364700 "Add obdiag support for AM29LV017D and AM29LV033 flashprom devices"
+6358075 Add RoHS V440 numbers.
+6352494 "Add obp support for AM29LV033 flashprom device"
+6349469 "RoHS V210: ERROR   : pci14e4 Misc Local Control register"
+6335492 When CPUs on module B are disabled then CPUs on module A are effectively disabled.
+6332920 USB OBdiag test fails due to level2 method in dropins
+6326496 add workaround to USB FCode for Cypress CY7C65640 USB hub non-compliance
+6323579 fiesta/post CPU functional tests fail
+6321482 Post selection menu entry 12 not possible 
+6320921 More info desired on Hardware Fatal Reset
+6310450 error reporting AFSR/AFSR-ext using engineering thrasher test on camelot system
+6290205 prtdiag showes wrong bus freq. for c5 slots
+6267632 .version command from ok prompt will print out the wrong POST version (POST 4.49.48)
+6265745 Code to clear PCI error status bits on the host bridge is incorrect
+6263301 System fails post initialization and is unable to boot.  
+6256337 Need to fix POST poll_mc_timing routine to support multiple timing configs 
+6256336 Need TH2 timing values for 10:1 1500Mhz support
+6234769 Fix POST command Warning message
+6210939 OP Needs to get actual frequency from POST when IO slot is in PCIX mode 
+6207436 Need to add support for PCI-Express compatible
+6201101 we need to always clear memory when releasing
+6191858 xmits-slot-names string-array needs correction
+6173881 obdiag fails on active instance
+5074012 Seen ERROR: error-reset-cleanup:xir has occurred message on console. 
+5064141 post does not get triggered when the triggers are set to error-reset
+5057046 Strangely-indented error messages
+4826050 RED_State exception does not trigger POST, OBDiag when error-reset trigger set
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+ 
+                &gt;&gt;&gt; END &lt;&lt;&lt;
+
+Special Install Instructions:
+ 
+
+README -- Last modified date:  Wednesday, June 28, 2006
+
+</pre></body></html>

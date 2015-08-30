@@ -1,0 +1,232 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 127579-02
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: hardware/prom sun blade[tm] t6300 sun system firmware 6.5.4 flashprom update sysfwdownload ldoms
+Synopsis: Hardware/PROM: Sun Blade[TM] T6300 Sun System Firmware Update  LDOMS
+Date: Nov/02/2007
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 6.5.4
+
+Xref: 
+
+Topic: Sun Blade[TM] T6300 Sun System Firmware 6.5.4 flashprom update
+
+Relevant Architectures: sparc
+Note:
+Please see the important notes below in the Special Install Instructions.
+
+BugId's fixed with this patch: 6183557 6381064 6431870 6457230 6470218 6471957 6484116 6494272 6494280 6498030 6503009 6517126 6518288 6519617 6524613 6526870 6529934 6530261 6532334 6534028 6534031 6534078 6534079 6535199 6535562 6535704 6537035 6537374 6538369 6538372 6539675 6539865 6540125 6540632 6542792 6542956 6543418 6543430 6543748 6544197 6545197 6545200 6545566 6546133 6546572 6546902 6547696 6547922 6548853 6549753 6553966 6554288 6554367 6554568 6554864 6554951 6561964 6561965 6562094 6563086 6565050 6565426 6565965 6566068 6566483 6566732 6567509 6568533 6569457 6569954 6569957 6569960 6569963 6570233 6570239 6570246 6570254 6570266 6570289 6570913 6572064 6572068 6572491 6572595 6573618 6574105 6574109 6575306 6576143 6577750 6579294 6580605 6580778 6581303 6581305 6581583 6581605 6581629 6583816 6585013 6586180 6586438 6586624 6586719 6587533 6589734 6591789 6593002 6593132 6593547 6594410 6594439 6594929 6595293 6595500 6596474 6596497 6596537 6596643 6597805 6597993 6598000 6598601 6598640 6599022 6600521 6602324 6604239 6604542 6609024 6610097 6612022
+
+Changes incorporated in this version: 6554568 6570266 6570289 6572595 6577750 6580778 6586624 6589734 6593132 6593547 6594439 6594929 6595293 6595500 6596474 6597805 6597993 6598000 6598601 6598640 6599022 6600521 6602324 6604239 6604542 6609024 6610097 6612022
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-6_5_4-Sun_Blade_T6300_Modular_Server.bin
+sysfwdownload
+
+Problem Description:
+
+6612022 N1 POST hangs during Enable L2 Cache 
+6610097 StPaul: cfgadm -al output failed to show PCI-EMO 
+6609024 FERG marks some e-reports from post as invalid and drops them 
+6604542 hv debug internals should be hv software traps 
+6604239 PRINT_ERROR_TABLE_ENTRY macro should only read trap regs when TL&gt;0 
+6602324 HV/dumbreset needs update for simulation support 
+6600521 Pelton panic after multiple Solaris reboots: Fatal error has occurred in: PCIe root complex. 
+6599022 There are two SET_SIZE(niu_reset) statements in niu.s 
+6598640 HV should send non-resumable ereport for precise ldau
+6598601 HV should record l2 bank info for L2 ND errors 
+6598000 dump_l2_cache may store incorrect bank info 
+6597993 dump_dbu_data doesn't change TL when reading %tpc etc 
+6597805 bzero missing branch target 
+6596474 v1 crypto api breaks after a bit 
+6595500 Last Trap: Fast Data Access MMU Miss on VDS stress tests 
+6595293 WDR traps are handled at the wrong trap level 
+6594929 sun4v systems lose their scsi initiator settings after upgrade to 6.4.x+ firmware 
+6594439 ASR "showcomponent" adds another line of info when a component is disabled. 
+6593547 IO-Domain-Reset: ERROR: Last Trap: Watchdog Reset 
+6593132 Changes to obp variables w/non default LDOM cfg do not persist 
+6589734 T2000 6.4.6 causes cacaoadm key generation to fail 
+6586624 physical-platform information missing from prtpicl and prtdiag 
+6580778 ferg.invalid message appears because HV sends a SER with no error bits 
+6577750 S10U3: when host is at UNIX, after "resetsc" completes, console IO is lost 
+6572595  entPhysicalSerialNum for :CH node should be the blade serial # 
+6570289 PCI-EMs missing in SNMP tree in ALOM 
+6570266 Incorrect sensor state change trap generated when environmental sensors cross warning thresholds 
+6554568 Update ALOM-CMT to support StPaul in C48 
+ 
+ 
+(from 127579-01)
+6596643 Flashing sysfw6.5.x causes a t2000 to hang after poweron on 64GB config
+6596537 When Fan Module is removed and reinserted the tachometer nodes in SNMP listing not restored
+6596497 In SNMP NEM variable shows incorrect entPhysicalIsFRU value as "false" instead of "true"
+6594410 todoffset.0 file is updated when either Solaris date or SC date is changed
+6593002 Need to eliminate race condition when registering and unregistering domain services
+6591789 service channels are not initialized properly 
+6587533 HV Abort: &lt;Unknown?&gt; (82859d0) - PowerDown when starting guest domain that owns bus pci@780
+6586719 All N1 platforms have the same hostid 
+6586438 hypervisor vpci_iommu_getbypass() API needs to return ENOTSUPPORED 11   
+6586180 Firmware should not attempt to boot off incompatible SP configs 
+6585013 dimm error decode may not be correct after a warm reset 
+6583816 POST errors are not processed correctly on N1 platforms 
+6581629 port solaris ldc fixes to vbsc 
+6581605 hang in ldc channel reset 
+6581583 stream mode ldc channels are not properly reset 
+6581305 vPCI config_get config_put io_peek io_poke arguments should be validated in the wrapperunctions 
+6581303 vPCI dma_sync function for piu needs to accept one or both the I/O directions 
+6580605 Boot hangs and displays: ds@1: &lt;data: invalid handle 
+6579294 Enhancements to Systest (test within debug menu)
+6576143 don't assume scratchpad registers are zeroed at startup 
+6575306 sc sram is no longer properly initialized when the host powers on. 
+6574109 incessant whining about "Free memory not alloc'd" after many soft-resets 
+6574105 Issuing a boot to the cdrom device hangs the system if no cdrom media is installed
+6573618 Unused POST code6573367 Disabling cpu8, disables core1 with failed device:MB/CMP0 (CORE) MAU (ERROR: TEST = MAU GF2M MODEXP)
+6572491 after VBSC has configured the mdset it should then remove all NULL nodes from the MDs. 
+6572068 Hypervisor hangs in pci_msiq_sethead() 
+6572064 POST being run on managed system even when diag_trigger is set to none 
+6570913 pci_msiq_setstate() failed to set msiqstate as PCI_MSIQSTATE_ERROR 
+6570254 create SUNWsysfwdownload.v packaging in alom-cmt gate
+6570246 CPU-core entities' sunPlatCircuitPackReplaceable value is "true" instead of "false" 
+6570239 DIMM LED entities' entPhysicalContainedIn property incorrect 
+6570233 No NEM entities in ALOM SNMP tree 
+6569963 DIMM slots' sunPlatEquipmentHolderStatus is notInTheAcceptableList in SNMP tree 
+6569960 Fan locations' HolderStatus is empty 
+6569957 SNMP tree missing power supply entities 
+6569954 SNMP tree has incorrect HDD entities 
+6569457 pci_msi_getvalid() always returns MSI_VALID, never returns MSI_INVALID 
+6568533 change declaration of rv in snmp_thr from uint_t to int + make 'select timed out' warning a dbg msg 
+6567509 mmu_tsb_ctx0() and mmu_tsb_ctxnon0() do not check pageszidx or pageszmask properly 
+6566732 IO operation fails randomly after switch-cpu
+6566483 Delayed reconfig of primary domain fails if there are no guest domains 
+6566068 Off by one error in loop indexing used to access mds in a mdset 
+6565965 HV build produces warnings on macro redefinition 
+6565426 Need ability to get FW version info in libpcp via sysfwdownload channel. 
+6565050 need to clear the sram reset cmd queues and ldc queues before the host powers on 
+6563086 multicast mac address not accepted by the alom ports of the T2000 
+6562094 utilization statistics do not account for currently yielded strands 
+6561965 a content-version property should be added to the root node of the HV MD 
+6561964 hypervisor should check for a compatible content-version property in the HV MD 
+6554951 remove pci reset workaround form vbsc pri 
+6554864 virtual-console stops printing output 
+6554367 Need to remove no_pci_reset property to re-enable stop -f 
+6554288 cwq parsing breaks ontario 
+6553966 hypervisor is scrubbing over downloaded MDs which sit above the HV in memory  wrong 
+6549753 Montoya RTM needs support booting from USB disks.
+6548853 hypervisor sample guest should be brought up to date 
+6547922 service channel initialization is a mess 
+6547696 vintr_gettarget() API call fails completely due to programming error 62 or 63 
+6546902 guest facing service channels should be retired 
+6546572 hypervisor code needs some cleanup 
+6546133 PCI bus reset for PLX parts needs to be improved 
+6545566 Sun4v call for dma-sync with zero-length buffer results in hypervisor errors
+6545200 OpenBoot should only start CPUs which are part of a domain, as indicated by MD
+6545197 OpenBoot should use HV API CPU_YIELD when looping in slave loop
+6544197 Virtual intr hcalls return EINVAL for valid input  output of hypervisor build 
+6543748 guest domain : ERROR: Last Trap Memory Address Not Aligned when "watch-net-all" is interrupted
+6543430 OBP should retry a cpu_send_mondo hcall if EWOULDBLOCK is returned
+6543418 A forced stop of an LDom can result in a panic on the next boot 
+6542956 Lack of Voltage averaging in showenvironment output causes customer concern
+6542792 FERG throws away way information in D$ ereports 
+6540632 Need definition of OBP power-off for LDOMs systems
+6540125 'bootmode bootscript' does not work in an LDoms environment 
+6539865 help setsc diag_level shows default value is "max" but real default value is "min" 
+6539675 Fix bugs in Systest (performance counter overflow and malloc_bank for half pop systems)
+6538372 add build_xx and **PROTOTYPE** to the output of the what command on the delivery binaries 
+6538369 add build_xx and **PROTOTYPE** to the output of the what command on the delivery binaries  
+6537374 init_sram_critical_sect() is not clearing intended regions 
+6537035 NIU FCode driver needs to clear remote_fault_detected bit (new for N2 2.0 parts)
+6535704 guest start and stop operations need to be synchronized 
+6535562 The guest exit reason field in the guest struct is not used 
+6535199 stop_crypto and stop_mau, dr. jekyll and mr. hyde, one of them must die 
+6534079 update alom-cmt version #s in the gate to 1.5.x 
+6534078 update version files in the vbsc1.5.x-gate 
+6534031 Stack error in NIU FCode driver
+6534028 Unable to boot from NIU port 1 (XAUI0)
+6532334 When LDOMs had trouble loading up properly, serial port is unusable
+6530261 ttrace_freeze() never works, since HV is using the wrong data structure to check for validity 
+6529934 IO device probing on sun4v platforms needs to be hardware agnostic
+6526870 OBP should automatically create devaliases based on the devalias properties given by zeus
+6524613 OpenBoot does not handle LDC resets properly
+6519617 ds_dispatch_event should be executed in its own thread 
+6518288 "Failed to send email alert" messages after SC is reset when netsc_dhcp is set to true 
+6517126 primary domain panics when stopping an I/O service domain 
+6503009 1.4 hypervisor gate needs lint &amp; cstyle cleanup 
+6498030 Add platform support for N2 
+6494280 API group 0x3 misnamed 
+6494272 CPU_STATE_LAST_PUBLIC defined incorrectly 
+6484116 Console loses characters on large paste 
+6471957 If user requests core dump too early, HV powers down and refuses to ever boot again 
+6470218 Incorrect/inconsistent error message displayed by removefru with invalid PSn 
+6457230 frucapture should test if destination FTP file exists before overwriting 
+6431870 IO forwarding ranges not properly shut down in PCI bridge FCode
+6381064 System cannot boot with input set to type-7 keyboard plugged into front Ontario T2000 usb port.
+6183557 forth.exe uses tokenize.exe which violates the SPARC ABI causing a SEGV crash
+
+Patch Installation Instructions:
+----------------------------- 
+ 
+Please refer to the Install.info file for instructions on updating
+the firmware flashprom using the files included in this patch.
+
+Special Install Instructions:
+----------------------------
+ 
+Note 1: Firmware component revisions included with this release:
+ 
+	System Firmware 6.5.4 Sun Blade[TM] T6300 2007/10/05 15:15
+	---------------------------------------------------
+	ALOM-CMT v1.5.3  Oct  5 2007  14:00:27
+	VBSC 1.5.7  Oct  5 2007  14:28:11
+	Hypervisor 1.5.2 2007/09/25 08:39
+	OBP 4.27.6 2007/10/05 07:11
+	Sun Blade T6300 Server Module POST 4.27.6 2007/10/05 07:40
+ 
+Note 2: Please refer to the online documentation for feature and version
+        compatibility between Sun System Firmware and LDom Manager releases.
+        LDoms release notes are available on http://docs.sun.com under this 
+        title and part number:
+        Logical Domains (LDoms) 1.0.1 Release Notes 820-3269
+ 
+ 
+ 
+Note 3: By using Sun System Firmware (Firmware) you agree to the terms of the
+        Software License Agreement and Entitlement (SLA/Entitlement) found in
+        Sun_System_Firmware-6_5-download_SLA_and_Entitlement.txt.  By using the
+        Firmware, you agree to the terms of the SLA/Entitlement. If you do not
+        agree to all of the terms promptly destroy the unused Firmware.
+ 
+Note 4: Upgrading to Sun System Firmware 6.5.4 (or later) requires Solaris 10
+        Update 3 + patches (or later) to be installed.
+
+Note 5: If using LDoms 1.0, then you must upgrade to LDoms 1.0.1 before
+        installing this patch.  Please refer to the LDoms Administrative Guide
+        available on http://docs.sun.com under this title and part number:
+        Logical  Domains (LDoms) 1.0.1 Administration Guide 820-3268
+
+README -- Last modified date:  Monday, March 3, 2008
+
+</pre></body></html>

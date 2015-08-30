@@ -1,0 +1,184 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 111991-07
+Keywords: netra t1
+Synopsis: Hardware/PROM: Netra T1 200 PROM upgrade patch
+Date: Nov/03/2003
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 8 9
+
+SunOS Release: 5.8 5.9
+
+Unbundled Product: Netra T1
+
+Unbundled Release: 1.0
+
+Xref: 
+
+Topic: Netra T1 200 PROM (4.0.17) upgrade
+
+Relevant Architectures: sparc.sun4u
+
+BugId's fixed with this patch: 4402966 4403002 4429159 4475364 4498663 4522252 4631282 4646464 4722762 4882345 4896390
+
+Changes incorporated in this version: 4896390
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Update.to.flapjack2.4.0.17@OS
+copyright
+
+Problem Description:
+
+4896390	 DHCP problem during jumpstart install
+ 
+(from 111991-06)
+ 
+4882345	 Turn memory clocks off for the unpopulated DIMM slots.
+ 
+(from 111991-05)
+ 
+4498663	 Can't send "break" to OBP on LOM when extra character typed before "#." &amp; "break
+4722762	 Error at Boot time: invalid vector Intr: number 0x7de, pil 0x0
+ 
+(from 111991-04)
+ 
+4646464	 T1 200 does not support SCM pcmcia card reader.
+ 
+(from 111991-03)
+ 
+4631282	 Jumpstart install on Netra T1 do RARP/ARP timeout
+ 
+(from 111991-02)
+ 
+4475364	 POST generates error message for cards with PCI bridge
+ 
+(from 111991-01)
+ 
+4403002	 Unexpected message seen during system reset
+4402966	 System continually ran POST during reboot testing
+4429159	 Machine hang or Data Access Exception error encountered on power on
+4522252	 Incorrect info in README file for patch 111991-01
+
+Patch Installation Instructions:
+--------------------------------
+This is not an OS patch and is not installed with the standard
+patchadd(1M) command.  After unpacking the patch, follow the "Special
+Install Instructions" below to upgrade the system PROM.
+ 
+This patch is not OS-dependent.  The list of releases shown under the
+"Solaris Release" and "SunOS Release" sections may not be complete.
+The absence of the running Solaris Release or SunOS Release from the
+lists above does not preclude the installation of this patch on the
+hardware.
+
+Special Install Instructions:
+-----------------------------
+Bring the system to be upgraded down to single user mode, and log in
+as root.  Run the script provided within this patch, as follows:
+ 
+  # chmod +x Update.to.flapjack2.4.0.17@OS
+  # ./Update.to.flapjack2.4.0.17@OS
+ 
+The following output will be seen:
+ 
+  # ./Update.to.flapjack2.4.0.17@OS
+ 
+ 
+  **************************************************
+  *   Running Update.to.flapjack2.4.0.17@OS        
+  *   Generated Mon Oct 6 17:15:01 BST 2003        
+  **************************************************
+ 
+ 
+  WARNING: This Program will write a new PROM image.
+           Are you sure you want to do this?
+ 
+  Enter 'C' to Continue installation or 'T' to Terminate
+  C
+  Stripping bundled file: done
+  Decoding and untaring: done
+  Verifying checksums: done
+  Installing flashprom driver file: done
+ 
+  WARNING:  Updating Flash PROM with new system firmware in progress...
+            It may take a few minutes.
+   ******   DO NOT INTERRUPT OR POWER-DOWN THE SYSTEM   *******
+ 
+  Updating Netra T1 200/205 / Netra 120 / Sun Fire V120 PROM
+  1 Erasing ... Done.
+  1 Verifying Erase ... Done.
+  1 Programming ... Done.
+  1 Verifying Program ... Done.
+  ***** Update.to.flapjack2.4.0.17@OS Completed Successfully
+ 
+  ****************************************************************
+  *   NOTE: updated Firmware takes effect after next reboot or   *
+  *   Power cycle of the system.                                 *
+  *   If there is any configuration support to become effective, *
+  *   you have to use -r with your boot command                  *
+  ****************************************************************
+  # 
+ 
+When the upgrade is complete, shut down and then power cycle the
+system.  After the system has been rebooted, the unpacked patch may be
+removed if desired.
+ 
+After performing the above, the upgrade may be verified using one of
+the following methods:
+ 
+  1.  At OBP, use the '.version' command.  The firmware versions
+      displayed should be:
+ 
+        ok .version
+	Firmware CORE Release 1.0.17 created 2003/10/6 17:9
+	Release 4.0 Version 17 created 2003/10/06 17:10
+	cPOST version 1.0.17 created 2003/10/6
+	CORE 1.0.17 2003/10/06 17:09
+        ok
+ 
+  2.  When running Unix, use the prtconf(1M) command.  The version
+      displayed should be:
+ 
+        # prtconf -V
+	OBP 4.0.17 2003/10/06 17:10
+        # 
+ 
+******************************************************************************
+** WARNING **** WARNING **** WARNING **** WARNING **** WARNING **** WARNING **
+******************************************************************************
+ 
+*  Please read the instructions carefully and completely.  Please follow the
+   instructions exactly as stated.
+ 
+*  Failure to follow the instructions could result in either a defective
+   system board or an unsuccessful flash PROM update.
+ 
+*  This patch cannot be installed on a running system because the installation
+   requires that the system be brought down.  Be sure to schedule down time to
+   install this patch.
+ 
+*  Any "Required" patches specified above must be installed on the system
+   before performing the PROM upgrade.  If the patches are not installed,
+   the upgraded system will not boot.
+ 
+*  The upgrade will replace the whole of the current system PROM image
+   with the new image provided in this patch.  Do not perform the upgrade
+   if you have added custom dropins to the system PROM.
+ 
+******************************************************************************
+** WARNING **** WARNING **** WARNING **** WARNING **** WARNING **** WARNING **
+******************************************************************************
+
+README -- Last modified date:  Friday, December 5, 2003
+
+</pre></body></html>

@@ -1,0 +1,447 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 145141-01
+
+NOTE:
+***********************************************************************
+Your use of the firmware, software and any other materials contained 
+in this update is subject to My Oracle Support Terms of Use, which 
+may be viewed at https://support.oracle.com.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: h101473sc h101414sc 73gb 146gb disk firmware sas
+Synopsis: Hardware SAS  Disk Drive Patch : Download program and SAS Disk Drive firmware
+Date: Jun/11/2010
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: 73GB 146GB Hitachi SAS disks
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc i386
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+Note: Firmware update to be upto date with generic Hitachi drive firmware
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	/var/sadm/swimages/145141-01/6120.sh
+	/var/sadm/swimages/145141-01/H101414SC.SA25.fw
+	/var/sadm/swimages/145141-01/H101473SC.SA25.fw
+	/var/sadm/swimages/145141-01/bitops
+	/var/sadm/swimages/145141-01/download
+	/var/sadm/swimages/145141-01/download32
+	/var/sadm/swimages/145141-01/download64
+	/var/sadm/swimages/145141-01/downloadx32
+	/var/sadm/swimages/145141-01/downloadx64
+	/var/sadm/swimages/145141-01/mdload
+	/var/sadm/swimages/145141-01/mload
+	/var/sadm/swimages/145141-01/patchtoc
+	/var/sadm/swimages/145141-01/x86/mdload
+/var/sadm/swimages/145141-01/.download
+
+Problem Description:
+
+The patch has the following bug fixes:
+ 
+Previous History:
+ 
+Installation Instructions:
+ 
+--------------------------------
+ This Patch has three disk drive Firmware Installer Utilities.
+ 
+ 1. This patch includes firmware installing utility (mload) that
+ is required for installing drive firmware in SE3510 RAID enclosures.
+ 2. This patch includes firmware downloading utility (download)
+ that will upgrade or download code to drives in NON-RAID and in RAID
+ pass through environments.
+ 
+ The script(s) are intended for use on Sun host systems only.
+ 
+***********************************************************************
+ 
+ To install the contents of this Patch see the pertinent section below.
+ 
+ Sections Index
+ A. Initial Installation Instructions.
+ B. SE3510 System Installation Instructions
+ C. Non RAID System Installation Instructions
+ 
+ 
+ 
+ A. **************** Initial Installation Instructions************
+ 
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. The system MUST BE IDLE during the download process!  No other
+   programs should be running while using this utility is being
+   used.  Failure to do so may cause the devices being upgraded
+   to fail or the system to crash.
+ 
+   Volume managers such as Veritas, SDS, Arraymon, and Vold must
+   be idle and any disks unconfigured.  Note, due to an open/close
+   accounting bug (see bug 4129295) in sd and ssd drivers, you must
+   reboot the system after unconfiguring any disks used by them.
+   This accounting bug prevents the upgrade utility from acquiring
+   sole ownnership of the disk so it will not be eligible for upgrade.
+   Note, Arraymon will be disabled during download startup and enabled
+   on exit.
+ 
+   Any other computers sharing the same I/O bus as the host system
+   must be either disconnected or offline to prevent possible
+   disruption of the firmware download process.
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.log" or "/var/tmp/download.log", "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+3. This package will only upgrade the identified Sun disks.
+ 
+4. If the High Availability kernel device polling is running, it will
+   be disabled.  It will not be re-enabled.
+ 
+5. If using Veritas, "deport" the volume to release the volume from
+   Veritas control.  Do not "remove" the volume as this will erase
+   the data stored on the Volume.
+ 
+6. Follow the instructions given in sections B and C. You may program one 
+   drive, a range of drives, or all drives at once with this tool.
+ 
+ 
+ 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ 
+1. General guidelines for upgrading:
+ 
+        BACK UP ALL FILESYSTEMS.
+ 
+        STOP ALL APPLICATIONS. The system must be idle during the
+        firmware upgrade process.
+ 
+        UNMOUNT all file systems on the drives to be upgrade.
+        Disks with mounted file systems are not eligible for
+        upgrade.
+ 
+        UNCONFIGURE devices from volume manager.
+ 
+        REBOOT THE SYSTEM if you unconfigured any disks from
+        volume manager (e.g. Veritas).  Otherwise, you will
+        not be able to upgrade any previously configured disks.
+ 
+        UPGRADE the disks.  Follow the given instructions in
+        the procedure section below.
+ 
+        In case of any disruption or unforeseen events happening on the
+        relevant bus during the firmware download process, it may be
+        that the upgraded disk becomes non-functional.  In this event,
+        it will be necessary to swap out the disk. This would happen
+        as a result of an incomplete or corrupted firmware file
+        being downloaded.  Loss of power during the upgrade process
+        would also damage the disk.
+ 
+**NOTE**    If you cannot upgrade devices due to volume manager
+            interference,  try booting of the Solaris 2.6 release CD. Please be
+            advised that you cannot see the ultra3 scsi card with solaris 2.10
+            media.
+            You also cannot use rm6 from the solaris 2.10 media and there are
+            other circumstances under which 2.6 is not usefull. But it will work
+            in many cases.
+ 
+**NOTE**    If a system disk is to be upgraded, the upgrade utility will
+            allow it to be upgraded if the system is in single-user mode
+            (e.g. "boot -s").  Otherwise, the system disk will not be
+            eligible for upgrade.
+ 
+        RECONFIGURE devices to volume manager.
+ 
+**NOTE**    As Download disables kernel high availability device polling,
+            it may be necessary to reboot the system to restart it.
+ 
+**NOTE**    This patch is for SUN A70, SAS JBODs only The
+            patch CANNOT be downloaded if the drives are in a RAID environment
+            Before installing this patch any and all Software AND OR
+            Hardware RAID should be disabled.
+ 
+ 
+**Patch install example**
+1. Download the patch from sunsolve to the /tmp directory.
+3. ftp the 145141-01.tar.Z file to the /tmp directory in the machine used to monitor 
+   the system.
+4. rlogin to the machine used to monitor the system.
+5. Enter the commands:
+6. cd /tmp
+7. uncompress 145141-01.tar.Z
+8. tar -xvf 145141-01.tar
+9. cd 145141-01
+10. pkgadd -d .
+        (Add the 145141-01 package.)
+ 
+ 
+ 
+*****************************************************************************
+*****************************************************************************
+ 
+B. ******************SE3510 System Installation Instructions ***************
+ 
+  Note: For Non RAID System Installation Instructions go to Section D .
+ 
+ Do not use the SCCLI or SSCS disk drive firmware download functions. Use this patch only to
+download f/w.
+ 
+ *For out-of-band upgrades, an Ethernet connection for the StorEdge
+   3510, or two connections if dual controllers are installed, with an
+   IP address assigned, allowing the user to connect to the array via
+   telnet, or a serial connection supporting a tip(1) connection to the
+   array.  Refer to the Sun StorEdge 3000 Family Installation,
+   Operation, and Service Manual for the Sun StorEdge 3510 Fibre Channel Array,
+   section 4.7 for procedures to connect to the array via tip.  Refer
+   to the Sun StorEdge 3000 Family Installation, Operation, and Service
+   Manual for the Sun StorEdge 3510 Fibre Channel Array, Appendix B, section B.2
+   for procedures to connect to the array via telnet.
+ 
+ * For in-band upgrades, a Fibre Channel connection to the array that is being
+   upgraded is needed.
+ 
+Unpack the patch into any convenient directory such as /var/tmp, and refer
+to the Special Install Instructions below.
+
+Special Install Instructions:
+-----------------------------
+ 
+*** Warning *** Warning *** Warning *** Warning *** Warning ***
+ 
+This firmware upgrade procedure will prevent StorEdge 3510 arrays from
+servicing normal I/O requests for three to five minutes.  For this
+reason, all StorEdge 3510 logical disks should be unmounted from any
+Solaris hosts connected to the array for the duration of the install
+procedure.
+ 
+ 
+1. Download the patch from sunsolve to the /tmp directory.
+3. ftp the 145141-01.tar.Z file to the /tmp directory in the machine used to monitor the system.
+4. rlogin to the machine used to monitor the system.
+5. Enter the commands:
+6. cd /tmp
+7. uncompress 145141-01.tar.Z
+8. tar -xvf 145141-01.tar
+9. cd 145141-01
+10. pkgadd -d .
+        (Add the 145141-01 package.)
+ 
+ 
+11. Stop I/O to the StorEdge 3510 array.
+ 
+12.  Use the SCCLI to verify the current controller firmware using the firmware
+    application menu.  Choose "show inquiry-data".  If the
+    firmware version reported is 3.27Q or later, this patch will work.
+ 
+13.  Make certain to quiesce the SAS bus to the minnow.
+ 
+14.  Open a terminal window on the host that will be used to download the
+    firmware.  Change your working directory, if necessary, to the
+    directory in which the patch was unpacked and confirm that the
+    H101414SC.SA25.fw  file is present using the "ls" command.
+ 
+15.  Type "./mload &lt;STOREdge3510 IP Address&gt;"  at the command prompt.
+ 
+          mload responds with "Please Enter Hostname or IP Address Of 3xxx platform for upgrade:"
+ 
+     Re-enter the IP &lt;STOREdge3510 IP Address&gt; of your STOREdge3510.
+ 
+ 
+16.  Download new firmware to all disks at the same time by typing
+        the following command at the prompt:
+ 
+        download disk-firmware H101414SC.SA25.fw "H101414SCSUN146G"
+ 
+   You will receive the following warning. Answer it as below:
+    WARNING: This is a potentially dangerous operation.
+    The controller will go offline for several minutes.
+    Data loss may occur if the controller is currently in use.
+    Are you sure? y
+    and then wait 4-5 minutes until the prompt appears again.
+ 
+17.  Verify that the latest disk firmware is downloaded by choosing the
+"show disks" command to view the DISK drive's firmware revision.
+ 
+ 
+*****************************************************************************
+*****************************************************************************
+ 
+C.******************** Non RAID System Installation Instructions ***********
+ 
+2. Procedure:
+ 
+The procedure to be used for upgrading the drive firmware is
+explained below. Upgrade time will be approximately 3 minutes per drive. 
+ 
+a) Unpack the patch (through tar) into any directory, say &lt;patchdir&gt;.
+   (Note, if the patch ends in a ".Z" suffix, you will need to first
+   uncompress it.)  So, you would type:
+        % su root
+        # cd &lt;patchdir&gt;
+        # tar xf &lt;patch tar file&gt;
+ 
+b) In the patch directory, as root, type the "download" command:
+        # ./download
+ 
+c). Select the devices to be upgraded (see example below).
+ 
+**NOTE**    Any device that is in-use by another application will not
+            be upgraded.  The following warning message will be
+            issued:   c1t3d0s0: Open failed, you must be the sole user!
+ 
+**NOTE**    This upgrade can result in error messages in the console
+            window and/or the terminal "download" window.  It is
+            normal for the SCSI link to go offline for a few
+            seconds and then return to the online state.  The disk
+            mode pages will also be restored to the default values.
+ 
+**NOTE**    For A3000/1000's, the internal disk "C" and "T" numbers
+            are derived from the first active controller found.  The
+            "D" number is encoded to indicate it's position using the
+            following formula:  D = (tray_number * 100) + target_id.
+ 
+d). After the devices have been upgraded, the displayed device
+    list will be refreshed.  Devices remaining to be upgraded or
+    failed devices will be displayed.  Failed devices will be
+    marked with a "****" in the rev field.
+ 
+**NOTE**    If all devices have been upgraded, the following
+            message will be displayed:   No devices found to upgrade!
+ 
+e). To display the full list of devices including the upgrades ones,
+    type 'inquiry' (see example below).
+ 
+ 
+f). Quit the "download" program by typing 'quit' (see example below).
+ 
+ 
+ 
+**************************************************************************
+**************************************************************************
+EXAMPLES:
+ 
+ 
+scsvr-04# tar -xvf 145141-01.tar
+x 145141-01, 0 bytes, 0 tape blocks
+x 145141-01/download32, 299940 bytes, 586 tape blocks
+x 145141-01/download64, 371148 bytes, 725 tape blocks
+x 145141-01/.download, 262 bytes, 1 tape blocks
+x 145141-01/H101414SC.SA25.fw, 950272 bytes, 1856 tape blocks
+x 145141-01/H101473SC.SA25.fw, 950272 bytes, 1856 tape blocks
+x 145141-01/download, 884 bytes, 2 tape blocks
+x 145141-01/mload, 1924 bytes, 4 tape blocks
+x 145141-01/mdload, 3574636 bytes, 6982 tape blocks
+x 145141-01/x86, 0 bytes, 0 tape blocks
+x 145141-01/x86/mdload, 2910968 bytes, 5686 tape blocks
+x 145141-01/downloadx32, 277976 bytes, 543 tape blocks
+x 145141-01/downloadx64, 445648 bytes, 871 tape blocks
+x 145141-01/patchinfo, 221 bytes, 1 tape blocks
+x 145141-01/README.145141-01, 17871 bytes, 35 tape blocks
+ 
+scsvr-04# ls
+145141-01      145141-01.tar
+scsvr-04# cd 145141-01
+scsvr-04# ls
+download           downloadx32        mload              H101414SC.SA25.fw
+download32         downloadx64        patchinfo          H101473SC.SA25.fw
+HUS1530SB.SA25.fw  download64         mdload             README.145141-01    
+x86
+scsvr-04# ./download
+Firmware Download Utility, V4.3.1
+ 
+**************************  WARNING  **************************
+NO OTHER ACTIVITY IS ALLOWED DURING FIRMWARE UPGRADE!!!
+No other programs including any volume manager (e.g. Veritas,
+SDS, or Vold) should be running.  Other host systems sharing
+any I/O bus with this host must either be offline or
+disconnected.  Any interruption (e.g. power loss) during
+upgrade can result in damage to devices being upgraded.
+ 
+Any disk to be upgraded should first have its data backed up.
+***************************************************************
+ 
+Searching for devices...
+ 
+DISK DEVICES
+Device         Rev   Product
+c0t1d0:        SA23  H101414SC -- SUN146G
+c0t2d0-c0t3d0: SA23  H101473SC -- SUN72G
+Total Devices:  3
+ 
+ 
+Enter command: p
+Upgrading devices...
+ 
+c0t2d0: Successful download
+c0t3d0: Successful download
+c0t1d0: Successful download
+ 
+c0: recovery delay, 84 sec.
+ 
+ 
+ 
+DISK DEVICES
+No devices found to upgrade!
+ 
+ 
+Enter command: inq
+ 
+DISK DEVICES
+Device  Rev   Product               S/N
+c0t1d0: SA25  H101414SC -- SUN146G  06399020E8
+c0t2d0: SA25  H101473SC -- SUN72G   072621EED9
+c0t3d0: SA25  H101473SC -- SUN72G   072621EEE9
+ 
+Total Devices: 3 
+ 
+ 
+Enter command: q
+ 
+ 
+SPECIAL INSTRUCTIONS:
+---------------------
+None.
+
+README -- Last modified date:  Tuesday, October 16, 2012
+
+</pre></body></html>

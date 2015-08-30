@@ -1,0 +1,102 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 116753-01
+Keywords: axi obp prom update
+Synopsis: Hardware/PROM: AXi OBP update for SUNW,UltraSPARC-IIi
+Date: Mar/29/2004
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 8
+
+SunOS Release: 5.8
+
+Unbundled Product: Hardware/PROM/AXi
+
+Unbundled Release: OBP 3.10.13
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4395642 4449751
+
+Changes incorporated in this version: 4449751 4395642
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+AXi.OBP.3.10.13
+AXi.OBP.3.10.13.Floppy
+AXi.OBP.3.10.13.Release.Notes
+AXi.OBP.3.10.13.Unix
+
+Problem Description:
+
+4449751    Axi OBP 3.10.12 FCS does not has correct warning and shutdown temperatures
+4395642    obdiag hangs in interactive/non-interactive mode].
+
+Patch Installation Instructions:
+-------------------------------- 
+ 
+Refer to the special installation instructions described below.
+
+Special Install Instructions:
+----------------------------- 
+ 
+ 
+    This patch has following files:
+ 
+        AXi.OBP.3.10.13.Release.Notes - Firmware release notes
+        AXi.OBP.3.10.13.Unix   	- OS level script for OBP update
+	AXi.OBP.3.10.13.Floppy 	- OBP floppy bianry
+        AXi.OBP.3.10.13        	- OBP firmware binary
+ 
+ 
+    Firmware update sequence:
+ 
+        1. Update OBP (OS level update method is highly
+           recommended).
+ 
+ 
+    Instructions for OS level SPARC firmware update script:
+ 
+        o Copy "AXi.OBP.3.10.13.Unix" file to the local
+          disk of the AXi system.
+ 
+        o Execute AXi.OBP.3.10.13.Unix as "root"
+ 
+        o After flash update is done, halt OS to drop to
+          OBP "ok" prompt. Power cycle the AXi board.
+ 
+ 
+    Instructions for OBP level floppy update:
+ 
+        o Copy "AXi.OBP.3.10.13.Floppy" file to a floppy disk.
+ 
+        o On the OBP 'ok' do the command
+ 
+          ok boot floppy nolabel
+ 
+        o Power cycle the AXi board.
+ 
+ 
+    Instructions for OBP level update:
+ 
+        o Update the system flash using flash-update command
+ 
+                ok flash-update &lt;complete_path&gt;/AXi.OBP.3.10.13
+ 
+        o Power cycle the AXi board.
+
+README -- Last modified date:  Monday, March 29, 2004
+
+</pre></body></html>

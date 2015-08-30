@@ -1,0 +1,173 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 121683-06
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire v210/v240 netra 210/240 obp rohs wanboot panther
+Synopsis: Hardware/PROM: Sun Fire V210/V240 Netra 210/240 Flash PROM Update
+Date: Aug/31/2007
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.22.33, POST 4.22.33, OBDIAG 4.22.33
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 5079227 6181985 6202440 6219577 6230541 6244643 6265745 6273179 6276146 6286277 6297452 6297463 6297477 6300724 6308683 6313800 6314264 6315148 6322907 6322957 6323565 6323585 6323590 6325842 6325917 6326930 6329044 6332106 6333659 6333723 6338877 6341068 6342255 6344802 6344992 6345548 6345861 6346222 6347455 6348525 6352086 6354366 6358072 6361097 6361563 6364445 6366606 6375990 6376657 6379979 6380622 6381084 6381115 6381385 6388673 6389161 6389988 6390526 6391361 6392539 6392742 6392744 6399627 6402909 6406142 6412474 6421833 6422909 6423038 6423761 6423788 6423803 6427093 6433152 6436300 6445593 6454640 6455202 6456885 6464267 6466207 6466695 6470888 6480389 6487277 6488855 6500285 6512280 6520058 6546593 6550351 6550398 6559998 6561957
+
+Changes incorporated in this version: 6561957 6559998 6550398 6550351 6546593 6520058 6487277 5079227
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunFire240
+unix.flash-update.SunFire240.sh
+
+Problem Description:
+
+6561957 OBP bge ethernet driver needs performnace improvement when load a big file (wanboot 108 MB)
+6559998 Fix to cr 6520058 can cause FORTH stack corruption. 
+6550398 flx17584: Observed "/console: error to writing to console"
+6550351 Issuing a boot to the cdrom device hangs the system if no cdrom is installed.
+6546593 WANboot should not reflect packets
+6520058 Schizo FCode driver does not support CDMA interrupts which can lead to Solaris panic. 
+6487277 ./dimmCheck hangs intermittently when we have 8 x Samsung dimms in a Chicago system
+5079227 This, ")" in between "Copyright" and "2004", is not in the right place.
+ 
+(From 121683-05)
+ 
+6512280 Add Device ID for new Shrink DIE of Sansung E$ SRAM to POST device database (POST allows device).
+6500285 FW keying is required to support UltraIV+ high power modules.
+6488855 flx18074: ERROR: motherboard SEEPROM access failed
+6181985 local-mac-address of bge interface is seen on pci card when net NVALIAS is duplicated
+ 
+(From 121683-04)
+ 
+6480389 V240 System with OBP4.18.10 generates "ERROR: /memory: CPU1 Bank 0 DIMMs are from different vendors"
+ 
+(From 121683-03)
+ 
+6470888 OBP firmware will not update on N210s with 375-3471 mainboard
+6466695 setenv command shows "Usage: setsmcenv option-name valuse
+6455202 "supported-network-types" on BGE will breaks with 1000Mbps settings
+6422909 When first power on and at OBP level the wrong characters appear on screen...
+6244643 Need to modify initialization time of 2X Slimline DVD-R/-RW drive to much lesser time
+ 
+(From 121683-02)
+ 
+6466207 Fire PCI-E bridge version should be determined based on fire-revision# rather than module-revision#.
+6464267 A single 1050 MHz module produces an error after a soft reset when in diag mode.
+6456885 POST trashes OBP flags
+6454640 missing device_type property on ebus node.
+6445593 Extra activities on V245's I2C bus may cause false POST failures
+6436300 netconsole gets stuck while running obdiag with base fabric interface
+6427093 flx18052: Hot swap may cause chassis-type to be set to zero, FW 4.22.4
+6423038 Third party graphics card (Barco) not recognized after upgrading OBP 4.9.7 to 4.17.1
+6390526 USB 2.0 Hub gets lost to OBP after Solaris EHCI driver run
+6313800 OBP should read and print the 'test release' flag while printing H8 firmware version
+ 
+(From 121683-01)
+ 
+6433152 Add flash update support for RoHS V210/V240 R06 MB_PN's
+6423803 OBP support for dynamically programming the SAS WWID
+6423788 Broadcom 57xx fcode driver support for IPMI/ASF firmware
+6423761 wait for doorbell failed,  LSI fcode 1.00.41 needed
+6421833 Confusing POST error message "Address does not match in free call" for a CPU failure
+6412474 OBP find-drop-in? goes out side the flash size and hits the MMU Missing
+6406142 PCI bridge code handles IO limit = 0 incorrectly
+6402909 PoST change required to implement Spread Spectrum J-Bus Clock
+6399627 Southside suport in post 
+6392744 Netra 240 OBP should support Serrano and Jalapeno CPUs dynamically
+6392742 Netra 440 OBP should support Serrano and Jalapeno CPUs dynamically
+6392539 Volume type is being referenced instead of volume id in 1.00.39 1064 fcode
+6391361 post and picl DIMM labels are different.
+6389988 POST Prints out DIMM #'s instead of proper nomenclature
+6389161 Fire rxeq values not optimized for ontario
+6388673 POST fails IO-Bridge unit 1 at address 00000400.0f701400
+6381385 Upgrade LSI 1064 FCode to 1.00.39
+6381115 mixed speed memory will not interleave in enchilada system
+6381084 bootmode reset-rvram does not reset nvram variables.
+6380622 menus in post shows incorrect number of CPUs
+6379979 fcode: map-in of config space does not work correctly
+6376657 OBP I2C Drivers should frame each unique addressed device with a START and STOP.
+6375990 Make all I2C transactions including errors send a stop
+6366606 Add in PLX eprom check
+6364445 post, dynamic pci device probe, pci error check utilities
+6361563 POST failed: 0&gt;ERROR: TEST = IO-Bridge unit 1 int init test
+6361097 post with verbosity debug mode fails
+6358072 Post needs to program spread spectrum clocking for P1.0 V445 correctly
+6354366 POST needs a test for the Foureye part
+6352086	Possible failures in the Initialize I2C Controller test
+6348525 Need to add speed jumper support in P0.1 POST
+6347455 reg property in broadcom 5704, 5714, and 5715 does not match assigned-addresses property
+6346222 Data access error from broadcom fcode when given unrecognized device arguments
+6345861 Exception taken while probing results in a dictionary overflow/hang rather than ok prompt
+6345548 post id string update,
+6344992 Add generic Serrano CPU support.
+6344802 Skip external interrupt pins
+6342255 Too many #ifs
+6341068 Clean up dependencies for Schumacher build
+6338877 POST takes a long time in some places
+6333723 POST needs to be enhanced to support Schumacher (SUNW,Netra-CP3010) node board used in the ATCA platform. 
+6333659 FWARC/2005/310
+6332106 Can't go to ESTAR mode when in MP mode
+6329044 Post failed an IO bridge test, howerver, show-post-results printout is passed
+6326930 Update SUNWSMSob package to align with SMS 1.6
+6325917 Fire Loopback DMA test fails if dimms 0 and 1 are missing from CPU0
+6325842 Ewrap selection limited to only one port
+6323590 need to check PLX seeprom to make sure workaround for Erratum 34 is present
+6323585 need POST support for new PLX port strapping for R0B2 and beyong
+6323565 POST fails at check PLX seeprom if OBP is run before POST
+6322957 wrong POST and OBDiag version printed out at ok prompt
+6322907 Enchilada workstation name "2500" in POST output should be changed to reflect chicago product, name.
+6315148 nia_clean fails at top level 
+6314264 Diagnostics Engineering MONitor should not show up in POST runs - no menus mode
+6308683 need to remove ifdefs for Fire related to CR5079766
+6300724 Need to add a TPM HW integrity test within POST
+6297477 Host bridge errors reported but POST still reports all devices pass
+6297463 POST support for Seattle
+6297452 Need to be able to select between dma loopback testing and pci-id tests in post menus mode
+6286277 rtdiag showes wrong bus freq. for c5 slots
+6276146 Instance data is uninitialized at the time an instance is created 
+6273179 P2-High: bluemoon tree broken in 4.x 
+6265745 Code to clear PCI error status bits on the host bridge is incorrect
+6230541 ERROR: Timeout on 0 waiting for resource type 2. after a ctrl-c when memory is being initialized
+6219577 find openboot.bin
+6202440 build versions need to be moved to ENV VARS from flat files
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating the
+firmware using the files included in this patch.  
+ 
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Friday, August 31, 2007
+
+</pre></body></html>

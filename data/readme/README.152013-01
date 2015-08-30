@@ -1,0 +1,266 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 152013-01
+
+NOTE:
+***********************************************************************
+Your use of the firmware, software and any other materials contained 
+in this update is subject to My Oracle Support Terms of Use, which 
+may be viewed at https://support.oracle.com.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: h101812sfsun1.2t 1.2tb disk firmware sas h101860sfsun600g 600gb
+Synopsis: Hardware/SAS Disk CobraF 1.2TB 600GB: firmware patch for S10/OEL
+Date: May/27/2015
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 9 9_x86 10 10_x86
+
+SunOS Release: 5.9 5.9_x86 5.10 5.10_x86
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: HGST CobraF 1.2TB 600GB SAS drives
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc i386
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+NOTE: Maintenance release for H101812SFSUN1.2T and H101860SFSUN600G to A770  
+SID Status
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+152013-01/ 
+152013-01/.download 1K
+152013-01/H101812SF.A770.fw 1900544
+152013-01/H101860SF.A770.fw 1900544
+152013-01/README.152013-01 11K
+152013-01/download 1K
+152013-01/download32 293K
+152013-01/download32_aac 221K
+152013-01/download64 363K
+152013-01/downloadx32 272K
+152013-01/downloadx64 436K
+152013-01/firmware/ 
+152013-01/mdload 3491K
+152013-01/mload 2K
+152013-01/nload 20K
+152013-01/patchinfo 1K
+152013-01/solaris/ 0K
+152013-01/solaris/sparc/ 0K
+152013-01/solaris/sparc/32/ 0K
+152013-01/solaris/sparc/32/libSTORARC.so 3881K
+152013-01/solaris/x86/ 0K
+152013-01/solaris/x86/32/ 0K
+152013-01/solaris/x86/32/libSTORARC.so 3505K
+152013-01/x86/ 0K
+152013-01/x86/ata_disk_load32 13K
+152013-01/x86/ata_disk_load64 16K
+152013-01/x86/mdload 2843K
+152013-01/xdownload32_aac 224K
+
+Problem Description:
+
+The patch has the following bug fixes:
+ 
+Previous History:
+ 
+Installation Instructions:
+ 
+--------------------------------
+ This Patch has disk drive Firmware Installer Utilities.
+ 
+ 1. This patch includes firmware download utility download. 
+ 2. This patch includes firmware download procedure for systems
+    running the LSI MegaRaid HBA
+ 
+ This patch will be official released as 152013-01. 
+ 
+ The script(s) are intended for use on Sun host systems only.
+ 
+***********************************************************************
+ 
+ To install the contents of this Patch see the pertinent section below.
+ 
+ Sections Index
+  Initial Installation Instructions.
+1   Procedure for firmware download 
+2   Linux JBOD env
+3   Procedure to Download to Drives behind LSI Megaraid HBA 
+ 
+**************** Initial Installation Instructions************
+ 
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. The system MUST BE IDLE during the download process!  No other
+   programs should be running while using this utility is being
+   used.  Failure to do so may cause the devices being upgraded
+   to fail or the system to crash.
+ 
+   Any other computers sharing the same I/O bus as the host system
+   must be either disconnected or offline to prevent possible
+   disruption of the firmware download process.
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.out" and "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ 
+1. Procedure:
+ 
+The procedure to be used for upgrading the drive firmware is
+explained below. Upgrade time will vary according to the system.
+The approximate time to upgrade each disk is three minutes.
+ 
+a) Unpack the patch (through tar) into any directory, say &lt;patchdir&gt;.
+   (Note, if the patch ends in a ".Z" suffix, you will need to first
+   uncompress it.)  So, you would type:
+        % su root
+        # cd &lt;patchdir&gt;
+        # tar xf &lt;patch tar file&gt;
+ 
+b) In the patch directory, as root, type the "download" command:
+        # ./download
+ 
+c). Select the devices to be upgraded (see example below).
+ 
+**NOTE**    Any device that is in-use by another application will not
+            be upgraded.  The following warning message will be
+            issued:   c1t3d0s0: Open failed, you must be the sole user!
+ 
+**NOTE**    This upgrade can result in error messages in the console 
+            window and/or the terminal "download" window.  It is
+            normal for the SCSI link to go offline for a few
+            seconds and then return to the online state.  The disk
+            mode pages will also be restored to the default values.
+ 
+**NOTE**    For A3000/1000's, the internal disk "C" and "T" numbers
+            are derived from the first active controller found.  The
+            "D" number is encoded to indicate it's position using the
+            following formula:  D = (tray_number * 100) + target_id.
+ 
+d). After the devices have been upgraded, the displayed device
+    list will be refreshed.  Devices remaining to be upgraded or
+    failed devices will be displayed.  Failed devices will be
+    marked with a "****" in the rev field.
+ 
+**NOTE**    If all devices have been upgraded, the following
+            message will be displayed:   No devices found to upgrade!
+ 
+e). To display the full list of devices including the upgrades ones,
+    type 'inquiry' (see example below).
+ 
+f). Quit the "download" program by typing 'quit' (see example below).
+ 
+ 
+ 
+2 Linux JBOD env
+    --------------
+ 
+Linux_download or disktool.pl  for JBOD systems-
+ 
+Note- See section e under 1.1 of procedure 1 to find out how to run disktool.pl 
+ 
+Linux Download Example for OEL 6.4
+ 
+Example -
+[root@scsvr-183 ~]# ./nload -h
+VER-1.01
+Usage:   ./nload: [&lt;option&gt; &lt;device&gt; [fw_file]]
+Option:  -i - single drive inquiry
+         -d - download code to the drive
+         -h - Usage...AK
+         device - Use /dev/sgX as device, Where X hdd0 OR hdd1
+                                          OR      sd0 OR sd1 ...
+ 
+ 
+[root@scsvr-183 ~]# ./nload -d /dev/sg2  ./H101812SF.A770.fw
+!!! Please wait downloading firmware ...!!!
+Download Successful
+    Inquiry for device &lt;/dev/sg2&gt; -
+    SAS     HGSTH101812SFSUN1.2T           PQual: 0    Device_type: 0
+ 
+ 
+ 
+3 Procedure to Download to Drives behind LSI Megaraid HBA 
+    --------------------------------------------------------
+A. Install the megaraid software for Linux or Solaris
+B. the software will be install under /opt/MegaRAID directory
+C. cd to this directory and one more level to the MegaCli directory
+ 
+D. To Check start the download find out the
+   Enclosure ID and the Slot ID for your drive by using this command
+ 
+   ./MegaCli64 -PDList -aall
+ 
+   You will get output something like this -
+   Adapter #0
+ 
+Enclosure Device ID: 9
+Slot Number: 0
+Device Id: 28
+.
+.
+Inquiry Data: HGST H101812SFSUN1.2T A1600941K3T96E
+FDE Capable: Not Capable
+FDE Enable: Disable
+.
+.
+ 
+E. Copy the f/w file in the same directory as the MegaCli64
+     Run the bitops.sh  command as follows
+     cd 152013-01/megaraid
+     ./bitops.sh
+     This will generate the firmware file H101812SF.A770.fw under megaraid directory
+     of the patch use this file in step D
+ 
+D. Run the download command to install one drive in slot 0
+   under enclosure 9
+   MegaCli64 -PdFwDownload -PhysDrv[9:0] -f /152013-01/megaraid/H101812SF.A770.fw -aALL
+ 
+   For Multiple drives use the same command but with multiple drives
+ 
+   MegaCli64 -PdFwDownload -PhysDrv[9:0,9:2,9:3,9:4,9:5] -f /152013-01/megaraid/H101812SF.A770.fw -aALL
+ 
+ 
+**************************************************************************
+
+Special Install Instructions:
+README -- Last modified date:  Wednesday, November 6, 2013
+
+README -- Last modified date:  Wednesday, May 27, 2015
+
+</pre></body></html>

@@ -1,0 +1,67 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 124416-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun netra cp2500
+Synopsis: Hardware/PROM: Sun Netra CP2500 Flash PROM Update
+Date: Jun/16/2008
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 9
+
+SunOS Release: 5.9
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.22.35, POST 4.22.35, OBDIAG 4.22.35
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sun netra cp2500
+
+BugId's fixed with this patch: 6634169 6664365
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+CP2500.obp.4.22.35
+
+Problem Description:
+
+6664365 flx20948: CP2500 boot-device can be corrupted with a bad read from the AC
+6634169 flx22265: JLL13: no power-off on hotswap causes mcnet to fail to come up on Jade satellites
+
+Patch Installation Instructions:
+OBP image to be installed via instructions found in patch 119504-09
+ 
+Checksums: (output of /usr/bin/cksum)
+ 
+Checksum        File Size  File
+-------------------------------------------
+2392384103	1048576	   CP2500.obp.4.22.35
+
+Special Install Instructions:
+ 
+
+README -- Last modified date:  Monday, June 16, 2008
+
+</pre></body></html>

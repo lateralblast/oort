@@ -1,0 +1,127 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 124418-02
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Big Admin Patching Center, http://www.sun.com/bigadmin/patches/ 
+***********************************************************************
+
+Keywords: sun netra cp2500
+Synopsis: Hardware/PROM: Sun Netra CP2500 Flash PROM Update
+Date: Oct/01/2009
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 9
+
+SunOS Release: 5.9
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.30.4, POST 4.30.4, OBDIAG 4.30.4
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 6580761 6588214 6688605 6725717 6737895 6738373 6762055 6766240 6772664 6777379 6780222 6787965 6790291 6791196 6791232 6795793 6797789 6802075 6803726 6804349 6807094 6807927 6808167 6809434 6810138 6810143 6812437 6813603 6813715 6816141 6819881 6821770 6825151 6830927 6835857 6835860 6836888 6836962 6839482 6842259 6842274 6855840 6855850 6855865 6858855 6859020 6859443 6860195 6862099 6862229 6866918 6868081 6869577
+
+Changes incorporated in this version: 6869577 6868081 6866918 6862229 6862099 6860195 6859443 6859020 6858855 6855865 6855850 6855840 6842274 6842259 6839482 6836962 6836888 6835860 6835857 6830927 6825151 6821770 6819881 6816141 6813715 6813603 6812437 6810143 6810138 6809434 6808167 6807927 6807094 6804349 6803726 6802075 6797789 6795793 6791232 6791196 6790291 6787965 6780222 6777379 6772664 6766240 6762055 6738373 6737895 6725717 6588214 6580761
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+CP2500.obp.4.30.4
+
+Problem Description:
+
+6869577 Insufficient memory allocated to the resolution buffer in the ast fcode.
+6868081 Probe for TPM support in OpenBoot
+6866918 Memory leak in SAS/SATA test 
+6862229 speedup of mailbox test
+6862099 Multiple resets observed
+6860195 Add support to dump PLX FW from DEMON menu
+6859443 POST sometimes picks the wrong channel in single channel mode
+6859020 POST register assumption
+6858855 Integrate AST2100 Fcode into source tree
+6855865 Need to increase hotplug-memsize and hotplug-mem64size
+6855850 Need to extend the Maximum PCI probe depth
+6855840 Add the PCIe Root Port support for RCs containing RPs.
+6842274 Speed up of L2 caches tests
+6842259 Some of the internal L2 arrays are not being fully tested
+6839482 Need to remove clock-divisors from v445
+6836962 Various errors reported during Tenaya P1.0 POST HDD testing, thought to be related to FMODs
+6836888 Bootblock code in Solaris 10 Update 5 or earlier is incompatible with OpenBoot 4.30 or later
+6835860 POST timed out sometimes occurs
+6835857 chip reset error occurs when OS boots
+6830927 Some healthy components was disabled by a faulted DIMM
+6825151 OBP console chars are dropped/scrambled with USB keyboard
+6821770 POST error occured on Neptune XAUI 10G Loopback Test
+6819881 Didn't receive RTR pkt! when powercycling huron and maramba systems
+6816141 virtual storage devices are not getting created under OBP
+6813715 POST Niu and Neptune Code Merge
+6813603 POST thread bottleneck
+6812437 DEMON selectable Systest BusFS causing NoData UEs
+6810143 FMOD failures in POST SAS/SATA device test
+6810138 Tenaya POST Support
+6809434 OBP handles all resumable errors as request to shutdown
+6808167 DEMON selectable Systest General test subtest conflict
+6807927 VF System keeps power cycles and can't go to obp after POST test done
+6807094 Congo:Need OBP changes for Firmware Progress State Sensor
+6804349 DVD will not boot -- OBP fix missing to compliment CR 4976792 (READ RETRY)
+6803726 Tenaya system (more than 1) hits fbr errors during Enhanced Memory testing
+6802075 POST ops1 failed "FATAL ERROR 3", "Unexpected Trap" on N2 systems
+6797789 Confusing error messages when using PCIe cards with 64 bit prefetchable BAR
+6795793 POST look for display device on T6320
+6791232 Monza: Need OBP changes for Firmware Progress Sensor
+6791196 POST fails NIU Link Check Test w/ P1 Copper XAUI
+6790291 Glendale/Scottsdale need to support REM-less operation
+6787965 At post sequence, a CPU core was disabled by mistake, when a faulted DIMM was installed
+6780222 The neptune fcode driver would break if bufsz0 were not set to 2K
+6777379 Post support for T6320 G2
+6772664 WARNING: /pci@7c0/pci@0/pci@1/pci@0/isa@2: Could not open asr package
+6766240 DVD boot read failures from obp prompt (intermittent DVD DRIVE MISIDENTIFIED may be seen)
+6762055 Booting from SATA DVD drives under LSI1068 fails
+6738373 Correct Cheetah+ erratum 34 DTLB issue in Starcat OBP
+6737895 Some non-critical Neptune/NIU FCode clean up
+6725717 V480 onboard CE failed OBDiag test intermittently
+6588214 Need to remove clock-divisors from v440
+6580761 OBP MMU miss handlers not correct for sun4v spec
+ 
+ 
+(From: 124418-01)
+ 
+6688605 flx22610: Jade host hangs on a reboot with message ERROR: motherboard SEEPROM access failed
+
+Patch Installation Instructions:
+===============================
+OBP image to be installed via instructions found in patch 119504-08
+ 
+ 
+Checksums: (output of /usr/bin/cksum)
+ 
+Checksum        File Size  File
+-------------------------------------------
+1201261439      1048576 CP2500.obp.4.30.4
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Thursday, October 1, 2009
+
+</pre></body></html>

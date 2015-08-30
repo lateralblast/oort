@@ -1,0 +1,162 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 121690-04
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire v445
+Synopsis: Hardware/PROM: Sun Fire V445 Flash PROM Update
+Date: Jul/23/2007
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.22.33, POST 4.22.33, OBDIAG 4.22.33
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sun fire v445
+
+BugId's fixed with this patch: 5079227 6181985 6230541 6313800 6322957 6361563 6364139 6366588 6368614 6370015 6374738 6375003 6375990 6376657 6379876 6379979 6380622 6381084 6381105 6381115 6381125 6381242 6381385 6383658 6388673 6388925 6389161 6389988 6390526 6391361 6392539 6392749 6393492 6393665 6395015 6396464 6396519 6396528 6396533 6396540 6396546 6397497 6400192 6400408 6402905 6402909 6403073 6404798 6406142 6407889 6411051 6411069 6412474 6414799 6415442 6421833 6421866 6421884 6421977 6422909 6423090 6428852 6432504 6438159 6438649 6441770 6447320 6447326 6448085 6450457 6454640 6456885 6466207 6466695 6469964 6474932 6480389 6488855 6491132 6508906 6512280 6520058 6525913 6546593 6550351 6550398 6557874 6559998 6561957
+
+Changes incorporated in this version: 6561957 6559998 6557874 6550398 6550351 6546593 6525913 6520058 6512280 6508906 6488855 6181985 5079227
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunFire445
+unix.flash-update.SunFire445.sh
+
+Problem Description:
+
+6561957 OBP bge ethernet driver needs performnace improvement when load a big file (wanboot 108 MB)
+6559998 Fix to cr 6520058 can cause FORTH stack corruption. 
+6557874 Need clean CP2500 OBP smc kcs interface
+6550398 flx17584: Observed "/console: error to writing to console"
+6550351 Issuing a boot to the cdrom device hangs the system if no cdrom is installed.
+6546593 WANboot should not reflect packets
+6525913 "SUN PROPRIETARY/CONFIDENTIAL" message appears on boot on FCS seattle
+6520058 Schizo FCode driver does not support CDMA interrupts which can lead to Solaris panic. 
+6512280 Add Device ID for new Shrink DIE of Sansung E$ SRAM to POST device database (POST allows device).
+6508906 post and obp build issues
+6488855 flx18074: ERROR: motherboard SEEPROM access failed
+6181985 local-mac-address of bge interface is seen on pci card when net NVALIAS is duplicated
+5079227 This, ")" in between "Copyright" and "2004", is not in the right place.
+ 
+(From 121690-03)
+ 
+6491132 V445 AC power restoring causes OBP post fail
+6480389 "ERROR: /memory: CPU1 Bank 0 DIMMs are from different vendors"
+6474932 Seattle/Boston OBP need to define slot-names property
+6469964 JLL5.1: POST fails when powering on Jalapeno with high CPU speed 
+6466695 setenv command shows "Usage: setsmcenv option-name valuse
+6438159 Seattle OBP needs to support 2UEEL riser card
+6422909 When first power on and at OBP level the wrong characters appear on screen...
+ 
+(From 121690-02)
+ 
+6466207 Fire PCI-E bridge version should be determined based on fire-revision# rather than module-revision#.
+6456885 POST trashes OBP flags
+6454640 missing device_type property on ebus node.
+6450457 OBP flashupdate from 4.22.11 to 4.22.13 fails with "flash device is write protected"
+6448085 post fire2.1 support
+6447326 Remove CPU speed configuration menu
+6447320 Remove OBP flash-update command
+6441770 I2C workaround for EPIC access issue
+6438649 I2C contention between OBP and ALOM
+6404798 Host keeps on resetting when keyswitch is set to diag.
+6390526 USB 2.0 Hub gets lost to OBP after Solaris EHCI driver run
+6313800 OBP should read and print the 'test release' flag while printing H8 firmware version 
+ 
+(From 121690-01)
+ 
+6432504 Support Jalapeno+ processor on Boston.
+6428852 putback for 6395675 panics Boston platform with ereport.io.fire.pec.cto.
+6423090 Fire TLU Ctrl Reg NPWR_EN bit must be set to 0 on Boston.
+6421977 A WARNING message is seen in POST running with 1GB Infineon DIMM (seattle 1U S163)
+6421884 Boston-specific Fire GigaBlaze settings for Optimal PCI-E Signalling
+6421866 Boston-specific Fire GigaBlaze settings for Optimal PCI-E Signalling.
+6421833 Confusing POST error message "Address does not match in free call" for a CPU failure
+6415442 Change Branch Predictor Mode (BPM) in OBP for Panther USIV+.
+6414799 Seattle OBP needs extra guard pages for boot support
+6412474 OBP find-drop-in? goes out side the flash size and hits the MMU Missing
+6411069 OBP PLL data writes should be consistent with POST.
+6411051 ASR disabling PCI slots does not always work.
+6407889 Add 2UXXL support, remove 2UEXL support
+6406142 PCI bridge code handles IO limit = 0 incorrectly
+6403073 Serranos with no memory may report false POST errors - CTRL/C; POST error &amp; poweroff(P1.0 S#133)
+6402909 PoST change required to implement Spread Spectrum J-Bus Clock
+6402905 OBP change required to implement Spread Spectrum J-Bus Clock.
+6400408 Modify RX_EQLIZR_CTL bits in Seattle Fire LPU Gigablaze Glue Config2 Register to 0000 from default
+6400192 Boston OBP needs extra guard pages for boot support.
+6397497 Boston (V445) will not boot with LSI20320-S (Meteor) HBA installed.
+6396546 Remove pre-P1.0 hacks
+6396540 Program static SAS WWID at boot time
+6396533 Solaris flash-updater broken
+6396528 PCI-X out of band riser card interrupts should only be created if 2UEXL or 2UEEL riser card used
+6396519 OBDiag EPIC test fails
+6396464 interrupt-cells property in the ebus node has a typo in it.
+6395015 2Gigabit/Sec Single FC Host Adapter (JNI) Last Trap: Data Access Error.
+6393665 Solaris flash-update script fails.
+6393492 Need to enforce memory CAS latency minimum of 2.5 on DIMMS running at more than 133MHz
+6392749 Add support for decoding Serrano specific AFSR register bits
+6392539 Volume type is being referenced instead of volume id in 1.00.39 1064 fcode
+6391361 post and picl DIMM labels are different.
+6389988 POST Prints out DIMM #'s instead of proper nomenclature
+6389161 Fire rxeq values not optimized for ontario
+6388925 Alom Obdiag subtests are not available in test option menu.
+6388673 POST fails IO-Bridge unit 1 at address 00000400.0f701400
+6383658 Dynamic FRUID writes cause OBP MB FRUPROM reads to fail
+6381385 Upgrade LSI 1064 FCode to 1.00.39
+6381242 Seattle platform support
+6381125 ERROR: The following devices are disabled: ide.
+6381115 mixed speed memory will not interleave in enchilada system
+6381105 obp needs to support RoHs scsi disk bkpln 501-7344 for Netra 440
+6381084 bootmode reset-rvram does not reset nvram variables.
+6380622 menus in post shows incorrect number of CPUs
+6379979 fcode: map-in of config space does not work correctly
+6379876 USB time out errors seen in OBP during power-cycle testing
+6376657 OBP I2C Drivers should frame each unique addressed device with a START and STOP.
+6375990 Make all I2C transactions including errors send a stop
+6375003 nvram access faults when dropping from Solaris to OBP.
+6374738 Address for PSU0's fruid prom needs to be 0x24 for P1.0 Boston.
+6370015 OBP should print out a message if it detects problem and resets RTC
+6368614 WARNING: devinfo: fault in private data at 60000d794e8
+6366588 fcode gives erroneuos values for config address &gt; 0xf.0000
+6364139 OBP shows "ERROR - BCM5714 device 0 missing" with pci1 is disabled.
+6361563 POST failed: 0&gt;ERROR: TEST = IO-Bridge unit 1 int init test
+6322957 wrong POST and OBDiag version printed out at ok prompt
+6230541 ERROR: Timeout on 0 waiting for resource type 2. after a ctrl-c when memory is being initialized
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+ 
+                &gt;&gt;&gt; END &lt;&lt;&lt;
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Monday, July 23, 2007
+
+</pre></body></html>

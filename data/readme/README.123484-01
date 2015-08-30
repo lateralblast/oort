@@ -1,0 +1,65 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 123484-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: netra cp3060 sun system firmware 6.2.5
+Synopsis: Hardware/PROM: Netra CP3060 Sun System Firmware Update
+Date: Sep/26/2006
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 6.2.5
+
+Xref: 
+
+Topic: Netra CP3060 Sun System Firmware 6.2.5 flashprom update
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-6_2_5-Netra_CP3060.bin
+sysfwdownload
+
+Problem Description:
+
+NOTE: This is the initial release of Sun System Firmware for Netra CP3060.
+
+Patch Installation Instructions:
+-----------------------------
+ 
+ 
+Please refer to the Install.info file for instructions on updating
+the firmware flashprom using the files included in this patch.
+
+Special Install Instructions:
+ 
+
+README -- Last modified date:  Tuesday, September 26, 2006
+
+</pre></body></html>

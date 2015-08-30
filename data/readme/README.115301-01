@@ -1,0 +1,113 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 115301-01
+Keywords: CP2060/CP2080 SPARC and SMC firmware update
+Synopsis: Hardware/PROM: CP2060/CP2080 SPARC and SMC firmware update
+Date: Jul/08/2003
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 8
+
+SunOS Release: 5.8
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: SPARC 1.0.4 SMC 3.10.8
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4470722 4533255 4634196 4652182 4652581 4652583 4652847 4662568 4662671 4663938 4668372 4668453 4668545 4668552 4670754
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+CP2060_CP2080.Release_Notes
+CP2060_CP2080.smc.3.10.8.Flash
+CP2060_CP2080.sparc.1.0.4
+CP2060_CP2080.sparc.1.0.4.Unix
+
+Problem Description:
+
+4668372 Add 21555 chip support
+4668453 ttyb as console in Sputnik hangs OS boot
+4670754 RFE: Disable ipmi notification after OS halt
+4634196 Sputink OBP battery less feature needs to save sys. conf. modified from Solaris
+4533255  Boot time WARNING: invalid vector intr: number 0x7de, pil 0x0 (OBP fix)
+4652581 Misleading message from OBP environment monitoring
+4652583 RFE: Add Led access support and client services commands for OS
+4652847 Add "ipmi-checksum-ctlr" field in printsmcenv and setsmcenv
+4662568 netconsole behaves incorrectly.
+4662671 Sparc + SMC combined firmware flash update must be supported at OBP level
+4663938 obdiag system flash write/read/verify test fails and corrupts the flash.
+4470722 OBP support for OEM configuration variable backup in system flash
+4652182  Write FRU data IPMI command writes only one byte at a time.
+4668545 The set and get configuration cmds for KCS interface &amp; IPMI are not consistent
+4668552 RFE: Have checking of incoming IPMI packet checksum, configurable.
+
+Patch Installation Instructions:
+-------------------------------- 
+ 
+Refer to the special installation instructions described below.
+
+Special Install Instructions:
+----------------------------- 
+ 
+ 
+    This patch has following files:
+ 
+        CP2060_CP2080.Release_Notes     - Firmware release notes
+        CP2060_CP2080.sparc.1.0.4.Unix  - OS level script for SPARC firmware
+                                          update
+        CP2060_CP2080.sparc.1.0.4       - SPARC firmware binary
+        CP2060_CP2080.smc.3.10.8.Flash  - SMC firmware binary
+ 
+ 
+    Firmware update sequence:
+ 
+        1. Update SPARC firmware (OS level update method is highly
+           recommended).
+        2. Update SMC firmware.
+ 
+ 
+    Instructions for OS level SPARC firmware update script:
+ 
+        o Copy "CP2060_CP2080.sparc.1.0.4.Unix" file to the local
+          disk of the CP2060/CP2080 board.
+        o Login as "root" and execute "CP2060_CP2080.sparc.1.0.4.Unix"
+          script
+        o After flash update is done, halt OS to drop to OBP "ok"
+          prompt. Power cycle the CP2060/CP2080 board.
+ 
+ 
+    Instructions for OBP level SPARC firmware update:
+ 
+        o Update the system flash using "flash-update" command
+          from OBP "ok" prompt:
+ 
+            ok flash-update &lt;complete_path&gt;/CP2060_CP2080.sparc.1.0.4
+ 
+        o Power cycle the CP2060/CP2080 board.
+ 
+ 
+    Instructions for OBP level SMC firmware update:
+ 
+        o Update the SMC firmware using "smc-flash-update" command
+          from OBP "ok" prompt:
+ 
+            ok smc-flash-update &lt;complete_path&gt;/CP2060_CP2080.smc.3.10.8.Flash
+
+README -- Last modified date:  Tuesday, July 8, 2003
+
+</pre></body></html>

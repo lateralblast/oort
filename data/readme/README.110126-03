@@ -1,0 +1,136 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 110126-03
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: pgx32 obp firmware update
+Synopsis: Hardware/PROM: PGX32 firmware Update
+Date: Feb/01/2002
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8
+
+SunOS Release: 5.5.1 5.6 5.7 5.8
+
+Unbundled Product: PGX32 PROM
+      NOTE: This utility is *not* OS-dependent.  The list of releases shown
+          under the "Solaris Release" and "SunOS Release" sections may not
+          be complete: The absence of a valid Solaris Release or SunOS
+          Release from the lists above does not preclude the installation
+          of this patch against the hardware.
+
+Unbundled Release: 1.13
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4325135 4459849 4617192
+
+Changes incorporated in this version: 4617192
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+README.110126-03
+copyright
+gfxp1.pci
+gfxp2.pci
+gfxp_write_prom
+
+Problem Description:
+
+(from 110126-03)
+4617192 Loop usage violating ANSI Forth standard
+ 
+(from 110126-02)
+4459849 prtconf/prtdiag does not output PGX32 information	
+ 
+(from 110126-01)
+4325135 PGX32 &lt;-&gt; 21" (Century) monitor gives jittered image
+
+Patch Installation Instructions:
+================================
+ 
+ 
+Intro
+-----
+ 
+    This README is intended for users who wish to upgrade the firmware
+    in their pgx32 graphics board.
+ 
+	This utility will update the firmware of a previously programmed
+	PGX32 card on a Sparc system running Solaris 2.5.1 or
+	later.  The drivers must be installed and attached.
+ 
+Patch Installation instructions (in detail):
+============================================
+ 
+1) Login as root on the system that needs the PGX32 firmware upgrade
+ 
+2) Unpack the patch (through tar) into any directory, say &lt;patchdir&gt;:
+ 
+        # cd &lt;patchdir&gt;
+        # tar -xvf &lt;patch tar file&gt;
+ 
+3) Determine device name and instance #:
+ 
+	a) Enter the following:
+ 
+		#  prtconf
+ 
+	b) Look for entries similar to:
+ 
+		TSI,gfxp, instance #3
+ 
+			- or -
+ 
+		TECH-SOURCE,gfxp, instance #3
+ 
+4) Program the card based on the instance number:
+ 
+	#  gfxp_write_prom /dev/fbs/gfxp3
+
+Special Install Instructions:
+-----------------------------
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+*  PLEASE READ THE INSTRUCTIONS CAREFULLY AND ENTIRELY.  PLEASE FOLLOW THE
+   INSTRUCTIONS EXACTLY AS THEY ARE STATED.
+ 
+ 
+*  FAILURE TO FOLLOW INSTRUCTIONS COULD EITHER RESULT IN A DEFECTIVE BOARD OR
+   UNSUCCESSFUL FIRMWARE UPDATE.
+ 
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+**************************************************************************
+**************************************************************************
+
+README -- Last modified date:  Monday, March 28, 2011
+
+</pre></body></html>

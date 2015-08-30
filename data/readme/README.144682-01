@@ -1,0 +1,186 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 144682-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Big Admin Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+
+Keywords: sun blade 6048 infiniband switched network express module ibproxy cxp connector firmware
+Synopsis: Hardware PROM: Sun Blade 6048 Infiniband Switched Network Express Module Firmware Update
+Date: Mar/08/2011
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 
+
+SunOS Release: 
+
+Unbundled Product: Sun Blade 6048 Infiniband Switched Network Express Module
+
+Unbundled Release: unknown
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: ppc
+
+BugId's fixed with this patch: 6924849 6926093 6999580 7013720
+
+Changes incorporated in this version: 6926093 6924849 6999580 7013720
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+520-4147-02.pof    (FPGA code to be used in FPGA Programmer)
+520-4147-02.rbf    (FPGA code to be used in CMM ILOM)
+520-4148-03-50.BIN (I4A firmware)
+520-4150-03-50.BIN (I4B firmware)
+
+Problem Description:
+
+6926093 Continuous reset pulses occurring on CXP connector when optical cable is installed 
+6924849 ibproxy can not read purge info on Merge optics cables
+6999580 LFT of switch "is not up to date" errors generated when commands are run from QNEM proxy
+7013720 Symbol errors generated with jumper cable on QNEM
+
+Patch Installation Instructions:
+--------------------------------
+ 
+QNEM I4 (I4A and I4B) firmware update instructions (load 7.3.0 code: 
+	520-4148-03-50.BIN and 520-4150-03-50.BIN respectively to address 
+	CR_6926093, CR_7013720, and CR_6924849):
+  1. Download "flint", an advanced firmware utility from Mellanox that is 
+	included in MFT package, from their website.
+ 
+http://mellanox.com/content/pages.php?pg=management_tools&amp;menu_section=34
+ 
+  2. Query LIDs for both I4A and I4B in qnem by running this command from a 
+	linux host: 
+ 	# ibswitches
+ 
+   Note: I4A and I4B have their own LID numbers. I4 A will have a nodedesc of
+      "Sun Blade 6048 InfiniBand QNEM I4A" and I4B will have a nodedesc of
+      "Sun Blade 6048 InfiniBand QNEM I4B".   This is how to determine which
+       lids to upgrade.
+ 
+  3. Copy both firmware files to the local machine. I4A and I4B files are 
+	different.
+ 
+  4. Update the QNEM with new firmware like this:
+          # flint -d lid-A -i &lt;I4A_image&gt; b
+          # flint -d lid-B -i &lt;I4B_image&gt; b
+ 
+      where A is the LID number for I4A switch, and B is the LID number for I4B
+      switch. This needs to be run for both I4A and I4B switches separately.
+ 
+  5. Reset I4A and I4B switches to make the new firmware effective:
+          # flint -d lid-A  swreset
+          # flint -d lid-B  swreset
+      where A is the LID number for I4A switch, and B is the LID number for I4B
+      switch. This needs to be run for both I4A and I4B switches separately.
+ 
+  6. After reseted the QNEM, wait for about 30 seconds. Then make sure the
+     new QNEM firmware was updated properly:
+    # flint -d lid-A q
+    # flint -d lid-B q
+      where A is the LID number for I4A switch, and B is the LID number for I4B
+      switch. This needs to be run for both I4A and I4B switches separately.
+      The QNEM firmware can be verified to be updated by verifying the FW 
+     	Version field and the Product Version field.
+  7. Update the FPGA code to -04 (520-4147-02.rbf) via CMM per the 
+	accompanying instructions.
+------------------------------------------------------------------------------------
+QNEM FPGA update instructions (load -04 code: 520-4147-02.rbf to address 
+	CR_6999580):
+ 
+   1. Use the version command in ILOM to make sure the C48 CMM ILOM
+      version is 3.0.10.15.b or newer, for example:
+ 
+    -&gt; version
+ 
+    CMM firmware 3.0.10.15.b
+    CMM firmware build number: 57573
+    CMM firmware date: Fri Jul 23 08:08:58 EDT 2010
+    CMM filesystem version: 0.1.22
+ 
+    Please note that this upgraded requires the IB fabric is idle, because
+    the IB fabric will loose connectivity to these QNEM's during the FPGA
+    upgrade due to the reset and our recommendation is to quiesce the 
+    fabric i.e. shut it down for this upgrade or the subnet manager may get 
+    over run will traps.
+ 
+   2. To use fpgautil in restricted shell, first you need to enter restricted
+      shell by doing:
+ 
+    -&gt; set SESSION mode=restricted
+ 
+   3. From the restricted shell, to update the QNEM FPGA by using the fpgautil
+      command, and the syntax is:
+ 
+    fpgautil -p -n=NEM_SLOT  URL
+ 
+    where:
+    -p means program the QNEM
+    NEM_SLOT is just 1 for QNEM
+    URL is a valid URL, starting with tftp://, http:// or ftp://. For example:
+ 
+    fpgautil -p -n=1  ftp://root:password@192.168.2.201/520-4147-02.rbf
+    fpgautil -p -n=1  tftp://192.168.2.201/520-4147-02.rbf
+    fpgautil -p -n=1  http://192.168.2.171/520-4147-02.rbf
+ 
+    Note that the CMM does not have the ability to use URL based proxy access
+    consequently the file will need to be served from a network localized file 
+    server.
+ 
+   4. After you updated the QNEM FPGA, use the exit command to exit the 
+      restricted shell and return to the CMM ILOM, for example:
+    [(restricted_shell) SUNCMM-0000000000:~]# exit
+    exit
+    -&gt;
+ 
+   5. Reseat the QNEM:
+      Remove the QNEM from C48 chassis, then wait for 20 seconds,  and
+      then plug the QNEM back in the C48 chassis.
+ 
+   6. From CMM ILOM, start the QNEM proxy cli, and then issue the " show
+      fpga_version " command from QNEM proxy to make sure the QNEM FPGA
+      was updated to version 04, for example:
+ 
+    -&gt; start /CH/NEM1/SP/cli
+    Are you sure you want to start /CH/NEM1/SP/cli (y/n)? y
+    start: Warning, using proxy program from /coredump/proxy-0c1c
+ 
+ 
+    Sun Blade 6048 QDR InfiniBand Network Express Module
+ 
+    -&gt;
+    -&gt; show fpga_version
+ 
+    NEM1
+      Targets:
+ 
+      Properties:
+         fpga_version        = 04
+
+Special Install Instructions:
+ 
+
+README -- Last modified date:  Tuesday, March 8, 2011
+
+</pre></body></html>

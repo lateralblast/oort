@@ -1,0 +1,160 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 139437-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: hardware prom netra cp3060 6.7.0 flashprom ldoms
+Synopsis: Hardware/PROM: Netra CP3060 Sun System Firmware with LDOMS support
+Date: Dec/23/2008
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 6.7.0
+
+Xref: 
+
+Topic: Netra CP3060 Sun System Firmware 6.7.0 flashprom update
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4794955 6405423 6478646 6562812 6579390 6613937 6619512 6630434 6658777 6670786 6684451 6688181 6695189 6697349 6697604 6701347 6703492 6710046 6712384 6723191 6724775 6729411 6729529 6731027 6731291 6732222 6732265 6732414 6734455 6736162 6737476 6740161 6744453 6749018 6750193 6750196 6750537 6750539 6750541 6751051 6753218 6754790 6754807 6754833 6755211 6755818 6756295 6756341 6757022 6757389 6759826 6761652 6763110 6768729 6769672
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-6_7_0-Netra_CP3060.bin
+sysfwdownload
+
+Problem Description:
+
+4794955 POST debug menu's HELP not implemented
+6405423 Hypervisor needs to provide APIs for Hybrid I/O
+6478646 PCI bridge probing code does not need to execute config writes to non-existent devices
+6562812 ldm list-config output can be confusing when issued after delayed reconfiguration reset
+6579390 disable DIMM and reset-all, OBP banner still shows same number of memory available
+6613937 N1 platforms should print error message when post timeout encountered
+6619512 hv_ldc_copy should use optimized bcopy
+6630434 machine description size NOT equal to sizeof(md_hdr_t) + node_blk_sz + name_blk_sz
+        + data_blk_sz
+6658777 implement an optimized xcopy
+6670786 support backoff/timeout in SRAM guest state poller to avoid SC becoming slow/unresponsive
+6684451 ASR pathnames for Montoya PCI devices contain function numbers; devices cannot be disabled
+6688181 VBSC needs to support notification of power button being pressed off
+6695189 Hypervisor builds with host stack.h and fsr.h
+6697349 cscope.files should include offsets.in files
+6697604 move common/src/hcall_core.s
+6701347 implement the ldc_revoke hcall
+6703492 pushing power button 7 - 10 times in a row makes ILOM unstable
+6710046 reset functions don't use their argument
+6712384 wrong ASI used in _PRINT_SPINLOCK_ENTER()
+6723191 HOST domain status wrong after control domain reset when auto-boot is disabled
+6724775 support to boot from one or more vdisk servers
+6729411 immu_err does not set context correctly
+6729529 Product definition cleanup
+6731027 after reset, SP issues Solaris init 0, then halt will hang forever
+6731291 remove exported funcs that allow ALOM/ILOM to directly toggle power
+6732222 nodefault-bytes is not persistent
+6732265 POST failures in pre-CMT platforms
+6732414 OpenBoot deblocker package additions for large disk support must be supported
+6734455 Crypto code isn't properly converting RA to PA before use
+6736162 T6300: showenvironment shows fan speed as UNKNOWN after hot plug
+6737476 OpenBoot disk label package fixes missing from large disk support changes
+6740161 display POK register on POK failure
+6744453 remove data_conv_t structure
+6749018 lint sources should be a derived entity
+6750193 ILOM cannot power on/off host after many reset loops (~122 times)
+6750196 pci_iommu_map with bad iotte addr does not return ENORADDR on N1
+6750537 Domain Migration Phase 1
+6750539 Hypervisor debug binaries should support "-g" debugging information
+6750541 mdgen should support generic data blocks
+6751051 POST reports hundreds of free resource timeouts
+6753218 Batoka platform build failed due to change in CR 6579390
+6754790 PA2RA macros assume segment offset is constant per bucket
+6754807 sequencer doesn't load CPUs which causes hot removal CPUs at end of poweron
+6754833 intermittent failures on reboot and power cycle
+6755211 mach_vcpu_state_ doesn't need test for SUSPEND/RESTORE
+6755818 corruption of "my-self" causing missing "idprom" property in root node
+6756295 add support to test serial port from DEMON menu
+6756341 sc_powerondelay must be true to restore host system's power prior to power loss
+6757022 Host gets wedged when resetting SC while host already powered on
+6757389 ra2pa code include limit as in the segment, not out of it
+6759826 smd_rw_node doesn't fail when SMD_DATA node is too small
+6761652 mdgen dies trying to parse an array of strings
+6763110 NULL pointer dereference in vbsc_send_polled
+6768729 domain becomes unusable when recovering from interrupted migration
+6769672 incomplete bugfix for 6757022
+
+Patch Installation Instructions:
+--------------------------------
+ 
+Please refer to Install.info file for instructions on updating the firmware
+flashprom using the files included in this patch.
+
+Special Install Instructions:
+----------------------------
+ 
+NOTE 1:  Firmware component revisions included with this release:
+ 
+         System Firmware 6.7.0 Netra CP3060 2008/12/11 14:57
+         ---------------------------------------------------------
+         ALOM-CMT v1.7.0  Dec 11 2008  13:55:49
+         VBSC 1.7.0  Dec 11 2008  14:14:50
+         OBP 4.30.0 2008/12/11 12:14
+         Hypervisor 1.7.0 2008/12/11 13:43
+         Netra[TM] CP3060 POST 4.30.0 2008/12/11 12:45
+ 
+         Checksum of Sun_System_Firmware-6_7_0-Netra_CP3060.bin:  2921531789
+         (generated by the /usr/bin/cksum command)
+ 
+NOTE 2:  By using Sun System Firmware (Firmware) you agree to the terms
+         of Software License Agreement and Entitlement (SLA/Entitlement)
+         found in Sun_System_Firmware-6_7-download_SLA_and_Entitlement.txt.
+ 
+         By using the Firmware, you agree to the terms of SLA/Entitlement.
+         If you do not agree to all the terms promptly destroy unused
+         Firmware.
+ 
+NOTE 3:  Please refer to the online documentation for feature and version
+         compatibility between Sun System Firmware and LDom Manager releases.
+ 
+         LDoms release notes are available on:
+         http://docs.sun.com
+ 
+         under this title and part number:
+         Logical Domains (LDoms) 1.1 Release Notes 820-4914-10
+ 
+NOTE 4:  If you are currently using LDoms 1.0 software, you must perform a
+         full upgrade procedure to upgrade to LDoms 1.1 software.
+ 
+         Refer to:
+         Logical Domains (LDoms) 1.1 Administration Guide, 820-4894,
+ 
+         at  http://docs.sun.com/app/docs/prod/ldoms#hic.
+ 
+         You do not need to destroy configurations created with LDoms 1.0.1
+         or later software; you only need to upgrade the software.
+
+README -- Last modified date:  Tuesday, December 23, 2008
+
+</pre></body></html>

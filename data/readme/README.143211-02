@@ -1,0 +1,185 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 143211-02
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Big Admin Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+
+Keywords: firmware 32gb ssd solaris
+Synopsis: Hardware PROM: Firmware update Sun Storage 32GB SLC SATA Solid State Drive (SSD)
+Date: Sep/30/2010
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 10 10_x86
+Note: Oracle Enterprise Linux 5.4 Red Hat Enterprise Linux 5.4 SUSE Linux Enterprise Server 11 Windows 2008 (R2) Windows 2008 (SP2)
+
+
+SunOS Release: 5.10 5.10_x86
+Note: Oracle Enterprise Linux 5.4 Red Hat Enterprise Linux 5.4 SUSE Linux Enterprise Server 11 Windows 2008 (R2) Windows 2008 (SP2)
+
+Unbundled Product: Hardware/PROM/SSD
+
+Unbundled Release: 1.0
+
+Xref: 
+
+Topic: Sun 32GB SATA SLC SSD; Sun StorageTek 3 Gb SAS RAID HBA flashprom update
+
+Relevant Architectures: sparc i386
+
+BugId's fixed with this patch: 6806467 6827668 6918513
+
+Changes incorporated in this version: 6918513
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+rel8862SunPhyParams.bin
+
+Problem Description:
+
+6918513 Sun 32GB SATA SLC SSD (Intel 32GB SATA) - SSD drives get retryable write errors under any kind of load impacting performance
+ 
+(From 143211-01)
+6806467 SSD/Intel32GB - Cougar card renders the host frozen after a scsi read/write retry error
+6827668 Thor SW2.0 S10u6 : Massive "Error for Command:read/write " messages during stress testing for SSD
+
+Patch Installation Instructions:
+--------------------------------
+ 
+This is a special patch that provides instructions to update embedded firmware 
+within the Sun 32GB SATA SLC Solid State Disk.
+
+Special Install Instructions:
+----------------------------
+ 
+NOTE 1: Firmware component revisions included with this release:
+ 
+	rel8862SunPhyParams.bin	
+ 
+	/usr/bin/cksum rel8862SunPhyParams.bin
+	15946246        256000  rel8862SunPhyParams.bin
+ 
+NOTE 2: Documentation and Product Notes for this SSD can be found at:
+        http://docs.sfbay.sun.com/app/docs/prod/disk.drives#hic
+ 
+	Sun Storage 32GB SLC SATA Solid State Drive
+ 
+NOTE 3: Documentation and Product Notes for RAID HBA can be found at:
+        http://docs.sfbay.sun.com/app/docs/prod/sas.raidhba.int#hic
+ 
+	Sun StorageTek 3 Gb SAS RAID HBA
+ 
+NOTE 4: General guidelines for upgrading:
+ 
+        BACK UP ALL FILESYSTEMS.
+ 
+        STOP ALL APPLICATIONS. The system must be idle during the
+        firmware upgrade process.
+ 
+        UNMOUNT all file systems on the drives to be upgraded.
+        Drives with mounted file systems are not eligible for
+        upgrade.
+ 
+        UNCONFIGURE devices from volume manager.
+ 
+        REBOOT THE SYSTEM if you unconfigured any drives from
+        volume manager (e.g. Veritas).  Otherwise, you will
+        not be able to upgrade any previously configured disks.
+ 
+        UPGRADE the disks.  Follow the given instructions in
+        the procedure section below.
+ 
+To install rel8862SunPhyParams.bin in a Solaris environment,
+ 
+ 
+	Download Oracle Hardware Management Pack (fwupdate) along with 
+	supporting documentation at the link below:
+	http://www.sun.com/systemmanagement/managementtools.jsp
+ 
+	Download the "Sun Server CLI Tools and IPMItool 2.0 User's Guide" 
+	(PN: 821-1600-xx). Follow the instructions provided in this manual to 
+	install and configure Server Hardware Management Pack.  Once it is 
+	successfully installed, proceed with upgrading the firmware on your 
+	device via the `fwupdate` command.  Instructions on using the `fwupdate`
+	command are provided in the User's Guide referenced above.
+	http://docs.sun.com/app/docs/prod/svrmgmt.pack2?l=en&amp;a=view 
+ 
+ 
+ 
+1) Identify which SSD device you wish to upgrade with the following command:
+ 
+# /usr/bin/fwupdate list
+ 
+For example, in Solaris:
+   # /usr/bin/fwupdate list disk
+ 
+ 
+CONTROLLER c0
+=============
+Manufacturer   Model     Product Name                  F/W Version         BIOS Version
+-----------------------------------------------------------------------------------------------
+LSI Logic      0x0058    -                             -                   -
+ 
+DISKS
+===============
+ID      Brand       Model               Chassis Slot   Type   Media   Size (GB)Firmware Revision
+---------------------------------------------------------------------------------------------------
+c0d1    INTEL       SSDSA2SH03          -       -      sata   SSD     31       8855
+c0d2    INTEL       SSDSA2SH03          -       -      sata   SSD     31       8855
+c0d3    INTEL       SSDSA2SH03          -       -      sata   SSD     31       8855
+ 
+2) To install the new firmware on the target Intel SSD, type the following command:
+ 
+# /usr/bin/fwupdate update
+ 
+For example, in Solaris:
+# /usr/bin/fwupdate update disk-firmware -n c0d1 -f rel8862SunPhyParams.bin
+* The example above assumes rel8862SunPhyParams.bin is in the current directory.
+* The example above shows how to update the Intel SSD at c0d1
+ 
+3) Verify that the new firmware 8862 was installed correctly on the target Intel SSD (in this case c0d1):
+ 
+# /usr/bin/fwupdate list
+ 
+For example, in Solaris:
+# /usr/bin/fwupdate list disk
+ 
+CONTROLLER c0
+=============
+Manufacturer   Model     Product Name                  F/W Version         BIOS Version
+-----------------------------------------------------------------------------------------------
+LSI Logic      0x0058    -                             -                   -
+ 
+DISKS
+===============
+ID      Brand       Model               Chassis Slot   Type   Media   Size (GB)Firmware Revision
+---------------------------------------------------------------------------------------------------
+ 
+c0d1    INTEL       SSDSA2SH03          -       -      sata   SSD     31       8862
+c0d2    INTEL       SSDSA2SH03          -       -      sata   SSD     31       8855
+c0d3    INTEL       SSDSA2SH03          -       -      sata   SSD     31       8855
+ 
+Notice that the firmware version of Intel SSD at c0d1 has been updated to 8862
+ 
+4) Repeat the same procedure mentioned in step (2) for all the remaining Intel SSDs.
+
+README -- Last modified date:  Thursday, September 30, 2010
+
+</pre></body></html>

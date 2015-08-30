@@ -1,0 +1,86 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 111756-02
+Keywords: DiskSuite ja
+Synopsis: Solstice DiskSuite 4.2.1_x86: Product patch for Japanese
+Date: Dec/10/2002
+
+Install Requirements: None                      
+                      
+Solaris Release: 8_x86
+
+SunOS Release: 5.8_x86
+
+Unbundled Product: Disksuite
+
+Unbundled Release: 4.2.1
+
+Xref: This patch available for SPARC as patch 111755
+
+Topic: 
+
+Relevant Architectures: i386
+
+BugId's fixed with this patch: 4471517 4488435
+
+Changes incorporated in this version: 4488435
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+/usr/lib/locale/ja/LC_MESSAGES/SUNW_MD.mo
+/usr/lib/lvm/locale/ja/LC_MESSAGES/metatool.cat
+/usr/share/man/ja/man1m/metaclear.1m
+/usr/share/man/ja/man1m/metadb.1m
+/usr/share/man/ja/man1m/metainit.1m
+/usr/share/man/ja/man1m/metareplace.1m
+/usr/share/man/ja/man1m/metaroot.1m
+/usr/share/man/ja/man1m/metaset.1m
+/usr/share/man/ja/man1m/metastat.1m
+/usr/share/man/ja/man1m/metattach.1m
+/usr/share/man/ja/man4/md.tab.4
+/usr/share/man/ja/man7/md.7
+
+Problem Description:
+
+4488435 DiskSuite manpages have been updated in Solaris 8 UR6.
+ 
+(from 111756-01)
+4471517 DiskSuite4.2.1 message updates for Solaris 8 update 6
+
+Patch Installation Instructions:
+--------------------------------
+For Solaris 2.0-2.6 releases, refer to the Install.info file and/or
+the README within the patch for instructions on using the generic
+'installpatch' and 'backoutpatch' scripts provided with each patch.
+ 
+For Solaris 7-8 releases, refer to the man pages for instructions on
+using 'patchadd' and 'patchrm' scripts provided with Solaris.
+Any other special or non-generic installation instructions should be
+described below as special instructions.  The following example
+installs a patch to a standalone machine:
+ 
+        example# patchadd /var/spool/patch/104945-02
+ 
+The following example removes a patch from a standalone system:
+ 
+        example# patchrm 104945-02
+ 
+For additional examples please see the appropriate man pages.
+ 
+Special Installation Instructions:
+----------------------------------
+ 
+None.
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Tuesday, December 10, 2002
+
+</pre></body></html>

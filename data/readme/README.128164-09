@@ -1,0 +1,515 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 128164-09
+
+NOTE:
+***********************************************************************
+Your use of the firmware, software and any other materials contained 
+in this update is subject to My Oracle Support Terms of Use, which 
+may be viewed at https://support.oracle.com.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: st914603s mbb2147r 146gb disk firmware sas patch
+Synopsis: SunOS: Hardware 146GB SAS Disk Drive Patch Download program and SAS Disk Drive firmware
+Date: Oct/01/2014
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: SAS disks
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: all
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+a 128164-09/.download 1K
+a 128164-09/MBB2147R.0705.fw 630K
+a 128164-09/README.128164-09 18K
+a 128164-09/ST914603S.0E71.fw 1082K
+a 128164-09/download 1K
+a 128164-09/download32 293K
+a 128164-09/download32_aac 221K
+a 128164-09/download64 363K
+a 128164-09/downloadx32 272K
+a 128164-09/downloadx64 436K
+a 128164-09/mdload 3491K
+a 128164-09/mload 2K
+a 128164-09/nload 20K
+a 128164-09/patchinfo 1K
+a 128164-09/solaris/ 0K
+a 128164-09/solaris/sparc/ 0K
+a 128164-09/solaris/sparc/32/ 0K
+a 128164-09/solaris/sparc/32/libSTORARC.so 3881K
+a 128164-09/solaris/x86/ 0K
+a 128164-09/solaris/x86/32/ 0K
+a 128164-09/solaris/x86/32/libSTORARC.so 3505K
+a 128164-09/x86/ 0K
+a 128164-09/x86/ata_disk_load32 13K
+a 128164-09/x86/ata_disk_load64 16K
+a 128164-09/x86/mdload 2843K
+a 128164-09/xdownload32_aac 224K
+
+Problem Description:
+
+This Patch is a SAS Patch for 146GB SAS Drives bugs. 
+ 
+The patch has the following bug fixes:
+ 
+Network f/w roll.
+ 
+Previous History:
+ 
+Installation Instructions:
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. The system MUST BE IDLE during the download process!  No other
+   programs should be running while using this utility is being
+   used.  Failure to do so may cause the devices being upgraded
+   to fail or the system to crash.
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.log" or "/var/tmp/download.log", "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+3. This package will only upgrade the identified Sun disks.
+ 
+4. Follow the instructions given below.  You may program one drive,
+   a range of drives, or all drives at once with this tool.
+ 
+5. To download the boot disk you must be in "single-user mode". To enter
+   "single-user mode" reboot with the command:
+   # reboot -- -s 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ 
+1. General guidelines for upgrading:
+ 
+        BACK UP ALL FILESYSTEMS.
+ 
+        STOP ALL APPLICATIONS. The system must be idle during the
+        firmware upgrade process.
+ 
+        UNMOUNT all file systems on the drives to be upgrade.
+        Disks with mounted file systems are not eligible for
+        upgrade.
+ 
+        UNCONFIGURE devices from volume manager.
+ 
+        UPGRADE the disks.  Follow the given instructions in
+        the procedure section below.
+ 
+                         circumstances under which 2.6 is not usefull. But it will work in many cases.
+ 
+**NOTE**    If a system disk is to be upgraded, the upgrade utility will
+            allow it to be upgraded if the system is in single-user mode
+            (e.g. "boot -s").  Otherwise, the system disk will not be
+            eligible for upgrade.
+ 
+ 
+ 
+ 
+ 
+2. Procedure:
+ 
+The procedure to be used for upgrading the drive firmware is
+explained below. Upgrade time will be approximately 3 minutes per drive. 
+ 
+a) Unpack the patch (through tar) into any directory, say &lt;patchdir&gt;.
+   (Note, if the patch ends in a ".Z" suffix, you will need to first
+   uncompress it.)  So, you would type:
+        % su root
+        # cd &lt;patchdir&gt;
+        # tar -xvf &lt;patch tar file&gt;
+ 
+b) In the patch directory, as root, type the "download" command:
+        # ./download ST914603S.0E71.fw 
+ 
+c). Select the devices to be upgraded (see example below).
+ 
+**NOTE**    Any device that is in-use by another application will not
+            be upgraded.  The following warning message will be
+            issued:   c1t3d0s0: Open failed, you must be the sole user!
+ 
+**NOTE**    This upgrade can result in error messages in the console
+            window and/or the terminal "download" window.  It is
+            normal for the SCSI link to go offline for a few
+            seconds and then return to the online state.  The disk
+            mode pages will also be restored to the default values.
+ 
+c). After the devices have been upgraded, the displayed device
+    list will be refreshed.  Devices remaining to be upgraded or
+    failed devices will be displayed.  Failed devices will be
+    marked with a "****" in the rev field.
+ 
+**NOTE**    If all devices have been upgraded, the following
+            message will be displayed:   No devices found to upgrade!
+ 
+d). To display the full list of devices including the upgrades ones,
+    type 'inquiry' (see example below).
+ 
+ 
+e). Quit the "download" program by typing 'quit' (see example below).
+ 
+ 
+ 
+**************************************************************************
+**************************************************************************
+EXAMPLES:
+ 
+ 
+scsvr-04# &gt;tar -xvf 128164-09.tar
+x 128164-09, 0 bytes, 0 tape blocks
+x 128164-09/patchinfo, 409 bytes, 1 tape blocks
+x 128164-09/.diPatch, 76 bytes, 1 tape blocks
+x 128164-09/backoutpatch, 1604 bytes, 4 tape blocks
+x 128164-09/installpatch, 51 bytes, 1 tape blocks
+x 128164-09/Install.info, 187 bytes, 1 tape blocks
+x 128164-09/README.128164-09, 9939 bytes, 20 tape blocks
+x 128164-09/SUNWst876, 0 bytes, 0 tape blocks
+x 128164-09/SUNWst876/pkgmap, 1528 bytes, 3 tape blocks
+x 128164-09/SUNWst876/pkginfo, 775 bytes, 2 tape blocks
+x 128164-09/SUNWst876/install, 0 bytes, 0 tape blocks
+x 128164-09/SUNWst876/install/checkinstall, 239 bytes, 1 tape blocks
+x 128164-09/SUNWst876/install/copyright, 119 bytes, 1 tape blocks
+x 128164-09/SUNWst876/install/patch_checkinstall, 231 bytes, 1 tape blocks
+x 128164-09/SUNWst876/install/patch_postinstall, 272 bytes, 1 tape blocks
+x 128164-09/SUNWst876/install/postinstall, 284 bytes, 1 tape blocks
+x 128164-09/SUNWst876/install/preinstall, 286 bytes, 1 tape blocks
+x 128164-09/SUNWst876/reloc, 0 bytes, 0 tape blocks
+x 128164-09/SUNWst876/reloc/var, 0 bytes, 0 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm, 0 bytes, 0 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages, 0 bytes, 0 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09, 0 bytes, 0 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/.download, 73 bytes, 1 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/6120.sh, 5257 bytes, 11 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/ST914603S.0E71.fw, 1021592 bytes, 1996 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/bitops, 9124 bytes, 18 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/download, 884 bytes, 2 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/download32, 299940 bytes,
+ 586 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/download64, 371148 bytes, 725 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/downloadx32, 277976 bytes, 543 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/downloadx64, 445648 bytes, 871 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/mdload, 3574636 bytes, 6982 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/mload, 1924 bytes, 4 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/patchtoc, 18 bytes, 1 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/x86, 0 bytes, 0 tape blocks
+x 128164-09/SUNWst876/reloc/var/sadm/swimages/128164-09/x86/mdload, 2910968 bytes, 5686 tape blocks
+scsvr-04# ls
+128164-09      128164-09.tar
+scsvr-04# cd 128164-09
+scsvr-04# pkgadd -d .
+The following packages are available:
+ 1  SUNWst876     Sun StorEdge (tm) 6120 Seagate Disk Firmware
+ (all) 0E71
+ 
+Select package(s) you wish to process (or 'all' to process
+all packages). (default: all) [?,??,q]: 1
+ 
+Processing package instance &lt;SUNWst876&gt; from &lt;/PATCHTEST/128164-09&gt;
+ 
+Sun StorEdge (tm) 6120 Seagate Disk Firmware(all) 0E71
+Copyright 2006 Sun Microsystems, Inc. All rights reserved.
+Copyright 2006 Sun Microsystems, Inc. Tous droits r?serv?s.
+## Executing checkinstall script.
+Using &lt;/&gt; as the package base directory.
+## Processing package information.
+## Processing system information.
+## Verifying disk space requirements.
+## Checking for conflicts with packages already installed.
+## Checking for setuid/setgid programs.
+ 
+This package contains scripts which will be executed with super-user
+permission during the process of installing this package.
+ 
+Do you want to continue with the installation of &lt;SUNWst876&gt; [y,n,?] y
+ 
+Installing Sun StorEdge (tm) 6120 Seagate Disk Firmware as &lt;SUNWst876&gt;
+ 
+## Executing preinstall script.
+## Installing part 1 of 1.
+/var/sadm/swimages/128164-09/.download
+/var/sadm/swimages/128164-09/6120.sh
+/var/sadm/swimages/128164-09/ST914603S.0E71.fw
+/var/sadm/swimages/128164-09/bitops
+/var/sadm/swimages/128164-09/download
+/var/sadm/swimages/128164-09/download32
+/var/sadm/swimages/128164-09/download64
+/var/sadm/swimages/128164-09/downloadx32
+/var/sadm/swimages/128164-09/downloadx64
+/var/sadm/swimages/128164-09/mdload
+/var/sadm/swimages/128164-09/mload
+/var/sadm/swimages/128164-09/patchtoc
+/var/sadm/swimages/128164-09/x86/mdload
+[ verifying class &lt;none&gt; ]
+## Executing postinstall script.
+ 
+Installation of &lt;SUNWst876&gt; was successful.
+Scsvr-04# cd /var/sadm/swimages/128164-09
+scsvr-04# ls
+download           downloadx32        mload              ST914603S.0E71.fw
+download32         downloadx64        patchinfo          
+download64         mdload             README.128164-09   x86
+ 
+# If your system has a Adaptec RAID controller communicating with the disks to be
+# downloaded please see the "SPECIAL INSTRUCTIONS" at the bottom.
+#
+scsvr-04# ./download ST914603S.0E71.fw
+Firmware Download Utility, V4.3.1
+ 
+**************************  WARNING  **************************
+NO OTHER ACTIVITY IS ALLOWED DURING FIRMWARE UPGRADE!!!
+No other programs including any volume manager (e.g. Veritas,
+SDS, or Vold) should be running.  Other host systems sharing
+any I/O bus with this host must either be offline or
+disconnected.  Any interruption (e.g. power loss) during
+upgrade can result in damage to devices being upgraded.
+ 
+Any disk to be upgraded should first have its data backed up.
+***************************************************************
+ 
+Searching for devices...
+ 
+DISK DEVICES
+Device         Rev   Product
+ 
+c0t0d0:        0D70  ST914603S -- SUN146G
+c0t1d0:        0D70  ST914603S -- SUN146G
+Total Devices:  2
+ 
+ 
+Enter command: p
+Upgrading devices...
+ 
+c0t0d0: Successful download
+c0t1d0: Successful download
+c0: recovery delay, 84 sec.
+ 
+ 
+ 
+DISK DEVICES
+No devices found to upgrade!
+ 
+ 
+Enter command: inq
+ 
+DISK DEVICES
+Device  Rev   Product               S/N
+c0t0d0: 0E71  ST93000S -- SUN146G  06399020TK
+c0t1d0: 0E71  ST93000S -- SUN146G  06399020E8
+Total Devices:  2
+ 
+ 
+Enter command: q
+ 
+ 
+SPECIAL INSTRUCTIONS:
+ 
+# The following examples allow to download -
+  For Adaptec controllers and for drives behind Adaptec Raid
+  controllers
+  For Sparc invoke "download32_aac"
+  For Solaris X86 invoke "xdownload32_aac"
+  The drives which are not part of Adaptec please follow 
+  the respective instructions to download.
+ 
+  The PATH local variable of your working SHELL should be
+  include the current working directory
+  For example if you are in Korn Shell you can execute this command -
+  #&gt; export PATH=$PATH:.
+ 
+ 
+Solaris Download Example:
+ 
+******** Note - For Sparc use the download32_aac
+ 
+# ./xdownload32_aac
+ 
+ 
+Number of controllers: 1
+*************************************************
+       List of Available Drives
+ 
+Adpt Ch Dev Vendor  Model      Size  SerialNo        FWRev    Type
+0    0  0  SEAGATEST914603SSUN146G     146GB 152158H3            3NP158H30400      SAS
+0    0  2  SEAGATEST914603SSUN146G     146GB 18217F78            3NP17F780400      SAS
+0    0  1  HITACHIH101473SCSUN72G      68GB 000726D19GSA         P2V19GSASA25      SAS
+*************************************************
+ 
+       Enter Channel and Device to download firmware
+       Enter Channel No - Enter all for All OR Ctrl C to exit): 0
+ 
+       Enter Disk or Device ID  Hit Return for all drives: 1
+ 
+       Enter the firmware file to be used
+       (white space or Return is considered as end of input) :/H101473SC.SA23.fw
+ 
+ 
+ Starting Download to
+0    0  1  SEAGATEST914603SSUN146G     68GB 000726D19GSA        P2V19GSASA25      SAS
+Download successful
+*************************************************
+       List of Available Drives
+ 
+Adpt Ch Dev Vendor  Model      Size  SerialNo        FWRev    Type
+0    0  0  SEAGATEST914603SSUN146G     146GB 152158H3            3NP158H30400      SAS
+0    0  2  SEAGATEST914603SSUN146G     146GB 18217F78            3NP17F780400      SAS
+0    0  1  HITACHIH101473SCSUN72G      68GB 000726D19GSA         P2V19GSASA25      SAS
+*************************************************
+ 
+       Enter Channel and Device to download firmware
+       Enter Channel No - Enter all for All OR Ctrl C to exit): ^C#
+#
+#
+# cd /opt/StorMan
+# ./arcconf rescan 1
+Controllers found: 1
+ 
+Command completed successfully.
+#
+#
+# cd /net/hoohoo/usr/download/bin
+# ./xdownload32_aac -i
+ 
+******* Note -- For Solaris Sparc use download32_aac
+ 
+ 
+Number of controllers: 1
+*************************************************
+       List of Available Drives
+ 
+Adpt Ch Dev Vendor  Model      Size  SerialNo        FWRev    Type
+0    0  0  SEAGATEST914603SSUN146G     146GB 152158H3            3NP158H30400      SAS
+0    0  2  SEAGATEST914603SSUN146G     146GB 18217F78            3NP17F780400      SAS
+0    0  1  HITACHIH101473SCSUN72G       68GB 000726D19GSA        P2V19GSASA23      SAS
+*************************************************
+ 
+       Enter Channel and Device to download firmware
+       Enter Channel No - Enter all for All OR Ctrl C to exit): ^C#
+#
+# 
+ 
+LINUX Download Procedure 
+[root@scsvr-177 144200-2]# ./nload -I
+(this tells what devices are available to download)
+[root@scsvr-177 144200-2]# ls | grep sd
+#this shows you all available devices and will look something like
+ 
+[root@scsvr-172 128164-06]# ./nload -I
+ 
+ 
+    Inquiry for device &lt;/dev/sg0&gt; - 
+    Vendor: SEAGATE 
+    Model: ST930003SSUN300G
+    Firmware Rev: 0E71
+    Product Serial No: 08427014
+    PQual: 0    Device_type: 0
+    RMB: 0    Ansi Version: 5    Iso Ver: 0
+    Cmd Queue: 1    IUS: 0    QAS: 0    Clocking: 0
+    Host No: 0    Channel: 0    Scsi-ID: 0    Lun: 0
+    Scsi-Type: Disk
+    maximum commands per lun: 7    maximum queue length: 64
+ 
+    Capacity as Max-LBA no.: 585937499, block Size: 512
+ 
+ 
+    Inquiry for device &lt;/dev/sg1&gt; - 
+    Vendor: SEAGATE 
+    Model: ST930003SSUN300G
+    Firmware Rev: 0D70
+    Product Serial No: 08427014
+    PQual: 0    Device_type: 0
+    RMB: 0    Ansi Version: 5    Iso Ver: 0
+    Cmd Queue: 1    IUS: 0    QAS: 0    Clocking: 0
+    Host No: 0    Channel: 0    Scsi-ID: 5    Lun: 0
+    Scsi-Type: Disk
+    maximum commands per lun: 7    maximum queue length: 64
+ 
+    Capacity as Max-LBA no.: 585937499, block Size: 512
+ 
+ 
+    Inquiry for device &lt;/dev/sg2&gt; - 
+    Vendor: SEAGATE 
+    Model: ST914603SSUN146G
+    Firmware Rev: 0B70
+    Product Serial No: 08428017
+    PQual: 0    Device_type: 0
+    RMB: 0    Ansi Version: 5    Iso Ver: 0
+    Cmd Queue: 1    IUS: 0    QAS: 0    Clocking: 0
+    Host No: 0    Channel: 0    Scsi-ID: 6    Lun: 0
+    Scsi-Type: Disk
+    maximum commands per lun: 7    maximum queue length: 64
+ 
+    Capacity as Max-LBA no.: 286739328, block Size: 512
+ 
+ 
+    Inquiry for device &lt;/dev/sg5&gt; - 
+    Vendor: TSSTcorp
+    Model: CDDVDW TS-T633A 
+    Firmware Rev: SR00
+    Product Serial No: SR 
+    PQual: 0    Device_type: 5
+    RMB: 1    Ansi Version: 0    Iso Ver: 0
+    Cmd Queue: 0    IUS: 0    QAS: 0    Clocking: 0
+    Host No: 7    Channel: 0    Scsi-ID: 0    Lun: 0
+    Scsi-Type: CD-DVD
+    maximum commands per lun: 1    maximum queue length: 1
+ 
+SCSI Command Error: NOT_READY
+                     Addition sense information 3a/2
+                     GOOD CONDITION, COMMAND COMPLETE
+ 
+ 
+ 
+./nload -d /dev/sd3  ST914603S.0E71.fw
+ 
+# This needs to be repeated for each drive.
+ 
+README -- Last modified date:  Friday, July 29, 2011
+
+Special Install Instructions:
+0
+ 
+README -- Last modified date:  Wednesday, November 9, 2011
+
+README -- Last modified date:  Wednesday, October 1, 2014
+
+</pre></body></html>

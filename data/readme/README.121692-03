@@ -1,0 +1,128 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 121692-03
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire v215/ v245
+Synopsis: Hardware/PROM: Sun Fire V215 / V245 Flash PROM Update
+Date: Jul/31/2007
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 9 10
+
+SunOS Release: 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.22.33, POST 4.22.33, OBDIAG 4.22.33
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 5079227 6364139 6376657 6379979 6380442 6381084 6381115 6381242 6381385 6383658 6390526 6392539 6393492 6396519 6396528 6396533 6396540 6396546 6400408 6404798 6406142 6407889 6411069 6414799 6418658 6423803 6436300 6438159 6438649 6441770 6444152 6447320 6447326 6450457 6450624 6454640 6455202 6466207 6469964 6474932 6480389 6487277 6487292 6488855 6491132 6508906 6511901 6512314 6512892 6518883 6519920 6520058 6525913 6546593 6550351 6550398 6557874 6561957
+
+Changes incorporated in this version: 6561957 6557874 6550398 6550351 6546593 6525913 6520058 6519920 6518883 6512892 6512314 6511901 6508906 6491132 6488855 6487292 6487277 6480389 5079227
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunFire245
+unix.flash-update.SunFire245.sh
+
+Problem Description:
+
+6561957 OBP bge ethernet driver needs performnace improvement when load a big file (wanboot 108 MB)
+6557874 Need clean CP2500 OBP smc kcs interface
+6550398 flx17584: Observed "/console: error to writing to console"
+6550351 Issuing a boot to the cdrom device hangs the system if no cdrom is installed.
+6546593 WANboot should not reflect packets
+6525913 "SUN PROPRIETARY/CONFIDENTIAL" message appears on boot on FCS seattle
+6520058 Schizo FCode driver does not support CDMA interrupts which can lead to Solaris panic. 
+6519920 flx20277: UTP - JLL9.2 OBP firmware breaks Jade/UTP tpdriver attachment, 2 UTP env.
+6518883 flx20174: obp command, "test-all", hangs on Jade Jalapeno host &amp; satellite.
+6512892 Remove IPMI console abort to workaround 'Memory Address not Aligned' trap on Jade
+6512314 Jade obp shows 'Don't know the role!' after halt
+6511901 Jade console hits 'Memory Address not Aligned' trap
+6508906 post and obp build issues
+6491132 V445 AC power restoring causes OBP post fail
+6488855 flx18074: ERROR: motherboard SEEPROM access failed
+6487292 Jade .alarms timer not running after Solaris halt
+6487277 ./dimmCheck hangs intermittently when we have 8 x Samsung dimms in a Chicago system
+6480389 "ERROR: /memory: CPU1 Bank 0 DIMMs are from different vendors"
+5079227 This, ")" in between "Copyright" and "2004", is not in the right place.
+ 
+(From 121692-02)
+ 
+6474932 Seattle/Boston OBP need to define slot-names property
+6469964 JLL5.1: POST fails when powering on Jalapeno with high CPU speed 
+6466207 Fire PCI-E bridge version should be determined based on fire-revision# rather than module-revision#.
+6455202 "supported-network-types" on BGE will breaks with 1000Mbps settings
+6450457 OBP flashupdate from 4.22.11 to 4.22.13 fails with "flash device is write protected" 
+6438159 Seattle OBP needs to support 2UEEL riser card
+ 
+(From 121692-01)
+ 
+6454640 missing device_type property on ebus node.
+6450624 Disable NPWR_EN on Seattle
+6447326 Remove CPU speed configuration menu
+6447320 Remove OBP flash-update command
+6444152 Seattle Unix OBP flash update script needs to support new Seattle MB part numbers
+6441770 I2C workaround for EPIC access issue
+6438649 I2C contention between OBP and ALOM
+6436300 netconsole gets stuck while running obdiag with base fabric interface
+6423803 OBP support for dynamically programming the SAS WWID
+6418658 Incorrect paths in seattle ASR
+6414799 Seattle OBP needs extra guard pages for boot support
+6411069 OBP PLL data writes should be consistent with POST.
+6407889 Add 2UXXL support, remove 2UEXL support
+6406142 PCI bridge code handles IO limit = 0 incorrectly
+6404798 Host keeps on resetting when keyswitch is set to diag.
+6400408 Modify RX_EQLIZR_CTL bits in Seattle Fire LPU Gigablaze Glue Config2 Register to 0000 from default
+6396546 Remove pre-P1.0 hacks
+6396540 Program static SAS WWID at boot time
+6396533 Solaris flash-updater broken
+6396528 PCI-X out of band riser card interrupts should only be created if 2UEXL or 2UEEL riser card used
+6396519 OBDiag EPIC test fails
+6393492 Need to enforce memory CAS latency minimum of 2.5 on DIMMS running at more than 133MHz
+6392539 Volume type is being referenced instead of volume id in 1.00.39 1064 fcode
+6390526 USB 2.0 Hub gets lost to OBP after Solaris EHCI driver run
+6383658 Dynamic FRUID writes cause OBP MB FRUPROM reads to fail
+6381385 Upgrade LSI1064 FCode to 1.00.39
+6381242 Seattle platform support
+6381115 mixed speed memory will not interleave in enchilada system
+6381084 bootmode reset-rvram does not reset nvram variables.
+6380442 Seatle_P0.1-2U: FATAL: no exception frames available, forcing misaligned trap (S#S020)
+6379979 fcode: map-in of config space does not work correctly
+6376657 OBP I2C Drivers should frame each unique addressed device with a START and STOP.
+6364139 OBP shows "ERROR - BCM5714 device 0 missing" with pci1 is disabled.
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+ 
+                &gt;&gt;&gt; END &lt;&lt;&lt;
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Tuesday, July 31, 2007
+
+</pre></body></html>

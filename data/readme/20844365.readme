@@ -1,0 +1,52 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">PCI Expansion unit firmware version 1200 (PCIBOX-FW 1200) Release Notes
+
+1. Problems fixed by PCIBOX-FW 1200
+
+  This version of PCI expansion unit firmware fixes the following problems.
+
+  ----------------------------------------------------------------------------
+  RTIF2-150225-001:
+
+  [Problem]
+   If the input voltage drops instantaneously on the system with 
+   the PCI expansion unit connected, a failure of the power
+   supply unit (PSU) of the PCI expansion unit may be detected by
+   mistake, and the Check LED (amber) of the PCI expansion unit may go on.
+   You can confirm this symptom with the showlogs error -v command. If
+   the execution result of the showlogs error -v command is "Msg:PSU failed"
+   or "PSU failed(PSU) shortage)" and the fourth line of the Diagnostic Code
+   has the following values, the symptom corresponds to this problem.
+   1) Fourth byte: the left-most (x80) bit is 0 (any of 0*, 1*, 2*, 3*, 4*, 
+      5*, 6*, and 7*), and
+   2) Fourth byte: the seventh (x02) bit from the left is 0 (any of *0, *1, 
+      *4, *5, *8, *9, *c, and *d), and
+   3) Fifth byte: the left-most (x80) bit is 0 (any of 0*, 1*, 2*, 3*, 4*, 
+      5*, 6*, and 7*), and
+   4) Seventh byte: the left-most (x80) bit is 0 and the second (x40) bit 
+      from the left is 0 (any of 0*, 1*, 2*, and 3*).
+
+   Date: Jan 13 15:19:40 JST 2015
+       Code: 80000408-00cb000000ff0000ff-110000256001000000000000
+       Status: Alarm Occurred: Jan 13 15:19:40.742 JST 2015
+       FRU: /MBU/PCI#1/PCIBOX#1111/PSU#0
+       Msg: PSU failed
+       Diagnostic Code:
+           00013131 31310000 0000
+           00010000 00000000 0000
+           00010000 00000000 0000
+           01410800 00000000 00000000 00000000
+                 ^^ ^^  ^^
+           00000000 00000000 0000
+
+  [Workaround]
+    None
+  ----------------------------------------------------------------------------
+
+2. How to update the firmware
+
+  Please refer to Appendix C of "PCI Expansion Unit for SPARC M10 Systems
+  Service Manual" to update the firmware.
+
+  Below is the download site of PCI Expansion Unit for SPARC M10 Systems Service Manual.
+  http://www.fujitsu.com/global/services/computing/server/sparc/downloads/manual/m10-4s/
+</pre></body></html>

@@ -1,0 +1,102 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 124414-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire v215/ v245
+Synopsis: Hardware/PROM: Sun Fire V215 / V245 Flash PROM Update
+Date: Oct/24/2007
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 9 10
+
+SunOS Release: 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.25.10, POST 4.25.10, OBDIAG 4.25.10
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4854322 5052695 5076888 5079227 6181985 6230349 6256046 6381271 6381272 6381277 6381279 6381281 6381818 6392873 6401719 6406061 6406577 6420097 6420137 6420147 6420194 6438159 6449538 6454640 6474932 6480389 6525913 6546593 6550351 6561957
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunFire245
+unix.flash-update.SunFire245.sh
+
+Problem Description:
+
+6561957 OBP bge ethernet driver needs performnace improvement when load a big
+        file (wanboot 108 MB)
+6550351 issuing a boot to the cdrom device hangs the system if no cdrom is
+        installed
+6546593 WANboot should not reflect packets
+6525913 "SUN PROPRIETARY/CONFIDENTIAL" message appears on boot on FCS seattle
+6480389 "ERROR: /memory: CPU1 Bank 0 DIMMs are from different vendors"
+6474932 Seattle/Boston OBP need to define slot-names property
+6454640 missing device_type property on ebus node. ++422++
+6449538 BGE properties hang net boot loading Solaris
+6438159 Seattle OBP needs to support 2UEEL riser card
+6420194 need to protect find-std-capability and find-extd-capability fromhang
+        due to a bad hardware
+6420147 method 'disable-children' in dev/pci-bridge/dec21152/pcibridg.fthdoes
+        not disables all children
+6420137 wrong mask used to clear pci errors in  'clear-pci-errs'  method defined
+        in obp/dev/pci/pcibus.fth
+6420097 phys.hi&gt;cfg-offset method does not work for non-PCIE bridges
+6406577 Hotplug Allocation Support needed in OpenBoot
+6406061 fix the decoding of 'movr' instructions in OBP sources
+6401719 IO-Bridge Error - Data miss compare when running DMA loopback mode.
+6392873 reset-all after asr-clear executed makes OBP ERROR: motherboard SEEPROM
+        access failed
+6381818 stand-init debug functionality does not work as expected
+6381281 bge fcode should support device args and properties specified in
+        FWARC/2002/345
+6381279 Remove no-probe-list property from Fire nodes
+6381277 interpreter workarounds for historical/legacy fcode prom bugs must be
+        removed
+6381272 use system-tick-speed instead of ms-factor to measure time
+6381271 all configuration variables should be set to defaults on NVRAM
+        initialization
+6256046 RFE: help for "post" should bring up help for diag
+6230349 fix spelling in .controls word in obdiag/lib/error.fth
+6181985 local-mac-address of bge interface is seen on pci card when net
+        NVALIAS is duplicated
+5079227 this, ")" in between "Copyright" and "2004", is not in the right place
+5076888 asr disabling all memory banks and a reset causes the system to shutdown
+5052695 post off doesn't run at diag-level off
+4854322 The idprom node is missing its close method
+
+Patch Installation Instructions:
+--------------------------------
+Please refer to the Install.info file for instructions on updating the firmware
+using the files included in this patch.
+
+Special Install Instructions:
+ 
+
+README -- Last modified date:  Wednesday, October 24, 2007
+
+</pre></body></html>

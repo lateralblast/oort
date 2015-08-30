@@ -1,0 +1,431 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 114527-18
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: sun_fire firmware flashprom update 5.20.17 scapp rtos 49 security
+Synopsis: Hardware/PROM: 5.20.17: Sun Fire E6900/E4900/E2900/6800/4800/4810/3800/V1280 Netra 1280 and Netra 1290 Systems FW Update
+Date: Jun/30/2011
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: ScApp:5.20.17, RTOS:49, SC POST:49
+
+Xref: 
+
+Topic: Sun Fire system controller and flashprom update 5.20.17
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4834243 4859850 4983024 5048077 5055397 5074444 5074808 5077840 6209146 6209341 6241193 6248265 6252685 6273264 6277490 6277542 6278585 6281065 6281990 6284667 6287644 6289142 6289143 6289981 6290626 6292535 6296688 6297086 6298853 6300392 6301186 6306373 6307803 6308053 6308677 6309268 6309342 6311091 6311098 6311761 6311763 6313503 6314309 6314358 6315956 6316045 6316080 6316095 6316530 6316541 6319704 6320701 6321138 6323420 6325921 6329943 6330120 6330681 6331430 6332032 6332729 6332736 6333725 6343519 6347015 6353053 6354226 6356150 6356684 6360951 6361036 6361098 6361149 6361505 6363437 6364012 6364125 6369788 6372610 6372636 6375533 6378865 6379321 6380531 6383689 6388391 6391111 6395663 6398349 6399086 6399115 6399649 6399657 6400173 6405762 6410597 6411108 6414145 6415272 6422586 6424794 6426489 6429408 6430667 6433291 6438912 6441484 6443248 6449847 6451333 6457922 6457967 6462094 6467598 6469405 6476648 6479040 6479084 6480508 6485598 6486016 6487111 6487355 6488096 6489629 6489696 6500532 6507686 6511730 6512852 6527732 6530133 6536487 6541223 6554415 6554527 6560118 6564970 6567546 6594542 6603231 6611646 6613280 6615537 6618443 6626545 6638657 6646319 6673180 6679219 6684726 6693002 6707386 6707931 6723209 6736822 6737582 6743184 6744844 6748491 6759431 6776845 6799628 6815492 6818412 6847971 6864515 6880570 6895919 6899962 6924389 6932351 6942049 6944045 6944050 6955039 6989183
+
+Changes incorporated in this version: 6989183
+
+Patches accumulated and obsoleted by this patch: 114528-02
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+lw8cpu.flash
+lw8pci.flash
+sgcpu.flash
+sgiowci.flash
+sgpci.flash
+sgrtos.flash
+sgsc.flash
+
+Problem Description:
+
+6989183 SC: 'setkeyswitch off' hang after 'Unable to send ECC event message to System Controller' error
+ 
+(from 114527-17)
+ 
+6895919 Sun Fire 6800 fails to net boot S10U9 AI with FATAL: PROM_PANIC[0x0]: assertion failed
+6955039 COBP Logo change for rebranding to Oracle
+ 
+(from 114527-16)
+ 
+6924389 Move setchs and all remaining showchs options outside of service mode.
+6932351 Unable to update repair activity fields - RepairDetailR &amp; ECO_CurrentR - with 5.20.14
+6942049 LW8 to limit number of simultaneous SSH connections to 2
+6944045 Re-brand COBP copyright messages
+6944050 Re-brand SCApp copyright messages
+ 
+(from 114527-15)
+ 
+6899962 Scapp needs to recognize ALL LW8 system board containing old D150
+6880570 5.20.14 requires RTOS 49
+6864515 Change the default fan speed to High on LW8 systems containg Jaguar/Panther CPU
+6847971 Network down when SC uptime exceeds 828 days
+ 
+(from 114527-14)
+ 
+6818412 V1280: boot net install of Solaris 10 U6 (10/08) increases miniroot loadtime to 20 minutes
+6815492 Can not unconfigure Primary and Secondary DNS server on lw8 SC
+6799628 Post test ID=111.0 indicts slave when master is at fault
+ 
+(from 114527-13)
+ 
+6743184 eeprom security-mode=none panics system
+6615537 Asia/Tehran (Iran) time changes in 2009. This fix needed after september 22 2008
+6673180 update SCApp timezone with DST/timezone release tzdata2008a.tar.gz
+6679219 update SCApp timezone with tzdata2008b.tar.gz DST release
+6707386 update SCApp timezone with tzdata2008c.tar.gz DST release
+6723209 update SCApp timezone with DST/timezone release tzdata2008d.tar.gz
+6736822 update SCApp timezone with DST/timezone release tzdata2008e.tar.gz
+6748491 (tz) Support tzdata2008f
+6759431 update SCApp timezone with tzdata2008g.tar.gz DST release
+6776845 update SCApp timezone with tzdata2008i.tar.gz DST release
+ 
+(from 114527-12)
+ 
+6693002 network-boot-argument with "client-id=" causes "Fast Data Access MMU Miss" on Enterprise servers
+6613280 "Device voltage problem: /N0/PS3 abnormal state for device" on lw8 systems
+6737582 AC input loss to power grid causes SC Failover event &amp; an outage to domain on the next grid
+6744844 Power cycling failed boards after a power outage causes NullPointerException
+6707931 ScApp may be exposed to CERT Advisory CA-95:01
+ 
+(From 114527-11)
+ 
+6618443 Jasper320 raises PERR due to XMITS floating CBE upper bits
+6684726 thread stuck in obp resulting in send_mondo panic
+ 
+(From 114527-10)
+ 
+5074808 Domain on E25k panics after hpost level &gt;= 64 with "Safari bus error"
+6626545 Timezone changes for Cuba and Syria, tzdata2007i, need to be updated
+6638657 Timezone changes from tzdata2007j, need to be updated
+6646319 Update SCApp timezones to 2007k (Argentina, Jan Mayen)
+ 
+(From 114527-09)
+ 
+6554527 cpu version 2.4 is not registered with SCApp
+6564970 Forcing the cpuspeed and ratio via "print PantherAsic.setClockRatio(cpuspeed, ratio)" does not work.
+6594542 Update new timezone changes (tzdata2007g.tar.gz) for Egypt, Indiana, Australia, and Antarctica
+6603231 prtdiag shows slot 2/3 at 66MHz, other slots at 100MHz for same PCI-X cards
+6611646 Update new DST changes (tzdata2007h.tar.gz) for Brazil, Egypt, Iran, Gaza, Venezuela
+ 
+(From 114527-08)
+ 
+6567546 Time jump when SC uptime exceeds 828 days
+ 
+(From 114527-07)
+ 
+5077840 ScApp should decode AFAR during NCPQ_TO event
+6486016 unexpected SC failures due to failure to allocate memory from sshd memory partition
+6507686 Failure of IB caused NullPointerException
+6512852 Unconfigured domains report "current year is 197?" after a reboot of the
+6527732 New updates needed for Pulaski County, Indiana, and Turkey changes (tzdata2007c)
+6536487 SCApp support needed for new timezone data tzdata2007d and tzdata2007e
+6541223 customer problem from LW8_MBOX_SET_LED delay workaround from 4687194
+6554415 New timezone changes, tzdata2007f, need to be updated in SCApp firmware
+6530133 Panther 1950MHz - POST enhancements for l3-tag
+6560118 Panther 1800MHz &amp; 1500MHz - POST enhancements for l3-tag
+ 
+(From 114527-06)
+ 
+6511730 Need to update timezone information for Canada and Western Australia DST + Bahamas
+ 
+(From 114527-05)
+ 
+6356150 Fail to setenv after create nodefault-bytes
+6429408 setupplatform should ask for Partition Mode first
+6449847 'Not Applicable' message seen during setupplatform on a E4900 with ScApp
+6476648 giving showresetstate command in a powered off system fails RP0
+6467598 Exec "ssh-keygen" to generate a DSA hostkey can potentially result in a SC Failover event
+6485598 E2900 with 1.95GHz boards allow full population of DIMMS
+6487111 unparkCore FAILED warning message seen during setkey on a domain which has a Faulty Ecache
+6487355 1.95GHz downgrading implementation and CPU (in general) handling are incomplete.
+6488096 Alignment Error in 5.20.3 but not in 5.20.2
+6489629 lshift in 5.20.3 produce wrong result
+6489696 Prevent user from setting both tolerate_mem_ce and mpr_support_enable to true using 'setupsc' in lw8
+6500532 CR 6405762 fix creates false positives
+ 
+(From 114527-04)
+ 
+6480508 "eeprom" display wanboot security key if it is assigned
+6479040 ERROR: Fast Data Access MMU Miss from show-post-results
+6479084 'NOTICE: Security keystore not valid, reinitialized' message seen at the end of every domain POST
+4983024 Need to support Wanboot on SF 1280 &amp; 6800
+5048077 Failed bulk PS doesn't generate ScApp error / notice event
+6300392 Solaris reboot causes AR L2CheckError INCSyncErr CMDVSyncErr PreqSyncErr in adjacent domain
+6375533 Main SC can lose access to IDPROM
+6383689 Prevent user from setting 'post-tolerate-ce = true' and 'mpr-support-enable = true' w/ 'setupdomain'
+6433291 SC should report correct behavior when a System Board Fails and is in Maintenance Mode.
+6441484 Black splat on platform agent
+6451333 enabling an unavailable PCI slot gives a Fatal error in 5.20.x
+6457967 Primary side rectifier over-temp shutdown on PSx on Sun Fire 4900
+6469405 Add SCapp support for Panther 1950MHz
+ 
+(From 114527-03)
+ 
+4834243 user ability to determine component health status in a platform
+6316045 Support fan tachometer output on LW8 platforms where h/w has fan tachometer capability.
+6364125 The SC delays the FM connection on resets and failover.
+6399086 Thread deadlock caused by TreeHelper use of TreePrune
+6405762 Fan failures in Sun Fire 3800 - 6800 may cause platform outage
+6410597 Blacklist a powered-off component cause java.lang.NullPointerException
+6438912 fails to poweron a Panther 1800Mhz board in one particular sequence of swapping PS
+6443248 5.20.0 Preventing 750MHz Boards Powering On When A145 &amp; A145E PSUs are mixed in a SF3800 Chassis
+6457922 ID0: SepromSegment.getSepromBytes: cannot load record SepromManufacturing errors seen while booting
+6462094 CpuSafariGroup.fillPostStructs: sun.serengeti.FailedHwException: cpu not present or broken
+ 
+(From 114527-02)
+ 
+6395663 E2900 with a single DIMM reporting only CEs CHS disabled all of its CPUs
+6399649 HW Eng is requesting the option to margin Vcore to either ?? 25mv or ?? 50mv
+6411108 mpr support should be enabled by default on serengeti
+6414145 Change Branch Predictor Mode (BPM) in SCAPP/hpost for Panther USIV+
+6415272 Fix is needed with AR4 repeaters to prevent L1 queue overflow
+6422586 Panther 1800MHz does not require A212 for 6900 and (A213 &amp; FTs) for 4900
+6430667 Panther 1800MHz DOES require A213 and Fan Trays for 4900
+6424794 PS HW failure causes PS mixtures to exists and preventing SB's to power on
+6426489 "voltage 0 is out of valid range: 0.78 - 1.55" message during poweron all
+ 
+(From 114527-01)
+ 
+4859850 hang-policy reset should attempt to get register dump inaddition to reset -x.
+5055397 Exec'ing setchs on component being POST'ed could result in hung ScApp shells
+5074444 help from enablecomponent and disablecomponent show PCI
+6209146 Integrate new SSHield Patch Release (Patch i017 and i018 for SSHield 1.6.1)
+6209341 Add a new option to the SCAPP &lt; sepromupdate &gt; command to support Configured_LevelR
+6241193 core power write failed.
+6248265 java.util.ConcurrentModificationException with showlogs
+6252685 Error "JtagController.tapShiftMultiple: sun.serengeti.CommException" for non-Jaguar CPUs.
+6273264 Solaris 10/POST not giving correct Panther E$ address (AFAR) on failure
+6277490 AVL-FS2 (Serengeti): Provide Diagnosis of NEW Panther CPU Errors
+6277542 l3 ram test only tests 512K of the sram
+6278585 Memory Addressing test should support tolerate_mem_ce
+6281065 AVL-FS2 (Serengeti): Support APR
+6281990 mem dimm tests indict wrong components
+6284667 ShowComp states "disabled" while enable component states its enabled!
+6287644 Unable to Poweron a Failed Xmits3.1 I/O assembly
+6289142 Request SW support for new A209 power supply for LW8 Panther 1800
+6289143 Request SW support for new A212 and A213 power supplies for Serengeti Panther 1800
+6289981 "Unknown" is shown for CPU Board Test Status when SCApp showboards shows "Disabled"
+6290626 snmp query gets no undertemp status in slot status
+6292535 High temp on certain proc Uniboard running dram64 test on MD chassis
+6296688 Single-bit CPU DECC error (w/ 'proteus') fails all CPUs
+6297086 Single-bit error on DECC line (DIMM signal) w/ post-tolerate-ce=true indicts processo
+6298853 runaway lw8 lom console prompt appears after "entering obp" message
+6301186 SC doesn't log when domain goes into Active - Panicking state
+6306373 ScApp lom shell command 'setalarm 3' does not work as documented
+6307803 AVL-FS2 (Serengeti): SC to supply FMA domains with chassis serial number
+6308053 AVL-FS2 (Serengeti): Support FMA-AVL Datapath Coordination
+6308677 Request SW support for new fan for E4900 Panther 1800 and higher
+6309268 Panther: Need a cell bit adjacency test for L2$-data and L3$-tags
+6309342 Increase clock system frequency tolerance to 3%
+6311091 Netra 1290 needs to productize slower Panther CPU speeds.
+6311098 Add platform identification for Netra 1290
+6311761 Add support for PCI+ boards in LW8
+6311763 Add support for Xmits 3.2
+6313503 "bootmode reset_nvram" should not change security settings in obp
+6314309 ScApp and ntwdt driver states inconsistent after resetsc
+6314358 IdProm.java generates hostids; it shouldn't.
+6315956 Execution hangs in cpu_stress().
+6316080 Branch memory test mishandles traps
+6316095 Problems in tolerate_mem_ce implementation
+6316530 SERD tunables for CPU events are not consisten between s9u8, s10u1fma, and scapp
+6316541 sc cpu de needs to handle l3/l2 cache errors on non-FMA domains so as to not cause proc indictment -v src/
+6319704 Panic seen on Serengeti with 5.19.1 firmware after post level of init.
+6320701 Wrong Error(UE) caused CHS disabled by 5.19.0 possibly due to Solaris bug 6286861
+6321138 hostid is 'ffffffff' in 5.20.0 build 3
+6323420 Panther L2$ ECC failures during POST incorrectly FAIL Ecache DIMMs
+6325921 Showboard output for Panther board intermittently shows proc at 1510MHz
+6329943 mpt driver fails to attach to Jasper320 on LW8 PCI system after max POST
+6330120 POST should identify correct SRAM/DIMM when ECC bit fails
+6330681 Need to correct lint error introduced by 6319704 putback
+6331430 LPOST should support Solaris Memory Page Retirement
+6332032 Serengeti SCAPP should support Solaris Memory Page Retirement
+6332729 APR : Serial IDs for disabled and CHS tagged DIMMs should not be sent to the domain
+6332736 DP : Type 2 message is begin generated for error injection in DCDS &lt;-&gt; DX path
+6333725 Panther 1800MHz on V3 and with D185 on V4 Uniboards
+6343519 Remove Domain Limitation if AR4 is detected in Repeater Board
+6347015 Add support for Panther 2.2
+6353053 false VCMON failures due to ramping system load
+6354226 POST can attach FRUs which failed interconnect test
+6356684 6309268 regression: L3$ Tags test failure for certain
+6360951 need nvci variable 'check-chassis-type' to disable PS/FT checking for Panther 1800 board
+6361036 sb poweron fails because  non high volume fan trays have been detected.
+6361098 Add Panther 1500 MHz productized speed to N1290.
+6361149 Can not poweron panther 1800 board unless power cycle the chassis
+6361505 When 1800MHz Panthers downclock to 1500MHz there needs to be a message
+6363437 Panther 1800MHz on V3 using D185 --- PART 2
+6364012 Do not allow SF4810 and SF3800 to poweron Panther 1800 cpus
+6369788 Change POSIX timezones 2007 transition dates - U.S. Energy Policy Act of 2005
+6372610 poweron SB board failed without reset SC - complete fix for 6361149
+6372636 Firmware feature mask settings for Panther do not follow PRM recommendation in some parameters
+6378865 Xmit POST initiates Short PCI Reset T_rst&lt;1ms
+6379321 IB_SSC fails PCI IO Controller Functional Tests during POST
+6380531 AVL:Cache error trains in CPU DE for Panther are incomplete
+6388391 Panther 1800 Core Multivoltage Process
+6391111 L1 ARs configured incorrectly with AR4 L2 Repeaters.
+6398349 Disable AR4 support
+6399115 SC reboot message after 01-01-2007, for getting the new 2007 Time Zone (DST) rules
+6399657 Add domain restrictions for AR4 boards
+6400173 Hotplug delays needed for A212, A213, A209 power supplies.
+
+Patch Installation Instructions:
+--------------------------------
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+ 
+Special Instructions:
+Checksums of the FW images can be viewed near the bottom of this README.
+ 
+(for Installing Patches on Sun Fire E2900, V1280, Netra 1280, and Netra 1290 Systems)
+---------------------
+ 
+Upgrading the Firmware Using the lom -G Command
+-----------------------------------------------
+ 
+** WARNING **
+Both the RTOS and ScApp need to be updated before rebooting.
+Ignore any reboot messages you may receive in between each update.
+(Do not reset the SC between updating sgsc.flash and sgrtos.flash.
+Go to step 2 after BOTH have been updated)
+ 
+* See infodoc 81977 for typical system responses during the upgrade.
+* It is best to have two sessions open
+  - login to the system controller to watch progress
+  - login to the system as root to run the commands
+ 
+Before starting the upgrade, reset the system controller from the console.
+This frees resources on the controller and places it in a known state prior
+to the upgrade.
+ 
+1) Reset the system controller from the console.
+       lom&gt; resetsc -y
+ 
+2) Upgrade the firmware on the system controller (SC):
+ 
+       #lom -G sgrtos.flash
+       #lom -G sgsc.flash
+ 
+3) Escape to lom&gt; and reset the SC:
+ 
+       lom&gt; resetsc -y
+ 
+To get to the Lights Out Management (lom) prompt, you can telnet directly into 
+the Ethernet port of the SC (this is different from the Solaris IP address), or 
+you can attach a console to the serial port on the SC. If you are remote from 
+the system, configure the SC's Ethernet port, or attach the SC serial port to a 
+network terminal server.
+ 
+4) Upgrade the firmware on the system boards:
+ 
+       #lom -G lw8cpu.flash
+       #lom -G lw8pci.flash
+ 
+5) Shutdown the Solaris(TM) Operating System (OS).
+ 
+6) Power off the system.
+ 
+	lom poweroff
+ 
+7) Power on the system.
+ 
+	lom poweron
+ 
+--------------------------------------------------------------------------------
+ 
+Image checksums
+ 
+Command         File Name       Checksum    	Size
+--------------- --------------- ------------	--------
+/usr/bin/chksum	lw8cpu.flash	1421339849	1126659
+/usr/bin/chksum	lw8pci.flash	3499120135	431643
+/usr/bin/chksum	sgcpu.flash	1632891700	1156432
+/usr/bin/chksum	sgiowci.flash	3477082815	479901
+/usr/bin/chksum	sgpci.flash	4133962559	365582
+/usr/bin/chksum	sgrtos.flash	3124024253	696120
+/usr/bin/chksum	sgsc.flash	86908008	6554180
+ 
+--------------------------------------------------------------------------------
+ 
+Copyright (c) 2006, 2011, Oracle and/or its affiliates. All rights reserved.
+ 
+This software and related documentation are provided under a license agreement
+containing restrictions on use and disclosure and are protected by
+intellectual property laws. Except as expressly permitted in your license
+agreement or allowed by law, you may not use, copy, reproduce, translate,
+broadcast, modify, license, transmit, distribute, exhibit, perform, publish,
+or display any part, in any form, or by any means. Reverse engineering,
+disassembly, or decompilation of this software, unless required by law for
+interoperability, is prohibited.
+ 
+The information contained herein is subject to change without notice and is
+not warranted to be error-free. If you find any errors, please report them to
+us in writing.
+ 
+If this is software or related software documentation that is delivered to the
+U.S. Government or anyone licensing it on behalf of the U.S. Government, the
+following notice is applicable:
+ 
+U.S. GOVERNMENT RIGHTS Programs, software, databases, and related
+documentation and technical data delivered to U.S. Government customers are
+"commercial computer software" or "commercial technical data" pursuant to the
+applicable Federal Acquisition Regulation and agency-specific supplemental
+regulations. As such, the use, duplication, disclosure, modification, and
+adaptation shall be subject to the restrictions and license terms set forth in
+the applicable Government contract, and, to the extent applicable by the terms
+of the Government contract, the additional rights set forth in FAR 52.227-19,
+Commercial Computer Software License (December 2007). Oracle America, Inc.,
+500 Oracle Parkway, Redwood City, CA 94065.
+ 
+This software or hardware is developed for general use in a variety of
+information management applications. It is not developed or intended for use
+in any inherently dangerous applications, including applications which may
+create a risk of personal injury. If you use this software or hardware in
+dangerous applications, then you shall be responsible to take all appropriate
+fail-safe, backup, redundancy, and other measures to ensure its safe use.
+Oracle Corporation and its affiliates disclaim any liability for any damages
+caused by use of this software or hardware in dangerous applications.
+ 
+Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+Other names may be trademarks of their respective owners.
+ 
+AMD, Opteron, the AMD logo, and the AMD Opteron logo are trademarks or
+registered trademarks of Advanced Micro Devices. Intel and Intel Xeon are
+trademarks or registered trademarks of Intel Corporation. All SPARC trademarks
+are used under license and are trademarks or registered trademarks of SPARC
+International, Inc. UNIX is a registered trademark licensed through X/Open
+Company, Ltd.
+ 
+This software or hardware and documentation may provide access to or
+information on content, products, and services from third parties. Oracle
+Corporation and its affiliates are not responsible for and expressly disclaim
+all warranties of any kind with respect to third-party content, products, and
+services. Oracle Corporation and its affiliates will not be responsible for
+any loss, costs, or damages incurred due to your access to or use of
+third-party content, products, or services.
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Thursday, June 30, 2011
+
+</pre></body></html>

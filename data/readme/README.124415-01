@@ -1,0 +1,64 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 124415-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire v125
+Synopsis: Hardware/PROM: Sun Fire V125 Flash PROM Update
+Date: Oct/09/2007
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.25.10, POST 4.25.10, OBDIAG 4.25.10
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 5079227 6590384
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunFire125
+unix.flash-update.SunFire125.sh
+
+Problem Description:
+
+6590384 V125(El Paso): Could not read diag-level from NVRAM
+5079227 this, ")" in between "Copyright" and "2004", is not in the right place
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating the
+firmware using the files included in this patch.
+
+Special Install Instructions:
+ 
+
+README -- Last modified date:  Tuesday, October 9, 2007
+
+</pre></body></html>

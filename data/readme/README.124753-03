@@ -1,0 +1,214 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 124753-03
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: netra t2000 sun system firmware 6.3.11 flashprom update sysfwdownload
+Synopsis: Hardware/PROM: Netra T2000 Sun System Firmware Update picl scadm
+Date: Apr/04/2008
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 6.3.11
+
+Xref: 
+
+Topic: Netra T2000 Sun System Firmware 6.3.11 flashprom update
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 5079227 6244643 6274611 6289385 6297613 6313800 6347502 6347549 6348763 6356440 6390526 6400117 6403319 6407352 6409699 6412550 6412664 6416142 6420886 6424178 6430500 6432556 6433381 6438710 6440441 6441889 6442256 6442259 6443014 6444013 6448085 6448446 6449072 6449538 6449659 6450065 6451501 6453003 6453281 6453744 6454051 6454648 6455202 6456309 6456927 6456932 6457248 6457409 6457410 6458015 6458464 6458947 6458974 6458997 6459391 6459574 6460845 6461145 6465529 6466207 6466695 6466736 6466997 6467410 6467805 6468002 6468016 6468250 6468359 6468727 6468800 6469249 6470356 6470409 6470467 6470677 6470753 6471063 6472401 6472605 6479016 6480816 6482540 6483215 6483676 6486469 6486969 6487373 6487428 6499286 6512722 6513000 6513604 6513621 6514875 6515640 6519183 6519936 6520334 6521186 6521198 6525913 6527147 6528627 6530707 6531199 6531232 6531680 6531730 6532118 6532514 6533047 6535294 6535555 6536467 6536617 6538717 6579294 6631736 6678885 6678924
+
+Changes incorporated in this version: 6521186 6521198 6579294 6631736 6678885 6678924
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-6_3_11-Netra_T2000.bin
+sysfwdownload
+
+Problem Description:
+
+6678924 Link width issue with plx version BC chip on pelton
+6678885 Link width issue with plx version BC chip on pelton
+6631736 POST does not complete- 4-core &amp; 6-core systems
+6579294 Enhancements to Systest (test within debug menu) 
+6521198 Incorporate enhanced POST memory tests in POST debug menu
+6521186 Incorporate new Systest/Thrasher test in POST debug menu
+ 
+(from 124753-02)
+ 
+6538717 Showfru reports Micron DIMMs as Seagate DIMMs
+6536617 enable RMC protocol in ALOM-CMT to support scadm on Netra T2000 (Pelton)
+6536467 update vbsc reset timing to address bugid 6524671 (IB PEM recognition)
+6535555 create new service channel to support PICL &amp; scadm on Netra T2000 (Pelton)
+6535294 Pelton systems emit copious errors during pci probe
+6533047 'showfaults' may retain faults if multiple sensors are declared of the same type
+6532514 ALOM's flashupdate version checking not working, allows flashupdate to unsupported releases
+6532118 add support for Pelton (Netra T2000) 4 HDD configuration
+6531730 Power Events being added to MP/SEEPROM DFRUID records even when no power events occurred
+6531680 add support for Pelton 4 HDD configuration
+6531232 system hard hangs after injecting a fru error
+6531199 "env_log_event unsupported event" logs displayed via showlogs
+6530707 any new HDD's inserted will not update showled command
+6528627 Netra T2000 PICL functionality is not complete with patch T123160-02
+6527147 ALOM-CMT must recognize new T2000 and T1000 part numbers
+6525913 "SUN PROPRIETARY/CONFIDENTIAL" message appears on boot on FCS Seattle
+6520334 ALOM-CMT 'ssh-keygen -l' when SSH is not enabled should print more friendly error message
+6519936 'showfaults' may retain faults if multiple sensors are declared of the same type
+6519183 showfru does not correctly report DIMM vendor
+6515640 ALOM-CMT must support new IOBD
+6514875 Need vBSC interface to ALOM workaround of PLX PEX8532 link training bug 6513604
+6513621 Hypervisor support needed to help resolve bugID 6479274, PCI CARDS do not appear present in T2000
+6513604 need VBSC interface to Hypervisor workaround of PLX PEX8532 link training bug #6479274
+6513000 Update Copyright to 2007
+6512722 ALOM-CMT: "-v" flag to flashupdate does not produce more verbose output [regression]
+6499286 integrate 'fjtest' to alom-cmt tree for testing Fujitsu apl remote agent feature
+6486969 JBI errors are only accepted by FERG if associated with CPU errors
+6479016 IMU RDS LOG and SCS LOG register decoded incorrectly for epkt HDR1 field
+6470409 required FRU_PROM at PS0/SEEPROM is not present after ALOM boot
+6442259 new virtual channel for Fujitsu remote management agent on T2000/T1000 platforms
+6442256 require a new host communication channel for remote management agent
+5079227 This, ")" in between "Copyright" and "2004", is not in the right place
+ 
+(from 124753-01)
+ 
+6487428 correct typo in jbi_regs.h that repeated a value
+6487373 epkt encoding for PME to ACK Message not enabled wrong
+6486469 ALOM must deliver alert messages across etm channel
+6483676 boot-time can be improved with parallel memory scrubbing
+6483215 not all JBI errors are fatal
+6482540 cleanup of POST build targets
+6480816 ALOM-CMT password/login can get in confused state; displays "*" every other char
+6472605 factor Niagara-specific code out of sun4v-specific file
+6472401 SC alert 'SC Request to dump core host' not seen while forcing a core dump of Solaris.
+6471063 Ontario systems with Fire 2.0 require workaround for Fire deadlock bug 6362138
+6470753 ALOM does not have access to Rear Transition Module Fruid
+6470677 setupsc will ask users to 'reset the SC' when it is not necessary
+6470467 instruction flush and .trap-registers changes
+6470356 vBSC should preserve CPU Serial number across warm resets
+6469249 race condition in strmpipe can leave open pipes
+6468800 memory leak when spawning a new ALOM task (such as connecting to ALOM via telnet)
+6468727 SunMC: ALOM not setting handle field in pcp_get_fru_data response message
+6468359 POST needs to test all CPUs when 'diag-level == min'
+6468250 ALOM needs to set "diag_level = min" for set-default
+6468016 JMPL_DEVOP can jump to 0x0
+6468002 fix for CR 6457248 breaks the hypervisor on legion
+6467805 epkt's for CE errors need to clear lower 32bits of UE status
+6467410 Montoya console hangs when the net console is killed or the ShMM is crashed
+6466997 special group API_GROUP_SUN4V returns EINVAL for unsupported major numbers
+6466736 ALOM sptest fails
+6466695 setenv command shows "Usage: setsmcenv option-name value"
+6466207 Fire PCI-E bridge version should be determined based on fire-revision# rather than module-revision#
+6465529 Niagara error handling will send a MEM sun4v report to guest with incorrect RA
+6461145 ALOM 'showfru' can not decode JEDEC Vendor ID 525 (Power-One) or 551 (Qimonda)
+6460845 revector cleanup
+6459574 need two fail bits to present two additional PCIE-PCIX bridges for better fault isolation in Pelton
+6459391 restartssh should display consistent error/usage when used with invalid options
+6458997 LSI 1064/1068 FCode Port enable command adding too much time to system boot
+6458974 help shows no - on the r for rundiag
+6458947 -n option to restartssh does not seem to do anything
+6458464 change ssh-keygen usage to require -t option (instead of -t rsa assumed)
+6458015 silent failure for ssh-keygen (no error msg) in telnet connection when ssh is not enabled
+6457410 sun4v error reports can contain real or virtual addresses
+6457409 remove DISABLE_JBI_INTR_ERRS: it is broken and not used anywhere
+6457248 remove project codenames from the output of the what command for release builds
+6456932 Back out the fix for VBSC rmc_comm channel support (CR 6448195)
+6456927 Back out the fix for ALOM rmc_comm channel support (CR 6448196)
+6456309 ssh-keygen accepts -l and -r options together, should return error
+6455202 "supported-network-types" on BGE will break with 1000Mbps settings
+6454648 Pelton: ALOM POST status shows Passed all devices but POST reported ERROR in IO-Bridge test
+6454051 LSI 1064E compatible property does not match Solaris driver aliases file in s10u2
+6453744 common Hypervisor machine description needs to be factored out on sun4v platforms
+6453281 add support for guest dump core requests
+6453003 help for ssh-keygen command needs cleanup
+6451501 Diskonchip G4 device driver support.
+6450065 add Fire 2.1 hardware revision checking to Hypervisor
+6449659 Pelton: POST PCI id test output incorrect for PCIX and PCIE slots
+6449538 BGE properties hang net boot loading Solaris
+6449072 could not find asr-key IOBD/PCIEA or Could not find asr-key IOBD/PCIEB on fw 6.2 and fw 6.3
+6448446 EAR after DSC should be handled with care
+6448085 post needs support for Fire 2.1
+6444013 Ontario/+ net1 and net3 does not get disabled. disabling net0/net2, disables net1 and net3
+6443014 sun4v OBP variations should use FWARC approved methods to parse Machine Description data
+6441889 OBP needs to support Netra CP3060
+6440441 vBSC needs capability to call into HV to force core dump of Solaris Operating System
+6438710 platform names for Ontario and Erie have to be changed in POST
+6433381 ALOM-CMT requires CLI to force core dump of the Solaris Operating System
+6432556 ttrace_freeze does not return EINVAL when trace buffer is undefined
+6430500 preprober code touches all devices including devices that are marked bad/blacklisted
+6424178 produce delivery area and consume vbsc images from delivery area
+6420886 POST needs to be enhanced to support Montoya platform
+6416142 disabling components causes MMU miss error in OBP probing
+6412664 ALOM should act on Watchdog timeout message from VBSC
+6412550 Montoya needs OBP slot-names property
+6409699 add handling for HV watchdog timeout cmd
+6407352 fix to CR 6279155 broke certain Hypervisor build options
+6403319 add abort code 0x24 to vbsc hv abort code table
+6400117 "cdrw -p24" command does not work correctly on T2000
+6390526 USB 2.0 Hub gets lost to OBP after Solaris EHCI driver run
+6356440 flashupdateFPGA reset message is incorrect
+6348763 vpci DMA Sync hcall does not accept all possible sync direction arguments
+6347549 request to have test name convention to identify between Test, subtest, message, etc.
+6347502 request for adding timestamps to POST code
+6313800 OBP should read and print the 'test release' flag while printing H8 firmware version
+6297613 platform names for Ontario and Erie have to be changed
+6289385 VBSC should use interrupt handler for power button interrupt, not polling mechanism
+6274611 fault type translation needs a little work
+6244643 need to modify initialization time of 2X Slimline DVD-R/-RW drive to much lesser time
+
+Patch Installation Instructions:
+----------------------------- 
+ 
+Please refer to the Install.info file for instructions on updating
+the firmware flashprom using the files included in this patch.
+
+Special Install Instructions:
+-----------------------------
+ 
+Note 1: Firmware component revisions included with this release:
+ 
+	System Firmware 6.3.11 Netra[TM] T2000 2008/03/23 15:03
+	----------------------------------
+	ALOM-CMT v1.3.7  Mar 26 2007  14:42:20
+	VBSC 1.3.5  Mar 26 2007  14:38:15
+	Hypervisor 1.3.4 2007/03/28 06:03
+	OBP 4.25.12 2008/03/23 13:28
+	Netra[TM] T2000 POST 4.25.12 2008/03/23 13:54
+ 
+        Checksum of Sun_System_Firmware-6_3_11-Netra_T2000.bin: 376109246
+        (generated by the /usr/bin/cksum command)
+ 
+ 
+Note 2: To use the new features (picl &amp; scadm) featured in this patch, 	
+	requires s10u3 at a minimum + patches (126237-01 &amp; 126238-01)
+ 
+ 
+Note 3: Upgrading to Sun System Firmware 6.3.11 (or later) requires 
+	Solaris 10 Update 2 + patches (or later) to be installed.
+ 
+Note 4: Make sure the following entry is added to the /etc/system file:
+                 set pcie:pcie_aer_ce_mask=0x1
+
+README -- Last modified date:  Friday, April 4, 2008
+
+</pre></body></html>

@@ -1,0 +1,77 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 124754-01
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun blade t6300 modular server sun system firmware 6.3.6 flashprom update sysfwdownload
+Synopsis: Hardware/PROM: Sun Blade T6300 Modular Server Sun System Firmware Update
+Date: Apr/17/2007
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 6.3.6
+
+Xref: 
+
+Topic: Sun Blade T6300 Modular Server Sun System Firmware 6.3.6 flashprom update
+
+Relevant Architectures: sparc
+Note:
+By using Sun System Firmware (Firmware) you agree to the terms of the Software License Agreement and Entitlement (SLA/Entitlement) found in Sun_System_Firmware-6_3-download_SLA_and_Entitlement.txt.  By using the Firmware, you agree to the terms of the SLA/Entitlement. If you do not agree to all of the terms promptly destroy the unused Firmware.
+
+Note:
+Firmware component revisions included with this release:
+
+System Firmware 6.3.6 Sun Blade[TM] T6300 2007/03/23 12:45
+---------------------------------
+ALOM-CMT v1.3.6  Mar 23 2007  12:34:57
+VBSC 1.3.4  Mar 23 2007  12:30:53
+Hypervisor 1.3.3 2007/03/23 12:28
+OBP 4.25.3 2007/03/02 20:24
+Sun Blade T6300 Server Module POST 4.25.3 2007/03/02 20:53
+
+BugId's fixed with this patch: 
+
+Changes incorporated in this version: 
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-6_3_6-Sun_Blade_T6300_Modular_Server.bin
+sysfwdownload
+
+Problem Description:
+
+ 
+
+Patch Installation Instructions:
+----------------------------- 
+ 
+Please refer to the Install.info file for instructions on updating
+the firmware flashprom using the files included in this patch.
+
+Special Install Instructions:
+None:
+
+README -- Last modified date:  Tuesday, May 29, 2007
+
+</pre></body></html>

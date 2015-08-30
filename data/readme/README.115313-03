@@ -1,0 +1,200 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 115313-03
+Keywords: b1600 prom
+Synopsis: Hardware/PROM: Sun Fire B100s PROM Update
+Date: Feb/27/2004
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 8 9
+
+SunOS Release: 5.8 5.9
+
+Unbundled Product: B1600
+
+Unbundled Release: 1.0
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: 
+
+BugId's fixed with this patch: 4836536 4841495 4847926 4854853 4854861 4879709 4890500 4900360 4904927 4905146 4950770
+
+Changes incorporated in this version: 4890500 4900360 4905146 4950770
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+README.115313-03
+SunFireB100s-obp-v4.11.5.sh
+copyright
+
+Problem Description:
+
+4890500	 show-post-results doesnt't display Message String post result
+4900360	 stilleto blades corrupt (and drop) console I/O on panic
+4905146	 Possible memory timing issue on Stiletto Blade
+4950770	 Possible memory timing issue on Stiletto Blade
+ 
+(from 115313-02)
+ 
+4904927	 Patch 115313-01 does not contain one of the fixes in its README
+ 
+(from 115313-01)
+ 
+4841495	 local-mac-address properties not created correctly in net devices.
+4847926	 Stiletto dhcp client id implementation needs to change to align with wanboot
+4854853	 OBP support for cost-reduced Stiletto blade
+4854861	 Stiletto obp does not flow control BSC serial connection
+4836536	 POST highlights defective dimm in wrong slot on a Stiletto Blade
+4879709	 RED state expection during boot
+
+Patch Installation Instructions:
+--------------------------------
+This is not an OS patch and is not installed with the standard
+patchadd(1M) command.  After unpacking the patch, follow the "Special
+Install Instructions" below to upgrade the system PROM.
+ 
+This patch is not OS-dependent.  The list of releases shown under the
+"Solaris Release" and "SunOS Release" sections may not be complete.
+The absence of the running Solaris Release or SunOS Release from the
+lists above does not preclude the installation of this patch on the
+hardware.
+
+Special Install Instructions:
+-----------------------------
+The Solaris System Firmware update utility provides the ability to update the 
+system firmware from Solaris. 
+ 
+If you would like to update your system using the Solaris System Firmware
+update utility please follow the instructions below:
+ 
+*  PLEASE READ THE INSTRUCTIONS CAREFULLY AND ENTIRELY.  PLEASE FOLLOW THE
+   INSTRUCTIONS EXACTLY AS THEY ARE STATED.
+ 
+*  Failure to follow instructions could either result in a defective board or
+   unsuccessful flash prom update.
+ 
+*  Installation of the firmware included with this patch does NOT
+   require any hardware changes if the Flash update completes normally.
+ 
+*  IF THIS PATCH COMPLETES SUCCESSFULLY IT WILL AUTOMATICALLY ATTEMPT TO
+   REBOOT THE OPERATING SYSTEM.
+ 
+ 
+1.  Check the current version of the OBP firmware
+ 
+    From the Solaris prompt type:
+ 
+        # /usr/sbin/prtconf -V
+	OBP 4.11.3 2003/07/11 13:30
+ 
+    The firmware revisions may also be determined from the PROM monitor's
+    "ok" prompt with the following command;
+ 
+        ok .version
+        Release 4.11.3  created 2003/07/11 13:30
+        OBP 4.11.3 2003/07/11 13:30 Sun Serverblade1
+        OBDIAG 4.11.3 2003/07/11 13:33  
+ 
+ 
+2. Copy the OBP firmware upgrade to a known location on the blade
+   server and extract its contents.
+ 
+        cd /var/tmp
+        unzip 115313-03
+        cd 115313-03
+ 
+ 
+3.  Compare the current Flash PROM firmware revision with the latest
+    revision delivered by this patch.
+ 
+    OBP Firmware Revision Delivered by this patch
+    ---------------------------------------------
+    OBP 4.11.5 2003/11/12 10:40
+ 
+ 
+4.  Is the upgrade necessary ?
+ 
+    If the current Flash PROM firmware revision is lower than the latest
+    firmware revision in this patch then proceed to the next step.
+ 
+    Otherwise, STOP here as the upgrade is not necessary.
+ 
+ 
+5.  Preparing the System
+ 
+    Close and exit all applications. This utility will reboot your system
+    once it completes.
+ 
+    Become root user.
+ 
+ 
+6.  Running the Solaris Update Utility
+ 
+    # ./SunFireB100s-obp-v4.11.5.sh
+ 
+    NOTE that this is an example only, some of the information displayed on
+    your screen may be different from what is shown below.
+ 
+ 
+    Flash Update 2.4: Program and system initialization in progress... 
+ 
+    Current System Flash PROM Revision: 
+    ----------------------------------- 
+    OBP 4.11.3 2003/07/11 13:30 Sun Serverbl
+ 
+    Available System Flash PROM Revision: 
+    ------------------------------------- 
+    OBP 4.11.5 2003/11/12 10:40
+ 
+     NOTE: The system will be rebooted (reset) after the firmware has been
+     updated. 
+     However, if an error occurs then the system will NOT be rebooted. 
+ 
+     Do you wish to update the firmware in the system Flash PROM? yes/no : yes 
+ 
+     Erasing the top half of the Flash PROM. 
+     Programming OBP into the top half of the Flash PROM. 
+     Verifying OBP in the top half of the Flash PROM. 
+ 
+     Erasing the bottom half of the Flash PROM. 
+     Programming OBP into the bottom half of Flash PROM. 
+     Verifying OBP in the bottom half of the Flash PROM. 
+ 
+     Erasing the top half of the Flash PROM. 
+     Programming POST into the top half of Flash PROM. 
+     Verifying POST in the top half of the Flash PROM. 
+ 
+     The system's Flash PROM firmware has been updated. 
+ 
+ 
+     Please wait while the system is rebooted...
+ 
+ 
+7.  Check if the update has been successful 
+ 
+    Check the current version using the "prtconf -V" command.
+ 
+    # /usr/sbin/prtconf -V
+    OBP 4.11.5 2003/11/12 10:40
+ 
+ 
+Reference:
+----------
+Sun Fire B1600 Blade System Chassis Administration Guide
+Part No 816-4765-10
+Chapter 10, Firmware Upgrade Procedures
+
+README -- Last modified date:  Friday, February 27, 2004
+
+</pre></body></html>

@@ -1,0 +1,340 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 109962-14
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: st19171fc st39102fc st118273fc st336605fc st373405fc st336752fc 9gb 18gb 36gb 73gb disk firmware fc-al
+Synopsis: Hardware, FC-AL Disks: Download program and FC-AL Disk Drive firmware
+Date: Apr/07/2004
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8 9 10
+
+SunOS Release: 5.5.1 5.6 5.7 5.8 5.9 5.10
+
+Unbundled Product: Hardware/Disk
+
+Unbundled Release: Seagate FC-AL disks
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4325178 4363994 4519031
+
+Changes incorporated in this version: 4363994
+
+Patches accumulated and obsoleted by this patch: 106129-12 108102-04 108104-03
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+NOTE: 
+
+        Solaris 2.5.1   103640-32 or higher
+                    2.6     105568-16 or higher
+                        105580-08 or higher  (for Ultra-30/60)
+                7       106980-10 or higher
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	.download
+	ST118273F.9954.fw
+	ST19171F.7f7.fw
+	ST336605F.0638.fw
+	ST336752F.0508.fw
+	ST373405F.0638.fw
+	ST39102F.1229.fw
+	download 
+	download32 
+	download64 
+patchinfo
+
+Problem Description:
+
+This Patch is a consolidation of older Patches and new firmware required for legacy Seagate FC-AL Drives.
+ 
+The  patch has the following bug fixes :
+ 
+4363994 Solaris 8 not listed as supported OS for patch 108104-03
+		Fixes Patch 108104-03 Read Me file to include Solaris 8 as supportd OS.
+ 
+4519031 T3 vol init command can take 8 hours to complete
+		Fixes merge code problem to prevent performance degradation on 
+		queued-sequential writes (known as the Slow Vol Init problem).
+ 
+no bug id	Changed F/W to set value of the FTEC482 Internal Transceiver Pole/Zero
+   		register from 0x31 to 0x32 to address the Excalibur bootup issue
+ 
+Previous History:
+ 
+The following disk drive models have been moved to other patches- 
+ 
+ ST336607FC  (moved to patch 113671-01 to be PatchPro-compatible) 
+ ST336753FC  (moved to patch 116748-02 to be PatchPro-compatible) 
+ ST373307FC  (moved to patch 114708-02 to be PatchPro-compatible) 
+ ST373453FC  (moved to patch 113673-01 to be PatchPro-compatible) 
+ MAN3735F    (moved to patch 116513-01) 
+ ST3146807FC (moved to patch 114709-02 to be PatchPro-compatible) 
+ 
+ All ch3 FlashROM codes moved to patch 111535-03 for FCO A0199 control.
+ All ch4 FlashROM codes moved to patch 113668-03 for FCO A0222 control.
+ 
+This revision of this patch removes the 0938 cheetah5 fw and replaces it with the previous
+version of 0638 fw. This was done because a bug was found in booting the V880 platform
+(the timing can cause the V880 to panic on boot). There are no known bugs in the 0638
+version (the 0938 version was feature enhancements) so it is appropriate to revert to
+this version.
+ 
+The previous Patches for the drives which are incorporated into this patch are as follows:
+ 
+Drive Model#	Patch #		FWCode  	Previous FWs	
+ST19171FC	106129-12		7F7x		7D7x	 
+ST39102FC	108104-03		1229        1129
+ST118273FC	108102-04		9954		8854	
+ 
+ 
+ 
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. The system MUST BE IDLE during the download process!  No other
+   programs should be running while using this utility is being
+   used.  Failure to do so may cause the devices being upgraded
+   to fail or the system to crash.
+ 
+   Volume managers such as Veritas, SDS, Arraymon, and Vold must
+   be idle and any disks unconfigured.  Note, due to an open/close
+   accounting bug (see bug 4129295) in sd and ssd drivers, you must
+   reboot the system after unconfiguring any disks used by them.
+   This accounting bug prevents the upgrade utility from acquiring
+   sole ownnership of the disk so it will not be eligible for upgrade.
+   Note, Arraymon will be disabled during download startup and enabled
+   on exit.
+ 
+   Any other computers sharing the same I/O bus as the host system
+   must be either disconnected or offline to prevent possible
+   disruption of the firmware download process.
+ 
+2. If any upgrade failures occur, do not continue upgrading devices.
+   Loss of power during download can result in damage to the devices
+   under upgrade and require replace.
+ 
+   If any failures occur, please collect the following log files:
+   "./download.log" or "/var/tmp/download.log", "/var/adm/messages",
+   and an explorer dump.  Please forward these files to your service
+   provider for analysis. 
+ 
+3. This package will only upgrade the identified Sun disks.
+ 
+4. If the High Availability kernel device polling is running, it will
+   be disabled.  It will not be re-enabled.
+ 
+5. If using Veritas, "deport" the volume to release the volume from
+   Veritas control.  Do not "remove" the volume as this will erase
+   the data stored on the Volume.
+ 
+6. Follow the instructions given below.  You may program one drive,
+   a range of drives, or all drives at once with this tool.
+ 
+ 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ 
+1. General guidelines for upgrading: 
+ 
+	BACK UP ALL FILESYSTEMS.
+ 
+        STOP ALL APPLICATIONS. The system must be idle during the
+        firmware upgrade process.
+ 
+	UNMOUNT all file systems on the drives to be upgrade.
+        Disks with mounted file systems are not eligible for
+        upgrade.
+ 
+	UNCONFIGURE devices from volume manager.
+ 
+	REBOOT THE SYSTEM if you unconfigured any disks from
+	volume manager (e.g. Veritas).  Otherwise, you will
+	not be able to upgrade any previously configured disks.
+ 
+	UPGRADE the disks.  Follow the given instructions in
+	the procedure section below.
+ 
+	In case of any disruption or unforeseen events happening on the 
+	relevant bus during the firmware download process, it may be 
+	that the upgraded disk becomes non-functional.  In this event,
+        it will be necessary to swap out the disk. This would happen 
+	as a result of an incomplete or corrupted firmware file 
+	being downloaded.  Loss of power during the upgrade process
+        would also damage the disk.
+ 
+**NOTE**    If you cannot upgrade devices due to volume manager
+            interference,  try booting of the Solaris 2.6 release CD.
+ 
+**NOTE**    If a system disk is to be upgraded, the upgrade utility will
+            allow it to be upgraded if the system is in single-user mode
+            (e.g. "boot -s").  Otherwise, the system disk will not be
+            eligible for upgrade.
+ 
+	RECONFIGURE devices to volume manager.
+ 
+**NOTE**    As Download disables kernel high availability device polling,
+            it may be necessary to reboot the system to restart it.
+ 
+ 
+ 
+2. Procedure: 
+ 
+The procedure to be used for upgrading the drive firmware is
+explained below. Upgrade time will be approximately 2 minutes
+for systems.
+ 
+a) Unpack the patch (through tar) into any directory, say &lt;patchdir&gt;.
+   (Note, if the patch ends in a ".Z" suffix, you will need to first
+   uncompress it.)  So, you would type:
+	% su root
+	# cd &lt;patchdir&gt;
+	# tar xf &lt;patch tar file&gt;
+ 
+b) In the patch directory, as root, type the "download" command:
+	# ./download
+ 
+c). Select the devices to be upgraded (see example below).
+ 
+**NOTE**    Any device that is in-use by another application will not
+            be upgraded.  The following warning message will be
+            issued:   c1t3d0s0: Open failed, you must be the sole user!
+ 
+**NOTE**    This upgrade can result in error messages in the console 
+            window and/or the terminal "download" window.  It is
+            normal for the FC-AL link to go offline for a few
+            seconds and then return to the online state.  The disk
+            mode pages will also be restored to the default values.
+ 
+**NOTE**    For A3000/1000's, the internal disk "C" and "T" numbers
+            are derived from the first active controller found.  The
+            "D" number is encoded to indicate it's position using the
+            following formula:  D = (tray_number * 100) + target_id.
+ 
+d). After the devices have been upgraded, the displayed device
+    list will be refreshed.  Devices remaining to be upgraded or
+    failed devices will be displayed.  Failed devices will be
+    marked with a "****" in the rev field.
+ 
+**NOTE**    If all devices have been upgraded, the following
+            message will be displayed:   No devices found to upgrade!
+ 
+e). To display the full list of devices including the upgrades ones,
+    type 'inquiry' (see example below).
+ 
+**NOTE**    Only the first two digits of the firmware version number
+            will change.  The last two digits will not change.
+            So, a disk with 0410 firmware would report revision
+            1078 for example.
+ 
+f). Quit the "download" program by typing 'quit' (see example below).
+ 
+ 
+ 
+************************************************************************** 
+**************************************************************************
+EXAMPLES:
+ 
+NOTE: The example below is representative of a typical firmware download operation
+	  and may not reflect the exact model/firmware you wish to download. 
+ 
+# ./download
+Firmware Download Utility, V4.2
+ 
+**************************  WARNING  **************************
+NO OTHER ACTIVITY IS ALLOWED DURING FIRMWARE UPGRADE!!!
+No other programs including any volume manager (e.g. Veritas,
+SDS, or Vold) should be running.  Other host systems sharing
+any I/O bus with this host must either be offline or
+disconnected.  Any interruption (e.g. power loss) during
+upgrade can result in damage to devices being upgraded.
+ 
+Any disk to be upgraded should first have its data backed up.
+***************************************************************
+ 
+Searching for devices...
+ 
+ 
+WARNING: Kernel device polling is enabled!
+ 
+DISK DEVICES
+Device         Rev   Product               
+c5t0d0:        8854  ST118273F -- SUN18G 
+c5t1d0:        0438  ST336605F -- SUN36G 
+c5t2d0:        0408  ST336752F -- SUN36G 
+c5t3d0:        0438  ST373405F -- SUN72G 
+c5t4d0:        0728  ST39102FC -- SUN9.0G 
+Total Devices:  5
+ 
+ 
+Enter command: p
+ 
+WARNING: Kernel device polling disabled!
+Upgrading devices...
+ 
+c5t1d0: Successful download
+c5t3d0: Successful download
+c5t2d0: Successful download
+c5t0d0: Successful download
+c5t4d0: Successful download
+c5: recovery delay, 16 sec.
+ 
+ 
+DISK DEVICES
+No devices found to upgrade!
+ 
+ 
+Enter command: inq
+ 
+DISK DEVICES
+Device  Rev   Product               S/N
+ 
+ c5t0d0: 9954  ST118273F -- SUN18G   9913705928 
+ c5t1d0: 0638  ST336605F -- SUN36G   0143P0PD75 
+ c5t2d0: 0508  ST336752F -- SUN36G   0143F046QM 
+ c5t3d0: 0638  ST373405F -- SUN72G   0112K00BMX 
+ c5t4d0: 1229  ST39102FC -- SUN9.0G  9906F46760 
+ Total Devices:  6
+ 
+ 
+Enter command: q
+ 
+#
+
+Special Install Instructions:
+-------------------------
+
+None.
+
+README -- Last modified date:  Monday, March 28, 2011
+
+</pre></body></html>

@@ -1,0 +1,347 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 123482-03
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire t2000 sun system firmware 6.2.6 flashprom update sysfwdownload
+Synopsis: Hardware/PROM: Sun Fire T2000 Sun System Firmware Update
+Date: Oct/16/2006
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 6.2.6
+
+Xref: 
+
+Topic: Sun Fire T2000 Sun System Firmware 6.2.6 flashprom update
+
+Relevant Architectures: sparc
+Note:
+Upgrading to Sun System Firmware 6.2.4 (or later) requires Solaris 10 Update 1 (or later) to be installed. The system may experience boot or other problems with earlier version of Solaris (S10_HW2).
+
+
+Note:
+Firmware component revisions included with this release:
+
+System Firmware 6.2.6 Sun Fire[TM] T2000 2006/10/06 12:36
+---------------------------------------------------------
+ALOM-CMT v1.2.6  Oct  6 2006  12:33:12
+VBSC 1.2.4  Aug 18 2006  12:27:38
+Hypervisor 1.2.3 2006/08/18 12:25
+OBP 4.23.4 2006/08/04 20:46
+Sun Fire[TM] T2000 POST 4.23.4 2006/08/04 21:15
+
+BugId's fixed with this patch: 6226285 6230541 6314954 6315548 6315550 6318088 6323182 6323521 6325271 6326859 6332576 6333076 6334559 6336040 6336114 6336180 6336222 6336386 6337457 6338777 6344487 6344729 6345852 6347315 6353809 6354483 6354976 6357936 6357941 6360344 6361002 6361066 6361535 6361563 6363477 6363909 6364139 6364453 6368136 6370228 6370408 6371177 6372356 6372507 6372564 6374738 6374804 6375003 6375990 6377071 6377702 6379739 6380442 6380622 6380975 6381084 6381115 6381279 6381283 6382767 6383237 6383658 6383758 6384092 6384335 6384399 6384845 6384922 6385582 6386216 6386341 6387399 6387700 6388353 6388582 6389161 6389717 6389866 6389884 6390526 6391361 6391445 6391447 6391455 6392742 6392744 6392749 6393492 6393665 6393884 6393942 6393953 6393958 6394696 6395015 6396318 6396376 6396464 6396519 6396528 6396533 6396540 6396546 6396865 6397170 6397497 6397564 6398364 6399215 6399622 6399627 6400117 6400192 6400408 6401634 6401719 6402182 6402905 6402909 6403073 6404798 6406061 6406091 6406195 6406427 6406577 6406714 6407069 6407889 6409416 6410285 6410532 6411051 6411069 6411362 6411912 6412462 6412550 6412889 6413230 6413467 6414799 6414995 6415442 6415545 6415903 6415965 6416036 6416142 6416169 6416658 6416671 6417885 6418463 6418642 6418658 6419189 6419209 6419216 6419635 6419722 6420097 6420137 6420147 6420192 6420194 6420241 6420767 6420886 6421177 6421181 6421308 6421344 6421423 6421425 6421629 6421706 6421833 6421866 6421884 6421977 6422027 6422104 6422818 6423090 6423137 6423761 6423788 6423795 6423803 6424026 6424214 6424243 6424249 6424293 6424432 6424889 6425339 6425918 6426300 6426481 6426486 6426781 6426877 6426969 6427102 6427402 6427510 6427897 6427903 6428852 6430005 6430090 6431212 6431247 6431944 6431949 6431981 6432221 6432504 6433152 6434216 6436300 6437585 6437802 6438527 6438649 6439697 6439935 6440664 6441770 6441889 6442350 6442392 6442879 6444152 6445593 6446922 6447320 6447326 6448085 6448446 6448548 6449586 6449659 6450065 6450119 6450201 6450605 6450616 6450624 6450715 6451501 6451762 6451938 6452183 6454051 6454648 6456957 6457904 6468800 6469249
+
+Changes incorporated in this version: 6468800 6469249
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-6_2_6-Sun_Fire_T2000.bin
+sysfwdownload
+
+Problem Description:
+
+6469249 race condition in strmpipe can leave open pipes
+6468800 memory leak when spawning a new ALOM task (such as connecting to ALOM via telnet)
+ 
+(from 123482-02)
+ 
+6457904 Flashupdate from ShMM doesn't work on Montoya
+6456957 vBSC does not support the disable of the pci leaves
+6454648 Pelton: Alom POST status shows Passed all devices but POST reported ERROR in IO-Bridge test
+6454051 LSI 1064E compatible property does not match Solaris driver aliases file in s10u2
+6452183 Panther 2100 Ecache timing number change.
+6451938 Add POST support for Elpaso
+6451762 Add Obp El Paso support
+6451501 Diskonchip G4 device driver support.
+6450715:Pelton: Low Ambient temperature thresholds need to be changed
+6450624 Disable NPWR_EN on Seattle
+6450616 Pelton : ASR db path names for PCIX2 and PCIX3 slots are reversed
+6450605 ALOM needs to adjust VBATT threshold lower, batteries being marked failed prematurely
+6450201 DiskOnChip file system corruption on P1 Montoya
+6450119 "ide" devalias on montoya needs to be /pci@780/pci@0/pci@1/pci@0/ide@1f,1
+6450065 Add fire 2.1 hardware revision checking to hypervisor
+6449659 Pelton POST PCI id test output incorrect for PCIX and PCIE slots. 
+6449586 Montoya OnBoard Switch MAC Address Settings wrong
+6448548 New MB and CP numbers to support Panther 2100.
+6448446 EAR after DSC should be handled with care
+6448085 post fire2.1 support 
+6447326 Remove CPU speed configuration menu
+6447320 Remove OBP flash-update command
+6446922 man-net on HsPCI+ based 15k domain is not valid
+6445593 Extra activities on V245's I2C bus may cause false POST failures
+6444152 Seattle Unix OBP flash update script needs to support new Seattle MB part numbers
+6442879  Pelton: Adjust the CPU juntion temperature thresholds
+6442392  Pelton: Change fanspeed control to base only on PDB/T_AMB reading
+6442350 U45,fails to negotiate w/the DSS-8+ switch and has no network access when init 6 or reset-all
+6441889 OBP needs to support Netra CP3060
+6441770 I2C workaround for EPIC access issue
+6440664  Pelton: Update FW to take care of the address change for PCI tray fruid
+6439935  Pelton: PSU_FAN sometimes reported as failed during PSU hot swap
+6439697  Pelton: USB failure not reported as SC alert
+6438649 I2C contention between OBP and ALOM
+6438527 Add Montoya platform support to ALOM-CMT
+6437802 JBI Fatal HV error should not happen when I/O protection is on
+6437585  Pelton: Fan Failures are not cleared even after they are reported OK in showenvironment
+6436300 netconsole gets stuck while running obdiag with base fabric interface
+6434216 Pelton: disabling iobd/net0 does not disable "net" device
+6433152 Add flash update support for RoHS V210/V240 R06 MB_PN's
+6432504 Support Jalapeno+ processor on Boston.
+6430090 Remove reference to Sequencer 1.x.x in "what" command
+6428852 putback for 6395675 panics Boston platform with ereport.io.fire.pec.cto.
+6427102 flx18074: ERROR: motherboard SEEPROM access failed
+6426877  Pelton: SYS_FAN FAILED msgs occur after a poweron
+6423137 flx18017: netconsole does not get to ok prompt after xir on Jade satellite
+6420886 POST needs to be enhanced to support Montoya platform
+6418658 Incorrect paths in seattle ASR
+6416169 flx17820: Dimm1 dimm0 devices disabled Fatal error on Jade
+6415903 Add Montoya vBSC platform support
+6412550 Montoya needs OBP slot-names property
+6407069 flx17690: ERROR: no valid memory configuration, System config failed, powering off on Jade
+6404798 Host keeps on resetting when keyswitch is set to diag.
+6400117 cdrw -p24 command does not work correctly on T2000.
+6390526 USB 2.0 Hub gets lost to OBP after Solaris EHCI driver run
+6380442 Seatle_P0.1-2U: FATAL: no exception frames available, forcing misaligned trap (S#S020)
+6370408 flx17072: Jade satellite goes to 'config" when powering off while rebooting. B8.
+ 
+ 
+ 
+(from 123482-01)
+6432221 update README for sysfwdownload tool
+6431981 Pelton: Update fanspeed control settings
+6431949 changes to HV innerrupt handling break linux boot
+6431944 Getting the alarm status through tsalarm driver is setting the alarm off
+6431247 Turn off critical alarm when turning the system LED on (workaround for 6421462)
+6431212 PIO error reports contain the wrong fault addresspr write uses bogus value ored with int disable
+6430005 resetsc takes ~ 3mins when cfg'd to use dhcp and dhcp server is not found (dhcp is default cfg)
+6427903 Minor optimisation for hypervisor  mondo handling
+6427897 alom poweroff should not ask for confirmation if server is already off.
+6427510 Support Pelton OSP partnumber for platform identification
+6427402 Pelton: No disks display in the Media Device table
+6426969 HDD OK2RM LED does not come on, nor does showenv status change
+6426781 ALOM hang up by consecutive running of "showfru" command
+6426486 clearing HSP (hstick compare interrupt pending) does not require read/modify/write
+6426481 hstick_cm6431205 ontario header files contain generic sun4v error definitions
+6426300 ALOM should automatically clear FMA faults when 'fmadm repair' is run (if Solaris etm is configured)
+6425918 POST script needed to track duplicate function declarations
+6425339 Help for if_connection shows "none" as default, it should be "telnet"
+6424889 Interrupt APIs in group 0x1 should be moved to group 0x2
+6424432 Negotiate hypervisor API version 1.0 for the interrupt group id on behalf of legacy Solaris
+6424293 Failed to read SD segment from FRU seeprom when alom4v is booting
+6424249 New T2000 MB requires ALOM changes to recognize new partnumber
+6424243 ALOM 'showfru' should print Hazard Class Code.
+6424214 ALOM setupsc "Should poweron sequencing be enabled" does not modify sc_powerstatememory
+6424026 Makefiel for src/include should use PLATFOMR, not FAMILY
+6423803 OBP support for dynamically programming the SAS WWID
+6423795 Serrano support for Schumacher board
+6423788 Broadcom 57xx fcode driver support for IPMI/ASF firmware
+6423761 wait for doorbell failed,  LSI fcode 1.00.41 needed
+6423090 Fire TLU Ctrl Reg NPWR_EN bit must be set to 0 on Boston.
+6422818 Solaris boot panics on pelton
+6422104 Rearrange Oberon driver code to share code between the Oberon leaves
+6422027 MD file restrusturing caused ontario root/banner-name to erronously point to pelton root name .
+6421977 A WARNING message is seen in POST running with 1GB Infineon DIMM (seattle 1U S163) 
+6421884 Boston-specific Fire GigaBlaze settings for Optimal PCI-E Signalling
+6421866 Boston-specific Fire GigaBlaze settings for Optimal PCI-E Signalling.
+6421833 Confusing POST error message "Address does not match in free call" for a CPU failure
+6421706 remove FAMILY level from hypervisor proto area 6424102 add pointers to erie and pelton  q.bin
+6421706 remove FAMILY level from hypervisor proto area
+6421629 PRINT macro irregularity in watchdog_gues
+6421425 sun4v unum decode for DSC (scrub) memory errors always reports CH0 regardless of DIMM location
+6421423 showenv displays incorrect label for PDB sensor status
+6421344 'slot-names' property not created if Oberon leaf link-up fails on OPL machines
+6421308 Incorrect "available" property for cmu-ch node in OPL platforms
+6421181 Prevent host console corruption when flow-control kicks in
+6421177 Fast console can overrun ALOM 'console' users.  User with writelock should be flow-controlled
+6420767 Add support/handler for tsalarm messages
+6420241 Make the PLX 8532 PCI-Express workaround for CR 6397497 standard probing procedure
+6420194 Need to protect find-std-capability and find-extd-capability from hang due to a bad hardware
+6420192 Pelton: Incorrect number of CPU threads show in the SunMC CPU table
+6420147 Method 'disable-children' in dev/pci-bridge/dec21152/pcibridg.fth does not disables all children
+6420137 Wrong mask used to clear pci errors in  'clear-pci-errs'  method defined in obp/dev/pci/pcibus.fth
+6420097 phys.hi&gt;cfg-offset method does not work for non-PCIE bridges
+6419722 legion magic traps should use ta %xcc
+6419635 VBSC should act on failed FPGA SRAM test from ALOM.
+6419216 WANBoot : Cannot create ramdisk "ramdisk-bootfs"
+6419209 dhcp enabled out of the box
+6419189 tsaloarm service channel needed on pelton to handle Telco alarms
+6418642 Net boot failed on Jade platform
+6418463 vbsc makefile uses naked 'install'
+6417885 Backout INTX disabling fix (6377849) from OBP
+6416671 Jade smc smcenv-sync print wrong data
+6416658 POST needs to be enhanced to support Pelton platform
+6416142 Disabling components causes MMU miss error in obp probing 
+6416036 Jade obdiag alarmdiag runs only 3 tests
+6415965 Add Pelton platform support to ALOM-CMT
+6415545 FW needs to dump the core shadow scan data on an IERR
+6415442 Change Branch Predictor Mode (BPM) in OBP for Panther USIV+.
+6414995 Pelton platform support in obp 4.x
+6414799 Seattle OBP needs extra guard pages for boot support
+6413467 Boot from DVD does not works on OPL machines
+6413230 JBI_TRANS_TIMEOUT too short, not based on Fire's transaction timeout
+6412889 Fiesta products with 1MB flash roms do not fit with POST and OBDIAG in the second 512kb
+6412462 Jade sat's mcnet does not work properly on 4.22.4 OBP.
+6411912 POST fails scrub memory
+6411362 Add Pelton platform support in vbsc
+6411069 OBP PLL data writes should be consistent with POST.
+6411051 ASR disabling PCI slots does not always work.
+6410532 Ontario: disabling iobd/net0 does not disable "net" device, iobd/net1 when disable, disables "net"
+6410285 ALOM-CMT ops-clearing proceedure should not remove 'showhost' SysFw version information
+6409416 Add watchdog timer support to OBP
+6407889 Add 2UXXL support, remove 2UEXL support
+6406714 Power off from obp does not power off the host
+6406577 Hotplug Allocation Support needed in OpenBoot
+6406427 Reorganise hypervisor workspace structure
+6406195 "Change Southside obp's root name"
+6406091 Fix some stack comments and nits in common OBP code
+6406061 Fix the decoding of 'movr' instructions in OBP sources
+6403073 Serranos with no memory may report false POST errors - CTRL/C; POST error &amp; poweroff(P1.0 S#133) 
+6402909 PoST change required to implement Spread Spectrum J-Bus Clock
+6402905 OBP change required to implement Spread Spectrum J-Bus Clock.
+6402182 nablecomponent/disablecomponent also needs to execute without message printing
+6401719 IO-Bridge Error - Data miss compare when running DMA loopback mode. 
+6401634 Olympus Product Line (OPL) system support in OBP 4.x gate
+6400408 Modify RX_EQLIZR_CTL bits in Seattle Fire LPU Gigablaze Glue Config2 Register\ to 0000 from default
+6400192 Boston OBP needs extra guard pages for boot support.
+6399627 Southside suport in post 
+6399622 support in alom-cmt for new partner p/n fruid segment
+6399215 "Add Southside support"
+6398364 privileged PIO accesses can cause hypervisor abort
+6397564 calls to hypervisor version API need to be specific to a cpu architecture
+6397497 Boston (V445) will not boot with LSI20320-S (Meteor) HBA installed.
+6397170 missing device_type property on ebus bus node properties
+6396865 ALOM showfaults command lists wrong FRU for FMA diagnosis (for Pelton)
+6396546 Remove pre-P1.0 hacks
+6396540 Program static SAS WWID at boot time
+6396533 Solaris flash-updater broken
+6396528 PCI-X out of band riser card interrupts should only be created if 2UEXL or 2UEEL riser card used
+6396519 OBDiag EPIC test fails
+6396464 interrupt-cells property in the ebus node has a typo in it.
+6396376 tlu-oess ereport payload member is reported as zero while injecting Fire tluoe errors
+6396318 Printed date in OBP is off-by-one after 28-feb 2006.
+6395015 2Gigabit/Sec Single FC Host Adapter (JNI) Last Trap: Data Access Error.
+6394696 Need ALOM message for hypervisor abort code 0x23
+6393958 Jade (CP2500) needs to add hybricon chassis support.
+6393953 Updated P5 firmware/obp an entra "cr" in console-filter of ipmi-serial.fth
+6393942 minor cleanup: stale Makefile VERSION support, etc.
+6393884 Poweron after a poweroff requires ALOM reset
+6393665 Solaris flash-update script fails.
+6393492 Need to enforce memory CAS latency minimum of 2.5 on DIMMS running at more than 133MHz
+6392749 Add support for decoding Serrano specific AFSR register bits
+6392744 Netra 240 OBP should support Serrano and Jalapeno CPUs dynamically
+6392742 Netra 440 OBP should support Serrano and Jalapeno CPUs dynamically
+6391455 Create reg property directly rather than with ebus code
+6391447 "remote ping" vbsc debug command only responds once
+6391445 service channel interrupt code sometimes unlocks a lock it doesn't hold
+6391361 post and picl DIMM labels are different.
+6389884 Boston release builds need a .SREC file
+6389866 Remove reference to ResetV1.x.x in "what" command.
+6389717 FP register file CE errors in hypervisor mode cause watchdog panic with 6.1.3B (prot) FW
+6389161 Fire rxeq values not optimized for ontario
+6388582 add hypervisor/supervisor split for n2
+6388353 RTI 306985. setupsc rejects valid ip addresses that have a field contaning a leading zero.
+6387700 add install targets to vbsc akefiles
+6387399 VPCI fcode: Access to PCIE extended config space does not work correctly
+6386341 post needs to check link width for onboard devices
+6386216 Changes to MD's in vBSC need to be reflected in OBP
+6385582 VBSC and POST have different memory size
+6384922 Reserve additional device_type for Erie
+6384845 local-mac-address support does not works on OPL machines.
+6384399 No error when enable/disablecomponent an already enabled/disabled device
+6384335 chicago unable to boot off network port 1
+6384092 userdel should display errors before asking for confirmation
+6383758 cpumask ereport member is incorrect
+6383658 Dynamic FRUID writes cause OBP MB FRUPROM reads to fail
+6383237 nvramrc must be evaluated before probe-all
+6382767 DEBUG build of Hypervisor 1.2 fails
+6381283 sun4v platform support
+6381279 Remove no-probe-list property from Fire nodes
+6381115 mixed speed memory will not interleave in enchilada system
+6381084 bootmode reset-rvram does not reset nvram variables.
+6380975 "Chicago/Southside does not provide slot-names property"
+6380622 menus in post shows incorrect number of CPUs
+6379739 sc_powerstatememory fails on Erie P2, works on P1 - PSU standby hold-up time unspecified
+6377702 Reserve Host_type for Pelton
+6377071 vBSC looping protection kicks in too soon: one time does not a loop make
+6375990 Make all I2C transactions including errors send a stop
+6375003 nvram access faults when dropping from Solaris to OBP.
+6374804 Add support for gueststate hcall and add interface to alo
+6374738 Address for PSU0's fruid prom needs to be 0x24 for P1.0 Boston.
+6372564 Preparing for new niagara platforms
+6372507 add new dma drivers to post for arbel and lsi mpt devices.
+6372356 removefru and poweron don't work correctly with PS0000000000000000000
+6371177 enable/disablecoponent error essage probles
+6370228 Unable to update FPGA when using long pathname.
+6368136 displaying large persistent logs (showlogs -p p) bogs down the SC cli
+6364453 ALOM (CMT) POST should test FPGA SRAM.
+6364139 OBP shows "ERROR - BCM5714 device 0 missing" with pci1 is disabled.
+6363909 showcomponent cmd incorrectly works with arguments
+6363477 reserve St. Paul HOST_TYPE for putback of St. Paul
+6361563 POST failed: 0&gt;ERROR: TEST = IO-Bridge unit 1 int init test
+6361535 POST needs to be enhanced to support Netra(tm) CP2500 Platform (code name:Jade)
+6361066 Need to add a comment to try and ensure HV and VBSC abort codes stay in sync 
+6361002 Jade B7: obdiag hangs at serial console test
+6360344 setupsc email event level: user is allowed to input zero, should reject with error 
+6357941 Ontario ereport dates inconsistent between domain and SP 
+6357936 Ontario ereport dates inconsistent between doain and SP
+6354976 RFE: hide if_modem paramter from showsc list and drop modem support on alom cmt.
+6354483 fire real to physical address handling needs a tweak 
+6353809 If two different users issue resetsc command, second user gets incorrect Error message
+6347315 unused POST modules/routines
+6345852 flx16583: On Jade system the uname -i is reporting the wrong thing.
+6344729 ALOM help commands should be grouped and listed in alphabetical order for usability
+6344487 quick succession of poweron/poweroff -yf/poweron cmds requires resetsc to restore poweron capability 
+6338777 Prevent ufsboot giving divide-by-zero from bad argument
+6337457 mmu-ess ereport member always reported as 0 for mmu errors 
+6336386 svc channel send/recv hcalls do not translate real addresses to physical
+6336222 ALOM needs hysteresis in environmental fault detection, to avoid fault 'looping'
+6336180 Hypervisor shouldn't stop all strands for every UE 
+6336114 SC gets confused about power state of server if user breaks telnet during 'Are you sure'
+6336040 clearasrdb followed quickly by resetsc fails to clear disabled faulty dimms, May cause VBSC FATAL 
+6334559 HV needs a console_write() interface to efficiently send console data
+6333076 POST must track 1064 status from vbsc
+6332576 The POST PCI id test for "unknown devices" is inconsistant
+6326859 SSH support in ALOM needed
+6325271 consolehistory boot log is the same as run log
+6323521 showcomponent and clearasrdb incorrectly work with all arguments 
+6323182 add diag_params, sys_autorunonerror to setupsc
+6318088 sc showenvironment; NAC name not consistent for IOBD/IOB/TCORE
+6315550 Implement core hypervisor APIs which include the versioning API
+6315548 Add watchdog timer functionality to hypervisor
+6314954 Error code should translate PA to RA 
+6230541 ERROR: Timeout on 0 waiting for resource type 2. after a ctrl-c when memory is being initialized
+6226285 Hypervisor should handle GL saturation on UE by saving the globals
+
+Patch Installation Instructions:
+----------------------------- 
+ 
+Please refer to the Install.info file for instructions on updating
+the firmware flashprom using the files included in this patch.
+
+Special Install Instructions:
+None:
+
+README -- Last modified date:  Wednesday, June 20, 2007
+
+</pre></body></html>

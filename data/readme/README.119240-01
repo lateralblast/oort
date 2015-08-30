@@ -1,0 +1,391 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 119240-01
+Keywords: sun fire v440 netra 440
+Synopsis: Hardware/PROM: Sun Fire V440 and Netra 440 Flash PROM Update
+Date: Jun/10/2005
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware|PROM
+
+Unbundled Release: OBP 4.16.6,POST 4.16.5,OBDIAG 4.16.6
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+NOTE: 
+sun fire v440, netra 440
+
+BugId's fixed with this patch: 5059929 5071186 6206112 6211546 6216781 6217930 6219577 6220285 6220303 6231224 6235884 6243243 6247508 6247511 6255271
+
+Changes incorporated in this version: 5071186 6216781 6217930 6220285 6220303 
+6243243 6206112 6231224 6235884 
+6247508 6247511 6255271 5059929 
+6211546 6219577
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+                                README.119240-01, copyright, 802-3233-25.ps,
+                                flash-update-SunFire440-latest
+                                flash-update-SunFire440-old,
+                                unix.flash-update.SunFire440.sh,
+817-6957-10.pdf, unix.flash-update.README,
+
+Problem Description:
+
+5071186 Serial console doesn't work after reset-all.
+6216781 Failed boot with Missing cmn-xxx[ error and Out of memory then FATAL: no exception frames available
+6217930 V240 - FATAL: no exception frames available, forcing misaligned trap
+6220285 Enws Enws_plus Taco Taco_Plus Banner Copyright need to be updated to year 2005
+6220303 ENWS banner included "Sun Fire V250" that need to be removed.
+6243243 OBP hangs on E25K after enable-reentry failure
+6206112 obp 4.16.1 fails DVD test without DVD is installed
+6231224 system hang up when enter ":c" to leave kadb prompt and get back into UNIX mode.
+6235884 "NESTED ERRORs, going interactive forcing misaligned trap" seen after probing devices
+6247508 system-tick-speed and the alarm interval need to be updated to correct value
+6247511 support reentrancy in the memory list management
+6255271 Latest (March 05) release of ENxS and Netra 210/240 motherboad not supported by latest obp.
+5059929 ERROR:       Timeout on 0:0 waiting for resource type 16.
+6211546 POST fatals when OBP invokes the POST JTAG/Init sequence
+6219577 find openboot.bin
+
+Patch Installation Instructions:
+==============================
+ 
+ 
+Intro
+-----
+ 
+    This README is intended for users who wish to upgrade the firmware
+    in their Sun Fire V440 or Netra 440.
+ 
+ 
+Summary of the Patch Installation Process:
+------------------------------------------
+ 
+The installation shall comprise of the following steps
+ 
+1)  Determine the system's current Flash PROM firmware revision.
+ 
+2)  Compare the current Flash PROM firmware revision with the available or 
+    latest Flash PROM firmware revisions.
+ 
+3)  If the current Flash PROM firmware revision is lower than the latest
+    available firmware revision in this patch, then proceed to the next step. 
+    If NOT, STOP: DO NOT CONTINUE.
+ 
+4)  Prepare the system for the Flash PROM update
+ 
+5)  Running the Flash PROM Utility
+ 
+6)  Verifying successful Flash PROM Update
+ 
+7)  Restoring the system
+ 
+8)  Resume operations
+ 
+ 
+Patch Installation instructions (in detail):
+============================================
+ 
+The required steps are explained in greater detail below.
+ 
+1)  Determine the System's Current Firmware Revisions
+    -------------------------------------------------
+ 
+    While the OS is running the following command may be used to
+    determine the current system firmware revisions;
+ 
+        /usr/sbin/prtconf -V
+        or
+	/usr/platform/sun4u/sbin/prtdiag -v | grep OBP
+ 
+    The firmware revisions may also be determined from the PROM monitor's
+    "ok" prompt with the following command;
+ 
+	.version
+ 
+2)  Compare the current Flash PROM firmware revision with the available or 
+    latest Flash PROM firmware revisions.
+ 
+    Compare the output of the OBP line in the "prtdiag -v" or "prtconf -V"
+    output. Find the revision number and compare with the revision on the
+    entries below that of the "flash-update-SunFire440-latest" line
+ 
+      Available Firmware Revisions
+      ----------------------------
+ 
+flash-update-SunFire440-latest:
+	OBP 4.16.6 2005/05/09 13:03 Sun Fire V440,Netra 440
+	OBDIAG 4.16.6 2005/05/09 13:05  
+	 Sun Fire[TM] V440,Netra[TM] 440 POST 4.16.5 2005/02/28 16:30 
+ 
+flash-update-SunFire440-old:
+	OBP 4.16.4 2004/12/18 05:20 Sun Fire V440,Netra 440
+	OBDIAG 4.16.4 2004/12/18 05:21  
+	 Sun Fire[TM] V440,Netra[TM] 440 POST 4.16.3 2004/11/05 20:05 
+ 
+3)  Is the UPGRADE NECESSARY?
+ 
+    If the current Flash PROM revision matches the version numbers given under
+    the flash-update-SunFire440-latest line, then STOP Here. This UPGRADE IS NOT
+    NECESSARY.
+ 
+    If the current Flash PROM firmware revision is lower than the latest
+    firmware revision in this patch, then proceed to the next step.
+ 
+4) Preparing the System
+   ---------------------
+ 
+  a) As root, copy the latest "flash-update" files from the directory
+     containing the patch to the root directory as follows:
+ 
+     # cp flash*latest  /
+     # chmod 755 /flash-update*
+ 
+     In order to boot the binary, it must be located within the root
+     partition.  If it is not already located within the root partition
+     then move it to /.  If the binary is already located elsewhere 
+     within the root partition then note the exact filepath so that the
+     binary can be booted later.
+ 
+  b) As root, exit the OS such that the system returns to the PROM's "ok"
+     prompt: 
+ 
+     # halt
+ 
+       ok
+ 
+  c) Jumper J4205 is factory-set so that the flash PROM is write-enabled.
+     There is no need to switch the jumper before flash updating; however,
+     you must ensure that the keyswitch is in the Power-on or Diagnostics
+     position.  When the key switch is in the locked position the flash
+     PROM is write protected.
+ 
+5)  Running the Flash Update Utility
+    --------------------------------
+     ** NOTE **  If the flash update completes normally then the values
+     contained within the system's Non-Volatile RAM (NVRAM) configuration
+     variables will be retained.  However, if the update process is some-
+     how interrupted then it is possible that any non-default values
+     contained in NVRAM will be lost.  For this reason it is recommended
+     that you note down on paper the contents of any NVRAM configuration
+     variable which has been customized so that they may be manually
+     restored at a later time, if necessary.  (Use the PROM's "printenv"
+     command to list the variables and their values.)
+ 
+  a) The system should now display the PROM monitor's "ok" prompt.
+     Now boot the Flash update utility as given below:
+ 
+     CAUTION: Do not boot/run revisions lower than the latest unless you
+	      are absolutely sure that that is what you want to do!
+ 
+     ok boot disk /flash-update-SunFire440-latest
+ 
+     NOTE: If your system's boot device is not "disk" then you will
+           have to specify the appropriate devalias (e.g. disk2).
+           If the binary is located in a location other than / then
+           provide the entire filepath after the boot device.
+ 
+     Answer the questions as prompted by the utility. 
+ 
+ 
++++++++++++++++++++++ example Flash update follows ++++++++++++++++++++++++
+++++++++ Note that this is an example only.  Much of the information ++++++
+++++++++ which is displayed by your system will be different from    ++++++
+++++++++ what is shown below.                                        ++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+ 
+Standalone Flash PROM Update Utility, Rev. 2.7
+                        Ultra(tm) 1
+                        Ultra(tm) 2
+                        Ultra(tm) 5/10
+                        Ultra(tm) 30
+                        Ultra(tm) 60 / E220R
+                        Ultra(tm) 80 / E420R
+                        Ultra(tm) Enterprise(tm) 250
+                        Ultra(tm) Enterprise(tm) 450
+			Sun Blade(tm) 100
+			Sun Blade(tm) 1000
+			Sun Fire (tm) 280R
+			Netra(tm) T4 
+			Sun Fire (tm) V880
+			Sun Fire (tm) V440
+ 
+This utility allows you to interactively update the firmware
+revisions in specific system Flash PROM components.
+ 
+Type h for help, q to quit, Return or Enter to continue:
+ 
+Every precaution should be taken to prevent the loss of system
+power during the Flash PROM programming process!
+ 
+Type h for help, q to quit, Return or Enter to continue:
+ 
+ 
+       Firmware Release(s)                Firmware Release(s)
+ Currently Existing in the System      Available for Installation  /  Install?
+---------------------------------- -------------------------------------------
+OBP 4.10.5  2003/05/22 13:58         OBP 4.10.10 2003/08/29 06:25          no
+POST 4.10.5 2003/05/22 18:02         POST 4.10.9 2003/08/05 13:15          no
+ 
+Type sa if you wish to select all available firmware releases for
+installation.  Type h for help, quit to exit, or cont to continue: sa
+ 
+ 
+       Firmware Release(s)                Firmware Release(s)
+ Currently Existing in the System      Available for Installation  /  Install?
+---------------------------------- -------------------------------------------
+OBP 4.10.5  2003/05/22 13:58         OBP 4.10.10 2003/08/29 06:25         YES 
+POST 4.10.5 2003/05/22 18:02         POST 4.10.9 2003/08/05 13:15         YES 
+ 
+Type sa if you wish to select all available firmware releases for
+installation.  Type h for help, quit to exit, or cont to continue: cont
+ 
+ 
+The Flash programming process is about to begin.
+ 
+Type h for help, q to quit, Return or Enter to continue:
+ 
+Erasing the top half of the Flash PROM.
+Programming OBP into the top half of the Flash PROM.
+Verifying OBP in the top half of the Flash PROM.
+ 
+Erasing the bottom half of the Flash PROM.
+Programming OBP into the bottom half of Flash PROM.
+Verifying OBP in the bottom half of the Flash PROM.
+ 
+Erasing the top half of the Flash PROM.
+Programming POST into the top half of Flash PROM.
+Verifying POST in the top half of the Flash PROM.
+ 
+Programming was successful.
+ 
+Resetting ...
+ 
+ 
++++++++++++++++++++++ example Flash update ends ++++++++++++++++++++++++++
+ 
+  Once the PROM's banner reappears then use the Stop-A keys (or Break
+  key, if running from a serial line) to abort the auto-boot sequence
+  if the system begins to boot.
+ 
+6)  Verifying successful Flash PROM Update
+ 
+    Verify from the results of the .version command that the OBP
+    version matches the OBP version given above under the
+    flash-update-SunFire440-latest entry in Step 2.
+ 
+7)  Resume operations
+ 
+    a) Allow the system to auto-boot, by issuing a "go" command or issue 
+       the boot command for your environment.
+ 
+    b) Once the system has rebooted you may wish to remove the Flash Update
+       binaries and documents since they will no longer be needed.
+ 
+       # rm /flash-update*
+ 
+    c) Remember to remove the files from their original location if
+       they were not extracted directly into the root directory.
+ 
+ 
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+Special Install Instructions:
+----------------------------- 
+ 
+  Note 1: If you have the frame buffer Raptor GFXP -04 REV 50
+          (part 370-3753-04), you *must* install patch 110126-03 to upgrade the
+          FCode in the card **BEFORE** you can do the firmware update. Revisions
+          -05 and up of the frame buffer are not affected.
+ 
+	  Failure to install the frame buffer patch (110126-03) will cause
+          "FATAL" resets after the firmware update.
+ 
+  Note 2: This utility is *not* OS-dependent.  The list of releases shown under
+          the "Solaris Release" and "SunOS Release" sections may not be
+          complete: The absence of a valid Solaris Release or SunOS  Release
+          from the lists above does not preclude the installation of this patch
+          against the hardware.
+ 
+  Note 3: Modifications to Diagnostic Operation
+ 
+          This released version of OpenBoot enables diagnostic execution for all
+          power-on and error reset events, **as the new system default.
+ 
+          **To implement this new policy, behavioral changes to diagnostic
+          controls were made to simplify the enabling of diagnostics and
+          controlling the level and verbosity of diagnostics.
+ 
+          A new feature includes a Sun-prescribed mode of diagnostic execution,
+          which overrides user-defined settings.  This mode provides service
+          personnel with an easy method by which to invoke a predictable
+          execution of diagnostics.
+ 
+          The new standard (default) configuration will increase system boot
+          time ( measured from power-on to the 'ok&gt;' prompt ) and messaging
+          ( varies by system configuration ) for all 'power-on-reset' and OBP
+          detected 'error-reset' events. Increased boot time and messaging is
+          largely due to the execution of diagnostics.
+ 
+          Automated System Recovery (ASR), a form of restoration, is implemented
+          at the firmware layer and increases overall system availability when
+          diagnostics are enabled.  
+ 
+          For more specific details regarding these OBP changes, reference the
+          pdf document; "OpenBoot[tm] PROM Enhancements for Diagnostic
+ 
+** WARNING ** WARNING ** WARNING ** WARNING ** WARNING: ** WARNING **
+ 
+*  PLEASE READ THE INSTRUCTIONS CAREFULLY AND ENTIRELY.  PLEASE FOLLOW THE
+   INSTRUCTIONS EXACTLY AS THEY ARE STATED.
+ 
+*  FAILURE TO FOLLOW INSTRUCTIONS COULD EITHER RESULT IN A DEFECTIVE BOARD OR
+   UNSUCCESSFUL FLASH PROM UPDATE.
+ 
+*  THIS IS NOT A STANDARD PATCH in that it does not use the installpatch
+   and backoutpatch scripts.
+ 
+*  THIS PATCH CANNOT BE INSTALLED ON AN ONLINE OPERATING SYSTEM BECAUSE
+   THE INSTALL INSTRUCTIONS REQUIRES THAT THE SYSTEM BE BROUGHT DOWN.
+   BE SURE TO SCHEDULE DOWN TIME TO INSTALL THIS PATCH.
+ 
+*  Installation of the firmware included with this patch does NOT
+   require any hardware changes if the Flash update completes normally. 
+ 
+*  PLEASE REVIEW NOT ONLY THIS README BUT ALSO ADDITIONAL DOCUMENTATION
+   GIVEN.
+   The file "802-3233-xx.ps" (where xx stands for the latest numeric
+   revision) is a PostScript copy of the "Sun Flash PROM Guide for Workstations
+   and Workgroup Servers - Standalone Version", which  provides the following;
+ 
+   (i) Emergency instructions in the unlikely event that the Flash
+        update should fail.
+ 
+   Note, however, that The Programming Guide was originally written for
+   a user who is running the Flash PROM update utility from a bootable
+   CDROM, and thus it will not contain the proper boot commands for
+   installation of this patch.  Also note that the instructions in
+   the document for installing packages are not valid for this patch.
+ 
+** WARNING ** WARNING ** WARNING ** WARNING ** WARNING: ** WARNING **
+
+README -- Last modified date:  Friday, June 10, 2005
+
+</pre></body></html>

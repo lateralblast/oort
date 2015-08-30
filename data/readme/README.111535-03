@@ -1,0 +1,106 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 111535-03
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+For further information on patching best practices and resources, please
+see the Oracle Technology Network Patching Center: 
+http://www.oracle.com/technetwork/systems/patches
+***********************************************************************
+Copyright 2011, Oracle and/or its affiliates. All rights reserved.
+***********************************************************************
+
+Keywords: st39103fc st318203fc st136403fc 9gb 18gb 36gb disk firmware fc-al
+Synopsis: Hardware, FC-AL Disks: Download program and FC-AL Disk Drive firmware
+Date: Sep/24/2002
+
+
+Install Requirements: See Special Install Instructions                      
+                      
+Solaris Release: 2.5.1 2.6 7 8
+
+SunOS Release: 5.5.1 5.6 5.7 5.8
+
+Unbundled Product: Segate Cheetah3-family FC-AL disks
+
+Unbundled Release: N/A
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 4472275 4493554
+
+Changes incorporated in this version: 4493554  4472275
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+NOTE:        Solaris 2.5.1   103640-32 or higher
+	        2.6     105568-16 or higher
+                        105580-08 or higher  (for Ultra-30/60)
+                7       106980-10 or higher
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+	ST39103F.144B.fw 
+	download32 
+	download64 
+        ST136403F.144A.fw
+ST318203F.144A.fw
+download
+
+Problem Description:
+
+This Patch is required for FCO-0199. This patch is designed to download
+a special firmware for Seagate Cheetah3 FC-AL Drives. Refer to FCO-0199
+for technical details of the problems assosciated with this firmware
+change.
+ 
+The  patch has the following bug fixes :
+ 
+4493554 Cheetah-3 (36G) drive failure
+ 
+4472275 Cheetah 3/4 drive "NOT READY" problem
+ 
+Previous History:
+The previous Patches for the drives which are incorporated into this patch are as follows:
+ 
+for FCAL drives with Spud bracket:
+ 
+Drive Model#	Patch #		       FWCode  	Previous FWs	
+ST39103FC	109962-07	       114B	N/A	 
+ST318203FC      109962-07	       114A     N/A	
+ST136403FC	109962-07	       114A	N/A
+ 
+for FCAL drives with T3 Sled:
+ 
+Drive Model#	Patch #		       FWCode  	Previous FWs	
+ST318203FC      109115-11 for T3       DF4A	N/A
+		112276-02 for T3+	
+ST136403FC	109115-11 for T3       DF4A	N/A
+		112276-02 for T3+
+
+Patch Installation Instructions:
+------------------------------
+ 
+see file: INSTALLATION_INSTRUCTIONS
+
+Special Install Instructions:
+----------------------------
+ 
+None.
+
+README -- Last modified date:  Tuesday, March 29, 2011
+
+</pre></body></html>

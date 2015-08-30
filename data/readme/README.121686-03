@@ -1,0 +1,89 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 121686-03
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun ultra 45
+Synopsis: Hardware/PROM: Sun Ultra 45 Flash PROM Update
+Date: Oct/16/2006
+
+
+Install Requirements: None                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Hardware/PROM
+
+Unbundled Release: OBP 4.21.6, POST 4.21.6, OBDIAG 4.21.6
+
+Xref: 
+
+Topic: 
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 6312957 6322957 6346290 6356637 6356644 6356687 6356915 6359345 6359716 6360367 6361563 6363976 6366588 6368614 6370015 6379876 6379878 6379979 6383100 6384335 6391361 6474536
+
+Changes incorporated in this version: 6391361 6384335 6383100 6379979 6379878 6379876 6370015 6368614 6366588 6361563
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+flash-update-SunUltra45
+unix.flash-update.SunUltra45.sh
+
+Problem Description:
+
+6391361 post and picl DIMM labels are different.
+6384335 chicago unable to boot off network port 1 
+6383100 banner Copyright shown the year of 2005 instead of 2006. Needs to be updated to 2006
+6379979 fcode: map-in of config space does not work correctly
+6379878 Chicago OBP should tune ebus chip select timing as an intermediate step towards meeting STARS
+6379876 USB time out errors seen in OBP during power-cycle testing
+6370015 OBP should print out a message if it detects problem and resets RTC
+6368614 WARNING: devinfo: fault in private data at 60000d794e8
+6366588 fcode gives erroneuos values for config address &gt; 0xf.0000
+6361563 POST failed: 0&gt;ERROR: TEST = IO-Bridge unit 1 int init test
+ 
+(From 121686-02)
+ 
+6363976 debug flash-update tool from the ok prompt needs to be removed
+6360367 post failed to correctly report number of bad DIMMs in the chicago system.
+6359716 Chicago POST needs to have workaround in order to head off PLX CE problem observed on Ontario
+6359345 Chicago should takes steps to avoid the "Stuck CE" issue seen on Ontario
+6356915 OBP is unable to boot the system if CPU is in low power mode
+6356687 Remove old CMD hardware workarounds from the ULI 1575 usb fcode driver  
+6356644 Chicago OBP should flash the power LED rather than the fault LED during boot sequence
+6356637 msix-data-width property in fire nexus node reads: msix-date-width instead
+6346290 stack is not empty after a reset or power-on reset.
+6322957 wrong POST and OBDiag version printed out at ok prompt
+6312957 Chicago PCI bus bandwidth is 6 times slower than Fiesta+ PCI
+6474536 OBP Standalone Flashupdate from 4.21.2 to 4.21.6 causes POST to hang or go into RED STATE
+
+Patch Installation Instructions:
+===============================
+Please refer to the Install.info file for instructions on updating
+the firmware using the files included in this patch.
+ 
+                &gt;&gt;&gt; END &lt;&lt;&lt;
+
+Special Install Instructions:
+0
+
+README -- Last modified date:  Tuesday, December 5, 2006
+
+</pre></body></html>

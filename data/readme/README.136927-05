@@ -1,0 +1,291 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 136927-05
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: sun fire t2000 system firmware 6.6.7 flashprom sysfwdownload ldoms apl security
+Synopsis: Hardware/PROM: Sun Fire T2000 Sun System Firmware Update  LDOMS APL
+Date: Oct/29/2008
+
+
+Install Requirements: Additional instructions may be listed below                      
+                      
+Solaris Release: 10
+
+SunOS Release: 5.10
+
+Unbundled Product: Sun System Firmware
+
+Unbundled Release: 6.6.7
+
+Xref: 
+
+Topic: Sun Fire T2000 Sun System Firmware 6.6.7 flashprom update
+
+Relevant Architectures: sparc
+
+BugId's fixed with this patch: 6337451 6489630 6494774 6512417 6519557 6523695 6529467 6530696 6537680 6547428 6549183 6553956 6554604 6555126 6556636 6558874 6558875 6558974 6565130 6566151 6567748 6575857 6577471 6581061 6581227 6583280 6587418 6587522 6590036 6592314 6594044 6594395 6596924 6597947 6600945 6601551 6602227 6602244 6603949 6604416 6611174 6613677 6614166 6614911 6616169 6616381 6619932 6621350 6621584 6621998 6623032 6623142 6623916 6624684 6627649 6630598 6630613 6631875 6632210 6633960 6635181 6636325 6637424 6637682 6637992 6639010 6639225 6639912 6640494 6640893 6642932 6643632 6644049 6647337 6647462 6650227 6650241 6650392 6650585 6651513 6653685 6654395 6654747 6655060 6656689 6657711 6657721 6658205 6658456 6659611 6661197 6661663 6661699 6662634 6666425 6666797 6667926 6668212 6668651 6669222 6669255 6669841 6671343 6671365 6671802 6672367 6672380 6672954 6673405 6673599 6674578 6674589 6674772 6676561 6677699 6678885 6678924 6680498 6681583 6681676 6681732 6682834 6683273 6683322 6685372 6685672 6685903 6686133 6686478 6686530 6687091 6687097 6688615 6688749 6693734 6693906 6694831 6695794 6697814 6703882 6704663 6706303 6706542 6706719 6709202 6710104 6710724 6711672 6712358 6714853 6716539 6717373 6721010 6721020 6724342 6725079 6725223 6743027
+
+Changes incorporated in this version: 6523695 6661699 6662634 6674578 6681583 6685672 6706542 6709202 6710104 6710724 6714853 6721010 6721020 6724342 6725079 6725223 6743027
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+Sun_System_Firmware-6_6_7-SPARC_Enterprise_T2000.bin
+Sun_System_Firmware-6_6_7-Sun_Fire_T2000.bin
+sysfwdownload
+
+Problem Description:
+
+6743027 upgrade of firmware with oem-logo values causes hang in OBP - N1 only
+6725223 vcpu DR with heavy traffic causes loss of network connectivity for guest domains
+6725079 watchdog code assumes current strand is associated with a guest 
+6724342 HV does not send guest starting message to vBSC after domain reset 
+6721020 OpenBoot should handle "shutdown" request from Hypervisor
+6721010 page shifts wrong in header file and real address miss handlers 
+6714853 MMU TSB Config setup does not handle context_index = (-1) 
+6710724 LUP_P bit is incorrectly masked by HV on several sun4v platforms 
+6710104 booted set name erroneously cleared on a warm-start
+6709202 sis state and description need to be updated when host is reset from sc 
+6706542 regression in N1 LDC shared memory 
+6685672 epkt generation for PUI Other Events for no Duplicate errors path need cleanup 
+6681583 epkts for MMU translation Table Cache Data Parity Errors do not log address of failure 
+6674578 sparse CPU support for cpu-struct table
+6662634 access to OBP from Control Domain when user does not have access to Solaris 
+6661699 epkts using MMU TFAR/TFSR encoded incorrectly
+6523695 cpu_mondo_send(): reconfiguring queue after receiving EWOULDBLOCK leads 
+        to tail pointer errors 
+ 
+(from 136927-04)
+ 
+6716539 Netra-T2000: dpdump shows wrong values for Minspeed for Sysfw-6.6.3 
+6712358 POST print function confusion
+6673405 adding memory to system causes saved LDoms configs on SP to be invalidated
+ 
+(from 136927-03)
+ 
+6717373 cpu-table (in arch/sun4v/cpustruct.c) should be cleaned before use
+6676561 changing NVRAM parameter at OS level causes panic: BAD TRAP: type=31
+6600945 power-off doesn't power off virtual machine; OBP is running within
+ 
+(from 136927-02)
+ 
+6711672 Boot Timer failure message when feature not enabled on Niagara platforms
+6706719 various errors after: sc warm start, host reset, host reset
+6706303 POST interrupt test fails on N1 platforms
+6704663 Boot Timer settings not persistent across sc resets
+6703882 sun4v Boot Timer feature in N1 platforms is missing help/usage messages and input validation
+6697814 use larger page sizes for real to physical mappings
+6695794 Boot Timer for N1 platforms
+6694831 increase size of LDC queues in sram for performance
+6693906 probe-scsi-all on USB1.1 storage generates Fast Data Access MMU Miss
+6693734 platforms that support MEM64 and PCI hotplug using invalid memory sizes
+6688749 cache target CPU pointer to improve VDEV interrupt efficiency
+6688615 LDC packet transfer to/from SRAM could be a little more efficient
+6687097 virtual-console device always returns NUL very first character available after it is opened
+6687091 connection failure message displayed following resetsc if system power is still on
+6686530 SunVTS fails "Other Devices" functional test with SysFW 6.6.2 loaded
+6686478 update Copyright to 2008
+6686133 HV support for SP initiated reset
+6685903 ldoms config boot after resetsc fails to save PRI; resetsc again emits PRI Error 
+        + ldmd fatal error
+6685372 T2000 boot process hangs if SP encountered FATAL configuration error
+6683322 non-factory-default spconfig: ldmd fatal error: No available physical memory
+6683273 micro optimisation for Hypervisor spinlocks
+6682834 transition ds port state to "init" before bringing up corresponding LDC
+6681732 ALOM-CMT doesn't work with FRUIDs using new T1000/T2000 part numbers
+6681676 Hypervisor command cross-calls should be cleaned up
+6680498 bincheck isn't quite binary safe
+6678924 link width issue with plx version BC chip on Pelton
+6678885 link width issue with plx version BC chip on Pelton
+6677699 start %pc may not be what it should be when cpu_start() called immediately after cpu_stop()
+6674772 need Auto Firmware Update option for sysfwdownload tool
+6674589 can't boot if HOST reset two times approx 10 secs apart
+6673599 need hardware (ATCA) watchdog support in HV for Montoya (N1 blade)
+6672954 HV should offer build target to build without timestamp
+6672380 vestiges of htraptracing not eliminated when vcpu is stopped
+6672367 if cmp missing threads/cores in N1, post will not test some regions of memory
+6671802 SysFW 6.6.1 does not work on Montoya CP3060
+6671365 Hypervisor makefiles could be rearranged to reduce duplication
+6671343 Hypervisor sources could use cstyle and other misc cleanup
+6669841 rid of unnecessary build flags and compile flags
+6669255 domains fail to boot from right devalias name
+6669222 lock in mmu_miss can be eliminated to reduce contention
+6668651 HV RA to PA guest mappings should not use padding in structure
+6668212 persistent "SC Alert:..." messages printout on system console after flashupdate
+6667926 no status update to user with non-debug vbsc
+6666797 support reading md for LDC queue size and offsets for N1
+6666425 bootload() function could be written in C instead of assembler
+6661663 PID2VCPUP doesn't check for vcpu-&gt;strandp being NULL before dereferencing
+6661197 Hypervisor should provide more useful information when aborting after error
+6659611 mask wrong in relocate of vector interrupt table
+6658456 need system firmware update from SPARC Domain
+6658205 Poweron disable due to invalid host flash image
+6657711 single scratchpad UE in kernel mode generates panic and HV abort
+6656689 LDC subscribers cannot determine if the SP has been reset
+6655060 interrupts left pending for stopped CPUs result in non-idle idle strands
+6654395 ldmd fatal error: No available physical memory
+6651513 version negotiation in OBP's vnet/vdisk doesn't adhere to protocol
+6650585 showplatform and /SYS/ACT do not always display correct host state
+6650241 vBSC runtime can be improved by %40 just by turning compiler optimization on
+6647462 problem with T2000 SysFW 6.5.5, won't see DVD ROM device after upgrade
+6637424 offsets.h complains about missing definition
+6630598 call ldc_copy with negative flag returns ENOACCESS
+6627649 T2000 &amp; NetraT2000 ALOM incorrectly sends Low speed threshold in place 
+        of "--" Warn speed threshold
+6616381 offsetchk prints incorrect array size
+6577471 VBSC should not power-cycle when reset requested via CLI
+6558974 remove check for unbind property in guest parse routine
+6556636 VBSC should build separate versions of object files for debug and non-debug
+6555126 increase size of LDC queues in sram for performance
+6554604 support N1 pri configuration for FMA fruid info and PICL device tree info
+6549183 guest watchdog should be made LDoms aware
+6537680 ERROR: too much data in /var/opt/vbsc/asrdb - no backing store for ASR DB
+6529467 POST should handle preceding spaces gracefully
+6519557 Hypervisor should read md for LDC queue size and offsets
+6494774 add guest-state support for Niagara platforms
+6337451 Hypervisor needs to handle fire secondary errors (JBC &amp; DMC Secondary Errors)
+ 
+(from 136927-01)
+ 
+6657721 POST should offline the failing DIMM module in the event of a CE. 
+6654747 control domain panic on T1000 - Regression introduced in SysFW 6.6.0
+6653685 after soft/hard reset, "Dropping ereports" sc alert shows up
+6650392 boot-time and reset-time can be improved with further memory scrubbing changes
+6650227 bootmode reset_nvram fails to reset OBP to defaults
+6647337 restarting domains with multiple domains in existence causes incorrect uptime in Zeus
+6644049 need to ditch polling in favor of interrupts for idling
+6643632 refactoring and restructuring changes needed for platform scalability
+6642932 CWQ and MAU qconf set head_marker field to wrong value, causes interrupts immediately
+6640893 add better stack debugging to HV
+6640494 no HV debug output on port 2001
+6639912 uadmin 2 0 and reboot reads old bootmode settings (should be cleared)
+6639225 backout 6549183, causes 6638756
+6639010 change HV 1.6.x file names to be more apt
+6637992 vecintr() mondo dispatch could be reordered for performance
+6637682 move debugflags to mini-MD
+6636325 HV trap trace doesn't work after the guest resets
+6635181 1.6 vbsc rejects LDoms 1.0.1 MD bootsets
+6633960 ssi handling uses unsafe VCPU_STRUCT
+6632210 Hypervisor could use print macro that handles g7 clobbering
+6631875 call ldc_mapin with misaligned cookie does not return EBADALIGN
+6630613 call ldc_copy with mismatched page size returns EOK
+6624684 VCPU start_stick is never initialised
+6623916 software guest state updates generate too much traffic
+6623142 Hypervisor needs to inform vbsc of soft state
+6623032 VBSC builds fail with standard Sun make
+6621998 configuring LDC channels should not corrupt other sysinos
+6621584 Hypervisor stack size should be reduced
+6621350 teja_profiler_dump() can dump bogus info to console
+6619932 hv_ldc_copy should return EINVAL for SP endpoints
+6616169 guest channel configuration can corrupt devinst table
+6614911 configuring NCS_QTYPE_CWQ queue does not set tail offset to zero
+6614166 need to pass correct Hypervisor md header to md_check_content_version
+6613677 replace qas with fbe in Makefile
+6611174 mau/cwq should target interrupt based on submitter
+6604416 update versioning for vbsc1.6.x-gate
+6603949 sample guest dis_bpcc() function has typo and is C-style filthy
+6602244 need parallel memscrub timeout
+6602227 Hypervisor stack needs overflow and underflow safeguards
+6601551 use mailbox for systest arguments
+6597947 fire_jbus_init_table contains bogus register write
+6596924 vbsc should check actual return value of stat()
+6594395 "Options: true false" menu interrupts OBP reset
+6594044 removal of "next" spconfig results in incorrect selection
+6592314 ldc_read (vbsc) does not set qhead after processing control pkts
+6590036 malformed MSI errors are encoded wrong
+6587522 missing information in "ldm list-config"
+6587418 Huron vbsc should check MD content-version like N1 does to ensure firmware compatibility
+6583280 return status of MD property removal routine is useless
+6581227 deserializing fails when number of entries greater than 12
+6581061 number of guest LDC channels need to increase on per-platform basis
+6575857 ds should check return value from Xmalloc
+6567748 LOM should show correct Guest Status sent from OBP and Solaris
+6566151 Ontario s10u4 eft.undiagnosable_problem for jbc.cpe jbc.mb_pea jbc.jtceew
+6565130 partdef tool should flag error when nodes have same name
+6558875 support parsing of mini-md from vbsc for HV-specific info to leave out of HV md
+6558874 support delivery of mini-md from vbsc to HV at poweron with HV-specific info
+6553956 Hypervisor spill/fill code uses %asi unnecessarily
+6547428 warning message incorrect spelling. WARNING: No response from Domain Service "Providor"
+6530696 vBSC should support parallel make
+6512417 vbsc needs to compile under a modern operating system
+6489630 ldc_unmap() with misaligned raddr expects EBADALIGN but receives EOK
+
+Patch Installation Instructions:
+--------------------------------
+Please refer to the Install.info file for instructions on updating 
+the firmware flashprom using the files included in this patch.
+
+Special Install Instructions:
+----------------------------
+ 
+NOTE 1:  Firmware component revisions included with this release:
+ 
+	 System Firmware 6.6.7 Sun Fire[TM] T2000 2008/09/29 09:36
+         ---------------------------------------------------------
+         ALOM-CMT v1.6.5  Sep 29 2008  08:31:13
+         VBSC 1.6.7.b  Sep 29 2008  09:30:31
+         OBP 4.29.0.a 2008/09/15 12:01
+         Hypervisor 1.6.7.a 2008/09/29 09:29
+         POST 4.29.0.a 2008/09/15 12:26
+ 
+	 Checksum of Sun_System_Firmware-6_6_7-SPARC_Enterprise_T2000.bin: 3514553707
+	 Checksum of Sun_System_Firmware-6_6_7-Sun_Fire_T2000.bin: 3514553707
+         (generated by the /usr/bin/cksum command)
+ 
+NOTE 2:  By using Sun System Firmware (Firmware) you agree to the 
+         terms of the Software License Agreement and Entitlement 
+         (SLA/Entitlement) found in
+ 
+         Sun_System_Firmware-6_6-download_SLA_and_Entitlement.txt.  
+ 
+         By using the Firmware, you agree to the terms of the 
+	 SLA/Entitlement.  If you do not  agree to all the terms 
+         promptly destroy the unused Firmware.
+ 
+NOTE 3:  This patch supports both the Sun Fire T2000 and the APL SPARC
+         Enterprise T2000 product lines, which share the same firmware.  
+         We include two separate Sun System Firmware binary files, with 
+         different names corresponding to the respective products. 
+         The different names are provided for convenience - the two 
+         files are otherwise identical. 
+ 
+         The system may experience boot or other problems with earlier 
+         version of Solaris (S10_HW2).
+ 
+         SPARC Enterprise T2000 (APL) configurations require 
+         Solaris 10 11/06 (Update 3), or later, to be installed. 
+ 
+NOTE 4:  Please refer to online documentation for feature and version
+         compatibility between Sun System Firmware and LDom Manager 
+         releases.
+ 
+         LDoms release notes are available on http://docs.sun.com
+         under this title and part number:
+ 
+         Logical Domains (LDoms) 1.0.3 Release Notes 820-4895
+ 
+NOTE 5:  If you are currently using LDoms 1.0 or 1.0.1 software, 
+         you must perform a full upgrade procedure to upgrade to 
+         LDoms 1.0.3 software. 
+ 
+         Refer to Logical Domains (LDoms) 1.0.3 Administration Guide, 
+ 	 820-4894, at http://docs.sun.com/app/docs/prod/ldoms#hic. 
+         You do not need to destroy configurations created with 
+         LDoms 1.0.2 software; you only need to upgrade the software.
+
+README -- Last modified date:  Wednesday, October 29, 2008
+
+</pre></body></html>

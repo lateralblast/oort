@@ -1,0 +1,1265 @@
+<html><head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>README-T5-4_8-942e</title>
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <u><b>SPARC T5-4+T5-8 Sun System Firmware 9.4.2.e</b></u><tt><br>
+      <br>
+      Product:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SPARC
+      T5-4+T5-8 Sun System Firmware 9.4.2.e<br>
+      Release Version: 9.4.2.e<br>
+      Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      Jul/10/2015<br>
+      <br>
+    </tt><b><u>Table of Contents: </u></b><tt><br>
+    </tt>
+    <ul id="mozToc">
+      <!--mozToc h3 1 h4 2-->
+      <li><a href="#mozTocId318325">Release Summary</a></li>
+      <li><a href="#mozTocId451462">Release Profile</a></li>
+      <li><a href="#mozTocId928107">Reference Information</a></li>
+      <li><a href="#mozTocId192426">Bug Manifest and History of 9.4
+          Releases</a></li>
+      <li><a href="#mozTocId974714">Special Release Notes:</a>
+        <ul>
+          <li><a href="#mozTocId130427">Note 1: &nbsp; For Firmware
+              Updating via the Included "sysfwdownload" Utility</a></li>
+          <li><a href="#mozTocId590236"> Note 2: &nbsp; Firmware Upgrade
+              Affects vCPU Power Management</a></li>
+          <li><a href="#mozTocId128312"> Note 3:&nbsp;&nbsp; EFI/GPT
+              Disk Label Support for SPARC Servers</a></li>
+          <li><a href="#mozTocId398038">Note 4:&nbsp;&nbsp; Logical
+              Domain Migration Firmware Version Restrictions</a></li>
+          <li><a href="#mozTocId633288">Note 5: &nbsp; LDoms Manager
+              Version Requirements When Using Large Numbers of LDC's </a></li>
+          <li><a href="#mozTocId310767">Note 6:&nbsp;&nbsp; SPARC: Live
+              migration of a guest domain from newer Sun System Firmware
+              to older versions is blocked under some circumstances (Bug
+              20594568)</a></li>
+        </ul>
+      </li>
+    </ul>
+    <br>
+    <tt><tt><tt><br>
+          <br>
+        </tt></tt> </tt>
+    <hr size="2" width="100%">
+    <h3><a moz-do-not-send="true" class="mozTocH3" name="mozTocId318325"></a><u>Release
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Summary</u></h3>
+    This release is called a <i>nano-version</i>, used as a means of
+    providing high priority bug fixes between normal scheduled
+    maintenance refreshes.&nbsp; A nano-release (in which the fourth
+    field of the version increments, such as from 9.4.2.c to 9.4.2.e as
+    in this release) does not involve new general features, just a
+    limited number of high priority bug fixes.<br>
+    <br>
+    In this case, the <b>9.4.2.e</b> release fixes several critical
+    problems including the fix for 21299503 which was the reason for the
+    recent Service Alert:<br>
+    <ul>
+      <li>SPARC T5 Series and SPARC M5-32/M6-32 Servers System Firmware
+        Version 9.4.2.c and 9.4.2.d May Erroneously Disable CPUs (Doc ID
+        2027245.1)<br>
+      </li>
+    </ul>
+    The bugID delta since the last general release (<b>Sun System
+      Firmware </b><b>9.4.2.c)</b> includes a total of 4 bugID's across
+    the gates.&nbsp; See <a moz-do-not-send="true" href="#mozTocId192426">Bug Manifest</a> section for details).<br>
+    <br>
+    The chart below shows the distribution of bugID's across the five
+    gates:
+    <blockquote>
+      <table border="1" cellpadding="2" cellspacing="2" height="199" width="180">
+        <tbody>
+          <tr>
+            <td valign="top"><u><b>Gate<br>
+                </b></u></td>
+            <td valign="top"><u><b>Bug Count<br>
+                </b></u></td>
+          </tr>
+          <tr>
+            <td valign="top">ILOM<br>
+            </td>
+            <td align="center" valign="top">1<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">Nyx<br>
+            </td>
+            <td align="center" valign="top">3<br>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">Hypervisor<br>
+            </td>
+            <td align="center" valign="top">--</td>
+          </tr>
+          <tr>
+            <td valign="top">OpenBoot<br>
+            </td>
+            <td align="center" valign="top">-- </td>
+          </tr>
+          <tr>
+            <td valign="top">POST<br>
+            </td>
+            <td align="center" valign="top">--<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <tt><br>
+    </tt>
+    <h3><a moz-do-not-send="true" class="mozTocH3" name="mozTocId451462"></a><u>Release
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Profile</u></h3>
+    <ul>
+      <li>
+        <pre><tt>Sun System Firmware
+Version:  9.4.2.e
+Location: Firmware/Sun_System_Firmware
+Keywords: FIRMWARE: SPARC T5-4+T5-8 - 9.4.2.e firmware_metadata
+Synopsis: FIRMWARE: SPARC T5-4+T5-8 - Sun System Firmware 9.4.2.e
+
+Files included:
+    Sun_System_Firmware-9_4_2_e-SPARC_T5-4+T5-8.pkg
+    Install.info
+    metadata.xml
+    sysfwdownload
+    sysfwdownload.README
+Version:
+    Sun System Firmware 9.4.2.e 2015/06/30 15:24
+</tt><tt><tt>    </tt>--------------------------------------------
+</tt><tt><tt>    </tt>ILOM 3.2.5.3.e Tue Jun 30 15:24:39 PDT 2015
+</tt><tt><tt>    </tt>Hostconfig 1.5.2.a 2015/06/30 14:28
+</tt><tt><tt>    </tt>Hypervisor 1.14.2.a 2015/05/06 14:00
+</tt><tt><tt>    </tt>OpenBoot 4.37.2 2015/04/10 09:01
+</tt><tt><tt>    </tt>POST 5.2.2 2015/04/10 09:28
+</tt><tt><tt>    </tt>GM 1.5.2.a 2015/06/30 14:44
+
+</tt><tt><tt>    </tt>Checksum of Sun_System_Firmware-9_4_2_e-SPARC_T5-4+T5-8.pkg : 1193447098
+</tt><tt><tt>    </tt>(generated by the /usr/bin/cksum command)</tt></pre>
+      </li>
+    </ul>
+    <tt><br>
+    </tt><br>
+    <h3><a class="mozTocH3" name="mozTocId928107"></a><u>Reference
+        Information</u></h3>
+    Please refer to the online documentation for information relevant to
+    this platform:<br>
+    <tt> <br>
+    </tt>
+    <table border="1" cellpadding="2" cellspacing="2" width="100%">
+      <tbody>
+        <tr>
+          <td valign="top">OTN Firmware Release Hub</td>
+          <td valign="top"><a moz-do-not-send="true" class="moz-txt-link-freetext" href="http://www.oracle.com/technetwork/systems/patches/firmware/index.html">http://www.oracle.com/technetwork/systems/patches/firmware/index.html</a></td>
+        </tr>
+        <tr>
+          <td valign="top">OVM SPARC<br>
+          </td>
+          <td valign="top"><a moz-do-not-send="true" class="moz-txt-link-freetext" href="http://www.oracle.com/technetwork/documentation/vm-sparc-194287.html">http://www.oracle.com/technetwork/documentation/vm-sparc-194287.html</a><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">Oracle ILOM<br>
+          </td>
+          <td valign="top"><a moz-do-not-send="true" class="moz-txt-link-freetext" href="http://www.oracle.com/technetwork/documentation/sys-mgmt-networking-190072.html">http://www.oracle.com/technetwork/documentation/sys-mgmt-networking-190072.html</a><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">SPARC T5-4<br>
+          </td>
+          <td valign="top"><a moz-do-not-send="true" class="moz-txt-link-freetext" href="http://docs.oracle.com/cd/E29659_01/index.html">http://docs.oracle.com/cd/E29659_01/index.html</a><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">SPARC T5-8</td>
+          <td valign="top"><a moz-do-not-send="true" class="moz-txt-link-freetext" href="http://docs.oracle.com/cd/E35078_01/index.html">http://docs.oracle.com/cd/E35078_01/index.html</a><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">Open Source Link<br>
+          </td>
+          <td valign="top"><a moz-do-not-send="true" class="moz-txt-link-freetext" href="http://www.oracle.com/goto/opensourcecode">http://www.oracle.com/goto/opensourcecode</a><br>
+            Please visit here to download the firmware's open source
+            components that are required to be made available under open
+            source licenses.<br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <tt><br>
+    </tt><tt><br>
+    </tt>
+    <h3><a moz-do-not-send="true" class="mozTocH3" name="mozTocId192426"></a><u>Bug
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Manifest and History of 9.4 Releases</u></h3>
+    <pre><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt>(Current Release:  Patch ID = 21342653.  Sun System Firmware 9.4.2.e  Total BugIDs = 4 since 9.4.2.c)
+
+  21299503 Reboot of HOST deconfigures hardware with invalid HV errors
+ &nbsp;20974460 CE storm leads CE Queue Full, no new SERs
+ &nbsp;20924788 Problem with WEB
+ &nbsp;20886279 Some memory still shown unallocated to primary in factory-default config
+
+
+(Current Release:  Patch ID = 20214648.  Sun System Firmware 9.4.2.c  Total BugIDs = 702 since 9.3.0.d)
+ 
+  21057550 ILOM cannot trust fault-status bit 0x2 if fault payload contains retire=0
+  20973304 BUI does not show up "Status History Log" details
+  20957849 High PCIe error rates on 9.4.x firmware
+  20925824 run snapshot fail through ftp/sftp protocol on ILOM web page.
+  20905303 ddb disabled and enabled /SYS/MB/XGBE1 causes parent resource disabled
+  20851964 serpa and seville-based platforms do not build when jar files are compressed
+  20829125 Problem with RESTRICTED-SH
+  20823003 Convert internal scripts to use https to access the svn server
+  20808972 ssh client fails to drill down in FIPS mode under certain condtions.
+  20772829 SCP client doesn't support  AES counter mode (strong cipher)
+  20765451 long delay to get spsh prompt in degraded mode
+  20756622 ipmiint to use FRU operations with larger sizes
+  20756566 kernel panic can't output data to console before kernel resets
+  20740040 Globals not properly saved when we trap at max GL
+  20739688 build failures during multi-platform builds
+  20738228 Problem with WEB
+  20731561 Problem with WEB
+  20729143 Build fails in libpackage tests.
+  20720599 improve performance for snapshot use of 'show /SYS'
+  20713271 Change openssl update and build methodology
+  20705260 Disable DDIO feature
+  20703597 remove openssl 1.0.1h
+  20695314 Problem with WEB
+  20686922 ASR Client sending serial number instead of hostname
+  20679476 execve() syscall is failing under load
+  20679339 Mensa and Jumilla Error processing data in segment "NT": Segment Corrupt
+  20672430 Data from emulation of LDSH with misaligned address not sign-extended correctly
+  20656570 GM may skip core retirement stage of VT memory retirement
+  20639640 mii-tool should be a restricted shell command
+  20638438 AST JRC Client shall use the default JVM SSL Protocols
+  20618257 Fast Data Access MMU Miss : HV MD and Guest MD not in sync
+  20610723 Do not enable DR and Per CMP IOS support
+  20610631 HC fails to enable quad mode for Spansion flash
+  20605133 Building openSLP leaves behind autom4te.cache directory
+  20604737 IPMI SSO Credentails are invalid on systems configured with 12 or more users
+  20601367 sp_trace logs from pmbus_sensor
+  20578150 NOTICE:  Fatal error occurred message seen at HOST poweroff
+  20577466 VHBA: unable to boot guest from a COMSTAR LUN using vHBA
+  20571220 ASR/XML &lt;host-id&gt; changing backend requirements
+  20571198 fault.ilom.fdd.unexpected_telemetry for ereport.cpu.generic-sparc.red-state.
+  20569535 Add ability for ILOM OESHM client to download scripts from server
+  20564628 SUBGUEST_CPU_EXTENSIONS_INFO returns raddr as -1 with data area not configured
+  20562019 JRC tokend shall have the same socket attributes as https
+  20561805 ASR/XML backup/restore of password not working
+  20559163 Memory leak on error path in eusb_ds.c::eusb_ds_cap_init()
+  20559135 Memory leak on error paths in dr.c::get_resource_list()
+  20533400 root should not be forced to change pwd if default pwd is compliant with policy
+  20531355 BRCTL uses bit position not value
+  20524887 logmgr stop reports sp_trace_write error
+  20524188 Migration between 1.13.x HV and 1.14.x HV release builds fail
+  20524080 Allocation of IOS and HV relocation memory should be platform specific
+  20517250 The lowest node does not send an ereport on M7 and M5/M6
+  20516420 Application of scan patch should be tracked on per domain basis
+  20515422 ILOMs hang when McAfee Vulnerability Manager 7.5 scans the network
+  20514704 Apply the latest SYNC_DEMAP algorithm to T5/M5/M6
+  20514624 ASR  Unregistered. seen in SP event log after FW upgrade
+  20510775 VTE ios shows TPH support while it is not supported
+  20504391 Subguest RA2RA TSB translation fails when mutiple TSBs configured
+  20504378 VA_MASK support for subguests broken
+  20501800 Error enabling ASR: "command failed"
+  20492643 ASR/XML asr-notify restarts during shutdown
+  20483166 BUI doesn't timeout properly on closed browser/tab
+  20481345 Can't restart consd - too many arguments
+  20465373 HTWS reports invalid ext3/4 filesystem
+  20463410 force root password change not subjected to idle timeout
+  20462288 Problem with RESTRICTED-SH
+  20456666 send_action_break=dumpcore property functionality not working
+  20452621 T5-2 console hang on local graphics monitor when screen display begins to scroll
+  20449289 Patch SP oriented LDC endpoints in HV MD and GMD for saved LDOM configurations
+  20449282 top down make does not work on sun4u platforms
+  20446092 CPU DR with active subguests breaks PRIQ handling
+  20444225 Exadata X2-2/X4270M2 dynafrud is dying in a loop
+  20441292 Problem with INFRASTRUCTURE
+  20438891 Reduce pointless hvmd parsing
+  20433774 ASR allows pending queue in /conf/asr/msgs to grow without bounds
+  20433489 ILOM completion message sent to HMN server results in 500 error
+  20427033 Can't use Remote System Console when SSLv3 is disabled in Java
+  20425962 start-slave-cpus may fail to setup User Pointer register
+  20424959 Problem with RESTRICTED-SH
+  20412959 Bugs in GM callouts that poll for SRAM updates by HV
+  20412541 OpenBoot is not printing CPU ID when it fails to start a CPU
+  20410095 Symlink to self not detected on OEL6
+  20410013 JRC+ sparc solaris client storage-redir issues with some Solaris hosts.
+  20404781 Support server HMN LOG_AUTO command
+  20397278 default root password change is not required when it meets the password policy
+  20395985 C compiler used by OpenBoot is too old to use on current Solaris versions
+  20395957 C sources are not compliant with latest C compilers
+  20395942 MAPDI makefile macro forces compression
+  20395925 linker map files must be updated to match current linkers
+  20395909 Sources for obsolete program flash-update should be removed from the source base
+  20393768 ILOM leaks memory when sending ILOM+ update to HMN server
+  20389234 Use bootblk image to create bblk support nodes, and fix for elf64 file size = 0
+  20386591 An error event in ILOM restore only shows "/X/*" instead of "/SP/*".
+  20382603 PDM CLI command out of order in list
+  20382483 spsh to avoid recursive walks of properties
+  20375525 Problem with INFRASTRUCTURE
+  20372922 OESHM UI changes.
+  20371525 HMN TLI update changes broke the 'Is HMN Available' Get Behavior
+  20365545 Improve Password Policy warning prompt behavior
+  20364516 enable hmn_feature on select x86 platforms
+  20360593 Change retirement request processing message from "unrecognized"
+  20359736 printvar build script truncates output
+  20359546 Clean up and refactor common FERG/ereport files
+  20354635 fishwrapd consumes too much memory on system with large amount of SAS storage
+  20354214 If IPv6 address is used for oeshm server_uri, the displayed address is incorrect
+  20348516 snapshot failed on a fully configured machine (sca-m716-186) with build_27
+  20348211 Add ability for OESHM server to clear faults in ILOM
+  20348205 Add ability for OESHM server to change Top Level Identity in ILOM
+  20345810 ilomconfig/sunoem cli create command appears to fail
+  20345567 Improve Password Policy warning prompt behavior
+  20341550 avoid reserialization when thresholds are changed
+  20327860 cpu-extensions table not unconfigured on subguest-fini
+  20327828 cpu-extensions-conf missing means to unconfigure the table
+  20327430 Make the spinlock implementation common
+  20327243 Update copyright notice to 2015
+  20326976 OESHM related IPMI commands not working on multi-domain systems
+  20326246 SAVE_GLOBALS trap leaves some junk around
+  20320347 Remote Auth (Radius, etc) fails after setting password policy
+  20320093 "device-type" property missing from vio md node with name="console"
+  20318984 BUI preferences password_policy symbols not allowing  &amp; and =
+  20310675 fix to hmn_test compilation
+  20306762 put budget-specific code under power_management_budget_interface_feature
+  20304596 script inside hmn_ilom.pkg has the incorrect property name
+  20304401 Help users with workspace permissions
+  20298236 tpm_exit_msg() overruns passed buffer
+  20298029 ILOM should not assume that console bootlog output is NULL-terminated
+  20287561 MINIHELP: sshd weak_ciphers mode needs to be documented
+  20286705 banner/connect_message and banner/login_message in xml file and not in show
+  20282045 SP/preferences/password_policy  history Looks like it's 6 previous not 5 previou
+  20281129 can't connect to serial console on AST based systems
+  20276144 PARFAIT_NATIVESUNAS should be PARFAIT_NATIVEAS in Makefiles
+  20268930 Only start hmnd if oeshm servicestate set to enabled
+  20264767 ILOM Password Policy BUI
+  20264505 force root change password
+  20263269 ASR CLI help says "no proxy support" when it is clearly included.
+  20258520 ASR reports "Username missing" in ILOM event log
+  20258273 Wrong path in DHCPv6 script
+  20246063 Kernel Zone panics on first boot on M7-8
+  20237753 L2 error registers are not accessed correctly
+  20230092 Add SLP capability to ILOM+
+  20229396 Storage subsystems must be present for Add-on disk only platforms
+  20222032 Change "hmn" name in user visible strings to be "oeshm"
+  20215327 MINIHELP: Add HMN support
+  20214613 ASR/XML: K02L_asr-notify should be K02L_asr-notify_SLN
+  20210294 Regression: ldm rm-io crashed host
+  20207914 new minihelp required for ILOM Password Policy feature
+  20204712 change date output in HMN updates to server
+  20201025 Forceful shutdown does not always clear error_recovery_in_progress()
+  20200441 Return to setting factory-default timestamp to 0 for M5/M6, T5 and T7
+  20192163 Unknown address warning messages displayed for ILOM+ updates
+  20191267 Remove LOCAL_TARGET_HOME from Buildbot
+  20187366 Several scvars are miscategorized as SP-managed
+  20184560 Free of null pointer seen on L3 cache indictment
+  20183034 Change banner properties
+  20175661 Add HMN related behaviors to the IPMI OEM 'Get Behaviors' command
+  20174907 panic[cpu1833]/thread=2a1064c5c20: bad Watchdog Reset at TL 2 with add back pci_
+  20174306 skip over holes when checking retained memory segment
+  20164786 Suppress ERROR message when GM initializes scvars file and PDM is not available
+  20164756 Remove stale FWPS header file
+  20145492 Cannot clear hmn server_uri property
+  20139984 HTWS reports invalid repository
+  20131371 ILOM HMN update indicates success when server returns HTTP error
+  20131343 20070354 broke non-resumable handler
+  20130827 send mondo panic seen with add resource
+  20124723 Misc bugs in verified boot code
+  20123284 FRU list in HMN update is improperly formatted
+  20104121 HMN update from ILOM must include open problems and inventory
+  20097834 SDIO:M6-32: ABORT: ...err_subr.s, line 0x4ac: recursive spinlock_enter
+  20096050 Remove BAR 1C workaround in LSI3008 FCODE driver
+  20094328 HV is not initializing the pex TLP hints register (0.14.2.2)
+  20090567 add configvar for ios_debug
+  20090154 stack Underflow during reboot  when a guest is configured with large ldc
+  20088030 Restore of users information allows for invalid values
+  20087949 Global SRAM data field alignment can cause FPGA access error
+  20082284 share-id lookup table should include files listed in EXCLUDE_SHAREID_FILES
+  20070354 SAVE_GLOBALS not recursive
+  20070095 Allocate number of LDC packets per channel dynamically
+  20069545 Consolidate FPGA domain reset functions in GM
+  20069385 ILOM Backup Fails w/ Error: Transport error - could not communicate with service
+  20063415 hypervisor does not always handle disabled pcie slots correctly
+  20063404 Define and use pcie link width and link speed macros
+  20063387 fpga_pcie_reset_{assert|deassert}() sometimes end up picking wrong DCU
+  20063366 must call wait_for_pcie_fabric_reset() before ios_peu_link_up()
+  20063345 idt.c should use the same debug prints as the rest of pcie prober
+  20060737 ASR/XML: "X-Oracle-Telemetry-Source" should be "ILOM_XML", not "FMA"
+  20059159 Misaligned data access trap emulation not working for subguests
+  20054069 openSLP doesn't build on the new OEL6 based development systems
+  20038337 Fix for 19857390 broke the build
+  20035787 add domain_count to header for all platforms
+  20034023 Hang when stopping EoUSB DS services
+  20033284 RYOP Fixes Round Two
+  20030363 KVMS closes abruptly
+  20027691 Remove some duplication in .xml files
+  20026648 'debug' q.bin panics parent while running multiple subguests with over commit
+  20025954 Add mii-tool to image by default
+  20025785 ASR heartbeats are not automatically sent
+  20019877 Handle unexpected call to gm_notify_domain_assigned during boot
+  20019615 Minor FERG fixes/enhancements
+  20011122 Print opaque filenames when listing opaque files with "filesync list" CLI
+  20010209 Replace DDR4 pseudo part numbers with official Oracle part number
+  20010144 Race in tracking filesync dispatched RPC transfers can cause an ASSERT
+  20003462 ASR/XML UI property "asset-ID" not needed.
+  20003379 New FRUID enums for 4S variants of M7-8 chassis
+  19989940 Suport multiple tag/data pairs in the fdd ereport payload
+  19989153 ASR client using wrong password for proxy authentication
+  19988970 Remove model_handle from libhdl
+  19988349 fsr screen needs to be ported from M5 to T5 firmware
+  19978355 ILOM: Upgrade Open SSL to 1.0.1j
+  19978122 Invalid port error when ASR proxy host prefixed by http
+  19978020 No such object error window entering ASR proxy data in BUI
+  19976322 Show hmn server IP address as R/O field and hide hmn server uri
+  19970868 ASR client does not provide a default endpoint URL
+  19969738 Remove default_model_handle from libhdl
+  19969622 HOST Properties are not cleared up after set to factory default with non-debug v
+  19969589 hffsloadmd() reads MDs from flash that it should skip over
+  19958312 Help information for  /SP/powermgmt/budget/ pendingtimelimit changed.
+  19958133 ILOM unable to use ntpdate with routers
+  19953130 Enable GCC warning for possible use of uninitialized variables for Hostconfig
+  19953060 Add configvar-enabled GM breakpoint when physical DR fails
+  19952935 Report LOM_HOST_ERROR status after Hostconfig-to-GM signon timeout
+  19952146 fmadm faulty output with [replayed from FRUID]       is not clear
+  19950010 ILOM BUI does not give status of [replayed from FRUID]
+  19943862 Memory leak when freeing content of an ereport
+  19942936 Parfait errors found in usr/src/common/libs/ui/cli with Parfait 1.5.2
+  19933969 Remove unused source files from GM makefiles
+  19933812 All platforms should have the same set of v3 state MD properties
+  19933180 Reorder MMU restore to be more paranoid
+  19933172 subguest state-flags could re-use incorrect state
+  19931981 Fix race in hypervisor build
+  19931819 Add HMN log rolloup support
+  19930984 Use tunables for soft cap budget timeout settings
+  19927172 io domain got stuck on reboot in ldoms 3.2 Int36
+  19916158 BUI, ILOM reports the same location and serial # for all SPPs
+  19913086 net switch and net module libhdl interfaces
+  19912508 Parfait errors found in usr/src/infra/consd
+  19911563 Remove directories from parfait_issues.mk that now build
+  19911533 Parfait errors found in usr/src/infra/fpgautil
+  19911500 Parfait errors found in usr/src/common/libs/libifc_fanctl/vs_rackmnt
+  19911426 Parfait errors found in usr/src/common/libs/vbsc/libpcp
+  19910763 Parfait errors found in usr/src/common/libs/libspdatarecorder
+  19910733 Parfait errors found in usr/src/common/libs/librundiag
+  19910699 Parfait errors found in usr/src/common/libs/libdesas
+  19910698 Exit code of ipmitool sunoem cli does not reflect spsh cmd errors
+  19910666 Parfait errors found in usr/src/common/libs/libdynafru
+  19910506 Parfait errors found in usr/src/common/libs/libdalomfm
+  19906476 Parfait errors found in /usr/src/common/tools/mtd
+  19906459 Parfait errors found in /usr/src/common/tools/htwool
+  19906403 Parfait errors found in /usr/src/common/apps/snapshto
+  19906346 Parfait errors found in /usr/src/common/apps/shadowscan
+  19906298 Parfait errors found in /usr/src/common/apps/seriallink
+  19906262 Parfait erros found in usr/src/common/apps/sas_stat
+  19906206 Parfait errors found in usr/src/common/apps/psupdate
+  19906141 Parfait errors found in usr/src/common/apps/libcapitest
+  19906047 Parfait errors found in usr/src/common/apps/gmtest
+  19905878 Parfait errors found in usr/src/common/libs/libdbgconsole
+  19896874 HMP+ needs ILOM IPMI command for retrieving key/cert info
+  19893135 Hypervisor intermittently gets unexpected error traps when POST is run.
+  19891093 x5-4 ClustronV3 PCIe card not identified by ILOM
+  19890289 Check q.bin sizes and fail build if they exceed maximum size
+  19888449 missing RULES for aura SSD event-fault support
+  19884650 SP Trace to provide point control over individual trace-ids
+  19884613 May 2015 build: setting /HOST/console logging returns Internal error
+  19883813 Serial Redirection still can be use when kvms state is disabled
+  19883370 JRC+ window should ignore arrow keys and forward to remote host
+  19880050 x5-4 Estes-Int not recognized by ILOM
+  19877689 HV did not set some LDC channels state UP after SP failover
+  19876199 ILOM ASR XML logging (sp_trace) could be improved
+  19876156 ILOM ASR XML UI does not allow clearing endpoint or username
+  19876129 ILOM ASR XML BUI does not allow <a class="moz-txt-link-freetext" href="http://">http://</a> prefixed endpoint (CLI ok)
+  19876058 POST need an ereport change for lane failovers
+  19875275 MINIHELP: change the default value of autorunonerror (boot fail recovery)
+  19871530 Fatal handling enhancements
+  19869970 Remove unused label in SYNC_DEMAP_WITH_SWTW macros
+  19862913 T7-4 ILOM-SP not listing  /System/PCI_Devices/Add-on/Device_xx Info
+  19858337 vbsc corefiles seen when trying to print /HOST/console/bootlog after SERIAL BOOT
+  19857390 tracking dirty pages in a domain running a KZ corrupts memory
+  19852448 ABORT: ../../../common/src/traps_common.s, line 0x22a: BAD TRAP PC = 40000b715ff
+  19852383 report thresholds to 3 decimal places in event log
+  19851755 BUI-Mouseover popup for Processors box too small, boundaries not respected
+  19849527 FPGA System Interrupt Enable register is uninitialized
+  19849498 Shared context register can be corrupted
+  19846580 fdd: add support for error, ireport, state and alert events
+  19839315 DS can reject request with a valid handle
+  19836725 Update .traps to contain complete list of trap information
+  19834868 /host status not updated correctly after SP failover
+  19827520 enhance pmeminfo with additional options
+  19827166 run snapshot caused lumain coredump
+  19826795 Terminate host event waits when DR fails
+  19826694 Non-default diag level in ryop files should override test headers
+  19825218 HTWS reports false-positive repository errors with svn1.7
+  19823513 Enable pmeminfo for all platforms
+  19821324 t5-2 s12_59+ sysfw 9.4.0._14 trapstat -t + xir resume = hvabort and poweroff
+  19817690 Service has requested an additional Ethernet address record in the SD segment
+  19800759 Operator role unable to start/stop/reset on /System target
+  19795707 in 4.37.x vdisk fails when vhba configured - vdisk and vhba work ok in 4.36.x
+  19790879 asr-notify dumps core after misconfiguration
+  19787879 SDM event log should be captured in snapshot.
+  19783917 Enabling TPM without node0 causes a fatal
+  19783035 ASR status changes to incorrectly read 'registration in progress'
+  19782548 HVABORT on T5/M5 during hv link training
+  19782342 Snapshot cannot capture info when CLI banner acceptance is enabled
+  19776840 Dynamic Direct I/O capability for T4, T5, M5 and M6 platforms
+  19775152 nightly test failures, LED inop on non-River platforms
+  19774963 Hostconfig needs to preserve L2/L3 error enable status regs
+  19773831 ASR telemetry still sent after state set to disabled
+  19770233 perform health monitoring with separate threads
+  19767745 HV should report Subdevice information on Switches
+  19767096 ASR/XML fault telemetry should be retried after send failures
+  19764470 GM needs to use root complex IDs, not root port IDs, in DR resource lists
+  19732076 Simplify back-porting luapi errno from trunk.
+  19731186 libipmi functions logging messages to syslog
+  19730867 MINIHELP: ASR UI updates
+  19726288 add xmllint checks to build environment
+  19725883 when HMN daemon is disabled, property values are diff. after rebooting SP
+  19725881 Integrate openSLP into the ILOM build
+  19723086 getperf HV API calls return wrong error code
+  19709925 kernel: OnInitBuffer: NULL achReadBuffer, kmalloc FAILED
+  19707599 HMN daemon init script has incorrect usage
+  19707353 Memory leak with Other Removable Devices
+  19692191 B6000, x6270 UNABLE TO LAUNCH JRC WHEN STARTING BLADE BUI FROM CMM
+  19690462 Script and macros to extract #define values from C code.
+  19688390 Devices behind hub behind hub not seen when empty ports exist adjacent to hub
+  19683188 augment share-id checks to catch out of range ids
+  19682651 Increase the iotsb number in latest firmware
+  19681956 HV support for LDoms Verified Boot
+  19681518 Integrate Perl CPAN modules into ILOM
+  19681502 openSLP required for the HMN project
+  19681431 Add Perl CPAN modules source code into ILOM
+  19681145 POST to add Media Read functionality for DVDs
+  19681139 USB device disappears after POST testing
+  19674526 'reset /SYS' triggers and runs POST after AC power on
+  19672605 MINIHELP: Host Management &gt; Status History Log
+  19672562 SRIOV: pcicfg: WARN: PCI Expansion ROM is not accessible. [add FC IOV (emlx) op]
+  19672352 Update .traps command at ok prompt, which has not been updated since sun4u
+  19652573 Enable the ASR/XML feature
+  19647915 GM needs to shutdown() AIO_LISTENER sockets
+  19646790 make file error
+  19646522 SP Trace: provide stack backtrace support
+  19639423 Incorrect/missing SNMP username info
+  19638848 Deadman panic seen with move-core
+  19638587 MINIHELP:Hostmgmt_Diagnostics_Sparc page missing on SPARC T-platforms
+  19630448 libdevtestinit accessors need prototypes
+  19616571 Deadman panic after guest suspend/resume (post TH HV)
+  19616042 HV corrupts memory doing a RTT update during live service
+  19607188 GM must tolerate failed accesses to CPU FPGAs
+  19607041 GM can name its threads in Linux to assist with debugging
+  19589229 Back out changeset that accidentally added the mdsort binary to the repository
+  19580194 HMN client must support HTTPS
+  19565230 Fix sub-set of miscellaneous errors reported by Parfait against 1.5.x Nyx gate
+  19563848 Perform integration of Perl 5.16.3 into ILOM
+  19562236 Global sram is not global system
+  19555744 Early calls to set-guest-state can cause OpenBoot to hang
+  19555700 Register access words should be guarded against traps
+  19553635 sunHwTrapHeartbeat DESCRIPTION insufficient
+  19548415 OpenBoot always excludes lowest 1MB of PCI space
+  19547067 Implement new "clock-frequency64"  property as described by FWARC/2014/311
+  19546585 Enable fatals earlier in boot cycle
+  19546557 lfu fatal error enables not set correctly
+  19546515 Fatal handler should always run from rom
+  19525834 setsvcid core dump.
+  19510787 Customer-visible messages should use "live service" instead of "DR"
+  19503067 T5-8: ERROR:  POST Timed out. Not all components tested
+  19501910 x5-4 Thebe3 HBA not recognized in ILOM
+  19501229 ubifs_upev_feature should use Kconfig.feature to modify kernel config..
+  19491565 Add Perl into the ILOM repository
+  19485526 obp assumes an executable heap and fails on Solaris 12
+  19483211 OBP is not negotiating the retained-mem group before calling REBOOT_MEMORY_GET
+  19476330 ddb disabled /SYS/MB/CM0/CMP/L3C0 and powercycle system hung up
+  19472684 PROM version caching algorithm doesn't handle missing binaries properly
+  19468977 ERROR: Last Trap: Memory Address not Aligned after create logo array
+  19462805 Add status code to notify PDM when DR is physically, but not fully, successful
+  19453173 Knowledge Article KA for SP enet failure has un-printable characters
+  19452708 request FMA fault log to display faults from the backup log
+  19452601 No FMA event on a T5-8 that fails to train a IOS link to GEN3 speed
+  19451946 Integrate Tahoe development gate to support release of M7/T7 platforms
+  19444594 Fix for 19339685 broke "xir hv_reset" on M5/T5
+  19430756 PSNC long product names need setpsnc and copypsnc support
+  19403825 web accessibility - french passages in about page needs to have lang attribute
+  19403277 Enable all MSI/X capabilities in T5/M5/M6
+  19402496 Javascript encoding problem
+  19402447 'compatible' of PCIe bridge (type 1) has wrong SSID and SVID
+  19401059 Corrupt FRUID should only result in a single fault diagnosis
+  19399897 1. A means to disable CBC mode cipher encryption, and enable CTR or GCM cipher m
+  19389011 BAD TRAP panic
+  19387757 uboot warm reset sets the ssp running wild and may corrupt the ddr
+  19386744 sp_trace_view coredump on corrupted dumpfile
+  19375848 Release versions of gm do not compile
+  19361467 Remove leftover T4 ifdef
+  19356538 sp_trace_view coredump on invalid dumpfile
+  19339165 Suppress messages printed by ldc_skt callback when IPMI channel resets
+  19336737 Message seen on SP boot.  Missing symlink /etc/static_conf/sensor.xml.
+  19336643 Internal error: Oops: 17 [#1] on M7-8 with SysFW build_33
+  19325835 DR heartbeat is not disabled properly after Zeus-initiated ctl domain suspension
+  19317305 copy_pkts_from_sram() uses wrong check for printing ldc debug message
+  19313957 MINIHELP: Banner Changes
+  19313461 Integrate Tahoe development gate
+  19301639 T5-8: after FW upgrade to 9.3.0.b2 system faulted: CMPs: no usable cores
+  19270228 Add checksum of HMN ILOM pkg in update ILOM sends to HMN server
+  19264040 T5 PRI contains firmware.hw_page_track_capability property, breaks migration
+  19239666 Don't use system avoidance daemon with hmnd
+  19237383 Open Problems should utilize ASRU
+  19231549 QPIREUT registers: Update device number for QPI Lane 2 from 24 to 10 for HSW-EX
+  19218424 show /Servers/PDomains command hangs before listing PDom2/System
+  19217597 Changes for New Branch 3.2.5
+  19211179 Add ILOM support for HMN client
+  19202490 Regression: first guest domain cannot go to obp
+  19197738 Evacuate core to newly added cores stuck
+  19195293 NX5-2: P0.1: update BIOS to 32000006
+  19195265 Integrate Tahoe development gate to support release of M5/M6 DR
+  19188932 System summary: Error reading register 0x38 from DB_CPLD
+  19188906 Deadlock between async_input_thr and ldc_rx_thr
+  19181096 A249A PSU reports a high load power transient when input voltage is disconnected
+  19175284 X5-4/X5-8: revert default serial baud rate to 9600
+  19173830 ILOM should not log internal event in event log
+  19172949 NX5-2: P0.1: HWDiag Cleanup
+  19166923 Use 'argh' in Sensor and LED access methods.
+  19166877 Virgo+ LEDs broken.
+  19166329 sunHwTrapDiagEntity should not be included in sunHwTrapHeartbeat
+  19130807 Update .arcconfig for obp-4.37.x gate
+  19130745 Update .arcconfig for nyx-1.5.x gate
+  19078569 Fixing a bug in NMVE cable check in hwdiag io nvme_test
+  19078374 X5-2[L] - adjustments to hwconfig values from hardware team
+  19076616 update uefidiag image in ilom
+  19074532 X4-2*: some devices are missing from /SP/bootlist
+  19073410 Hwdiag: X4-8: Add register dump for HBA retimer
+  19064682 add uefidiag script hooks for ops/developers
+  19063448 X5-2[L] - CPU and MEMORY VPS Sensors are inaccurate
+  19063254 hwdiag io disk_scan should print subset of info for MISSING disk
+  19062333 Reset based error scraping is not working
+  19058108 x5-4 ILOM does not recognize Fortville PCIe card
+  19055018 NX5-2: p0.1: U-Boot I2c Probe fails on 0.9V_SAS
+  19050727 GetDisabledRanks/GetDisabledCores Interlock are Timing OUT
+  19050280 Not all core MCA banks are scraped
+  19049435 Haswell EX needs a sperate cpumem.csv file
+  19047920 x5-8: Add support for INTSW sensor
+  19033050 NX5-2: P0.1: Cannot turn on Telco Alarm Leds
+  19032954 NX5-2 P0.1: PCIe Switch mapping incorrect
+  19032807 hwdiag io commands for platform missing help
+  19023531 Warn if default https cert/key is being used
+  19023325 Reported power values for fans are too low
+  19016472 X4-8: No fault when host rebooted from UE injection from ITP
+  19013534 hwdiag x5-2(l) nvme_test enabled in restricted mode
+  19013460 NX5-2: Add Inventory for FS2 DBP
+  18999744 fru list failed on some configurations
+  18999677 [X4-2L SW1.2] hwdiag system info mixes Fans info and PCIe info
+  18997246 X4-4/8: CRC mismatch when using vrdtool_inf tool
+  18994514 MINIHELP:Hostmgmt_Keyswitch - Remove mode from diagnostic paragraph
+  18979056 X4-8: Hwdiag - Add diagnosibility for Mbus
+  18971532 Generic mechanism for synchronizing files between SPs/SPPs
+  18968359 X5-2[L] - add version '10b' of the PCIE Switch Card Firmware to the ILOM .pkg
+  18967109 hwdiag x5-2l sas expander functions should not allow nvme disks
+  18962498 Export all available MSI/X vectors in factory-default configuration (T5/M5/M6)
+  18962450 Enhance hypervisor to support &gt; 512 MSI/Xs on T5/M5/M6 platforms
+  18958206 X5-2[L] - DBP FGPA interrupt service routine dropping interrupts
+  18951282 ILOM ASR client lacks proxy properties
+  18948260 hwdiag mem info not detecting mapped out DIMM in 8C CPU (single HA)
+  18941369 Excluding DBP LEDs from 'hwdiag led test all' for x5-2(L)
+  18934341 AURA 1.0 ESM SERVICE LIFE is changed by SP reset, or a few days later
+  18928051 uefidiag ultrax pelink/idt name sync
+  18924145 X5-2[L] - ILOM needs to resync with Power Control and DBP FPGA after load
+  18917522 hwdiag x5-2l ultrax fixes
+  18917324 X4-8/X5-8: chassis.device.cpld.voltage-rail-error does not generate any fault
+  18917313 T7-4:SP Network Mangement cable pull causes all network setting to reset to none
+  18917075 Nile FS1: update BIOS to 21000219
+  18915919 Thebe3 not reconized by ILOM
+  18914967 X5-2L - fpga_update.sh script UltraX support
+  18908146 Hostconfig allows saved bootconfig to boot after OBP location in ROM changes
+  18906065 X5-2L - UltraX DBP FRU markup is incorrect, uses 12DBP i2c address
+  18905197 update uboot for ultrax dbp fru device at 0xAA
+  18898706 X4-8, SW1.1 hwdiag system info no longer showed "Host Network Ports"
+  18882574 correct hwdiag ultrax pci info dev/func
+  18877191 X5-4: add PCI-E switch card config programming support
+  18869680 MINIHELP: Add help for "Other Removable Devices"
+  18867042 Diagnostics does not rotate  the previously saved result file
+  18866237 FERG detection of POST SER is incorrect
+  18866197 EHDL value incorrect in SER
+  18865347 clearfru should remove corrupted dynamic segments
+  18864856 Include Ops FDR override files in ILOM
+  18864395 OK_REAR Led remains ON when SP is reset
+  18857696 X4-8: Systems should not need AC power after Adding/Removing CMODs
+  18857332 Adding chip info for PSU FRUID in x5-2L's XML file
+  18856016 x5-4/x5-8: enable cpldflash in service shell
+  18855197 x5-4 after fwupdate, dhcp-enabled SP got a new IP address
+  18854603 misc cleanup and consolidation of serial getty.sh
+  18854580 Grantley: need alternate build path to handle platform feature varations
+  18849067 variable target used unitialized in res_hv_memory_parse (parfait)
+  18848854 hwdiag/uboot, remove access to vrd on ultrax disk backplane
+  18828671 serial port setting interlock with HOST/console can fail
+  18828261 Hwdiag: Adding dda dump for failing VRDs in hwdiag cpld vr_check
+  18819493 X4-4/8 DIMM IDString optional
+  18818935 "hwdiag mem info all" fails to report information with  8core CPU (QGSF)
+  18817648 Place NVMe drives in front and SAS Expander in all fan zones
+  18817467 X5-2[L] PCIe thermal floor ignores wrong slots when AIC cards installed
+  18816994 uefidiag reports capacity of 4.0 TB drives as 0 bytes
+  18816801 X5-2[L] - add PCIE Switch Card Firmware release candidate to the ILOM .pkg
+  18813071 x5-4 hwdiag Error: PECI access failed for DIMM information - PECI_PROT_ILLEGAL_M
+  18810750 Enhance vrdtool_ir to skip updating MTP if no data is written
+  18809694 X5-2[L] - HDD Slot Power state is not reflected in STATE sensor
+  18809377 ILOM should not access CSRs via PECI on hotpluggable devices (NVME drives)
+  18808974 coretool stacktrace in env_monitor_grantley.c:145
+  18803798 CEs injected by ITP did not update serd value and no fault
+  18799678 Update NX5-2 and QX5-4 IR VRD configuration Files to Version 05
+  18796955 hwdiag doesn't show complete i2c devices list
+  18793821 Ignore VCU timeout machine checks
+  18791802 Fix IPMI message length for RAKP handshakes
+  18777620 include hwdiag disk_power for 1u/2u 8 disk backplane
+  18771247 Make the address decode of bank for specific for DDR4
+  18770148 X5-2[L] - prog_vrd.sh script does not properly detect write failures
+  18762906 Remove graceful shutdown timer from GM
+  18762540 NX5-2 P0.1: Update BIOS to 32000005
+  18756696 hwdiag could hang when running multiple commands
+  18755152 remove sas expander temp sensor from xml file
+  18754096 X5-4: get fpga_update to work for X5-4
+  18752989 X5-2[L] - add UltraX DBG FPGA support to fgpa_update script
+  18746181 X5-4/X5-8: need new QPART IDs assigned
+  18746096 X5-4/X5-8 : enable hwdiag
+  18746004 X5-4/X5-8: need new SSIDs assigned
+  18745748 OPS config with only single NVME switch card causes IIO scraping to fail
+  18733963 Grantley QX5-4: Add FMA diagnosis support for 4 CPU Haswell
+  18733134 hwdiag utilities for nvme need to be updated when using 12 dbp system
+  18727389 Provide general ILOM 'tunable' baudrates for internal and external serial ports
+  18726225 Use macros for LED blinking ability catagories in hwdiag code
+  18726166 MINIHELP: Additional transfer protocols for Snapshot
+  18721265 setpsnc/setsvcid do not error for long PSN/PPN
+  18717107 add hwdiag -x option to exclude memory frequency check for ops
+  18713397 sp_trace_view -r POD has many unsupported Reading Type 0x6 errors.
+  18713355 A bug in 'hwdiag led set all off' when applied to disk drive LEDs
+  18713091 Hwdiag dda dump on LTC4215 device does not display 1 byte register content
+  18711995 Virtual Keyboard in JRC+ loses the framing sometimes
+  18707243 X4-8: Automatic update of corrupted FPGA contents of a CMOD
+  18706502 Adding memory VTT to hwdiag cpld reg and vr_check
+  18704464 X5-2L - add UltraX DBP FPGA image to ILOM .pkg file
+  18698221 Snapshot - support additional protocols
+  18694750 add haswell c1 stepping detection for hwdiag
+  18691573 regression: hwdiag -h Segmentation fault at fabric test all|&lt;cpu&gt;
+  18687072 X4-8 incorrect CPU identification in ILOM
+  18678490 Running hwdiag pci commands with host power off reports error.
+  18678145 X5-2L - enhance prog_vrd.sh script to verify VRD versions while listing
+  18676492 certain x5-2 hwdiag commands with verbosity flag (-v) display invalid pci errors
+  18673145 RAS coredump when receive PCIE Device error IPMI msg for device not in PCI tree
+  18672587 'help version' in /SP/firmware/host/miniroot is not correct
+  18672082 vrdtool_ir fails to enable test mode when target VRD is behind an I2C MUX
+  18671980 Add support for reading the VPD on NVMe drives and AICs to fan control
+  18671515 x5-2(l) UEFIDIAG PCIe nvme DSN inaccurate
+  18664075 Turn on HBA Service LEDs for ILOM Generated HBA faults
+  18652330 uefidiag version associated with ilom build
+  18647554 Hwdiag: Display SP current date/time when executing hwdiag
+  18646318 sunoem cli dump /System/BIOS/Config returns partial file
+  18638348 x4-4/x4-8: Update portfolio documents for x4-4/x4-8 PSU sensors.
+  18632617 hwdiag io disk_power not functional
+  18632312 Problem with WEB
+  18617751 NX5-2: Enable A249A PSU automatic fan control to reduce acoustic level
+  18616553 Add support for Fultondale cards to fan control
+  18616187 X4-4/8: CPLD update utility should be available in service mode.
+  18615809 add pcie nvme cards to hwdiag pci/temp/inventory output
+  18615204 Remove SAS Expander Temp Sensor from I2C Probe Test in x5-2L Uboot Diag
+  18610829 Redundant messages when trying to reset a system already off
+  18610809 X4-4/X4-8: Implement hwdiag psutest
+  18610462 X5-2[L]: Need to identify ereports derived from host OS MC_pkts
+  18603457 X4-8 ILOM reports incorrect slot number when reporting PCIE card fault
+  18603213 X4-4 Hwdiag led command - remove bogus led: /SYS/MB/V_3V3/FAULT
+  18600284 hwdiag io eye_scope_data command needs internal retry
+  18593915 Physical View for Web UI
+  18544664 NX5-2: Update BIOS to 32.00.00.04
+  18544645 X5-2* failing address decode calls out incorrect DIMM
+  18544621 ILOM address decode for DDR4 needs to include bank group and bank information
+  18538111 Some IIO ereports display "unrecognized" if they do not lead to a fault
+  18521102 hwdiag system info does not detect on-board Twinvilles in a 1 CPU system
+  18520961 Need fault for identifying drives in unsupported slots
+  18520430 Update PA to DIMM translation intel code
+  18516022 Some linux thread names are truncated
+  18512809 Need to throttle DMI CEs and Non-fatal errors
+  18507197 MINIHELP: Add help for /HOST/dimm_sparing
+  18506550 Adding DBP POK test to x5-2(L) hwdiag
+  18475689 x4-8: ipmi fru print 0 does not work correctly
+  18475201 fault.memory.intel.mrc.unexpected-errcode occurred 2x with BIOS 71
+  18467744 Add ADR bit check for REG_PWR_STS_PWRDWN2
+  18467032 x5-2/l - add x5-2/l support in magic package
+  18463933 X4-2B/X3-2B: progparts timer is not consistent.
+  18454893 X4-8: /SYS/TEMP_FAULT does not light up on ereport.env.temperature-unr-ghi@/sys
+  18453452 Increase FDD_{ERR,FLT}LOG_SIZELIMIT values for Pilot 3
+  18453336 Mismatch of UBIFS Dynamic major number and /dev/ubi0's major number.
+  18452989 QX5-4 Initial Putback
+  18442924 X4: remove UI "/SP/policy ENHANCED_PCIE_COOLING_MODE" altogether
+  18442726 add x5-2l hwdiag io eye_scope_data command
+  18441504 X5-2[l] - dimm_mgr.c:1237:spd_i2c_write_chunk(): Write FAILED, dimm ...
+  18435491 Sunoem cli session can not be closed completely when 5 minutes timeout expires
+  18435192 Size of ereport log and host_debug_err.log needs to be increased
+  18433948 X5-2L - correct 24DBP NVMEx to Slot conversion
+  18433931 Use ultra-x DBP board_id informed by HW in hwdiag code
+  18433797 fault.ierr-persistent should not be auto-cleared by power-cycle
+  18422832 x4-8 faulted pcie device not alerting user in ILOM
+  18413007 ILOM's handling of WSB power-cycle reset during UEFICFG
+  18405172 updated x5-2l hwdiag for nvme
+  18403317 X5-2[L] - enhance VRD Programming script to handle Optionally Present VRDs
+  18399396 x4-4 inject CE-MAX+1 not setting PRSNT sensor state correctly for failed dimm
+  18393736 ILOM reports different DIMM UE locations in fault log and host debug error log
+  18392616 FMA:  Check version number of OS's Machine Check ereport.
+  18377616 ILOM does not report the memory CE's
+  18368315 NVMEx/PRSNT sensors need to be removed from SDR for the single cpu system
+  18367767 contents of PMBUS status registers are not in PSU ereports
+  18360348 Avoid numbering conflicts between architected and non-architected MCA banks
+  18354859 X5-2 ILOM must stop clearing host owned LNKSTS register
+  18354773 X5-2L - need to swap NVME virtual PCIE slot mappings for client presentation
+  18352973 NX5-2: P0.1: Update ILOM for P0.1 MB Changes
+  18352883 NX5-2: P0: Update Fan VPS map based on measured values
+  18352824 NX5-2: P0: Remove ZL9117M from U-Boot I2C Probe
+  18347122 Hwdiag system info: Decode revision number
+  18345671 Activating Remote Storage redirection should suspend Local redirection
+  18345080 X5-2[L] - need method for sharing installed DBP type
+  18339500 ILOM must NOT clear error indication in LNKSTS register
+  18330235 MINIHELP: update minihelp for 'host storage device' to reflect new features
+  18323618 NX5-2: P0: Update BIOS to Fix VGA, PCIe Failures
+  18323581 Limit host power lock for PROGPARTS, UEFICFG to spstate only
+  18316155 X4-8 ILOM upgrade can be performed while fpga upgrading
+  18314106 spd_i2c_write_eeprom(): sun_i2c_multimsg_on_bus() FAILED, ntries: 3
+  18308075 Hwdiag X4-4: Decode Board Revision
+  18300720 Need to diagnose fault.chassis.temp.fail@/sys/mb/pch from PCH ereports
+  18300711 Need unr-ghi/unr-glo ereports when PCH temperature crosses 90 degrees C
+  18298063 MINIHELP - should use header tag instead of div tags for headings
+  18292182 CONS_PUTCHAR with out-of-range value returns EOK not EINVAL
+  18290117 PRMS check 058 fails
+  18289444 hwdiag system info shows Absent FM in a system as Present in a system
+  18289363 NX5-2: P0.0: Cannot access FRUID on 8 Disk Back-plane
+  18289312 NX5-2: Placeholder bug to re-enable VGA regulator fault in ILOM
+  18289269 NX5-2: P0.0: VGA Regulator Fault reported
+  18289172 NX5-2: P0.0: U-Boot I2C Probe fails with host power off
+  18287143 IVB-EP platforms can't get the DIMM info in hwdiag
+  18286393 pod ras coredump under some cases.
+  18283786 X4-8 - fault.io.intel.iio.pcie-link-degraded-width on /SYS/SMOD/HBA in RC1.1
+  18282277 pod + dimmmgr flooding HAL log with unnecessary trace messages
+  18281044 hwdiag disk format/sanitize progress indicator update
+  18275909 hwdiag -v pci info pch generates PECI_PROT_ILLEGAL_MSG (0x90) error
+  18269896 X5-2 should not run prog_bios if it fails to enter SP_STATE_PROGPARTS
+  18267682 injecting pcie_us_cto_uc_memrd should not fault MB and CPU, only PCIe slot
+  18266486 enhance hwdiag x5-2(l) nvme test
+  18245340 PECI downstream writes return time-out completion code (but seem to occur).
+  18238067 BIOS progress messages should be initialized upon every BIOS start of execution
+  18237836 Decrease time between polls in polled mode to get more accurate CE SERDs.
+  18237443 ILOM fails to power host back on after warm reset during ueficfg
+  18232610 X4-8: 2 mtst injected intel.cache_ce errors caused fault raised
+  18225223 UltraX: hwdiag should support test to verify proper cabling of x8 NVME switch
+  18204810 pod coredumps during SP FW flash
+  18198119 Update PA-&gt;DIMM logs in MSR scraping to output NAC name
+  18184187 x4-8: internal HBA information lost from cli and gui
+  18177663 Need ability to restart LocalStorageClient redirection
+  18175633 Add link control register dump to host debug error log.
+  18175553 PCIe register values test code should be expanded to handle downstream devices
+  18168547 X5-2L - Fan Control Updates for UltraX configuration
+  18167550 Probe for temperature sensor on hotplug NVMe drives
+  18167378 UltraX support of IIO RAS
+  18166940 HA shadow registers not recording ADDR values during memory CEs
+  18154048 SERD counters for hotplugged dimms need to be reset
+  18154033 need ereport listing components that have been hotplugged out
+  18096717 Redirected ISO vendor is empty or inconsistent.
+  18078400 x4-4 ILOM not generating ereport/fault for cpu/mem faults
+  18062258 Remove unneeded dependencies on reading resolved cores mask
+  18057294 After diagnostics test completion, host should boot into OSA.
+  18050252 X5-2 ILOM  Error updating BIOS image - fault.chassis.memory.spi.error
+  18043254 ncsi-check-links.sh does not work in a 1 CPU system
+  18042406 SSH Server Has Weak MAC Algorithms Enabled
+  18042307 SSH Server Has CBC Mode Ciphers Enabled
+  17975324 X4-8: RAS support for HBA
+  17945672 move to 4-byte DMA in Pilot3 early boot may save some SP boot time
+  17943232 JRC+ Max Session Count issues on M series
+  17904463 X5-2 ILOM Remote Console is intercepting cursor keystrokes
+  17866274 PLACEHOLDER: X5-2: Decrease MRC timeout when MRC gets faster
+  17819777 usr/src/common/IPMI/USB/share.c - buffer overflow
+  17805393 add perl support to the ILOM image for use in escalation mode
+  17785495 X4-8: FW71 - ILOM reports 0 system memory after SP reset if host is ON.
+  17761035 Need to handle new "Loss of memory VTT (0.60V) output" from FPGA
+  17622795 [Watch] x4-4 Out-Of-Memory condition message found in SP boot
+  17597378 X4-8: Warm Service does not reflect memory inventory changes
+  17591778 stacktrace sanity checks and workaround parfait bug 17591638
+  17510459 Hwdiag Version/Date: Should be updated on every build
+  17495689 ILOM CHARACTER LIMIT FOR WARNING BANNER IS INSUFFICIENT
+  17488155 hwdiag not mapping out DIMM in improperly configured channel
+  17370714 kt_errors_dram_dac.c possible unitialized variable (parfait)
+  17370674 memory leak in stabs (parfait)
+  17370670 memory leak in mdlint (parfait)
+  17370620 double free in aschk (parfait)
+  17370610 Workaround parfait bug 17193269 error: initializer element is not a compile-time
+  17370600 Add support for parfait static code analysis
+  17330621 HWDIAG reports errors for Fans 3&amp;4 when A261 is not powered
+  17301698 Bios binary and UEFI Diags could be corrupted under special cases
+  17276912 capidirectd - warning, unable to generate Initialize message, status=-1
+  17276114 ilom web interface stops responding
+  17176815 issues with set_intel_base_addresses() function
+  17030369 PLACEHOLDER: remove Infineon VPS sensors when P0.0 and P0.1 X5-2 systems age out
+  16893537 /System/Memory/DIMMs/DIMM_ locations do not have the set command listed.
+  16862832 ILOM snapshot should collect component status
+  16747266 More descriptive     text when a PSU fault is detected.
+  16620887 IPMI SSHkey accepts UID 0 which is reserved
+  16594001 IPMI Set User Access Command request ignored if 7th bit of 1st byte set to 0
+  16545566 POST should handle memory errors in the post-region gracefully
+  16479460 c_vbsc_send_polled doesn't handle GM failover
+  16416823 ILOM: Add support for complex password for NT4-1
+  15818329 SUNBT7200867 Name the consd (pdm2ilom) threads
+  15792114 SUNBT7169353-3.1.2.30 Provide decode of failing memory address to row, column an
+  15788481 SUNBT7165029 probe_memory: Node memory configuration dump in the debug path need
+  15780223 SUNBT7155287 Enable/disable host console history logging doesn't work on G5
+  15637781 SUNBT6945579 snmp mibs should have contact info changed to Oracle Corp
+</tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></pre>
+    <tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt>&nbsp;
+
+                                                          </tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt><tt><br>
+    </tt><br>
+    <tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><tt><br>
+                                                          <br>
+                                                          </tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt></tt><tt><tt>
+        </tt>
+        <hr size="2" width="100%">
+        <h3><a moz-do-not-send="true" class="mozTocH3" name="mozTocId974714"></a><u>Special Release Notes:</u></h3>
+      </tt> </tt>
+    <h4><a moz-do-not-send="true" class="mozTocH4" name="mozTocId130427"></a><u><b>Note
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          1</b></u><u>: &nbsp; For Firmware Updating via the Included "</u><u><b>sysfwdownload</b></u><u>"
+        Utility</u></h4>
+    <tt> </tt>
+    <ul>
+      <li>SPARC T5 platforms, and any platforms supporting dual-bank
+        FLASH storage for Sun System Firmware should use the "-u" option
+        to automatically update the Sun System Firmware after the
+        download.&nbsp; Problems have been reported when not using this
+        automatic mode.&nbsp; (See
+        ./Firmware/Sun_System_Firmware/sysfwdownload.README for usage
+        details).</li>
+    </ul>
+    <p><br>
+    </p>
+    <tt> </tt>
+    <h4><a moz-do-not-send="true" class="mozTocH4" name="mozTocId590236"></a><u>
+        Note 2: &nbsp; Firmware Upgrade Affects vCPU Power Management</u></h4>
+    <ul>
+      <li> Oracle VM Server for SPARC (OVM), Solaris 11 and the Sun
+        System Firmware Hypervisor work together to save power by
+        lowering the frequencies of CPUs when the system is idle.&nbsp;
+        Upgrading to Sun System Firmware 9.0.2 or higher changes the set
+        of frequencies used.&nbsp; You can display the frequencies with
+        the Oracle Solaris 11 <tt><b>powertop</b></tt> command.&nbsp;
+        Logical domains started from configurations saved prior to the
+        upgrade will continue to display the old frequencies via <tt><b>powertop</b></tt>;
+        this has no impact on actual system behavior.</li>
+    </ul>
+    <p><br>
+    </p>
+    <h4><a moz-do-not-send="true" class="mozTocH4" name="mozTocId128312"></a><u>
+        Note 3:&nbsp;&nbsp; EFI/GPT Disk Label Support for SPARC Servers</u></h4>
+    <ul>
+      <li>Oracle Solaris and Sun System Firmware supports the following
+        two disk labels:</li>
+      <ul>
+        <li>SMI - VTOC label traditionally for disks that are less than
+          2 TB.</li>
+        <li>EFI -&nbsp; Extensible Firmware Interface GUID Partition
+          Table (EFI GPT) provides support for disks that are larger
+          than 2 TB. EFI GPT is also available for disks that are
+          smaller than 2 TB.</li>
+      </ul>
+    </ul>
+    <blockquote>The EFI label can be applied to a boot disk if the
+      system is running the appropriate Oracle Solaris and Sun System
+      Firmware releases.&nbsp; The minimum Firmware and Software
+      requirement for EFI GPT support is as follows:<br>
+    </blockquote>
+    <ul>
+      <ul>
+        <li><b>Sun System Firmware 8.4.0</b> or later&nbsp; (<b>SPARC T4</b>
+          server)</li>
+        <li><b>Sun System Firmware 9.1.0</b> or later&nbsp; (<b>SPARC T5</b>
+          and <b>SPARC M5/M6</b> servers )</li>
+        <li><b>Oracle Solaris 11.1</b> or later (<b>SPARC T4</b>, <b>SPARC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            T5</b>, and <b>SPARC M5/M6 </b>servers)</li>
+      </ul>
+    </ul>
+    <blockquote>Use the <tt><b>format</b></tt> utility to manually set
+      up a boot disk with the EFI GPT or SMI disk label. For example:<br>
+    </blockquote>
+    <blockquote>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #
+      format -e<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Specify disk
+      (enter its number): 2<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; selecting c0t5d0<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [disk formatted]<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; format&gt; label<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [0] SMI Label<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1] EFI Label<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Specify Label
+      type[1]: 0<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Warning: This
+      disk has an EFI label. Changing to SMI label will erase all<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current
+      partitions.<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Continue? yes<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Auto
+      configuration via format.dat[no]? no<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Auto
+      configuration via generic SCSI-2[no]? no<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; format&gt; quit<br>
+    </blockquote>
+    <blockquote><br>
+      Update the Sun System Firmware on your SPARC T4, SPARC T5, or
+      SPARC M5/M6 server to at least the minimum versions noted above to
+      enable the server to boot from EFI GPT labeled disks.<br>
+      <br>
+      Older Sun System Firmware releases prior to 8.4.0 and 9.1.0 do not
+      support the EFI GPT disk label and are not able to boot from such
+      disks.&nbsp; If you try to boot from an EFI formatted disk with
+      older Sun System Firmware, you might see the following error
+      message on the host console:<br>
+    </blockquote>
+    <blockquote>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ok boot<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bad magic number
+      in disk label<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Can't open disk
+      label package<br>
+    </blockquote>
+    <blockquote>The Oracle Solaris 11 update 1 installer automatically
+      writes the EFI GPT disk label to the disk if the firmware supports
+      it. The disk will only boot under Sun System Firmware 8.4.0 or
+      later (SPARC T4) or Sun System Firmware 9.1.0 or later (SPARC T5
+      and SPARC M5/M6).&nbsp; If a host is downgraded to an older
+      version of the Sun System Firmware, then the disk will fail to
+      boot.&nbsp; <br>
+      <br>
+      You can configure the Oracle Solaris Automatic Installer (AI) to
+      use the SMI disk label by default instead of the EFI GPT disk
+      label by changing the following four lines of the &lt;disk&gt;
+      snippet in the AI manifest.<br>
+    </blockquote>
+    <blockquote>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &lt;target&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &lt;disk whole_disk="true"&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &lt;disk_keyword key="boot_disk"/&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &lt;slice name="0" in_zpool="rpool"/&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &lt;/disk&gt;<br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [...]<br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/target&gt;<br>
+      <br>
+    </blockquote>
+    <blockquote>The AI then creates a slice0 for the installation which
+      is the entirety of the boot disk.</blockquote>
+    <br>
+    <h4><a moz-do-not-send="true" class="mozTocH4" name="mozTocId398038"></a><u><b>Note
+
+
+
+
+
+
+          4</b>:&nbsp;&nbsp; Logical Domain Migration Firmware Version
+        Restrictions</u></h4>
+    <ul>
+      <li><u>Hypervisor API incompatibility</u><br>
+        Live migration from a SPARC T5/M5/M6 running Sun System Firmware
+        9.x to a SPARC T4 system will only succeed if the SPARC T4 is
+        running at least Sun System Firmware 8.4.&nbsp;&nbsp; Live
+        migration from SPARC T5/M5/M6 systems to SPARC T3 systems is not
+        supported.<br>
+        <br>
+        <u> EFI label </u><u>incompatibility</u><br>
+        Support for EFI/GPT disk labels is introduced in Sun System
+        Firmware 8.4 and 9.1 and by default, virtual disks that are
+        installed when running at least Oracle Solaris 11.1 on those
+        systems will have an EFI/GPT disk label. This disk label cannot
+        be read on older versions of Sun System Firmware (such as 9.0.x,
+        8.3, or 7.x) which precludes doing a live or cold migration to a
+        system running a version of Sun System Firmware with EFI/GPT
+        support (in particular, note that cold migration will not work
+        either).</li>
+    </ul>
+    <p><br>
+    </p>
+    <h4><a moz-do-not-send="true" class="mozTocH4" name="mozTocId633288"></a><u><b>Note
+
+
+
+
+
+          5</b>: &nbsp; LDoms Manager Version Requirements When Using
+        Large Numbers of LDC's<br>
+      </u></h4>
+    <ul>
+      <li><b>Sun System Firmware 9.2.1</b> (for <b>SPARC T5</b> and <b>SPARC
+
+
+
+
+
+          M5/M6 </b>servers) and <b> </b><b><b>Sun System Firmware </b>8.5.1</b>
+        (for <b>SPARC T4</b> servers) increases the maximum number of
+        Logical Domain Channels (LDCs) supported per guest and requires
+        a Logical Domains (LDoms) Manager version later than 3.1.1 to
+        safely use this larger number of LDCs.&nbsp; To prevent
+        potential Solaris issues in domains when using LDoms Manager
+        version 3.1.1 or older with this firmware, do not increase the
+        number of LDCs used per domain beyond the 768 supported by older
+        firmware releases.&nbsp; (e.g. do not add large numbers of
+        virtual disks and virtual network interfaces until LDoms Manager
+        has been updated to a version later than 3.1.1.) </li>
+    </ul>
+    <br>
+    <h4><a class="mozTocH4" name="mozTocId310767"></a><b><u>Note
+          6:&nbsp;&nbsp; SPARC: Live migration of a guest domain from
+          newer </u></b><b><u><b><u>Sun System Firmware </u></b>to
+          older versions is blocked under some circumstances (Bug
+          20594568)</u></b></h4>
+    <ul>
+      <li>For customers using Oracle Solaris 11.2.8 you may be unable
+        use Live Migration under certain circumstances.&nbsp; For SPARC
+        T4-based systems, this issue is applicable for migrations from
+        Sun System Firmware versions 8.7.x to Sun System Firmware 8.6.x
+        or earlier.&nbsp; For SPARC T5 and SPARC M5/M6 based systems,
+        this issue is applicable for migrations from Sun System Firmware
+        versions 9.4.x to Sun System Firmware 9.3.x or earlier.&nbsp;
+        This problem is limited to guest domains running Solaris 11.2.8
+        patch level.<br>
+        <br>
+        If you attempt this backwards live migration, one of the
+        following error messages is displayed after the "<tt>ldm migrate</tt>"
+        command:<br>
+        <blockquote><tt># ldm migrate ldg0 target-host</tt><tt><br>
+          </tt><tt> </tt><tt>Target Password:</tt><tt><br>
+          </tt><tt> </tt><tt> </tt><tt><br>
+          </tt><tt> </tt><tt>API group 0x11d v1.0 is not supported in
+            the version of the firmware running on the target machine.</tt><tt><br>
+          </tt><tt> </tt><tt>Domain ldg0 is using features of the
+            system firmware that are not supported in the version of the
+            firmware running on the target machine.</tt><tt><br>
+          </tt><tt><br>
+          </tt><tt>or</tt><tt><br>
+          </tt><tt><br>
+          </tt><tt>API group 0x1 v1.5 is not supported in the version of
+            the firmware running on the target machine.</tt><tt><br>
+          </tt><tt>Domain ldg0 is using features of the system firmware
+            that are not supported in the version of the firmware
+            running on the target machine. </tt><br>
+        </blockquote>
+      </li>
+      <li>To work around this issue, upgrade the migration target system
+        to the current Sun System Firmware (9.4 for T5/M5/M6 or 8.7 for
+        T4) before migrating to it, or use the alternative method
+        described in Oracle Solaris 11.2 SRU 8.5.0 README (Doc ID
+        1994190.1).</li>
+    </ul>
+  
+
+</body></html>

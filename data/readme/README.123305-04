@@ -1,0 +1,1049 @@
+<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Patch-ID# 123305-04
+
+NOTE:
+***********************************************************************
+READ THE TERMS OF THE AGREEMENT ("AGREEMENT") IN THE LEGAL_LICENSE.TXT
+FILE CAREFULLY BEFORE USING THIS SOFTWARE. BY USING THE SOFTWARE, YOU
+AGREE TO THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE
+TERMS, PROMPTLY DESTROY THE UNUSED SOFTWARE.
+***********************************************************************
+
+Keywords: qla246x/qle246x pci-x/pci express dual or single 4gbit fc network adapter firmware fcode bios
+Synopsis: Hardware/FCode: PCI-X/PCI Express Dual or Single 4Gbit FC Network Host Adapter
+Date: Dec/15/2008
+
+
+Install Requirements: See Special Install Instructions                      
+                      Reboot after installing this patch to activate the changes delivered.  An alternative may be specified in the Special Install Instructions.                      
+                      Use Single User Mode (run level S) when installing this patch on an active boot environment.  An alternative may be specified in the Special Install Instructions.                      
+                      
+Solaris Release: 8 9 10
+
+SunOS Release: 5.8 5.9 5.10
+
+Unbundled Product: Hardware/FCode_BIOS_QLA246x_QLE246
+
+Unbundled Release: FCode 2.01, BIOS 2.02
+
+Xref: 
+
+Topic: Hardware/FCode: PCI-X/PCI Express Dual or Single 4Gbit FC Network Host Adapter patch
+
+Relevant Architectures: sparc x86
+
+BugId's fixed with this patch: 6321010 6359693 6410800 6488069 6505771 6512383 6537023 6548709 6551949 6551955 6611151 6613300 6617182 6645537 6708485
+
+Changes incorporated in this version: 6321010 6551949 6551955 6611151 6613300 6617182 6645537 6708485
+
+Patches accumulated and obsoleted by this patch: 
+
+Patches which conflict with this patch: 
+
+Patches required with this patch: 
+NOTE:   Solaris 8
+                        111097-26 or higher (qlc driver patch)
+                        111413-18 or higher (luxadm/liba5k and libg_fc patch)
+        Solaris 9
+                        113049-01 or higher (luxadm, liba5k.so.2)
+                        113042-18 or higher (qlc driver patch)
+                        113043-12 or higher (luxadm/liba5k and libg_fc patch)
+        Solaris 10 SPARC
+                        125166-04 or higher (qlc driver patch)
+        Solaris 10 x86
+                        125165-04 or higher (qlc driver patch)
+
+Obsoleted by: 
+
+Files included with this patch: 
+
+LEGAL_LICENSE.TXT
+Q24AF171.BIN
+README.TXT
+patchinfo
+scli-1.7.1-23.sparc.Solaris.pkg.Z
+scli-1.7.1-23.x86.Solaris.pkg.Z
+sqem2462.dat
+sun2460.dat
+sun2462.dat
+sune2460.dat
+sune2462.dat
+
+Problem Description:
+
+6321010 Change Qlogic HBA BIOS hot-keys as remotely accessible ones.
+6551949 QLScli/x postinstall script is broken
+6551955 scli should use libdevinfo
+6611151 scli gives segmentation fault / bus error (coredump) if HBA sees certain high LUN numbers
+6613300 scli misreports FCode and OptionROM versions with older qlc driver installed
+6617182 QLE2460 HBA unable to SANboot/DASboot after installing 123305-03
+6645537 QLA2462 does not list the LUNs from OK prompt (OBP)
+6708485 QLogic 4Gb boot code patch (123305) should use 'scli int' instead of 'scli'
+ 
+(from 123305-03)
+ 
+6537023 QLogic HBA FCode should not wait forever if SCSI response is not received
+6548709 Errors in patch 123305-02 README file
+ 
+(from 123305-02)
+ 
+6505771 Fibre storage not seen in Qlogic FastUtil menu, but seen from booted OS
+6512383 EMC Symmetrix devices not visible from BIOS in Andromeda
+ 
+(from 123305-01)
+ 
+6359693 "Can't open boot device" when trying to boot from Pyramid HBA connected to SE6920 - timer 5/17/07
+6410800 Prtdiag failed! if a 375-3294 adapter is installed
+6488069 FF1: summit HBA failed when connect to SE6140
+ 
+ 
+**************************************************************************
+**************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+1. This patch is intended for Sun-branded HBA's only.  For QLogic and
+   Other-branded HBA's, please see
+   http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/default.aspx for
+   more information.
+ 
+2. The system MUST BE IN SINGLE-USER Mode and IDLE during the firmware download
+   process! No other programs should be running while this utility is being
+   used.  Failure to do so may cause the devices being upgraded to fail or the
+   system to crash.
+ 
+3. The new FCode and BIOS will not take effect until the system is rebooted
+   or power-cycled.  The current FCode and BIOS exists in system memory.  The
+   new upgraded FCode and BIOS will not be visible until after the system is
+   rebooted or power-cycled.
+ 
+4. Loss of power during FCode and BIOS download can result in premature
+   termination of FCode and BIOS update.   An incomplete FCode and BIOS might
+   not be able to interface with OBP or SYSTEM BIOS during boot.  In this event,
+   it will be necessary to replace the HBA.
+ 
+ 
+************************************************************************** 
+**************************************************************************
+
+Patch Installation Instructions:
+--------------------------------
+ 
+1. Overall procedure for upgrading:
+ 
+a) Copy all the patches to the system that has the HBAs to be upgraded.
+ 
+b) Prepare the system by installing the required patches (See the listing in
+   section "Patches required with this patch:" for detail). Refer to the
+   individual patch README for specific installation instruction.
+ 
+c) STOP ALL APPLICATIONS. The system must be idle during the FCode and BIOS
+   upgrade process.
+ 
+d) Type "reboot -- -s" to reboot in SINGLE-USER mode
+ 
+e) Follow the given instructions in the Upgrade Procedure section below.
+ 
+f) Reboot the system and verify the newly downloaded FCode/BIOS.
+ 
+ 
+2. Upgrade procedure: 
+ 
+The procedure to be used for upgrading the FCode/BIOS firmware is explained
+below. Typical upgrade time is about 30 seconds per host adapter card.
+ 
+ 
+a) Copy the patch into any directory on the server with the HBA's.  This
+   directory will be referred to as &lt;workdir&gt; in the remainder of this
+   document.  (Note, if the patch ends in a ".zip" suffix, you will need to
+   first uncompress it.)  So, you would type:
+        cd &lt;workdir&gt;
+        unzip 123305-04.zip
+ 
+b) After file unzip, some of the files included in this patch are as follows:
+ 
+    scli-1.7.1-23.sparc.Solaris.pkg.Z (QLogic SANsurfer CLI utility for SPARC)
+    scli-1.7.1-23.x86.Solaris.pkg.Z (QLogic SANsurfer CLI utility for x86)
+    Q24AF171.BIN (BIOS/Fcode file name) 
+    sun2462.dat (NVRAM for QLA2462) 
+    sun2460.dat (NVRAM for QLA2460) 
+    sune2462.dat (NVRAM for QLE2462) 
+    sune2460.dat (NVRAM for QLE2460) 
+    sqem2462.dat (NVRAM for QEM2462) 
+ 
+c) Change to the zip directory and uncompress the appropriate SANsurfer CLI
+   utility program
+ 
+        cd 123305-04
+        uncompress scli-1.7.1-23.sparc.Solaris.pkg.Z
+            OR
+        cd 123305-04
+        uncompress scli-1.7.1-23.x86.Solaris.pkg.Z
+ 
+f) If there is a older version of SANsurfer CLI installed, you need to use
+   package remove command to remove old package before you install this version,
+   otherwise the system will display an error message during the pkgadd
+   operation.
+ 
+   To remove a currently installed package, remove the older version of the
+   SANsurfer CLI package use one of the following commands.
+ 
+        pkgrm QLScli (for Solaris SPARC machine)
+        pkgrm QLSclix (for Solaris x86 machine) 
+ 
+d) Install the SANsurfer CLI utility program using the pkgadd command
+ 
+        pkgadd -d scli-1.7.1-23.sparc.Solaris.pkg
+ 
+        The following packages are available:
+        1  QLScli      QLogic SANsurfer FC CLI (HBA Configuration Utility)
+                          (sparc) 1.7.1 Build 23
+ 
+        Select package(s) you wish to process (or 'all' to process
+        all packages). (default: all) [?,??,q]: 
+ 
+            OR
+ 
+        pkgadd -d scli-1.7.1-23.x86.Solaris.pkg
+ 
+        The following packages are available:
+        1  QLSclix     QLogic SANsurfer FC CLI (HBA Configuration Utility)
+                          (i386) 1.7.1 Build 23
+ 
+        Select package(s) you wish to process (or 'all' to process
+        all packages). (default: all) [?,??,q]: 
+ 
+*) If the following message is displayed, select 'y':
+ 
+        This package contains scripts which will be executed with super-user
+        permission during the process of installing this package.
+ 
+        Do you want to continue with the installation of &lt;QLScli&gt; [y,n,?]
+ 
+ 
+g) After package is installed, use SANsurfer CLI to check current HBA FCode/BIOS
+   version.  (The output may be slightly different than what is shown here based
+   on your particular system.)
+ 
+# /opt/QLogic_Corporation/SANsurferCLI/scli int
+Scanning QLogic FC HBA(s) and device(s) ...          -  
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    Main Menu
+ 
+    1:  General Information
+    2:  HBA Information 
+    3:  HBA Parameters
+    4:  Target/LUN List
+    5:  iiDMA Settings
+    6:  Boot Device
+    7:  Utilities
+    8:  Beacon
+    9:  Diagnostics
+   10:  Statistics
+   11:  Help
+   12:  Exit
+ 
+ 
+        Enter Selection: 2
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    HBA Information Menu
+ 
+    HBA Model QLA2462-S
+      1: Port   1 (HBA  5 OS  5): WWPN: 21-00-00-E0-8B-85-58-87 Online
+      2: Port   2 (HBA  6 OS  6): WWPN: 21-01-00-E0-8B-A5-58-87 Loop Down
+    HBA Model QLA2342-S
+      3: Port   1 (HBA  3 OS  3): WWPN: 21-00-00-E0-8B-07-0F-A1 Online
+      4: Port   2 (HBA  4 OS  4): WWPN: 21-01-00-E0-8B-27-0F-A1 Loop Down
+    HBA Model qlc
+      5: Port   1 (HBA  2 OS  2): WWPN: 21-00-00-E0-8B-0D-42-EF Loop Down
+      6: Port   2 (HBA  1 OS  1): WWPN: 21-01-00-E0-8B-2D-42-EF Online
+    HBA Model QLA2310-S
+      7: Port   1 (HBA  0 OS  0): WWPN: 21-00-00-E0-8B-17-67-C2 Online
+      8: All HBAs
+      9: Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 8
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    HBA Information Menu
+ 
+    All HBAs
+ 
+    1:  Information
+    2:  VPD
+    3:  Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 1
+ 
+-----------------------------------------------------------------------------
+Host Name                        : myhost
+HBA Instance                     : 5
+OS Instance                      : 5
+HBA Model                        : QLA2462-S &lt;----------- NOTE the HBA Model
+HBA Description                  : QLA2462-SUN PCI-X 2.0 to 4Gb FC Dual Channel
+HBA ID                           : 5-QLA2462-S
+HBA Alias                        :
+HBA Port                         : 1
+Port Alias                       :
+Node Name                        : 20-00-00-E0-8B-85-58-87
+Port Name                        : 21-00-00-E0-8B-85-58-87
+Port ID                          : 05-06-00
+Serial Number                    : 0402F00-0550113204
+Driver Version                   : qlc-20080617-2.30
+BIOS Version                     : 1.17
+Firmware Version                 : 4.04.01
+Flash BIOS Version               : 1.15 &lt;--------- Current BIOS version
+Flash FCode Version              : 1.17 &lt;--------- Current FCode version
+Flash EFI Version                : 1.05
+Flash Firmware Version           : 4.00.18
+Actual Connection Mode           : Point to Point
+Actual Data Rate                 : 2 Gbps
+PortType (Topology)              : NPort
+Target Count                     : 6
+HBA Status                       : Online
+ 
+                Hit &lt;RETURN&gt; to continue:
+-----------------------------------------------------------------------------
+Host Name                        : myhost
+HBA Instance                     : 6
+OS Instance                      : 6
+HBA Model                        : QLA2462-S
+HBA Description                  : QLA2462-SUN PCI-X 2.0 to 4Gb FC Dual Channel
+HBA ID                           : 6-QLA2462-S
+HBA Alias                        :
+HBA Port                         : 2
+Port Alias                       :
+Node Name                        : 20-01-00-E0-8B-A5-58-87
+Port Name                        : 21-01-00-E0-8B-A5-58-87
+Port ID                          : 00-00-00
+Serial Number                    : 0402F00-0607117359
+Driver Version                   : qlc-20080617-2.30
+BIOS Version                     : 1.17
+Firmware Version                 : 4.04.01
+Flash BIOS Version               : 1.15
+Flash FCode Version              : 1.17
+Flash EFI Version                : 1.05
+Flash Firmware Version           : 4.00.18
+Actual Connection Mode           : Unknown
+Actual Data Rate                 : Unknown
+PortType (Topology)              : Unidentified
+Target Count                     : 0
+HBA Status                       : Loop Down
+ 
+                Hit &lt;RETURN&gt; to continue:
+--------------------------------------------------------------------------------
+Host Name                        : myhost
+HBA Instance                     : 3
+OS Instance                      : 3
+HBA Model                        : QLA2342-S
+HBA Description                  : QLA2342-SUN Crystal2a (PCI to FC dual channel)
+HBA ID                           : 3-QLA2342-S
+HBA Alias                        :
+HBA Port                         : 1
+Port Alias                       :
+Node Name                        : 20-00-00-E0-8B-07-0F-A1
+Port Name                        : 21-00-00-E0-8B-07-0F-A1
+Port ID                          : 05-05-00
+Serial Number                    : E99983
+Driver Version                   : qlc-20080617-2.30
+FCode Version                    : 1.15
+Firmware Version                 : 3.03.27 IP
+Actual Connection Mode           : Point to Point
+Actual Data Rate                 : 2 Gbps
+PortType (Topology)              : NPort
+Target Count                     : 6
+HBA Status                       : Online
+ 
+                Hit &lt;RETURN&gt; to continue:
+--------------------------------------------------------------------------------
+Host Name                        : myhost
+HBA Instance                     : 4
+OS Instance                      : 4
+HBA Model                        : QLA2342-S
+HBA Description                  : QLA2342-SUN Crystal2a (PCI to FC dual channel)
+HBA ID                           : 4-QLA2342-S
+HBA Alias                        :
+HBA Port                         : 2
+Port Alias                       :
+Node Name                        : 20-01-00-E0-8B-27-0F-A1
+Port Name                        : 21-01-00-E0-8B-27-0F-A1
+Port ID                          : 00-00-00
+Serial Number                    : E99983
+Driver Version                   : qlc-20080617-2.30
+FCode Version                    : 1.15
+Firmware Version                 : 3.03.27 IP
+Actual Connection Mode           : Unknown
+Actual Data Rate                 : Unknown
+PortType (Topology)              : Unidentified
+Target Count                     : 0
+HBA Status                       : Loop Down
+ 
+                Hit &lt;RETURN&gt; to continue:
+--------------------------------------------------------------------------------
+Host Name                        : myhost
+HBA Instance                     : 2
+OS Instance                      : 2
+HBA Model                        : qlc
+HBA Description                  : SUN2212 (Crystal Plus)
+HBA ID                           : 2-qlc
+HBA Alias                        :
+HBA Port                         : 1
+Port Alias                       :
+Node Name                        : 20-00-00-E0-8B-0D-42-EF
+Port Name                        : 21-00-00-E0-8B-0D-42-EF
+Port ID                          : 00-00-00
+Serial Number                    : J13218
+Driver Version                   : qlc-20080617-2.30
+FCode Version                    : 1.14.09
+Firmware Version                 : 2.01.145 IP
+Actual Connection Mode           : Unknown
+Actual Data Rate                 : Unknown
+PortType (Topology)              : Unidentified
+Target Count                     : 0
+HBA Status                       : Loop Down
+ 
+                Hit &lt;RETURN&gt; to continue:
+--------------------------------------------------------------------------------
+Host Name                        : myhost
+HBA Instance                     : 1
+OS Instance                      : 1
+HBA Model                        : qlc
+HBA Description                  : SUN2212 (Crystal Plus)
+HBA ID                           : 1-qlc
+HBA Alias                        :
+HBA Port                         : 2
+Port Alias                       :
+Node Name                        : 20-01-00-E0-8B-2D-42-EF
+Port Name                        : 21-01-00-E0-8B-2D-42-EF
+Port ID                          : 05-07-00
+Serial Number                    : J13218
+Driver Version                   : qlc-20080617-2.30
+FCode Version                    : 1.14.09
+Firmware Version                 : 2.01.145 IP
+Actual Connection Mode           : Point to Point
+Actual Data Rate                 : 1 Gbps
+PortType (Topology)              : NPort
+Target Count                     : 6
+HBA Status                       : Online
+ 
+                Hit &lt;RETURN&gt; to continue:
+--------------------------------------------------------------------------------
+Host Name                        : myhost
+HBA Instance                     : 0
+OS Instance                      : 0
+HBA Model                        : QLA2310-S
+HBA Description                  : QLA2310-SUN (PCI to FC single channel Amber-2)
+HBA ID                           : 0-QLA2310-S
+HBA Alias                        :
+HBA Port                         : 1
+Port Alias                       :
+Node Name                        : 20-00-00-E0-8B-17-67-C2
+Port Name                        : 21-00-00-E0-8B-17-67-C2
+Port ID                          : 05-04-00
+Serial Number                    : P57095
+Driver Version                   : qlc-20080617-2.30
+FCode Version                    : 1.15
+Firmware Version                 : 3.03.27 IP
+Actual Connection Mode           : Point to Point
+Actual Data Rate                 : 2 Gbps
+PortType (Topology)              : NPort
+Target Count                     : 6
+HBA Status                       : Online
+ 
+                Hit &lt;RETURN&gt; to continue:
+ 
+ 
+ 
+If the HBA is model does not contain 2460 or 2462, then that HBA is not a 4Gb
+HBA support by this patch.
+ 
+If the FCode version is 2.01 and the BIOS version is 2.02, then you do not need
+to upgrade that HBA.  Otherwise complete the rest of these steps to upgrade the
+FCode and BIOS for any 4Gb HBAs that need to be updated.
+ 
+Be sure to take note of the particular HBA model(s).  They are needed in a later
+step.
+ 
+h) Return to the Main Menu and flash the appropriate HBAs
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    HBA Information Menu
+ 
+    All HBAs
+ 
+    1:  Information
+    2:  VPD
+    3:  Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 0
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    Main Menu
+ 
+    1:  General Information
+    2:  HBA Information 
+    3:  HBA Parameters
+    4:  Target/LUN List
+    5:  iiDMA Settings
+    6:  Boot Device
+    7:  Utilities
+    8:  Beacon
+    9:  Diagnostics
+   10:  Statistics
+   11:  Help
+   12:  Exit
+ 
+ 
+        Enter Selection: 7
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    Utilities Menu
+ 
+    1:  Flash Update
+    2:  Flash Save
+    3:  HBA Parameters Update
+    4:  HBA Parameters Save
+    5:  HBA Parameters Templates
+    6:  Driver Rescan
+    7:  Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 1
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    Flash Update Menu
+ 
+    HBA Model QLA2462-S
+      1: Port   1 (HBA  5 OS  5): WWPN: 21-00-00-E0-8B-85-58-87 Online
+         Port   2 (HBA  6 OS  5): WWPN: 21-01-00-E0-8B-A5-58-87 Loop Down
+    HBA Model QLA2342-S
+         Port   1 (HBA  3 OS  5): WWPN: 21-00-00-E0-8B-07-0F-A1 Online
+         Port   2 (HBA  4 OS  5): WWPN: 21-01-00-E0-8B-27-0F-A1 Loop Down
+    HBA Model qlc
+         Port   1 (HBA  2 OS  5): WWPN: 21-00-00-E0-8B-0D-42-EF Loop Down
+         Port   2 (HBA  1 OS  5): WWPN: 21-01-00-E0-8B-2D-42-EF Online
+    HBA Model QLA2310-S
+         Port   1 (HBA  0 OS  5): WWPN: 21-00-00-E0-8B-17-67-C2 Online
+      2: All HBAs
+      3: Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 1
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    Flash Update Menu
+ 
+    HBA/OS Instance 5/5 (QLA2462-S Port 1) : Online
+        WWPN: 21-00-00-E0-8B-85-58-87
+        Desc: QLA2462-SUN PCI-X 2.0 to 4Gb FC Dual Channel
+ 
+    1:  Update Entire Image
+    2:  Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 1
+Enter a file name or Hit &lt;RETURN&gt; to abort: Q24AF171.BIN
+Updating Flash on HBA port(s) - QLA2462-S. Please wait...
+Flash update complete. Changes have been saved to both ports of this HBA.
+ 
+                Hit &lt;RETURN&gt; to continue:
+ 
+ 
+************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+After the file name is entered, the utility will update the flash
+memory.  Do NOT interrupt this process.
+************************************************************************
+ 
+ 
+i) After all HBA's FCode/BIOS have been flashed, then update the NVRAM
+   content as well.
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    Flash Update Menu
+ 
+    HBA Model QLA2462-S
+      1: Port   1 (HBA  5 OS  5): WWPN: 21-00-00-E0-8B-85-58-87 Online
+         Port   2 (HBA  6 OS  5): WWPN: 21-01-00-E0-8B-A5-58-87 Loop Down
+    HBA Model QLA2342-S
+         Port   1 (HBA  3 OS  5): WWPN: 21-00-00-E0-8B-07-0F-A1 Online
+         Port   2 (HBA  4 OS  5): WWPN: 21-01-00-E0-8B-27-0F-A1 Loop Down
+    HBA Model qlc
+         Port   1 (HBA  2 OS  5): WWPN: 21-00-00-E0-8B-0D-42-EF Loop Down
+         Port   2 (HBA  1 OS  5): WWPN: 21-01-00-E0-8B-2D-42-EF Online
+    HBA Model QLA2310-S
+         Port   1 (HBA  0 OS  5): WWPN: 21-00-00-E0-8B-17-67-C2 Online
+      2: All HBAs
+      3: Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 3
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    Utilities Menu
+ 
+    1:  Flash Update
+    2:  Flash Save
+    3:  HBA Parameters Update
+    4:  HBA Parameters Save
+    5:  HBA Parameters Templates
+    6:  Driver Rescan
+    7:  Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 3
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    HBA Parameters Update Menu
+ 
+    HBA Model QLA2462-S
+      1: Port   1 (HBA  5 OS  5): WWPN: 21-00-00-E0-8B-85-58-87 Online
+      2: Port   2 (HBA  6 OS  6): WWPN: 21-01-00-E0-8B-A5-58-87 Loop Down
+    HBA Model QLA2342-S
+      3: Port   1 (HBA  3 OS  3): WWPN: 21-00-00-E0-8B-07-0F-A1 Online
+      4: Port   2 (HBA  4 OS  4): WWPN: 21-01-00-E0-8B-27-0F-A1 Loop Down
+    HBA Model qlc
+      5: Port   1 (HBA  2 OS  2): WWPN: 21-00-00-E0-8B-0D-42-EF Loop Down
+      6: Port   2 (HBA  1 OS  1): WWPN: 21-01-00-E0-8B-2D-42-EF Online
+    HBA Model QLA2310-S
+      7: Port   1 (HBA  0 OS  0): WWPN: 21-00-00-E0-8B-17-67-C2 Online
+      8: All HBAs
+      9: Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 1
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    Warning:
+ 
+        Please update the HBA parameters with extreme care.
+        Incorrectly updating the HBA parameters may render the HBA inoperable.
+        If you currently have boot device information set up in the HBA
+        parameters, updating the HBA Parameters from a file will preserve that information.
+ 
+        Do you want to proceed with the operation?
+ 
+    1:  Yes
+    2:  No
+ 
+ 
+        Enter Selection: 1
+ 
+*************************************************************************************
+*************************************************************************************
+**WARNING:****WARNING:****WARNING:****WARNING:****WARNING:****WARNING:**
+ 
+Each type of HBA has its own NVRAM data file, choose wrong NVRAM data file may cause 
+HBA becomes inoperable. Following is the list of NVRAM file for each type of HBA: 
+ 
+  Sun P/N               QLogic P/N   Interface                  NVRAM data file
+-------------------------------------------------------------------------------
+  SG-XPCI2FC-QF4        QLA2462      2-port PCI-X               sun2462.dat
+  SG-XPCI1FC-QF4        QLA2460      1-port PCI-X               sun2460.dat
+  SG-XPCIE2FC-QF4       QLE2462      2-port PCIe                sune2462.dat
+  SG-XPCIE1FC-QF4       QLE2460      1-port PCIe                sune2460.dat
+  SG-XPCIE1FC-QB4-Z     QEM2462      2-port Express Module      sqem2462.dat
+ 
+**************************************************************************************
+**************************************************************************************
+ 
+Enter a file name or Hit &lt;RETURN&gt; to abort: sun2462.dat
+Updating HBA Parameters on HBA instance 5 - QLA2462-S. Please wait...
+HBA Parameters update complete. Changes have been saved to HBA instance 5 and are effective after a reboot.
+ 
+                Hit &lt;RETURN&gt; to continue:
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    HBA Parameters Update Menu
+ 
+    HBA Model QLA2462-S
+      1: Port   1 (HBA  5 OS  5): WWPN: 21-00-00-E0-8B-85-58-87 Online
+      2: Port   2 (HBA  6 OS  6): WWPN: 21-01-00-E0-8B-A5-58-87 Loop Down
+    HBA Model QLA2342-S
+      3: Port   1 (HBA  3 OS  3): WWPN: 21-00-00-E0-8B-07-0F-A1 Online
+      4: Port   2 (HBA  4 OS  4): WWPN: 21-01-00-E0-8B-27-0F-A1 Loop Down
+    HBA Model qlc
+      5: Port   1 (HBA  2 OS  2): WWPN: 21-00-00-E0-8B-0D-42-EF Loop Down
+      6: Port   2 (HBA  1 OS  1): WWPN: 21-01-00-E0-8B-2D-42-EF Online
+    HBA Model QLA2310-S
+      7: Port   1 (HBA  0 OS  0): WWPN: 21-00-00-E0-8B-17-67-C2 Online
+      8: All HBAs
+      9: Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 2
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    Warning:
+ 
+        Please update the HBA parameters with extreme care.
+        Incorrectly updating the HBA parameters may render the HBA inoperable.
+        If you currently have boot device information set up in the HBA
+        parameters, updating the HBA Parameters from a file will preserve that information.
+ 
+        Do you want to proceed with the operation?
+ 
+    1:  Yes
+    2:  No
+ 
+ 
+        Enter Selection: 1
+Enter a file name or Hit &lt;RETURN&gt; to abort: sun2462.dat
+ 
+Updating HBA Parameters on HBA instance 6 - QLA2462-S. Please wait...
+HBA Parameters update complete. Changes have been saved to HBA instance 6 and are effective after a reboot.
+ 
+                Hit &lt;RETURN&gt; to continue:
+ 
+ 
+j) Exit the utility and reboot.
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    HBA Parameters Update Menu
+ 
+    HBA Model QLA2462-S
+      1: Port   1 (HBA  5 OS  5): WWPN: 21-00-00-E0-8B-85-58-87 Online
+      2: Port   2 (HBA  6 OS  6): WWPN: 21-01-00-E0-8B-A5-58-87 Loop Down
+    HBA Model QLA2342-S
+      3: Port   1 (HBA  3 OS  3): WWPN: 21-00-00-E0-8B-07-0F-A1 Online
+      4: Port   2 (HBA  4 OS  4): WWPN: 21-01-00-E0-8B-27-0F-A1 Loop Down
+    HBA Model qlc
+      5: Port   1 (HBA  2 OS  2): WWPN: 21-00-00-E0-8B-0D-42-EF Loop Down
+      6: Port   2 (HBA  1 OS  1): WWPN: 21-01-00-E0-8B-2D-42-EF Online
+    HBA Model QLA2310-S
+      7: Port   1 (HBA  0 OS  0): WWPN: 21-00-00-E0-8B-17-67-C2 Online
+      8: All HBAs
+      9: Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 0
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    Main Menu
+ 
+    1:  General Information
+    2:  HBA Information
+    3:  HBA Parameters
+    4:  Target/LUN List
+    5:  iiDMA Settings
+    6:  Boot Device
+    7:  Utilities
+    8:  Beacon
+    9:  Diagnostics
+   10:  Statistics
+   11:  Help
+   12:  Exit
+ 
+ 
+        Enter Selection: 12
+# reboot
+ 
+ 
+k) After rebooting, run the scli tool again, verify that the FCode and BIOS were
+   upgraded, then exit.
+ 
+# /opt/QLogic_Corporation/SANsurferCLI/scli int
+ Scanning QLogic FC HBA(s) and device(s) ...
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    Main Menu
+ 
+    1:  General Information
+    2:  HBA Information
+    3:  HBA Parameters
+    4:  Target/LUN List
+    5:  iiDMA Settings
+    6:  Boot Device
+    7:  Utilities
+    8:  Beacon
+    9:  Diagnostics
+   10:  Statistics
+   11:  Help
+   12:  Exit
+ 
+ 
+        Enter Selection: 2
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    HBA Information Menu
+ 
+    HBA Model QLA2462-S
+      1: Port   1 (HBA  5 OS  5): WWPN: 21-00-00-E0-8B-85-58-87 Online
+      2: Port   2 (HBA  6 OS  6): WWPN: 21-01-00-E0-8B-A5-58-87 Loop Down
+    HBA Model QLA2342-S
+      3: Port   1 (HBA  3 OS  3): WWPN: 21-00-00-E0-8B-07-0F-A1 Online
+      4: Port   2 (HBA  4 OS  4): WWPN: 21-01-00-E0-8B-27-0F-A1 Loop Down
+    HBA Model qlc
+      5: Port   1 (HBA  2 OS  2): WWPN: 21-00-00-E0-8B-0D-42-EF Loop Down
+      6: Port   2 (HBA  1 OS  1): WWPN: 21-01-00-E0-8B-2D-42-EF Online
+    HBA Model QLA2310-S
+      7: Port   1 (HBA  0 OS  0): WWPN: 21-00-00-E0-8B-17-67-C2 Online
+      8: All HBAs
+      9: Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 1
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    HBA Information Menu
+ 
+    HBA/OS Instance 5/5 (QLA2462-S Port 1) : Online
+        WWPN: 21-00-00-E0-8B-85-58-87
+        Desc: QLA2462-SUN PCI-X 2.0 to 4Gb FC Dual Channel
+ 
+    1:  Information
+    2:  HBA Alias
+    3:  HBA Port Alias
+    4:  VPD
+    5:  Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 1
+--------------------------------------------------------------------------------
+Host Name                        : sonokid
+HBA Instance                     : 5
+OS Instance                      : 5
+HBA Model                        : QLA2462-S
+HBA Description                  : QLA2462-SUN PCI-X 2.0 to 4Gb FC Dual Channel
+HBA ID                           : 5-QLA2462-S
+HBA Alias                        :
+HBA Port                         : 1
+Port Alias                       :
+Node Name                        : 20-00-00-E0-8B-85-58-87
+Port Name                        : 21-00-00-E0-8B-85-58-87
+Port ID                          : 05-06-00
+Serial Number                    : 0402F00-0607117369
+Driver Version                   : qlc-20080617-2.30
+FCode Version                    : 2.01
+Firmware Version                 : 4.04.01
+Flash BIOS Version               : 2.02 &lt;--------- Updated BIOS
+Flash FCode Version              : 2.01 &lt;--------- Updated FCode
+Flash EFI Version                : 2.00
+Flash Firmware Version           : 4.03.01
+Actual Connection Mode           : Point to Point
+Actual Data Rate                 : 2 Gbps
+PortType (Topology)              : NPort
+Target Count                     : 5
+HBA Status                       : Online
+--------------------------------------------------------------------------------
+ 
+                Hit &lt;RETURN&gt; to continue:
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    HBA Information Menu
+ 
+    HBA/OS Instance 5/5 (QLA2462-S Port 1) : Online
+        WWPN: 21-00-00-E0-8B-85-58-87
+        Desc: QLA2462-SUN PCI-X 2.0 to 4Gb FC Dual Channel
+ 
+    1:  Information
+    2:  HBA Alias
+    3:  HBA Port Alias
+    4:  VPD
+    5:  Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 5
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    HBA Information Menu
+ 
+    HBA Model QLA2462-S
+      1: Port   1 (HBA  5 OS  5): WWPN: 21-00-00-E0-8B-85-58-87 Online
+      2: Port   2 (HBA  6 OS  6): WWPN: 21-01-00-E0-8B-A5-58-87 Loop Down
+    HBA Model QLA2342-S
+      3: Port   1 (HBA  3 OS  3): WWPN: 21-00-00-E0-8B-07-0F-A1 Online
+      4: Port   2 (HBA  4 OS  4): WWPN: 21-01-00-E0-8B-27-0F-A1 Loop Down
+    HBA Model qlc
+      5: Port   1 (HBA  2 OS  2): WWPN: 21-00-00-E0-8B-0D-42-EF Loop Down
+      6: Port   2 (HBA  1 OS  1): WWPN: 21-01-00-E0-8B-2D-42-EF Online
+    HBA Model QLA2310-S
+      7: Port   1 (HBA  0 OS  0): WWPN: 21-00-00-E0-8B-17-67-C2 Online
+      8: All HBAs
+      9: Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 2
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    HBA Information Menu
+ 
+    HBA/OS Instance 6/6 (QLA2462-S Port 2) : Loop Down
+        WWPN: 21-01-00-E0-8B-A5-58-87
+        Desc: QLA2462-SUN PCI-X 2.0 to 4Gb FC Dual Channel
+ 
+    1:  Information
+    2:  HBA Alias
+    3:  HBA Port Alias
+    4:  VPD
+    5:  Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 1
+--------------------------------------------------------------------------------
+Host Name                        : sonokid
+HBA Instance                     : 6
+OS Instance                      : 6
+HBA Model                        : QLA2462-S
+HBA Description                  : QLA2462-SUN PCI-X 2.0 to 4Gb FC Dual Channel
+HBA ID                           : 6-QLA2462-S
+HBA Alias                        :
+HBA Port                         : 2
+Port Alias                       :
+Node Name                        : 20-01-00-E0-8B-A5-58-87
+Port Name                        : 21-01-00-E0-8B-A5-58-87
+Port ID                          : 00-00-00
+Serial Number                    : 0402F00-0607117369
+Driver Version                   : qlc-20080617-2.30
+FCode Version                    : 2.01
+Firmware Version                 : 4.04.01
+Flash BIOS Version               : 2.02
+Flash FCode Version              : 2.01
+Flash EFI Version                : 2.00
+Flash Firmware Version           : 4.03.01
+Actual Connection Mode           : Unknown
+Actual Data Rate                 : Unknown
+PortType (Topology)              : Unidentified
+Target Count                     : 0
+HBA Status                       : Loop Down
+--------------------------------------------------------------------------------
+ 
+                Hit &lt;RETURN&gt; to continue:
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    HBA Information Menu
+ 
+    HBA/OS Instance 6/6 (QLA2462-S Port 2) : Loop Down
+        WWPN: 21-01-00-E0-8B-A5-58-87
+        Desc: QLA2462-SUN PCI-X 2.0 to 4Gb FC Dual Channel
+ 
+    1:  Information
+    2:  HBA Alias
+    3:  HBA Port Alias
+    4:  VPD
+    5:  Return to Previous Menu
+ 
+ 
+        Note: 0 to return to Main Menu
+        Enter Selection: 0
+ 
+        SANsurfer FC HBA CLI
+ 
+        v1.7.1 Build 23
+ 
+    Main Menu
+ 
+    1:  General Information
+    2:  HBA Information
+    3:  HBA Parameters
+    4:  Target/LUN List
+    5:  iiDMA Settings
+    6:  Boot Device
+    7:  Utilities
+    8:  Beacon
+    9:  Diagnostics
+   10:  Statistics
+   11:  Help
+   12:  Exit
+ 
+ 
+        Enter Selection: 12
+
+Special Install Instructions:
+----------------------
+ 
+Please refer to the "WARNING:" and "Patch Installation Instructions" section
+for detail
+
+README -- Last modified date:  Monday, December 15, 2008
+
+</pre></body></html>
