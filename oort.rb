@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.0.1
+# Version:      1.0.2
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -49,7 +49,7 @@ $work_dir     = ""
 $verbose      = 0
 $test_mode    = 0
 $output_mode  = "text"
-options       = "HV?abcghlvA:E:F:I:M:N:P:R:S:X:d:e:f:i:j:m:n:o:p:q:r:s:t:w:x:z:"
+options       = "CHV?abcghlvA:E:F:I:M:N:P:R:S:X:d:e:f:i:j:m:n:o:p:q:r:s:t:w:x:z:"
 
 # Set Work Directory
 
@@ -90,13 +90,15 @@ end
 def remove_mos_email_from_file(output_file)
   if File.exist?(output_file)
     (mos_username,mos_password) = get_mos_details()
-    mos_username = mos_username.upcase()
+    mos_head = mos_username.upcase.split("@")[0]
+    mos_tail = mos_username.upcase.split("@")[1]
     array = []
     lines = File.readlines(output_file)
-    if lines.grep(/#{mos_username}/)
+    if lines.to_s.match(/#{mos_head}/)
       lines.each do |line|
-        if line.match(/#{mos_username}/)
-          line = line.gsub(/#{mos_username}/,"")
+        if line.match(/#{mos_head}/)
+          line = line.gsub(/#{mos_head}/,"")
+          line = line.gsub(/#{mos_tail}/,"")
         end
         array.push(line)
       end
@@ -2658,4 +2660,20 @@ if opt["I"] or opt["i"]
     download_only = "no"
   end
   process_oracle_handbook(model,download_only)
+end
+
+# Clean HTML files of email addresses
+
+if opt["C"]
+  html_dir = $work_dir+"/html"
+  if File.directory?(html_dir)
+    file_list = Dir.entries(html_dir)
+    file_list.each do |file_name|
+      if file_name.match(/html/)
+        file_name = html_dir+"/"+file_name
+        remove_mos_email_from_file(file_name)
+      end
+    end
+  end
+  exit
 end

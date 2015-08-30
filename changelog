@@ -201,3 +201,5 @@
 # Added code to remove MOS login ID from XCP web page download
 # 1.0.1: Sun 30 Aug 2015 12:19:18 AEST
 # Fixed processing of XSCF firmware
+# 1.0.2: Sun 30 Aug 2015 13:04:02 AEST
+# Added -C option to clean MOS email from files
