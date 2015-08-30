@@ -1,0 +1,723 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html class="p_AFMaximized" dir="ltr" lang="en-GB"><head><link rel="stylesheet" charset="UTF-8" type="text/css" href="/epmos/adf/styles/cache/ep-mos-waxe96-en-ltr-webkit-cmp-s.css"><script type="text/javascript" src="/epmos/adf/jsLibs/Locale1_2_12_3_3.js"></script><script type="text/javascript">var AdfAssert = new Object();AdfAssert.DEBUG = false;</script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/boot-11.1.1.7.1-4197.js"></script><script type="text/javascript">AdfLogger.DEFAULT_LEVEL=AdfLogger.OFF;(AdfLogger.LOGGER=new AdfLogger('global', new AdfBufferedLogWriter())).register();var checkAgentSupport = false;AdfAgent.AGENT = AdfAgent.getAgent(window);var lookAndFeel = new AdfDhtmlLookAndFeel(window);AdfAgent._LOG_WRITERS = "NativeLogWriter";AdfPage.PAGE = lookAndFeel.createPage();var page = AdfPage.PAGE;page.setBaseResourceUrl("/epmos");page.setAccessibilityMode("default");page.setAnimationEnabled(false);page.__setSessionIdentifier('2kb3vqm2i');page.__setOutputMode('default');</script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/core-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/AdfTranslations-11.1.1.7.1-4197en_GB.js?loc=en_GB&amp;skinId=ep.mos"></script><title>Document 1002631.1</title><script type="text/javascript" language="javascript">function onPageLoad(evt) {
+                      var topReferrer = document.referrer;
+                      var urlToParseParts = topReferrer.replace('http://','').replace('https://','').split(/[/?#:]/);
+                      var domainToCheck = urlToParseParts[0].toString().split(".");
+                      domainToCheck = domainToCheck[domainToCheck.length-2] + "." +domainToCheck[domainToCheck.length-1] ;
+                      var safeDomainList = ["oracle.com"];
+                      var safeDomain = false;
+                      if (safeDomainList.indexOf(domainToCheck) >= 0) {
+                          safeDomain = true;
+                      }
+                      if (!safeDomain) {
+                          top.location = location;
+                      }
+                  }</script><link rel="stylesheet" type="text/css" afrres="true" href="/epmos/mosr/kmstyles-15.3.0.0_150811.css"><script type="text/javascript" language="javascript" src="/epmos/mosr/jquery-15.3.0.0_150811.js"></script><script type="text/javascript" language="javascript" src="/epmos/mosr/commonKM-15.3.0.0_150811.js"></script><script type="text/javascript" language="javascript" src="/epmos/mosr/clickStreamLogger-15.3.0.0_150811.js"></script><script type="text/javascript" language="javascript">var pageState = "";
+  var backDecrementUnit = '3';
+  var executeBackJavascript = 'true';
+  $( document ).ready(function() {
+    pageState = getQueryVariable("_adf.ctrl-state");
+    });
+    
+   function getQueryVariable(variable)
+    {
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+    }
+    
+    window.onbeforeunload = function () {
+        var pageURL = document.URL;
+        if(executeBackJavascript == 'true' && 
+            (pageURL.indexOf("epmos/faces/DocumentDisplay") > 0 || pageURL.indexOf("epmos/faces/SearchDoc") > 0) ){
+            try{
+                var numberState = pageState.split("_")[1] - backDecrementUnit;
+                window.name = pageState.split("_")[0] + "_" + numberState;
+            }catch(err){}
+        }
+    } 
+    
+    function handleSugClick (event) {
+        var link = event.getSource();
+        AdfCustomEvent.queue(link, "logSugClickStream", {}, false);
+    }
+        
+    function openAskCommunity(event){
+        window.open('https://community.oracle.com/discussion/create.jspa?showCommSelectHelpText=true','_blank');
+    }</script><script type="text/javascript" language="javascript">function onCommentsKeyUp(event) {
+        var source = event.getSource();
+        var feedbackButtonComponent = source.findComponent("cb1");
+        var domElement = AdfRichUIPeer.getDomElementForComponent(feedbackButtonComponent);
+        var submittedComments = source.getSubmittedValue();
+        if (submittedComments == null || submittedComments == '') {
+            feedbackButtonComponent.setProperty('disabled', true);
+            document.getElementById(feedbackButtonComponent.getClientId()).disabled = true;
+            AdfDomUtils.addOrRemoveCSSClassName(true, domElement, AdfRichUIPeer.DISABLED_STYLECLASS);
+        }
+        else {
+            feedbackButtonComponent.setProperty('disabled', false);
+            document.getElementById(feedbackButtonComponent.getClientId()).disabled = false;
+            AdfDomUtils.addOrRemoveCSSClassName(false, domElement, AdfRichUIPeer.DISABLED_STYLECLASS);
+        }
+    }</script><script type="text/javascript" language="javascript">referenceRedirect = function (event) {
+          var referenceId = event.getSource().getProperty('referenceId');
+          AdfCustomEvent.queue(event.getSource(), "referenceRedirectEvent", 
+          {
+              referenceId : referenceId
+          },
+true);
+      }</script><script type="text/javascript" language="javascript">showRecentDocContextMenu = function (event) {
+          var id = event.getSource().getProperty('bid');
+          var docUrl = event.getSource().getProperty('docUrl');
+          var bugUrl = event.getSource().getProperty('bugUrl');
+          var type = event.getSource().getProperty('type');
+          var component = document.getElementById(event.getSource().getClientId());
+          if (type == 'BUG') {
+              component.href = bugUrl + id + "&parent=WIDGET_RECENT_DB";
+          }
+          else {
+              component.href = docUrl + id + "&parent=WIDGET_RECENT_DB";
+          }
+      }
+      recentLinkWidgetRedirect = function (event) {
+          var documentId = event.getSource().getProperty('documentId');
+          AdfCustomEvent.queue(event.getSource(), "recentLinkWidgetRedirectEvent", 
+          {
+              documentId : documentId
+          },true);
+      }</script><script type="text/javascript" language="javascript">function onCommentsKeyUp(event) {
+    //event.cancel();
+    var source = event.getSource();
+    var feedbackButtonComponent = source.findComponent("cb1");
+    var domElement = AdfRichUIPeer.getDomElementForComponent(feedbackButtonComponent);
+    var submittedComments = source.getSubmittedValue();
+    
+    if (submittedComments == null || submittedComments == '') {
+        var rateComponent = source.findComponent("sor1");
+        var helpComponent = source.findComponent("sor2");
+        var findComponent = source.findComponent("sor3");
+        if (rateComponent.getSubmittedValue() == "1" || 
+            helpComponent.getSubmittedValue() == "1" ||
+            findComponent.getSubmittedValue() == "1") {
+            feedbackButtonComponent.setProperty('disabled', true);
+            document.getElementById(feedbackButtonComponent.getClientId()).disabled = true;
+            AdfDomUtils.addOrRemoveCSSClassName(true, domElement, AdfRichUIPeer.DISABLED_STYLECLASS);
+        }
+    } else {
+        feedbackButtonComponent.setProperty('disabled', false);
+        document.getElementById(feedbackButtonComponent.getClientId()).disabled = false;
+        AdfDomUtils.addOrRemoveCSSClassName(false, domElement, AdfRichUIPeer.DISABLED_STYLECLASS);
+    }
+}
+
+function onCommentsFocus(event) {
+    var source = event.getSource();
+    var submittedComments = source.getSubmittedValue();
+    var requiredText = source.getProperty("requiredText");
+    if (submittedComments == requiredText)
+        source.setValue("");
+}
+
+function onQuestionValueChange(event) {
+    var source = event.getSource();
+    var submittedValue = source.getSubmittedValue();
+    var commentsComponent = source.findComponent("it1");
+    var requiredText = commentsComponent.getProperty("requiredText");
+    var feedbackButtonComponent = source.findComponent("cb1");
+    var domElement = AdfRichUIPeer.getDomElementForComponent(feedbackButtonComponent);
+    var commentsValue = commentsComponent.getSubmittedValue();
+    
+    if (submittedValue == "1") {
+        if (commentsValue == null || commentsValue == '') {
+            feedbackButtonComponent.setProperty('disabled', true);
+            document.getElementById(feedbackButtonComponent.getClientId()).disabled = true;
+            AdfDomUtils.addOrRemoveCSSClassName(true, domElement, AdfRichUIPeer.DISABLED_STYLECLASS);
+            commentsComponent.setValue(requiredText);
+        }
+    } else {
+        var rateComponent = source.findComponent("sor1");
+        var helpComponent = source.findComponent("sor2");
+        var findComponent = source.findComponent("sor3");
+        if (rateComponent.getSubmittedValue() != "1" &&
+            helpComponent.getSubmittedValue() != "1" &&
+            findComponent.getSubmittedValue() != "1") { 
+            feedbackButtonComponent.setProperty('disabled', false);
+            document.getElementById(feedbackButtonComponent.getClientId()).disabled = false;
+            AdfDomUtils.addOrRemoveCSSClassName(false, domElement, AdfRichUIPeer.DISABLED_STYLECLASS);
+            if (commentsValue == requiredText)
+                commentsComponent.setValue("");
+        }
+    }
+}</script><script type="text/javascript" language="javascript">function printPreview( ){
+    var url = window.location.href ;
+    if(url.indexOf('print=true')!= -1)
+    window.print();
+    }
+printPreview();</script></head><body class="x14t p_AFMaximized"><noscript>This page uses JavaScript and requires a JavaScript enabled browser.Your browser is not JavaScript enabled.</noscript><iframe name="afr::PushIframe" id="afr::PushIframe" style="display:none" src="/epmos/afr/blank.html"></iframe><input type="hidden" id="oracle.adf.view.faces.RICH_UPDATE"><script type="text/javascript">AdfDhtmlPage.__frameBusting("differentOrigin");</script><div id="d1"><a id="d1::skip" href="#" class="x14v" style="display: none;">Skip to content</a><form id="f1" name="f1" class="xyz" method="POST" action="/epmos/faces/DocContentDisplay?_adf.ctrl-state=10pun3pa8n_50&amp;id=1002631.1"><script id="s3" type="text/javascript" src="/epmos/mosr/s_code_devh-15.3.0.0_150811.js"></script><script id="s4" type="text/javascript" src="/epmos/mosr/tz-15.3.0.0_150811.js"></script><script id="s5" type="text/javascript" src="/epmos/mosr/locale-15.3.0.0_150811.js"></script><script id="s2" type="text/javascript" src="/epmos/mosr/clickstream-15.3.0.0_150811.js"></script><div id="pgl1" class="xpf" style="width:auto;overflow:visible;background-color:White;;height:auto"><div style="overflow:hidden"><table cellpadding="0" cellspacing="0" border="0" width="100%" summary="" style="table-layout:fixed"><tbody><tr><td valign="top" style="width:10px"><div id="pgl1::l" style="overflow:hidden"><img id="s1" src="/epmos/adf/images/t.gif" alt="" width="10" height="0px"></div></td><td valign="top"><div id="pgl1::c" style="overflow:hidden"><div id="r2" class="xpg"><div id="r2:0:docMainPanel" class="x1a"><div><span style="display:none">9876</span></div><div><div id="r2:0:psl1" class="xpj kmDocBorderExternal xpf" style="width:auto;overflow:visible;height:auto"><div id="r2:0:psl1::t" style="position:relative;overflow:hidden;width:100%"><div id="r2:0:pgl14" class="x1a"><div><img id="r2:0:s111" src="/epmos/adf/images/t.gif" alt="" width="10" height="5"></div><div><table cellpadding="0" cellspacing="0" border="0" summary="" id="r2:0:Headpgl" class="x1a"><tbody><tr><td><div id="r2:0:ph22" class="x6v" style="display:none"><table class="xtx" cellpadding="0" cellspacing="0" border="0" width="0" summary=""><tbody><tr><td class="xue">&nbsp;</td><td class="xve"><table cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr><td class="x1yw"></td><td id="r2:0:ph22::_afrTtxt"><div title="Doc ID " class="xu2"><h1 class="xdl ">Doc ID </h1></div></td><td id="r2:0:ph22::_afrEps"><div class="xdl  xw8" style="display: none" title="Doc ID "></div></td><td id="r2:0:ph22::_afrStr" style="width: 100%"></td></tr></tbody></table></td><td class="xuw">&nbsp;</td></tr></tbody></table><div class="xwb"><div></div></div></div></td></tr></tbody></table></div><div><table id="r2:0:tl5" cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr id="r2:0:rl12"><td id="r2:0:cf41" align="left" width="10"><div id="r2:0:srFavorite" style="display:none"><div style="top:auto;right:auto;left:auto;bottom:auto;width:auto;height:auto;position:relative;" id="r2:0:srFavorite::content"></div></div><a id="r2:0:cil4" title="Click to add to Favorites" class="xfd" onclick="return false;" href="#"><img id="r2:0:cil4::icon" src="/epmos/common/images/favorites_qualifier_notsel.png" title="Click to add to Favorites" alt="Click to add to Favorites" class="x137"></a><span id="r2:0:pglhts1" class="x1a"><div id="r2:0:sug1:sggstrpp" style="display:none"><div style="top:auto;right:auto;left:auto;bottom:auto;width:auto;height:auto;position:relative;" id="r2:0:sug1:sggstrpp::content"></div></div><span id="r2:0:sug1:pglcl" class="x1a"></span></span><div id="r2:0:sug2:sggstrpp" style="display:none"><div style="top:auto;right:auto;left:auto;bottom:auto;width:auto;height:auto;position:relative;" id="r2:0:sug2:sggstrpp::content"></div></div><span id="r2:0:sug2:pglcl" class="x1a"></span></td><td id="r2:0:cf40" width="10"><img id="r2:0:s13" src="/epmos/adf/images/t.gif" alt="" width="10" height="10"></td><td id="r2:0:cf49" align="left"><span id="r2:0:ol22" class="xq" style="font-weight:bold;color:Black;font-size:130%"><label>Sun SPARC[TM] Enterprise M3000, M4000, M5000, M8000, M9000 XSCF Control Package (XCP) Firmware Image Software Version Matrix Information (Doc ID 1002631.1)</label></span></td><td id="r2:0:cf48" align="right"><a id="r2:0:toBottom" title="To Bottom" class="xfd" style="text-decoration:none" onclick="return false;" href="#"><img id="r2:0:toBottom::icon" src="/epmos/ui/images/quicklink_smlarrowdown_enabled.gif" title="To Bottom" alt="To Bottom" class="x137"><span class="x133">To Bottom</span></a></td><td id="r2:0:cf50"><img id="r2:0:s6" src="/epmos/adf/images/t.gif" alt="" width="20" height="10"></td></tr></tbody></table></div><div><hr id="r2:0:s4" class="x1j"></div><div><table id="r2:0:tl4" cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr id="r2:0:rl1"><td id="r2:0:cf1" valign="middle"><table cellpadding="0" cellspacing="0" border="0" summary="" id="r2:0:pgl28" class="x1a"><tbody><tr><td><table cellpadding="0" cellspacing="0" border="0" summary="" id="r2:0:pgl26" class="x1a"><tbody><tr><td><span id="r2:0:ol1" class="xq"><label>Modified:</label></span></td><td><span style="color:Black;;white-space:nowrap">28-Jul-2015</span></td><td><img id="r2:0:s1" src="/epmos/adf/images/t.gif" alt="" width="20" height="10"></td><td><span id="r2:0:ol2" class="xq"><label>Type:</label></span></td><td><span style="color:Black;;white-space:nowrap">HOWTO</span></td><td><img id="r2:0:s2" src="/epmos/adf/images/t.gif" alt="" width="20" height="10"></td><td><span id="r2:0:ol5" class="xq"><label>Migrated ID:</label></span></td><td><span style="color:Black;">203630</span></td><td><img id="r2:0:s19" src="/epmos/adf/images/t.gif" alt="" width="10" height="10"></td></tr></tbody></table></td></tr></tbody></table></td><td id="r2:0:cf2" align="right"><table id="r2:0:tl1" cellpadding="0" cellspacing="0" border="0" summary=""><tbody><tr id="r2:0:rl11"><td id="r2:0:cf51"><table cellpadding="0" cellspacing="0" border="0" summary="" id="r2:0:pgl18" class="x1a"><tbody><tr><td><span id="r2:0:ol4" class="xq"><label for="r2:soc1::content">Language:</label></span></td><td><table class="x1z" id="r2:0:soc1" cellpadding="0" cellspacing="0" border="0" summary=""><tbody><tr><td class="x12"></td><td valign="top" nowrap="" class="xpu"><select id="r2:0:soc1::content" name="r2:0:soc1" class="x2h" title="English"><option value="0" selected="">English</option><option value="1"></option></select></td></tr></tbody></table></td><td><img id="r2:0:s41" src="/epmos/adf/images/t.gif" alt="" width="20" height="0px"></td></tr></tbody></table></td><td id="r2:0:cf42"><a id="r2:0:cil3" title="Rate this document" class="xfd" onclick="return false;" href="#"><img id="r2:0:cil3::icon" src="/epmos/common/images/rate_ena_16.png" title="Rate this document" alt="Rate this document" class="x137"></a><div id="r2:0:p1" style="display:none"><div style="top:auto;right:auto;left:auto;bottom:auto;width:auto;height:auto;position:relative;" id="r2:0:p1::content"></div></div><img id="r2:0:s14" src="/epmos/adf/images/t.gif" alt="" width="20" height="10"></td><td id="r2:0:cf43"><a id="r2:0:gil3" title="Email link to this document" class="x132" href="#"><img id="r2:0:gil3::icon" src="/epmos/common/images/email_16.png" title="Email link to this document" alt="Email link to this document" class="x13a"></a><img id="r2:0:s15" src="/epmos/adf/images/t.gif" alt="" width="20" height="10"></td><td id="r2:0:cf44"><a id="r2:0:gil4" title="Open document in new window" class="x132" href="/epmos/faces/DocContentDisplay?id=1002631.1" target="_blank"><img id="r2:0:gil4::icon" src="/epmos/common/images/offsite_ena.png" title="Open document in new window" alt="Open document in new window" class="x13a"></a><img id="r2:0:s10" src="/epmos/adf/images/t.gif" alt="" width="20" height="10"></td><td id="r2:0:cf45"><a id="r2:0:cil2" title="Printable Page" class="xfe" onclick="return false;" href="#"><img id="r2:0:i27" title="Printable Page" alt="Printable Page" class="xjd" src="/epmos/ui/images/print_ena.png"></a><img id="r2:0:s25" src="/epmos/adf/images/t.gif" alt="" width="20" height="10"></td></tr></tbody></table></td></tr></tbody></table></div></div></div><div style="overflow:hidden"><div id="r2:0:psl1::c" style="overflow:hidden"><div id="r2:0:kmDocPanel" class="xpj x1a" style="width:100%;height:100%;overflow:auto;"><div><img id="r2:0:s23" src="/epmos/adf/images/t.gif" alt="" width="10" height="5"></div><div><table id="r2:0:tl7" style="table-layout:fixed; overflow:hidden;" cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr id="r2:0:rl14"><td id="r2:0:cf54" style="overflow:hidden; vertical-align:top;"><div id="r2:0:pgl25" class="x1a" style="overflow:auto;"><div><span id="r2:ot71" class="kmContent" style="font-size:small; color:Black;"><!-- class=km before applies to --><h2 class="km">Applies to:  </h2>
+Sun SPARC Enterprise M9000-32 Server - Version Not Applicable and later<br>Sun SPARC Enterprise M3000 Server - Version Not Applicable and later<br>Sun SPARC Enterprise M8000 Server - Version Not Applicable and later<br>Sun SPARC Enterprise M9000-64 Server - Version Not Applicable and later<br>Sun SPARC Enterprise M4000 Server - Version Not Applicable and later<br>All Platforms<br>
+
+<h2 class="km"><a name="GOAL"></a>Goal</h2>
+<p>The intent of this document is to provide the reader with the available versions of the Sun SPARC(R) Enterprise M3000, M4000, M5000, M8000, and M9000 XCP Firmware Image software (XCP) and to inform where and how to obtain the appropriate images.</p>
+<p>To cross reference bugs to the XCP versions containing the fix, please refer to "<a href="/epmos/faces/DocumentDisplay?parent=DOCUMENT&amp;sourceId=1002631.1&amp;id=1380260.1" target="_blank">SPARC Enterprise M3000/M4000/M5000/M8000/M9000 - XCP Firmware to Defect Cross Reference</a>".</p>
+<p>To view the table with supported hardware, firmware and operating system (OS) combinations, as well as required software patches for M-series servers, please read "<a href="/epmos/faces/DocumentDisplay?parent=DOCUMENT&amp;sourceId=1002631.1&amp;id=1145383.1" target="_blank">SPARC Enterprise M3000/M4000/M5000/M8000/M9000 Server Matrix for Hardware, Firmware and Software (Doc ID 1145383.1)</a>" .</p>
+<p>XCP firmware consists of three components, the XSCF firmware, the OpenBoot PROM (OBP) firmware and the Power On Self Test (POST) firmware. After downloading the appropriate patch for your system, download the XCP image onto your XSCF using either the Browser User Interface (BUI) or the <em>getflashimage</em> command. After succesfully downloading the XCP image onto the XSCF, run the <em>flashupdate</em> command to install the new XCP firmware onto the XSCF. Finally, in case the update contains a new version of POST or OBP, each domain needs to be rebooted to activate the new POST/OBP. For more details, please refer&nbsp; to the Browser Users Interface (BUI) ,&nbsp; <em>getflashimage</em> and <em>flashupdate</em>&nbsp; documentation.</p>
+<p>Please refer to the available XSCF user guide and release notes for: <a href="http://download.oracle.com/docs/cd/E19170-01/index.html" title="M8000/M9000 User Guide and Release Notes" target="_blank">M8000 / M9000 Product Library Index</a> , <a href="http://download.oracle.com/docs/cd/E19855-01/index.html" title="M4000/M5000 User Guide and Release Notes" target="_blank">M4000 / M5000 Product Library Index</a> and <a href="http://download.oracle.com/docs/cd/E19867-01/index.html" title="M3000 User Guide and Release Notes" target="_blank">M3000 Product Library Index</a></p>
+<p>&nbsp;</p>
+<div class="kmnotebox">To discuss this information further with Oracle experts and industry peers, we encourage you to review, join or start a discussion in the <a href="https://community.oracle.com/community/support/oracle_sun_technologies/sparc_m-series_servers">My Oracle Support Community - M Series Servers</a></div>
+<h2 class="km"><a name="FIX"></a>Solution</h2>
+<p>&nbsp;</p>
+<p><strong>Steps to Follow</strong><br>The XSCF Control Package firmware image (or XCP for short) is the software image that is downloaded and installed on to a Sun SPARC Enterprise M3000 through M9000 Extended System Control Facility Unit (XSCFU) enabling the XSCFU to function as a Service Processor.</p>
+<p>Once downloaded the patch will contain the XCP image named:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; The M3000 XCP image (i.e.&nbsp; IKXCP.tar.gz&nbsp;)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; The M4000/M5000 XCP image (i.e. &nbsp;FFXCP.tar.gz&nbsp;)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The M8000/M9000 XCP image (i.e. &nbsp;DCXCP.tar.gz&nbsp;)</p>
+<p>It is very important that the M3000 XCP image or M4000/M5000 XCP image are not installed on a Sun SPARC&nbsp; Enterprise M8000/M9000 XSCF and vice versa.</p>
+<p>SNMP MIB and other optional files will now be included within the patch package. &nbsp;It is important to read and understand the SNMP documentation and added functionality of this package prior to installing and enabling the SNMP MIB package.&nbsp;&nbsp;</p>
+<p><span style="text-decoration: underline;"><strong>NOTE:</strong></span> XCP 1093 is the minimum requirement for a domain running Solaris 10 9/10 with the processor groups observability feature enabled. Please refer to Solaris 10 9/10 Product Notes for more details about this feature.</p>
+<p>The following matrix identifies which XCP firmware images are available and where to obtain them:</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table style="width: 100%;" border="1" cellspacing="3" cellpadding="2"><colgroup> <col width="10%"> <col width="10%"> <col width="10%"> <col width="10%"> <col width="18%"></colgroup>
+<tbody>
+<tr>
+<td width="10%">
+<p align="left"><span style="font-family: Times New Roman;"><strong>XCP Release </strong></span></p>
+</td>
+<td width="10%">
+<p align="left"><span style="font-family: Times New Roman;" sizset="3" sizcache="6"><strong>OpenBoot Prom(1) <br>XSCF(1) </strong></span></p>
+</td>
+<td width="10%">
+<p align="left"><span style="font-family: Times New Roman;" sizset="4" sizcache="6"><strong>POST <br>OBP </strong></span></p>
+</td>
+<td width="10%">
+<p align="left"><span style="font-family: Times New Roman;"><strong>Date Available </strong></span></p>
+</td>
+<td style="vertical-align: top;" align="center"><strong><br>Download Location</strong></td>
+<td>
+<p align="left"><span style="font-family: Times New Roman;"><strong>Notes</strong></span></p>
+</td>
+</tr>
+<tr>
+<td><strong>XCP1120</strong></td>
+<td>
+<p>02.32.0000</p>
+<p>01.12.0000</p>
+</td>
+<td>
+<p>Post 2.17.0</p>
+<p>4.33.5.d</p>
+</td>
+<td>
+<p>M3000-M9000</p>
+<p>July 2015</p>
+</td>
+<td style="vertical-align: top;">
+<p style="text-align: center;">M3000&nbsp;<a href="/epmos/faces/ui/patch/PatchDetail.jspx?parent=DOCUMENT&amp;sourceId=1002631.1&amp;patchId=21510297" alt="XCP1120 for M3000" title="XCP1120 for M3000" target="_blank">21510297</a><br>M4000 <a href="/epmos/faces/ui/patch/PatchDetail.jspx?parent=DOCUMENT&amp;sourceId=1002631.1&amp;patchId=21510300" alt="XCP1120 for M4000" title="XCP1120 for M4000" target="_blank">21510300</a><br>M5000 <a href="/epmos/faces/ui/patch/PatchDetail.jspx?parent=DOCUMENT&amp;sourceId=1002631.1&amp;patchId=21510309" alt="XCP1120 for M5000" title="XCP1120 for M5000" target="_blank">21510309</a><br>M8000 <a href="/epmos/faces/ui/patch/PatchDetail.jspx?parent=DOCUMENT&amp;sourceId=1002631.1&amp;patchId=21510314" alt="XCP1120 for M8000" title="XCP1120 for M8000" target="_blank">21510314</a><br>M9000 <a href="/epmos/faces/ui/patch/PatchDetail.jspx?parent=DOCUMENT&amp;sourceId=1002631.1&amp;patchId=21510321" alt="XCP1120 for M9000" title="XCP1120 for M9000" target="_blank">21510321</a></p>
+</td>
+<td>&nbsp;Bug Fixes:&nbsp; 19880721, 20460828, 20412206, 20953771</td>
+</tr>
+<tr>
+<td>XCP1119</td>
+<td>
+<p>02.32.0000</p>
+<p>01.11.0009</p>
+</td>
+<td>
+<p>POST 2.17.0</p>
+<p>4.33.5.d</p>
+</td>
+<td>
+<p>M3000-M9000</p>
+<p>January 2015</p>
+</td>
+<td style="vertical-align: top;">
+<p style="text-align: center;">M3000 <a href="/epmos/faces/ui/patch/PatchDetail.jspx?parent=DOCUMENT&amp;sourceId=1002631.1&amp;patchId=20418164" target="_blank">20418164</a><br>M4000 <a href="/epmos/faces/ui/patch/PatchDetail.jspx?parent=DOCUMENT&amp;sourceId=1002631.1&amp;patchId=20418167" target="_blank">20418167</a><br>M5000 <a href="/epmos/faces/ui/patch/PatchDetail.jspx?parent=DOCUMENT&amp;sourceId=1002631.1&amp;patchId=20418170" target="_blank">20418170</a><br>M8000 <a href="/epmos/faces/ui/patch/PatchDetail.jspx?parent=DOCUMENT&amp;sourceId=1002631.1&amp;patchId=20418172" target="_blank">20418172</a><br>M9000 <a href="/epmos/faces/ui/patch/PatchDetail.jspx?parent=DOCUMENT&amp;sourceId=1002631.1&amp;patchId=20418174" target="_blank">20418174</a></p>
+</td>
+<td>
+<p>Bug fixes: 19796249, 19842625, 20106389<br><br></p>
+</td>
+</tr>
+<tr>
+<td>XCP1118</td>
+<td>
+<p>02.32.0000</p>
+<p>01.11.0008</p>
+</td>
+<td>
+<p>POST 2.17.0</p>
+<p>4.33.5.d</p>
+</td>
+<td>
+<p>M3000-M9000</p>
+<p>October 2014</p>
+</td>
+<td style="vertical-align: top;">
+<p style="text-align: center;"><br>Not Available - Obsoleted by 1120</p>
+</td>
+<td>
+<p>Bug fixes: 17544453, 18227397,18879056, 18923614, 19279982, 19695980<br><br></p>
+</td>
+</tr>
+<tr>
+<td>XCP1117</td>
+<td>
+<p>02.32.0000</p>
+<p>01.11.0007</p>
+</td>
+<td>POST 2.17.0<br><br>4.33.5.d</td>
+<td>
+<p>M3000 - M9000</p>
+<p>February 2014</p>
+</td>
+<td style="vertical-align: top;">
+<p style="text-align: center;"><br>Not Available - Obsoleted by 1119</p>
+</td>
+<td>Bug fixes: 18183768, 18164678, 17348428, 17337119</td>
+</tr>
+<tr>
+<td>XCP1116</td>
+<td>
+<p>02.32.0000</p>
+<p>01.11.0006</p>
+</td>
+<td>POST 2.17.0<br><br>4.33.5.d</td>
+<td>
+<p>M3000 - M9000</p>
+<p>August 2013</p>
+</td>
+<td style="vertical-align: top; text-align: center;"><br>Not Available - Obsoleted by 1118</td>
+<td>
+<p>Bug fixes: 16011251, 16825834, 16978703, 17062578, 17179848,&nbsp; 17179990, 17193451, 17284889</p>
+<p>New features: support for 2048-bit SSL certificates</p>
+</td>
+</tr>
+<tr>
+<td>XCP1115</td>
+<td>02.32.0000<br>01.11.0005</td>
+<td>POST 2.17.0<br>4.33.5.d</td>
+<td>
+<p>M3000 - M9000 <br>April 2013</p>
+</td>
+<td style="vertical-align: top;">
+<p style="text-align: center;">Obsoleted by XCP1116 - See <a href="/epmos/faces/DocumentDisplay?parent=DOCUMENT&amp;sourceId=1002631.1&amp;id=1564729.1" target="_blank">1564729.1</a> for more information on issues with this release.</p>
+</td>
+<td>Bug fixes:&nbsp; 15891122, 15818191, 15818189, 15807140, 15789531, 15757233, 16447982, 16457527, 15921263, 15820827, 16006105, 16242988, 16247278<br><br>tzdata</td>
+</tr>
+<tr>
+<td>XCP1114<br>EOL</td>
+<td>
+<p>02.32.0000<br>01.11.0004</p>
+</td>
+<td>
+<p>POST 2.17.0<br>4.33.5.d</p>
+</td>
+<td>
+<p>M3000 - M9000 <br>November 2012</p>
+</td>
+<td style="vertical-align: top;">
+<p>Not Available - See <a href="/epmos/faces/DocumentDisplay?parent=DOCUMENT&amp;sourceId=1002631.1&amp;id=1538391.1" alt="1538391.1" title="1538391.1" target="_blank">1538391.1</a> for more information on issues with this release.</p>
+</td>
+<td>
+<p>Bug fixes : 6750732, 7058986, 7154759, 7072870, 7147503, 7142507, 7189317, 7032793, 7081753, 6931105, 7048572, 7187299, 7187556, 7203054, 7193189</p>
+<p>tzdata2012c</p>
+</td>
+</tr>
+<tr>
+<td>XCP1113<br>EOL</td>
+<td>
+<p>02.29.0000 <br>01.11.0003</p>
+</td>
+<td>
+<p>POST 2.17.0<br>4.33.5.a</p>
+</td>
+<td>
+<p>M3000 - M9000 <br>July 2012</p>
+</td>
+<td style="vertical-align: top;" align="center"><br>Not Available - Obsoleted by 1116</td>
+<td>
+<p>Bug fixes :&nbsp; 7159171, 7132774, 7112173, 7160215, 6778374, 7154883, 7166651, 7087685, 7167659, 7180251</p>
+<p>tzdata2011h</p>
+</td>
+</tr>
+<tr>
+<td>XCP 1112<br>EOL</td>
+<td>02.29.0000 <br>01.11.0002</td>
+<td>POST 2.17.0 <br>4.33.5.a</td>
+<td>
+<p>M3000 - M9000 <br>May 2012</p>
+</td>
+<td style="vertical-align: top;" align="center" valign="middle">
+<p><br>Not Available - Obsoleted by 1114</p>
+</td>
+<td>
+<p>Bug fixes : 7162656 <br><br>New features : support for RAID-capable IOUA cards on M8000/M9000</p>
+<p><br>tzdata2011h</p>
+</td>
+</tr>
+<tr>
+<td>XCP 1111<br>EOL</td>
+<td>02.29.0000 <br>01.11.0000</td>
+<td>POST 2.17.0 <br>4.33.5.a</td>
+<td>M3000 - M9000&nbsp;<br>April 2012</td>
+<td style="vertical-align: top;" align="center">
+<p>&nbsp;</p>
+<p>Not Available - Obsoleted by 1112</p>
+<p>&nbsp;</p>
+</td>
+<td>Bug fixes : 7150657<br><br>tzdata2011h</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1110<br>EOL</p>
+</td>
+<td>
+<p align="left">02.29.0000<br>01.11.0000</p>
+</td>
+<td>
+<p align="left">POST 2.17.0 <br>4.33.5.a</p>
+</td>
+<td>
+<p align="left">M3000 - M9000<br>February 2012</p>
+</td>
+<td style="vertical-align: top;" align="center">
+<p>&nbsp;</p>
+<p>Not Available - Obsoleted by 1111</p>
+</td>
+<td>
+<p align="left">Bug fixes :&nbsp; 7046697, 7051222, 7012224, 7025452, 6877010, 7041235, 7041257, 7041570, 7066459, 7082602, 7072071, 7031894, 7069669, 7022369, 7038672, 7067503, 7117307, 7088671, 7098709, 7058615, 7078677, 7043769, 7090809, 7080011, 7096831<br>7082446, 7114369, 7113480, 7092822, 7113201, 7147503, 7142507</p>
+<p align="left">tzdata2011h</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1102<br>EOL</p>
+</td>
+<td>
+<p align="left">02.24.0000<br>01.10.0002</p>
+</td>
+<td>
+<p align="left">POST 2.15.0 <br>4.33.0.a</p>
+</td>
+<td>
+<p align="left">M3000 - M9000<br>June 2011</p>
+</td>
+<td style="vertical-align: top;" align="center"><br><br>
+<p>Not Available - Obsoleted by 1112</p>
+</td>
+<td>
+<p align="left">Bug fixes: 7003451, 6992773, 7001257, 7022594, 6923186, 6971172, 6982845, 7006542, 7019526, 7013075, 6999483, 7021241, 7018096, 6818189, 6907290, 7020683, 7042939, 7036027, 7037757, 7042804<br><br>New features:&nbsp; non-zero headroom value now results in a COD violation, Customers using the Sun Flash Accelerator F20 PCIe Card must upgrade to xcp1102 as soon as<br>possible.</p>
+<p align="left">tzdata-2010m</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1101<br>EOL</p>
+</td>
+<td>
+<p align="left">02.21.0000<br>01.10.0001</p>
+</td>
+<td>
+<p align="left">POST 2.15.0 <br>4.24.16</p>
+</td>
+<td>
+<p align="left">M3000 - M9000<br>Mar 2011</p>
+</td>
+<td style="vertical-align: top;" align="center"><br><br>Not Available - Obsoleted by 1110</td>
+<td>
+<p align="left">Bug fixes: 7010894, 7013390, 6815259, 6923191, 6940532, 6982003, 6983908, 6986188, 6995112, 6791431, 6883796, 6931093, 6931096, 6939949, 6946029, 6988801, 6993151, 6994665, 7000103, 7002609, 7003622, 7007416, 7008908, 7009226, 7010255<br><br>New features:&nbsp; <br>Support for a new COD permit delivery system (unlocked COD keys / Oracle's E-Delivery process / no more support for headroom).</p>
+<p>tzdata-2010m</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1100<br>EOL</p>
+</td>
+<td>
+<p align="left">02.18.0000<br>01.10.0000</p>
+</td>
+<td>
+<p align="left">POST 2.14.0<br>4.24.15</p>
+</td>
+<td>
+<p align="left">M3000 - M9000<br>Dec 2010</p>
+</td>
+<td style="vertical-align: top;" align="center"><br><br>Not Available - Obsoleted by 1102</td>
+<td>
+<p align="left">Bug fixes: 6946028, 6946490, 6996000, 7002314, 6908805, 6913284, 6918829, 6921574, 6927116, 6939537, 6940073, 2193754, 2193937, 2194039, 2194051, 2194335, 6670662, 6791410, 6933792, 6941944, 6946487, 6952619, 2194446, 2195170, 2195421, 6927721, 6940535, 6942144, 6960111, 6961919, 6966764, 6905441, 6913987, 6914053, 6914377, 6921571, 6929944, 6967001, 6971514, 6984765, 6797558<br><br>New features:&nbsp; <br>SPARC64 VII+ processor on the M4000-M9000 Servers.<br>Airflow indicator feature for M4000/M5000 Servers.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1093<br>EOL</p>
+</td>
+<td>
+<p align="left">02.16.0000<br>01.09.0003</p>
+</td>
+<td>
+<p align="left">POST 2.14.0<br>4.24.14</p>
+</td>
+<td>
+<p align="left">M3000-M9000<br>Aug 2010</p>
+</td>
+<td style="vertical-align: top;"><br><br>Not Available - See <a href="/epmos/faces/DocumentDisplay?parent=DOCUMENT&amp;sourceId=1002631.1&amp;id=1220873.1">Document 1220873.1</a> from more information on issues with this release.&nbsp;</td>
+<td>
+<p align="left">Bug fixes: 6940544, 6962007, 6962929, 6896055, 6930008, 6938653, 6940788, 6952185<br><br>Changes to COD Terminology: Please refer to the on-line documentation web site <a href="http://download.oracle.com/docs/cd/E19867-01/index.html">M3000</a>, <a href="http://download.oracle.com/docs/cd/E19855-01/index.html">M4000/M5000</a>, <a href="http://download.oracle.com/docs/cd/E19170-01/index.html">M8000/M9000</a><br><br>New features: <a href="http://download.oracle.com/docs/cd/E19682-01/index.html">Support for Sun Flash Accelerator F20 PCIe Card</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1092<br>EOL</p>
+</td>
+<td>
+<p align="left">02.14.0000<br>01.09.0002</p>
+</td>
+<td>
+<p align="left">POST 2.13.0<br>4.24.13</p>
+</td>
+<td>
+<p align="left">M3000-M9000<br>Apr 2010</p>
+</td>
+<td style="vertical-align: top;"><br><br><br><br>Not Available - See <a href="/epmos/faces/DocumentDisplay?parent=DOCUMENT&amp;sourceId=1002631.1&amp;id=1220873.1">Document 1220873.1</a> from more information on issues with this release.</td>
+<td>
+<p align="left">Bug fixes: 6929639, 6935346, 6936544, 6693778, 6771052, 6794232, 6796931, 6819296, 6861630, 6862682, 6868683, 6870490, 6875462, 6882249, 6885085, 6885581, 6888497, 6888970, 6888976, 6888979, 6889884, 6890817, 6891316, 6893578, 6894238, 6894382, 6894410, 6896929, 6897059, 6898758, 6898759, 6900533, 6902766, 6902772, 6904626, 6905442, 6907182, 6907184, 6911309, 6906738, 6909448, 6911218, 6913019, 6913991, 6916641<br><br>New features:&nbsp; Support for Packet Filtering.&nbsp; See new manpages for setpacketfilters(8) and showpacketfilters(8).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1091<br>EOL</p>
+</td>
+<td>
+<p align="left">02.13.0000<br>01.09.0001</p>
+</td>
+<td>
+<p align="left">POST 2.13.0<br>4.24.12</p>
+</td>
+<td>
+<p align="left">M3000-M9000<br>Nov 2009</p>
+</td>
+<td style="vertical-align: top;" align="center"><br><br>NA</td>
+<td>
+<p align="left">Bug fixes: 6794811, 6808531, 6810902, 6818718, 6828477, 6830790, 6838671, 6847019, 6847963, 6851009, 6852765, 6858201, 6858203, 6864416, 6867706, 6867707, 6869796, 6869800, 6870846, 6871640, 6875469, 6882322, 6852845, 6862966, 6865485, 6870726, 6875804, 6879471, 6880064, 6882256, 6882309, 6882313, 6885007, 6889382, 6889875, 6893981, 6897059<br>New features: <a href="http://download.oracle.com/docs/cd/E19170-01/821-1035-12/821-1035-12.pdf" title="XCP 1091 Product Notes" target="_blank">Active Directory, LDAP over SSL</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1090<br>EOL</p>
+</td>
+<td>
+<p align="left">02.11.0000<br>01.09.0000</p>
+</td>
+<td>
+<p align="left">POST 2.11.0<br>4.24.11</p>
+</td>
+<td>
+<p align="left">M3000-M9000 <br>Aug 2009</p>
+</td>
+<td style="vertical-align: top;" align="center"><br><br><br>NA</td>
+<td>
+<p align="left">Bug fixes: 6693088, 6723884, 6741855, 6768750, 6867325, 2174505, 6636243, 6669346, 6704911, 6729779, 6751151, 6756464, 6773905, 6789847, 6802613, 6808532, 6814729, 6823219, 6828180, 6829233, 6829718, 6831733, 6835875, 6581684, 6639445, 6757614, 6801549, 6827259, 6849208, 6849663, 6635693, 6783961, 6829469, 6845285, 6845781, 6856272<br>New features: <a href="http://download.oracle.com/docs/cd/E19170-01/821-0335-12/821-0335-12.pdf" title="XCP1090 Product Notes">SPARC64 VII 2.88 GHz processor</a>, showdateoffset(8), <a href="http://download.oracle.com/docs/cd/E19170-01/821-0335-12/821-0335-12.pdf">Airflow Indicator</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1082<br>EOL</p>
+</td>
+<td>
+<p align="left">02.09.0000 <br>01.08.0005</p>
+</td>
+<td>
+<p align="left">POST 2.9.0<br>OBP 4.24.10</p>
+</td>
+<td>
+<p align="left">M3000-M9000 <br>May 2009</p>
+</td>
+<td style="vertical-align: top;" align="center"><br><br><br>NA</td>
+<td>
+<p align="left">Bug fixes: 6714850, 6614835, 6608959, 6652700, 6749184, 6698356, 6772115, 6745304, 6789113, 6623945, 6626187, 6623949, 6667077, 6589414, 6742502, 6790005, 6584843, 6742395, 6713810, 6582835, 6801476, 6799922, 6633118, 6775857, 6793901, 6797557, 6786707, 6812005, 6816465,6735711, 6814728, 6744013, 6786770, 6745289, 6734322, 6778132, 6756052, 6765466, 6767612, 6763349, 6717438, 6635040, 6801356, 6805455, 6821960, 6772115</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1081<br>EOL</p>
+</td>
+<td>
+<p align="left">02.08.0000<br>01.08.0004</p>
+</td>
+<td>
+<p align="left">POST 2.8.0<br>OBP 4.24.10</p>
+</td>
+<td>
+<p align="left">M3000-M9000<br>Feb 2009</p>
+</td>
+<td style="vertical-align: top;" align="center"><br><br><br>NA</td>
+<td>
+<p align="left">Bug fixes: 6601940, 6635040, 6635040, 6635059, 6635059, 6644091, 6644971, 6668290, 6675409, 6711260, 6716495, 6732712, 6742457, 6743183, 6743842, 6747279, 6749980, 6754066, 6754071, 6754508, 6755986, 6757776, 6759468, 6759532, 6759987, 6762110, 6764855, 6767417, 6769868, 6772968, 6773750, 6775856, 6776532, 6788348<br><br>Key features : <br>New feature: power management support for M3000, setloginlockout / showloginlockout commands</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1080 <br>EOL</p>
+</td>
+<td>
+<p align="left">02.07.0000<br>01.08.0002</p>
+</td>
+<td>
+<p align="left">POST 2.7.0<br>OBP 4.24.10</p>
+</td>
+<td>
+<p align="left">M3000<br>31st Oct 2008<br>M4000-M9000<br>mid Nov 2008</p>
+</td>
+<td style="vertical-align: top;" align="center"><br><br><br><br><br><br><br><br>NA</td>
+<td>
+<p align="left">Bug fixes: 6575425, 6645571, 6669361, 6682936, 6685724, 6696502, 6705870, 6740203, 6579253, 6618498, 6644490, 6687545, 6687663, 6694376, 6695866, 6699196, 6700019, 6700025, 6700779, 6703402,6681287, 6698396, 6702492, 6706213, 6706348, 6712009, 6723546, 2161838, 2164613, 6523740, 6664134, 6682929, 6688868, 6695841, 6695890, 6701659, 6702356, 6708053, 6709255, 6711370, 6714164, 6716494, 6716864, 6718189, 6718649, 6721895, 6723773, 2162599, 2164611, 2164612, 2165373, 2165579, 2165840, 2166682, 6596993, 6614427, 6627865, 6653783, 6665174, 6669369, 6678956, 6679286, 6689632, 6704043, 6709441, 6712056, 6713429, 6713787, 6716551, 6717594, 6723419, 6725315, 6725809, 6728737, 6729224, 6729758, 6729773, 6729776, 6729856, 6730225, 6734057, 6737740, 2166507, 6620681, 6674742, 6716103, 6723195, 6738494, 6738503, 6739070, 6739071, 6740099, 6741074, 6742279, 6742337, 6743116, 6747138, 6749184 &nbsp;&nbsp;&nbsp; <br>&nbsp; <br>Key features : Support for M3000 servers<br>New features: off-platform backup and restore of XSCF configuration / dumpconfig/restoreconfig commands, ping command, traceroute command</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1072 <br>EOL</p>
+</td>
+<td>
+<p align="left">02.03.0000<br>01.07.0005</p>
+</td>
+<td>
+<p align="left">POST 2.3.0<br>OBP 4.24.8</p>
+</td>
+<td>
+<p align="left">M4000-M9000<br>Sep 2008</p>
+</td>
+<td style="vertical-align: top;" align="center"><br><br>NA</td>
+<td>
+<p align="left">Bug fixes: 2162561, 2162783, 2162874, 2163001, 2163491, 2164098, 2164855, 6667692, 6680705, 6693898, 6700185, 6700222, 6705272, 6709701, 6722617, 6723549<br>&nbsp; <br>Key features : <br>New feature:</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1071 <br>EOL</p>
+</td>
+<td>
+<p align="left">02.03.0000<br>01.07.0001</p>
+</td>
+<td>
+<p align="left">POST 2.3.0<br>OBP 4.24.8</p>
+</td>
+<td>
+<p align="left">M4000-M9000<br>Jun 2008</p>
+</td>
+<td style="vertical-align: top;" align="center"><br><br><br>NA</td>
+<td>
+<p align="left">Bug fixes: 2161616, 2162988, 6473379, 6528600, 6543189, 6545482, 6559060, 6566540, 6571840, 6574841, 6583053, 6588200, 6589870, 6590866, 6598444, 6612827, 6615720, 6618833, 6626181, 6626183, 6626779, 6626912, 6628419, 6630959, 6632063, 6635895, 6641765, 6641768, 6645828, 6654373, 6655686, 6660264, 6661840, 6664046, 6666291, 6667088, 6667626, 6668614, 6677063, 6677958, 6683763, 6685374, 6685379 <br>&nbsp; <br>Key features : Support for SPARC64 VII processors<br>New feature: restoredefaults command</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1070<br>EOL</p>
+</td>
+<td>
+<p align="left">02.02.0000<br>01.07.0000</p>
+</td>
+<td>
+<p align="left">POST 2.2.0<br>OBP 4.24.7</p>
+</td>
+<td>
+<p align="left">M8000-M9000<br>Apr 2008</p>
+</td>
+<td style="vertical-align: top;" align="center"><br><br>NA</td>
+<td>
+<p align="left">This version is released only for M8000 / M9000<br>For M4000 / M5000, use XCP 1061<br>Bugs fixes: 6623867, 6625938, 6636985, 6639902, 6570300, 6661123, 6654344, 6652686, 6649341 <br>Key features : Support for SPARC64 VII processors</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><strong>XCP 1061<br>EOL</strong></p>
+</td>
+<td>
+<p align="left">01.30.0000<br>01.06.0002</p>
+</td>
+<td>
+<p align="left">POST 1.24.0<br>OBP 4.24.4</p>
+</td>
+<td>
+<p align="left">M4000-M9000<br>Feb 2008</p>
+</td>
+<td style="vertical-align: top;" align="left">1. If you are on FW 1050 or newer, you can go to any new FW<br><br>2. If you are on FW 104x, you need to upgrade to an interim FW between 1050 and 1070 before going to the latest. <br><br>3. The Only Interim FW made available is 1061.<br><br>To obtain XCP1061 open a Service Request.</td>
+<td>
+<p align="left">Bugs fixes. 6645572, 6645570, 6645560, 6639839, 6639902 <br>Key features :</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1060 <br>EOL</p>
+</td>
+<td>
+<p align="left">01.30.0000<br>01.06.0001</p>
+</td>
+<td>
+<p align="left">POST 1.24.0<br>OBP 4.24.4</p>
+</td>
+<td>
+<p align="left">M4000-M9000<br>Dec 2007</p>
+</td>
+<td style="vertical-align: top;" align="center"><br>NA</td>
+<td>
+<p align="left">Bugs fixes.<br>Key features :<br>BUI enhancements (COD, maintenance), Faults clearing changes ...</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1050 <br>EOL</p>
+</td>
+<td>
+<p align="left">01.29.0000<br>01.05.0002</p>
+</td>
+<td>
+<p align="left">POST 1.24.0<br>OBP 4.24.3</p>
+</td>
+<td>
+<p align="left">M5000-M9000<br>Oct 2007</p>
+</td>
+<td style="vertical-align: top;" align="center"><br>NA</td>
+<td>
+<p align="left">Bugs fixes.<br>Key features :<br>COD, Dual SP, DR, setupplatform,fault clearing, enhanced BUI, Service Tags, Relaxed Ordering ...</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">XCP 1041 <br>EOL</p>
+</td>
+<td>
+<p align="left">01.25.0000<br>01.04.0002</p>
+</td>
+<td>
+<p>&nbsp;</p>
+</td>
+<td>
+<p align="left">M4000-M9000<br>May &nbsp;2007</p>
+</td>
+<td style="vertical-align: top;" align="center"><br>NA</td>
+<td>
+<p align="left">Bug fix release. &nbsp;Contains no new features. &nbsp;</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note(1): &nbsp;As displayed by the &nbsp;version -c xcp -v&nbsp; command</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="kmnotebox">
+<a name="aref_section21"></a><h4 class="km">Where to locate patches, updates, and/or firmware images?</h4>
+Product patches, updates and firmware are available for download from <a href="https://support.oracle.com/" title="My Oracle Support" target="_blank">My Oracle Support</a>, on the <strong>Patches and Updates</strong> tab across the top of the page (<em>below where your user name or email is displayed once logged in</em>).<br>
+<blockquote><strong>SEARCH TIPS:</strong>&nbsp; Search for the patch using the <strong><em>Advanced Search</em></strong> option and choose to filter the results based on your system type:<br>
+<blockquote>For example choose <em>Sun SPARC Enterprise M3000</em> or <em>Sun SPARC Enterprise M8000</em> or whatever system you are looking for an image for.</blockquote>
+After selecting the appropriate system, the next drop-down menu will ask you to sort through a list of XCP releases and select the desired release (we suggest the latest).&nbsp; <br><br>After selecting the XCP version and clicking search,&nbsp; a listing will appear that shows you the patch ID which you can open and download the firmware from.</blockquote>
+Information on accessing and using My Oracle Support can be found at the <a href="http://www.oracle.com/us/support/044752.html" target="_blank">My Oracle Support Welcome Center for Oracle Sun Customers and Partners.</a></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>
+<div>&nbsp;</div>
+</div>
+</span></div></div></td></tr></tbody></table></div><div><img id="r2:0:s51" src="/epmos/adf/images/t.gif" alt="" width="10" height="10"><span id="r2:0:pgl29" class="x1a"><img id="r2:0:s52" src="/epmos/adf/images/t.gif" alt="" width="10" height="10">Didn't find what you are looking for?<img id="r2:0:s53" src="/epmos/adf/images/t.gif" alt="" width="10" height="10"><button id="r2:0:cb1" class="x7j" style="vertical-align:middle; height:19px;" onclick="return false;"><img src="/epmos/common/images/comm_thread_15x15.png" alt="" class="xf7"><span title="" class="xfa">Ask in Community...</span></button></span></div><div><span id="r2:0:pgl5" class="x1a"><img id="r2:0:s7" src="/epmos/adf/images/t.gif" alt="" width="10" height="10"><div id="r2:0:sdh1" title="Related Products" class="x6w"><table class="p_AFDisclosed xty" cellpadding="0" cellspacing="0" border="0" width="0" summary=""><tbody><tr><td class="xuj">&nbsp;</td><td class="xvf"><table cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr><td class="xtm"><a href="#" onclick="this.focus();return false" class="xtu x1aw" id="r2:0:sdh1::_afrDscl" title="Collapse Related"></a></td><td class="x1yx"></td><td id="r2:0:sdh1::_afrTtxt"><div title="Related" class="xu3" style="width: 54px; max-width: 54px;"><h1 class="xdm ">Related</h1></div></td><td id="r2:0:sdh1::_afrEps"><div class="xdm  xw9" style="display: none" title="Related"></div></td><td id="r2:0:sdh1::_afrStr" style="width: 100%"></td></tr></tbody></table></td><td class="xv1">&nbsp;</td></tr></tbody></table><div class="xwg"><div><div id="r2:0:ph2" title="Related Products" class="x6v"><table class="xtx" cellpadding="0" cellspacing="0" border="0" width="0" summary=""><tbody><tr><td class="xut">&nbsp;</td><td class="xvh"><table cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr><td class="x1yw"></td><td id="r2:0:ph2::_afrTtxt"><div title="Products" class="xu2" style="width: 54px; max-width: 54px;"><h2 class="xdo ">Products</h2></div></td><td id="r2:0:ph2::_afrEps"><div class="xdo  xw8" style="display: none" title="Products"></div></td><td id="r2:0:ph2::_afrStr" style="width: 100%"></td></tr></tbody></table></td><td class="xvb">&nbsp;</td></tr></tbody></table><div class="xwl"><div><div id="r2:0:pl1" class="x3q"><ul><li value="1"><span id="r2:0:i1:0:pgl3" class="x1a"><a id="r2:0:i1:0:gl14" title="Sun Microsystems" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=line&amp;id=LI_3_102LY4W&amp;name=Sun%20Microsystems&amp;source=" target="_parent">Sun Microsystems</a> &gt; <a id="r2:0:i1:0:gl15" title="Servers" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=family&amp;id=FI_3_102LY5C&amp;name=Servers&amp;source=" target="_parent">Servers</a> &gt; <a id="r2:0:i1:0:gl16" title="High-End Servers" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=area&amp;id=AI_3_104QSCQ&amp;name=High-End%20Servers&amp;source=" target="_parent">High-End Servers</a> &gt; <a id="r2:0:i1:0:gl17" title="Sun SPARC Enterprise M9000-32 Server" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=product&amp;id=PI_3_VFE7HZ&amp;name=Sun%20SPARC%20Enterprise%20M9000-32%20Server&amp;source=" target="_parent">Sun SPARC Enterprise M9000-32 Server</a> &gt; <a id="r2:0:i1:0:gl18" title="Software Configuration" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=component&amp;id=CI_3_3U0X_3056&amp;prodid=PI_3_VFE7HZ&amp;name=Software%20Configuration&amp;source=" target="_parent">Software Configuration</a> &gt; <a id="r2:0:i1:0:gl19" title="Firmware" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=subcomponent&amp;id=SCI_3_3U12_3583&amp;prodid=PI_3_VFE7HZ&amp;comp=CI_3_3U0X_3056&amp;name=Firmware&amp;source=" target="_parent">Firmware</a></span></li><li value="2"><span id="r2:0:i1:1:pgl3" class="x1a"><a id="r2:0:i1:1:gl14" title="Sun Microsystems" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=line&amp;id=LI_3_102LY4W&amp;name=Sun%20Microsystems&amp;source=" target="_parent">Sun Microsystems</a> &gt; <a id="r2:0:i1:1:gl15" title="Servers" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=family&amp;id=FI_3_102LY5C&amp;name=Servers&amp;source=" target="_parent">Servers</a> &gt; <a id="r2:0:i1:1:gl16" title="Entry-Level Servers" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=area&amp;id=AI_3_104QSCO&amp;name=Entry-Level%20Servers&amp;source=" target="_parent">Entry-Level Servers</a> &gt; <a id="r2:0:i1:1:gl17" title="Sun SPARC Enterprise M3000 Server" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=product&amp;id=PI_3_VFE79B&amp;name=Sun%20SPARC%20Enterprise%20M3000%20Server&amp;source=" target="_parent">Sun SPARC Enterprise M3000 Server</a> &gt; <a id="r2:0:i1:1:gl18" title="Software Configuration" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=component&amp;id=CI_3_3U0X_5994&amp;prodid=PI_3_VFE79B&amp;name=Software%20Configuration&amp;source=" target="_parent">Software Configuration</a> &gt; <a id="r2:0:i1:1:gl19" title="Firmware" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=subcomponent&amp;id=SCI_3_3U10_6940&amp;prodid=PI_3_VFE79B&amp;comp=CI_3_3U0X_5994&amp;name=Firmware&amp;source=" target="_parent">Firmware</a></span></li><li value="3"><span id="r2:0:i1:2:pgl3" class="x1a"><a id="r2:0:i1:2:gl14" title="Sun Microsystems" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=line&amp;id=LI_3_102LY4W&amp;name=Sun%20Microsystems&amp;source=" target="_parent">Sun Microsystems</a> &gt; <a id="r2:0:i1:2:gl15" title="Servers" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=family&amp;id=FI_3_102LY5C&amp;name=Servers&amp;source=" target="_parent">Servers</a> &gt; <a id="r2:0:i1:2:gl16" title="High-End Servers" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=area&amp;id=AI_3_104QSCQ&amp;name=High-End%20Servers&amp;source=" target="_parent">High-End Servers</a> &gt; <a id="r2:0:i1:2:gl17" title="Sun SPARC Enterprise M8000 Server" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=product&amp;id=PI_3_VFE75E&amp;name=Sun%20SPARC%20Enterprise%20M8000%20Server&amp;source=" target="_parent">Sun SPARC Enterprise M8000 Server</a> &gt; <a id="r2:0:i1:2:gl18" title="Software Configuration" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=component&amp;id=CI_3_3U0X_1014&amp;prodid=PI_3_VFE75E&amp;name=Software%20Configuration&amp;source=" target="_parent">Software Configuration</a> &gt; <a id="r2:0:i1:2:gl19" title="Firmware" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=subcomponent&amp;id=SCI_3_3U10_5049&amp;prodid=PI_3_VFE75E&amp;comp=CI_3_3U0X_1014&amp;name=Firmware&amp;source=" target="_parent">Firmware</a></span></li><li value="4"><span id="r2:0:i1:3:pgl3" class="x1a"><a id="r2:0:i1:3:gl14" title="Sun Microsystems" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=line&amp;id=LI_3_102LY4W&amp;name=Sun%20Microsystems&amp;source=" target="_parent">Sun Microsystems</a> &gt; <a id="r2:0:i1:3:gl15" title="Servers" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=family&amp;id=FI_3_102LY5C&amp;name=Servers&amp;source=" target="_parent">Servers</a> &gt; <a id="r2:0:i1:3:gl16" title="High-End Servers" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=area&amp;id=AI_3_104QSCQ&amp;name=High-End%20Servers&amp;source=" target="_parent">High-End Servers</a> &gt; <a id="r2:0:i1:3:gl17" title="Sun SPARC Enterprise M9000-64 Server" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=product&amp;id=PI_3_VFDDMZ&amp;name=Sun%20SPARC%20Enterprise%20M9000-64%20Server&amp;source=" target="_parent">Sun SPARC Enterprise M9000-64 Server</a> &gt; <a id="r2:0:i1:3:gl18" title="Software Configuration" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=component&amp;id=CI_3_3U0X_1015&amp;prodid=PI_3_VFDDMZ&amp;name=Software%20Configuration&amp;source=" target="_parent">Software Configuration</a> &gt; <a id="r2:0:i1:3:gl19" title="Firmware" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=subcomponent&amp;id=SCI_3_3U12_3585&amp;prodid=PI_3_VFDDMZ&amp;comp=CI_3_3U0X_1015&amp;name=Firmware&amp;source=" target="_parent">Firmware</a></span></li><li value="5"><span id="r2:0:i1:4:pgl3" class="x1a"><a id="r2:0:i1:4:gl14" title="Sun Microsystems" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=line&amp;id=LI_3_102LY4W&amp;name=Sun%20Microsystems&amp;source=" target="_parent">Sun Microsystems</a> &gt; <a id="r2:0:i1:4:gl15" title="Servers" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=family&amp;id=FI_3_102LY5C&amp;name=Servers&amp;source=" target="_parent">Servers</a> &gt; <a id="r2:0:i1:4:gl16" title="Midrange Servers" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=area&amp;id=AI_3_104QSCS&amp;name=Midrange%20Servers&amp;source=" target="_parent">Midrange Servers</a> &gt; <a id="r2:0:i1:4:gl17" title="Sun SPARC Enterprise M4000 Server" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=product&amp;id=PI_3_VFE7IR&amp;name=Sun%20SPARC%20Enterprise%20M4000%20Server&amp;source=" target="_parent">Sun SPARC Enterprise M4000 Server</a> &gt; <a id="r2:0:i1:4:gl18" title="Software Configuration" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=component&amp;id=CI_3_3U0X_3264&amp;prodid=PI_3_VFE7IR&amp;name=Software%20Configuration&amp;source=" target="_parent">Software Configuration</a> &gt; <a id="r2:0:i1:4:gl19" title="Firmware" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=subcomponent&amp;id=SCI_3_3U10_2845&amp;prodid=PI_3_VFE7IR&amp;comp=CI_3_3U0X_3264&amp;name=Firmware&amp;source=" target="_parent">Firmware</a></span></li><li value="6"><span id="r2:0:i1:5:pgl3" class="x1a"><a id="r2:0:i1:5:gl14" title="Sun Microsystems" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=line&amp;id=LI_3_102LY4W&amp;name=Sun%20Microsystems&amp;source=" target="_parent">Sun Microsystems</a> &gt; <a id="r2:0:i1:5:gl15" title="Servers" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=family&amp;id=FI_3_102LY5C&amp;name=Servers&amp;source=" target="_parent">Servers</a> &gt; <a id="r2:0:i1:5:gl16" title="Midrange Servers" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=area&amp;id=AI_3_104QSCS&amp;name=Midrange%20Servers&amp;source=" target="_parent">Midrange Servers</a> &gt; <a id="r2:0:i1:5:gl17" title="Sun SPARC Enterprise M5000 Server" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=product&amp;id=PI_3_VFE7UP&amp;name=Sun%20SPARC%20Enterprise%20M5000%20Server&amp;source=" target="_parent">Sun SPARC Enterprise M5000 Server</a> &gt; <a id="r2:0:i1:5:gl18" title="Software Configuration" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=component&amp;id=CI_3_3U0X_8186&amp;prodid=PI_3_VFE7UP&amp;name=Software%20Configuration&amp;source=" target="_parent">Software Configuration</a> &gt; <a id="r2:0:i1:5:gl19" title="Firmware" href="/epmos/main/kmservlet?operation=doSearch&amp;task=SearchProduct&amp;type=subcomponent&amp;id=SCI_3_3U10_8594&amp;prodid=PI_3_VFE7UP&amp;comp=CI_3_3U0X_8186&amp;name=Firmware&amp;source=" target="_parent">Firmware</a></span></li></ul></div></div></div></div><div id="r2:0:ph3" title="Related Keywords" class="x6v"><table class="xtx" cellpadding="0" cellspacing="0" border="0" width="0" summary=""><tbody><tr><td class="xut">&nbsp;</td><td class="xvh"><table cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr><td class="x1yw"></td><td id="r2:0:ph3::_afrTtxt"><div title="Keywords" class="xu2" style="width: 60px; max-width: 60px;"><h2 class="xdo ">Keywords</h2></div></td><td id="r2:0:ph3::_afrEps"><div class="xdo  xw8" style="display: none" title="Keywords"></div></td><td id="r2:0:ph3::_afrStr" style="width: 100%"></td></tr></tbody></table></td><td class="xvb">&nbsp;</td></tr></tbody></table><div class="xwl"><div><img id="r2:0:s30" src="/epmos/adf/images/t.gif" alt="" width="10" height="10"><a id="r2:0:i2:0:gl12" title="FIRMWARE" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=FIRMWARE&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">FIRMWARE</a>;<img id="r2:0:i2:0:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:1:gl12" title="FLASH" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=FLASH&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">FLASH</a>;<img id="r2:0:i2:1:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:2:gl12" title="INFORMATION" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=INFORMATION&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">INFORMATION</a>;<img id="r2:0:i2:2:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:3:gl12" title="INSTALL &amp; CONFIGURE" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=INSTALL%20&amp;%20CONFIGURE&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">INSTALL &amp; CONFIGURE</a>;<img id="r2:0:i2:3:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:4:gl12" title="MAINTENANCE" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=MAINTENANCE&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">MAINTENANCE</a>;<img id="r2:0:i2:4:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:5:gl12" title="PATCH" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=PATCH&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">PATCH</a>;<img id="r2:0:i2:5:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:6:gl12" title="PATCH &amp; MAINTAIN" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=PATCH%20&amp;%20MAINTAIN&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">PATCH &amp; MAINTAIN</a>;<img id="r2:0:i2:6:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:7:gl12" title="SERVICE PROCESSOR" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=SERVICE%20PROCESSOR&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">SERVICE PROCESSOR</a>;<img id="r2:0:i2:7:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:8:gl12" title="UPGRADE" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=UPGRADE&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">UPGRADE</a>;<img id="r2:0:i2:8:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:9:gl12" title="XCP" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=XCP&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">XCP</a>;<img id="r2:0:i2:9:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:10:gl12" title="XCP 1061" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=XCP%201061&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">XCP 1061</a>;<img id="r2:0:i2:10:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:11:gl12" title="XCP 1101" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=XCP%201101&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">XCP 1101</a>;<img id="r2:0:i2:11:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:12:gl12" title="XCP 1102" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=XCP%201102&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">XCP 1102</a>;<img id="r2:0:i2:12:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:13:gl12" title="XCP 1110" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=XCP%201110&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">XCP 1110</a>;<img id="r2:0:i2:13:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:14:gl12" title="XCP 1111" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=XCP%201111&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">XCP 1111</a>;<img id="r2:0:i2:14:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:15:gl12" title="XCP 1112" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=XCP%201112&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">XCP 1112</a>;<img id="r2:0:i2:15:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"><a id="r2:0:i2:16:gl12" title="XSCF" class="xfu" href="/epmos/main/kmservlet?operation=doSearch&amp;term=XSCF&amp;keyword=true&amp;task=keyword&amp;source=" target="_parent">XSCF</a><img id="r2:0:i2:16:s29" src="/epmos/adf/images/t.gif" alt="" width="3" height="10"></div></div></div><div id="r2:0:ph1" title="Related Translations" class="x6v"><table class="xtx" cellpadding="0" cellspacing="0" border="0" width="0" summary=""><tbody><tr><td class="xut">&nbsp;</td><td class="xvh"><table cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr><td class="x1yw"></td><td id="r2:0:ph1::_afrTtxt"><div title="Translations" class="xu2" style="width: 75px; max-width: 75px;"><h2 class="xdo ">Translations</h2></div></td><td id="r2:0:ph1::_afrEps"><div class="xdo  xw8" style="display: none" title="Translations"></div></td><td id="r2:0:ph1::_afrStr" style="width: 100%"></td></tr></tbody></table></td><td class="xvb">&nbsp;</td></tr></tbody></table><div class="xwl"><div><div id="r2:0:pl2" class="x3q"><table cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr><td width="50%" valign="top"><ul><li value="1"><span id="r2:0:i29:0:pgl1" class="x1a">English<img id="r2:0:i29:0:s35" src="/epmos/adf/images/t.gif" alt="" width="5" height="10">Source</span></li></ul></td><td width="50%" valign="top"><ul><li value="2"><span id="r2:0:i29:1:pgl15" class="x1a">Japanese<img id="r2:0:i29:1:s37" src="/epmos/adf/images/t.gif" alt="" width="5" height="10"><a id="r2:0:i29:1:cl5" title="" onclick="return false;" href="#"></a></span></li></ul></td></tr></tbody></table></div></div></div></div></div></div></div></span></div><div><img id="r2:0:s5" src="/epmos/adf/images/t.gif" alt="" width="10" height="20"></div><div><a id="r2:0:toTop" title="Back to Top" class="xfd" style="text-decoration:none" onclick="return false;" href="#"><img id="r2:0:toTop::icon" src="/epmos/ui/images/quicklink_smlarrowup_enabled.gif" title="Back to Top" alt="Back to Top" class="x137"><span class="x133">Back to Top</span></a></div></div></div></div></div></div></div><div style="display:none"><a id="r2:0:_afrCommandDelegate" class="xfe" onclick="return false;" href="#"></a></div></div></div></td></tr></tbody></table></div></div><input type="hidden" name="org.apache.myfaces.trinidad.faces.FORM" value="f1"><span id="f1::postscript"><input type="hidden" name="javax.faces.ViewState" value="!16pbj9hmlh"></span></form><div id="d1::msgCtr" style="display:none"><div id="d1::msgDlg" class="x17j"><div class="x18r" _afrpanelwindowbackground="1"></div><div class="x18r" _afrpanelwindowbackground="1"></div><div class="x18r" _afrpanelwindowbackground="1"></div><div class="x18r" _afrpanelwindowbackground="1"></div><table cellpadding="0" cellspacing="0" border="0" summary="" class="x17q"><tbody><tr><td class="p_AFResizable x17s" id="d1::msgDlg::_hse">&nbsp;</td><td class="p_AFResizable x17u" id="d1::msgDlg::_hce"><table cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr><td><div id="d1::msgDlg::_ticn" class="x18l" style="display:none"></div></td><td class="x17y" id="d1::msgDlg::tb"><div id="d1::msgDlg::_ttxt" class="x18j"></div></td><td><div class="x18n"><a href="#" onclick="this.focus();return false" class="x18e" id="d1::msgDlg::close" title="Close"></a></div></td></tr></tbody></table></td><td class="p_AFResizable x17w" id="d1::msgDlg::_hee">&nbsp;</td></tr><tr><td class="p_AFResizable x183" id="d1::msgDlg::_cse">&nbsp;</td><td class="p_AFResizable x1o" id="d1::msgDlg::contentContainer"><div id="d1::msgDlg::_ccntr" class="x181" style="position:relative;overflow:auto;"><div id="d1::msgDlg::_cnt" class="x14u"></div></div></td><td class="p_AFResizable x185" id="d1::msgDlg::_cee">&nbsp;</td></tr><tr><td class="p_AFResizable x187" id="d1::msgDlg::_fse"><div></div></td><td class="p_AFResizable x189" id="d1::msgDlg::_fce"><table cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr><td class="p_AFResizable x18c" id="d1::msgDlg::_fcc"><button type="button" id="d1::msgDlg::cancel" class="xf6 p_AFTextOnly" onclick="return false;" _afrpdo="cancel">OK</button></td><td align="left" valign="bottom"><div class="p_AFResizable x18i"><a tabindex="-1" class="x18g" id="d1::msgDlg::_ree" title="Resize"></a></div></td></tr></tbody></table></td><td class="p_AFResizable x18b" id="d1::msgDlg::_fee"><div></div></td></tr></tbody></table></div></div><span id="d1::iconC" style="display:none"><span id="af_messages::info-icon"><img src="/epmos/afr/info.png" width="16" height="16" border="0" title="Information" alt="Information"></span><span id="af_message::warning-icon"><img src="/epmos/afr/warning.png" width="16" height="16" border="0" title="Warning" alt="Warning"></span><span id="af_messages::fatal-icon"><img src="/epmos/afr/error.png" width="16" height="16" border="0" title="Critical Error" alt="Critical Error"></span><span id="af_message::info-icon"><img src="/epmos/afr/info.png" width="16" height="16" border="0" title="Information" alt="Information"></span><span id="af_message::fatal-icon"><img src="/epmos/afr/error.png" width="16" height="16" border="0" title="Critical Error" alt="Critical Error"></span><span id="af_messages::warning-icon"><img src="/epmos/afr/warning.png" width="16" height="16" border="0" title="Warning" alt="Warning"></span><span id="af_message::confirmation-icon"><img src="/epmos/afr/confirmation.png" width="16" height="16" border="0" title="Confirmation" alt="Confirmation"></span><span id="af_message::error-icon"><img src="/epmos/afr/error.png" width="16" height="16" border="0" title="Error" alt="Error"></span><span id="af_messages::error-icon"><img src="/epmos/afr/error.png" width="16" height="16" border="0" title="Error" alt="Error"></span><span id="af_messages::confirmation-icon"><img src="/epmos/afr/confirmation.png" width="16" height="16" border="0" title="Confirmation" alt="Confirmation"></span></span><div id="afr::DlgSrvPopupCtnr"><div id="afr::DlgSrvPopupCtnr::content" style="display:none"></div></div><div id="afr::UtilPopupCtnr" _pid="j_id7" _did="j_id8" _dmw="250" style="display:none"><div id="j_id7" style="display:none"><div style="top:auto;right:auto;left:auto;bottom:auto;width:auto;height:auto;position:relative;" id="j_id7::content"><div id="j_id8" class="x17j"><div class="x18r" _afrpanelwindowbackground="1"></div><div class="x18r" _afrpanelwindowbackground="1"></div><div class="x18r" _afrpanelwindowbackground="1"></div><div class="x18r" _afrpanelwindowbackground="1"></div><table cellpadding="0" cellspacing="0" border="0" summary="" class="x17q"><tbody><tr><td class="x17s" id="j_id8::_hse">&nbsp;</td><td class="x17u" id="j_id8::_hce"><table cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr><td><div id="j_id8::_ticn" class="x18l" style="display:none"></div></td><td class="x17y" id="j_id8::tb"><div id="j_id8::_ttxt" class="x18j"></div></td></tr></tbody></table></td><td class="x17w" id="j_id8::_hee">&nbsp;</td></tr><tr><td class="x183" id="j_id8::_cse">&nbsp;</td><td class="x1o" id="j_id8::contentContainer"></td><td class="x185" id="j_id8::_cee">&nbsp;</td></tr><tr><td class="x187" id="j_id8::_fse"><div></div></td><td class="x189" id="j_id8::_fce"><table cellpadding="0" cellspacing="0" border="0" width="100%" summary=""><tbody><tr><td class="x18c" id="j_id8::_fcc"><button type="button" id="j_id8::ok" class="xf6 p_AFTextOnly" onclick="return false;" _afrpdo="ok">OK</button><button type="button" id="j_id8::cancel" class="xf6 p_AFTextOnly" onclick="return false;" _afrpdo="cancel">Cancel</button></td><td align="left" valign="bottom"><div class="x18i"><a tabindex="-1" class="x18g" id="j_id8::_ree" title="Resize"></a></div></td></tr></tbody></table></td><td class="x18b" id="j_id8::_fee"><div></div></td></tr></tbody></table></div></div></div></div></div><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/dnd-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/iedit-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/uncommon-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/stretch-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/detail-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/header-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/selectonelistbox-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/selectonechoice-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/box-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/region-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/eum-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/imagelink-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/print-11.1.1.7.1-4197.js"></script><script type="text/javascript" src="/epmos/afr/partition/webkit/n/default/opt/scrollComponentIntoView-11.1.1.7.1-4197.js"></script><script type="text/javascript">AdfBootstrap._onLoad=function (){if (AdfPage.PAGE.__checkRichResponseDirty()) return;AdfUserActivityInfo.getInstance('pr0').setContextId('0057bpcojZ88XrKaETv1ES0004_u00DXru');var isCachedPage = AdfPage.PAGE.__handleCachedPageForNewWindow('10pun3pa8n_47');if (!isCachedPage){window.name='10pun3pa8n_47';};AdfAgent.AGENT.elementsAdded(document);AdfDhtmlLookAndFeel.addSkinProperties({"af|messages::summary":"x15s","AFPopupSelectorFooterStart":"x14r","AFPopupSelectorContentEnd":"x14p","AFPopupSelectorContent":"x14n","af|dialog::resize-ghost":"x17o","AFPopupSelectorFooterEnd":"x14s","af|showDetailHeader::undisclosed-icon-style":"x1av","af|messages::intro":"x15j","af|popup-tr-shadow-starting-black-percent":50,".AFWorkaround-tr-disable-property-delta-sync":"false","AFPopupSelector":"x14g","af|popup-tr-shadow-pixel-size":9,"af|messages::message-group-type-separator":"x15l","af|messages::message-group-title":"x15k","af|message::intro":"x15r","af|popup-tr-shadow-offset":1,"af|messages::detail":"x15t","AFPopupSelectorHeader":"x14k","af|message::type":"x15o","af|message::detail":"x15q","AFPopupSelectorHeaderStart":"x14l","af|messages::header-text":"x15i","AFPopupSelectorContentStart":"x14o","AFPopupSelectorFooter":"x14q","AFPopupSelectorHeaderEnd":"x14m","af|showDetailHeader::disclosed-icon-style":"x1aw","af|messages::component-link":"xfv","af|message::summary":"x15p"});AdfPage.PAGE.addComponents(new AdfRichDocument('d1',{'clientListeners':{load:onPageLoad},'title':'Document 1002631.1'}),new AdfRichForm('f1'),new AdfRichPanelStretchLayout('pgl1',{'startWidth':'10'}),new AdfRichRegion('r2',{'viewId':'/km-document-content-task-flow/DocumentContent','immediate':true}),new AdfRichPanelStretchLayout('r2:0:psl1',{'topHeight':'auto'}),new AdfRichPanelHeader('r2:0:ph22'),new AdfRichPopup('r2:0:srFavorite'),new AdfRichCommandImageLink('r2:0:cil4',{'immediate':true,'partialSubmit':true,'shortDesc':'Click to add to Favorites','icon':'/epmos/common/images/favorites_qualifier_notsel.png'}),new AdfRichPopup('r2:0:sug1:sggstrpp'),new AdfRichPanelGroupLayout('r2:0:sug1:pglcl'),new AdfRichPopup('r2:0:sug2:sggstrpp'),new AdfRichPanelGroupLayout('r2:0:sug2:pglcl'),new AdfRichOutputLabel('r2:0:ol22'),new AdfRichCommandImageLink('r2:0:toBottom',{'behaviors':new AdfScrollComponentIntoViewBehavior('toTop',false),'immediate':true,'accessKey':'\uffff','text':'To Bottom','shortDesc':'To Bottom','inlineStyle':'text-decoration:none','icon':'/epmos/ui/images/quicklink_smlarrowdown_enabled.gif'}),new AdfRichOutputLabel('r2:0:ol1'),new AdfRichOutputLabel('r2:0:ol2'),new AdfRichOutputLabel('r2:0:ol5'),new AdfRichOutputLabel('r2:0:ol4',{'for':'r2:soc1'}),new AdfRichSelectOneChoice('r2:0:soc1',{'autoSubmit':true}),new AdfRichCommandImageLink('r2:0:cil3',{'behaviors':new AdfShowPopupBehavior('p1',AdfRichPopup.ALIGN_AFTER_END),'accessKey':'\uffff','shortDesc':'Rate this document','icon':'/epmos/common/images/rate_ena_16.png'}),new AdfRichPopup('r2:0:p1',{'_hasPopupCanceledListeners':true,'contentDelivery':'lazyUncached'}),new AdfRichGoImageLink('r2:0:gil3',{'email':'','documentDisplayPath':'/faces/DocumentDisplay?id=1002631.1','documentTitle':'Sun SPARC[TM] Enterprise M3000, M4000, M5000, M8000, M9000 XSCF Control Package (XCP) Firmware Image Software Version Matrix Information','type':'Document','appContext':'/epmos','documentId':'1002631.1','clientListeners':{click:sendContentLinkEmailDoc},'accessKey':'\uffff','shortDesc':'Email link to this document','icon':'/epmos/common/images/email_16.png'}),new AdfRichGoImageLink('r2:0:gil4',{'shortDesc':'Open document in new window','icon':'/epmos/common/images/offsite_ena.png'}),new AdfRichCommandLink('r2:0:cil2',{'itemType':'HOWTO','itemId':'1002631.1','clientListeners':{action:printClicked1},'behaviors':new AdfShowPrintablePageBehavior(),'accessKey':'\uffff','shortDesc':'Printable Page'}),new AdfRichSpacer('r2:0:s23',{'height':'5','width':'10'}),new AdfRichCommandButton('r2:0:cb1',{'clientListeners':{click:openAskCommunity},'immediate':true,'icon':'/epmos/common/images/comm_thread_15x15.png','accessKey':'\uffff','text':'Ask in Community...','inlineStyle':'vertical-align:middle; height:19px;'}),new AdfRichShowDetailHeader('r2:0:sdh1',{'disclosed':true,'shortDesc':'Related Products','text':'Related'}),new AdfRichPanelHeader('r2:0:ph2',{'shortDesc':'Related Products'}),new AdfRichPanelHeader('r2:0:ph3',{'shortDesc':'Related Keywords'}),new AdfRichPanelHeader('r2:0:ph1',{'shortDesc':'Related Translations'}),new AdfRichCommandLink('r2:0:i29:1:cl5',{'shortDesc':'\u65e5\u672c\u8a9e'}),new AdfRichCommandImageLink('r2:0:toTop',{'behaviors':new AdfScrollComponentIntoViewBehavior('s23',false),'immediate':true,'accessKey':'\uffff','text':'Back to Top','shortDesc':'Back to Top','inlineStyle':'text-decoration:none','icon':'/epmos/ui/images/quicklink_smlarrowup_enabled.gif'}),new AdfRichCommandLink('r2:0:_afrCommandDelegate',{'partialSubmit':true}),new AdfRichDialog('d1::msgDlg',{'okVisible':false,'cancelVisible':false,'cancelTextAndAccessKey':'OK','modal':false,'resize':'on','title':''}),new AdfDialogServicePopupContainer('afr::DlgSrvPopupCtnr'),new AdfRichPopup('j_id7',{'contentDelivery':'immediate'}),new AdfRichDialog('j_id8',{'okVisible':false,'cancelVisible':false,'closeIconVisible':false}));AdfPage.PAGE.setDefaultMessageHandlerComponentId("d1");AdfPage.PAGE.__initializeSessionTimeoutTimer(2700000, 120000, "https://support.oracle.com:443/epmos/faces/DocContentDisplay?id=1002631.1");AdfPage.PAGE.__initUserInactivityTimeout(1200000);page.__setAutomationEnabled(false);page.__setCssSelectorsUncompressed(false);AdfPage.PAGE.__setViewId('/DocContentDisplay');var exScripts=AdfBootstrap._extendedScripts;for (var i=0;i<exScripts.length;i++){exScripts[i]()};AdfBootstrap._extendedScripts=null;AdfPage.PAGE.__onLoad();};window.onload=AdfBootstrap._onLoad;</script><script type="text/javascript">AdfBootstrap._extendedScripts=[];</script></body><!--Created by Oracle ADF (Version information hidden), accessibility (mode:default, contrast:standard, size:medium), skin:ep.mos (mos)--></html>
