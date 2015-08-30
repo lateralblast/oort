@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      0.9.8
+# Version:      0.9.9
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -1237,8 +1237,19 @@ def get_mos_url(mos_url,local_file)
     mos = "https://supporthtml.oracle.com"
     doc.get(mos)
     doc.manage.timeouts.implicit_wait = 20
-    doc.find_element(:id => "pt1:gl3").click
-    doc.find_element(:id => "sso_username").send_keys(mos_username)
+    begin
+      doc.find_element(:id => "pt1:gl3").click
+    rescue
+      doc.get(mos)
+      doc.find_element(:id => "pt1:gl3").click
+    end
+    begin
+      doc.find_element(:id => "sso_username").send_keys(mos_username)
+    rescue
+      doc.get(mos)
+      doc.find_element(:id => "pt1:gl3").click
+      doc.find_element(:id => "sso_username").send_keys(mos_username)
+    end
     doc.find_element(:id => "ssopassword").send_keys(mos_password)
     doc.find_element(:link => "Sign In").click
     doc.get(mos_url)

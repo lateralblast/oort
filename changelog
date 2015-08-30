@@ -195,3 +195,5 @@
 # Various fixes
 # 0.9.8: Sun 30 Aug 2015 09:11:58 AEST
 # Fixed QLogic Firmware URL
+# 0.9.9: Sun 30 Aug 2015 10:14:09 AEST
+# Added handling for MOS timeouts
