@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.0.2
+# Version:      1.0.3
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -25,6 +25,7 @@ require 'selenium-webdriver'
 require 'phantomjs'
 require 'mechanize'
 require 'terminal-table'
+require 'io/console'
 
 # Extend string class to strip out control characters
 
@@ -486,7 +487,7 @@ def get_mos_details()
     mos_username = gets.chomp
     puts "Enter MOS Password:"
     STDOUT.flush
-    mos_password = gets.chomp
+    mos_password = STDIN.noecho(&:gets).chomp
     create_mos_passwd_file(mos_username,mos_password)
   else
     mos_data = File.readlines(mos_passwd_file)
@@ -980,7 +981,6 @@ def create_mos_passwd_file(mos_username,mos_password)
   File.open(mos_passwd_file, 'a') { |file| file.write(output_text) }
   output_text = "check-certificate=off\n"
   File.open(mos_passwd_file, 'a') { |file| file.write(output_text) }
-  File.close(mos_passwd_file)
 end
 
 # Check the file age, if greateer that 30 days, delete it

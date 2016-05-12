@@ -203,3 +203,5 @@
 # Fixed processing of XSCF firmware
 # 1.0.2: Sun 30 Aug 2015 13:04:02 AEST
 # Added -C option to clean MOS email from files
+# 1.0.3: Thu 12 May 2016 18:00:15 AEST
+# Improvement to password handling
