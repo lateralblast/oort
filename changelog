@@ -205,3 +205,7 @@
 # Added -C option to clean MOS email from files
 # 1.0.3: Thu 12 May 2016 18:00:15 AEST
 # Improvement to password handling
+# 1.0.4: Sat  7 Sep 2019 09:45:09 AEST
+# Replaced phatomjs with firefox due to phantomjs being deprecated
+# 1.0.5: Sat  7 Sep 2019 09:45:09 AEST
+# Fixed MOS login

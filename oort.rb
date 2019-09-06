@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.0.3
+# Version:      1.0.6
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -22,7 +22,6 @@ require 'fileutils'
 require 'find'
 require 'pathname'
 require 'selenium-webdriver'
-require 'phantomjs'
 require 'mechanize'
 require 'terminal-table'
 require 'io/console'
@@ -1265,8 +1264,9 @@ def get_mos_url(mos_url,local_file)
     system(command)
   else
     (mos_username,mos_password) = get_mos_details()
-    cap = Selenium::WebDriver::Remote::Capabilities.phantomjs('phantomjs.page.settings.userAgent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10) AppleWebKit/538.39.41 (KHTML, like Gecko) Version/8.0 Safari/538.39.41')
-    doc = Selenium::WebDriver.for :phantomjs, :desired_capabilities => cap
+    opt = Selenium::WebDriver::Firefox::Options.new
+    opt.add_argument('--headless')
+    doc = Selenium::WebDriver.for :firefox, :options => opt
     mos = "https://supporthtml.oracle.com"
     begin
       doc.get(mos)
@@ -1288,7 +1288,7 @@ def get_mos_url(mos_url,local_file)
       doc.find_element(:id => "sso_username").send_keys(mos_username)
     end
     doc.find_element(:id => "ssopassword").send_keys(mos_password)
-    doc.find_element(:link => "Sign In").click
+    doc.find_element(:class => "cb41w4").click
     doc.get(mos_url)
     file = File.open(local_file,"w")
     file.write(doc.page_source)
