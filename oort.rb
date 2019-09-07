@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.0.9
+# Version:      1.1.0
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -245,9 +245,10 @@ def search_prom_fw_page(search_model,url)
                  "U45", "U25", "T6320", "T6340", "B2500", "B1500", "T6300",
                  "T5120", "T5220", "T5240", "T1000", "T2000", "V215", "V245",
                  "V210", "V240", "E6900", "E4900", "E2900", "E6800", "E4800",
-                 "E3500", "E4500", "E5500", "E6500", "E4810", "E3800", "V1280",
-                 "V100", "X1", "U1", "U2", "U1E", "U30", "U5", "U80", "E220R",
-                 "E280R", "E250", "E450", "T1", "E420R", "X1", "B100", "B150" ]
+                 "E3000", "E4000", "E5000", "E6000", "E3500", "E4500", "E5500",
+                 "E6500", "E4810", "E3800", "V1280", "V100", "X1", "U1", "U2",
+                 "U1E", "U30", "U5", "U80", "E220R", "E280R", "E250", "E450",
+                 "T1", "E420R", "X1", "B100", "B150" ]
   doc=open_patchdiag_xref()
   if search_model == "all"
     prom_info = doc.grep(/PROM:/)
@@ -268,7 +269,7 @@ def search_prom_fw_page(search_model,url)
         patch_text = patch_text.gsub(/Sun Blade 2500 /,"B2500 ")
         patch_text = patch_text.gsub(/Ultra 2 /,"U2 ")
         patch_text = patch_text.gsub(/Enterprise 450 /,"E450 ")
-        patch_text = patch_text.gsub(/Sun Enterprise 3x00\/4x00\/5x00\/6x00/,"E3500 E4500 E5500 E6500 E3800 E4800 E6800 E4900 E6900")
+        patch_text = patch_text.gsub(/Sun Enterprise 3x00\/4x00\/5x00\/6x00/,"E3000 E4000 E5000 E6000 E3500 E4500 E5500 E6500 E3800 E4800 E6800 E4900 E6900")
         patch_text = patch_text.gsub(/Enterprise 250 /,"E250 ")
         patch_text = patch_text.gsub(/Ultra 25 /,"U25 ")
         patch_text = patch_text.gsub(/Ultra 45 /,"U45 ")

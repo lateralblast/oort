@@ -217,3 +217,5 @@
 # Quick fix for [4-6]x00 PROM search
 # 1.0.9: Sat  7 Sep 2019 16:35:36 AEST
 # Added FCode to check string for patches
+# 1.1.0: Sat  7 Sep 2019 16:43:12 AEST
+# Improved search for [4-6]x00
