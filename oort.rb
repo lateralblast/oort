@@ -49,7 +49,8 @@ $work_dir     = ""
 $verbose      = 0
 $test_mode    = 0
 $output_mode  = "text"
-options       = "CHV?abcghlvA:E:F:I:M:N:P:R:S:X:d:e:f:i:j:m:n:o:p:q:r:s:t:w:x:z:"
+options       = "CHV?abcghlvZA:E:F:I:M:N:P:R:S:X:d:e:f:i:j:m:n:o:p:q:r:s:t:w:x:z:"
+$headless     = true
 
 # Set Work Directory
 
@@ -395,7 +396,7 @@ end
 def search_qlogic_fw_page(search_model,url)
   base_url   = "https://support.oracle.com/epmos/faces/ui/patch/PatchDetail.jspx?patchId="
   #qf8_url    = "http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByProductOracle.aspx?oemid=124&productid=928&OSTYPE=Solaris&category=3"
-  qf8_url    = "http://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByOs.aspx?ProductCategory=39&OsCategory=5&Os=22&OsCategoryName=Solaris&ProductCategoryName=Fibre%20Channel%20Adapters&OSName=Solaris%20SPARC"
+  qf8_url    = "https://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/SearchByOs.aspx?ProductCategory=39&OsCategory=5&Os=22&OsCategoryName=Solaris&ProductCategoryName=Fibre%20Channel%20Adapters&OSName=Solaris%20SPARC"
   fw_text    = {}
   fw_urls    = {}
   fw_version = ""
@@ -1123,7 +1124,7 @@ def search_emulex_fw_page(search_model,url)
   sun_model   = ""
   fw_urls     = {}
   fw_text     = {}
-  url         = "http://www.emulex.com/products/fibre-channel-hbas/oracle-branded/selection-guide/"
+  url         = "https://www.emulex.com/products/fibre-channel-hbas/oracle-branded/selection-guide/"
   output_file = $html_dir+"/emulex.html"
   get_url(url,output_file)
   doc       = Nokogiri::HTML(File.open(output_file))
@@ -1145,8 +1146,8 @@ def search_emulex_fw_page(search_model,url)
   # Populate older card information (Emulex page no longer works)
   fw_text["LP21000"] = [ "Version 3.10a3" ]
   fw_text["LP21002"] = [ "Version 3.10a3" ]
-  fw_urls["LP21000"] = [ "http://www-dl.emulex.com/support/hardware/lp21000/ob/310a3/ao310a3.zip" ]
-  fw_urls["LP21002"] = [ "http://www-dl.emulex.com/support/hardware/lp21000/ob/310a3/ao310a3.zip" ]
+  fw_urls["LP21000"] = [ "https://www-dl.emulex.com/support/hardware/lp21000/ob/310a3/ao310a3.zip" ]
+  fw_urls["LP21002"] = [ "https://www-dl.emulex.com/support/hardware/lp21000/ob/310a3/ao310a3.zip" ]
   #
   if search_model.match(/^LP|^7/)
     hba_model.each do |orace_part_no, emulex_part_no|
@@ -1166,7 +1167,7 @@ def search_emulex_fw_page(search_model,url)
           doc_url = sub_url.gsub(/features/,boot_url)
           fw_info = part_no.upcase.gsub(/-AND-/," ")
           fw_file = $work_dir+"/html/"+part_no+".html"
-          doc_url = "http://www.emulex.com/"+doc_url
+          doc_url = "https://www.emulex.com/"+doc_url
           get_url(doc_url,fw_file)
           subdoc = Nokogiri::HTML(File.open(fw_file))
           subdoc.css("tbody").each do |subnode|
@@ -1264,9 +1265,13 @@ def get_mos_url(mos_url,local_file)
     system(command)
   else
     (mos_username,mos_password) = get_mos_details()
-    opt = Selenium::WebDriver::Firefox::Options.new
-    opt.add_argument('--headless')
-    doc = Selenium::WebDriver.for :firefox, :options => opt
+    if $headless == true
+      opt = Selenium::WebDriver::Firefox::Options.new
+      opt.add_argument('--headless')
+      doc = Selenium::WebDriver.for :firefox, :options => opt
+    else
+      doc = Selenium::WebDriver.for :firefox
+    end
     mos = "https://supporthtml.oracle.com"
     begin
       doc.get(mos)
@@ -1634,6 +1639,7 @@ def print_usage(options)
   puts "-X all:      Download firmware information for all older M Series (M3000-M5000)"
   puts "-X MODEL:    Download firmware information for specific old M Series model (M3000-M9000)"
   puts "-u all:      Display all Solaris 11 SRUs"
+  puts "-Z:          Turn of headless mode for debugging"
   puts
 end
 
@@ -1836,7 +1842,11 @@ def download_firmware(model,fw_urls,fw_text,latest_only,counter)
   if !download_url
     return
   end
-  download_file = $firmware_dir+"/"+model.downcase+"/"+file_name
+  download_dir  = $firmware_dir+"/"+model.downcase
+  download_file = download_dir+"/"+file_name
+  if !Dir.exist?(download_dir)
+    Dir.mkdir(download_dir)
+  end
   check_file_type(download_file)
   if !File.exist?(download_file) and !File.symlink?(download_file)
     if $file_list
@@ -2300,7 +2310,7 @@ end
 # If given a -e or -E set the URL to the Emulex firmware page
 
 if opt["m"] or opt["M"] or opt["t"] or opt["f"]
-  url = "http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
+  url = "https://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
   if File.exist?(File.basename(url))
     url = File.basename(url)
   end
@@ -2315,6 +2325,14 @@ else
       url = "http://www.emulex.com/interoperability/results/matrix-action/Interop/by-partner/?tx_elxinterop_interop%5Bpartner%5D=Oracle%20%28Sun%29&tx_elxinterop_interop%5Bsegment%5D=Servers&cHash=4f24beefa24e0dbfa5f76d523d29ffb7"
     end
   end
+end
+
+# Unset headless mode
+
+if opt["Z"]
+  $headless = false
+else
+  $headless = true
 end
 
 # Set search architecture

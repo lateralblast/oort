@@ -209,3 +209,5 @@
 # Replaced phatomjs with firefox due to phantomjs being deprecated
 # 1.0.5: Sat  7 Sep 2019 09:45:09 AEST
 # Fixed MOS login
+# 1.0.6: Sat  7 Sep 2019 12:36:52 AEST
+# Updated all URLs to https
