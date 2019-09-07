@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.0.7
+# Version:      1.0.8
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -252,7 +252,7 @@ def search_prom_fw_page(search_model,url)
   if search_model == "all"
     prom_info = doc.grep(/PROM:/)
   else
-    prom_info = doc.grep(/#{search_model}/).grep(/PROM:/)
+    prom_info = doc.grep(/[#{search_model}|x00]/).grep(/PROM:/)
   end
   if prom_info.to_s.match(/[A-z]/)
     prom_info.each do |line|
