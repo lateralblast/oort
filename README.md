@@ -55,6 +55,8 @@ Issues:
   - Where possible files are cached locally so they don't need to be fetched each time
 - To determine the download URL for firmware patches a MOS login is required
   - This is because the ARU number needs to be retrieved in order to generate the URL
+- As phantomjs has been depricated the code has been changed to use the firefox webdrive in headless mode
+  - This can result in firefox process in rare cases remaining which you may need to kill off
 
 License
 -------
@@ -108,5 +110,4 @@ Required Ruby Gems:
 - find
 - pathname
 - selenium-webdriver
-- phantomjs
 - mechanize
