@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.0.8
+# Version:      1.0.9
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -285,7 +285,7 @@ def search_prom_fw_page(search_model,url)
             doc.each do |readme_line|
               check_strings = [ "ILOM", "Hostconfig", "Hypervisor", "OpenBoot",
                                 "POST", "OBP", "System Firmware", "ScApp",
-                                "PROM", "RTOS" ]
+                                "PROM", "RTOS", "FCode" ]
               readme_line   = readme_line.chomp
               readme_line   = readme_line.lstrip
               check_strings.each do |check_string|

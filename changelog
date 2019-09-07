@@ -215,3 +215,5 @@
 # Added support for E4500, E5500, etc
 # 1.0.8: Sat  7 Sep 2019 15:21:10 AEST
 # Quick fix for [4-6]x00 PROM search
+# 1.0.9: Sat  7 Sep 2019 16:35:36 AEST
+# Added FCode to check string for patches
