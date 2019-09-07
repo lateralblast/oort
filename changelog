@@ -211,3 +211,5 @@
 # Fixed MOS login
 # 1.0.6: Sat  7 Sep 2019 12:36:52 AEST
 # Updated all URLs to https
+# 1.0.7: Sat  7 Sep 2019 13:08:16 AEST
+# Added support for E4500, E5500, etc
