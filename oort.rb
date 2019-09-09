@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.1.0
+# Version:      1.1.1
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -14,17 +14,34 @@
 # Description:  Ruby script to Grep Oracle firmware site
 #               http//www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html
 
-require 'rubygems'
-require 'nokogiri'
-require 'open-uri'
-require 'getopt/std'
-require 'fileutils'
-require 'find'
-require 'pathname'
-require 'selenium-webdriver'
-require 'mechanize'
-require 'terminal-table'
-require 'io/console'
+# Install gems if they can't be loaded
+
+def install_gem(gem_name)
+  if gem_name.match(/getopt/)
+    install_name = "getopt"
+  else
+    install_name = gem_name.gsub(/\//,"-")
+  end
+  puts "Information:\tInstalling #{install_name}"
+  %x[gem install #{install_name}]
+  Gem.clear_paths
+  require "#{gem_name}"
+end
+
+# Required gem list
+
+gem_list = [ "rubygems", "nokogiri", "open-uri", "getopt/std", "fileutils", "find",
+             "selenium-webdriver", "mechanize", "terminal-table", "io/console" ]
+
+# Try to load gems
+
+for gem_name in gem_list
+  begin
+    require "#{gem_name}"
+  rescue LoadError
+    install_gem(gem_name)
+  end
+end
 
 # Extend string class to strip out control characters
 
