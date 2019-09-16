@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.1.4
+# Version:      1.1.5
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -1705,9 +1705,11 @@ def get_aru_no(patch_url)
   if !File.exist?(patch_file)
     get_mos_url(patch_url,patch_file)
   end
-  file_array = IO.readlines(patch_file)
-  if file_array.to_s.match(/aru\=/)
-    aru_no = file_array.grep(/aru\=/)[0].split(/aru\=/)[1].split(/"|'/)[0]
+  if File.exist?(patch_file)
+    file_array = IO.readlines(patch_file)
+    if file_array.to_s.match(/aru\=/)
+      aru_no = file_array.grep(/aru\=/)[0].split(/aru\=/)[1].split(/"|'/)[0]
+    end
   end
   return aru_no
 end

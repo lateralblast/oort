@@ -227,3 +227,5 @@
 # Added handling for hyphens in some model numbers
 # 1.1.4: Mon 16 Sep 2019 02:08:24 CDT
 # Made model searches a little more strict
+# 1.1.5: Mon 16 Sep 2019 02:13:37 CDT
+# Added sanity check for patch README being present before opening for processing
