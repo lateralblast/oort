@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.1.3
+# Version:      1.1.4
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -316,7 +316,7 @@ def search_prom_fw_page(search_model,url)
         patch_text = patch_text.gsub(/Ultra 80 /,"U80 ")
         model_info = patch_text
         patch_url  = base_url+patch_no
-        if search_model == "all" or patch_text.downcase.match(/#{search_model.downcase}/)
+        if search_model == "all" or patch_text.downcase.match(/#{search_model.downcase} |#{search_model.downcase}$|#{search_model.downcase}\,|#{search_model.downcase}\//)
           doc = open_patch_readme(patch_no)
           if doc[1]
             doc.each do |readme_line|
