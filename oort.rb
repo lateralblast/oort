@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.1.5
+# Version:      1.1.6
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -277,11 +277,17 @@ def search_prom_fw_page(search_model,url)
                  "SDLT320", "V1613", "DLT4700", "LTO", "LTO3", "LTO2V", "LTO6HH", 
                  "LTO5HH", "LTO3HH", "L25", "L100" ]
   doc=open_patchdiag_xref()
-  search_model = search_model.gsub(/\-/,"")
+  if not search_model.match(/T[3-9]\-[0-9]|M[6-9]\-[0-9]/)
+    search_model = search_model.gsub(/\-/,"")
+  end
   if search_model == "all"
     prom_info = doc.grep(/PROM:|Tape/)
   else
-    prom_info = doc.grep(/[#{search_model}|x00]/).grep(/PROM:|Tape/)
+    if not search_model.match(/T[3-9]\-[0-9]|M[6-9]\-[0-9]|X[3-9]\-[0-9]/)
+      prom_info = doc.grep(/[#{search_model}|x00]/).grep(/PROM:|Tape/)
+    else
+      prom_info = doc.grep(/PROM:|Tape/)
+    end
   end
   if prom_info.to_s.match(/[A-z]/)
     prom_info.each do |line|
@@ -2558,9 +2564,17 @@ if opt["n"] or opt["f"]
     model = model.upcase
   end
   model = model.gsub(/Drive\-/,"")
-  model = model.gsub(/\-/,"")
-  (fw_urls,fw_text) = search_prom_fw_page(model,url)
-  handle_fw_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
+  if model.match(/T[3-9]\-[0-9]|M[6-9]\-[0-9]|X[3-9]\-[0-9]/)
+    opt["m"] = model
+    url = "https://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html"
+    if File.exist?(File.basename(url))
+      url = File.basename(url)
+    end
+  else
+    model = model.gsub(/\-/,"")
+    (fw_urls,fw_text) = search_prom_fw_page(model,url)
+    handle_fw_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
+  end
 end
 
 # If given a -V process V series and older hardware firmware downloads
