@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.1.1
+# Version:      1.1.2
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -259,18 +259,26 @@ def search_prom_fw_page(search_model,url)
   fw_text    = {}
   model_list = [ "CT900", "CP3220", "CP3250", "CP3260", "CP3270", "T3-1BA",
                  "V440", "V445", "V440", "V480", "V490", "V880", "V890", "V125",
-                 "U45", "U25", "T6320", "T6340", "B2500", "B1500", "T6300",
+                 "U45", "U25", "T6320", "T6340", "B2500", "B1500", "T6300", "V42",
                  "T5120", "T5220", "T5240", "T1000", "T2000", "V215", "V245",
                  "V210", "V240", "E6900", "E4900", "E2900", "E6800", "E4800",
                  "E3000", "E4000", "E5000", "E6000", "E3500", "E4500", "E5500",
                  "E6500", "E4810", "E3800", "V1280", "V100", "X1", "U1", "U2",
-                 "U1E", "U30", "U5", "U80", "E220R", "E280R", "E250", "E450",
-                 "T1", "E420R", "X1", "B100", "B150" ]
+                 "U1E", "U30", "U5", "U80", "E220R", "E280R", "E250", "E450", "D2",
+                 "T1", "E420R", "X1", "B100", "B150", "T10000A", "L280", "DLT4000",
+                 "DDS-3", "L910", "L11000", "DLT7000", "L1800", "L1000", "DLT8000",
+                 "L3500", "DDS-4", "Ultrium-1", "SLXX", "353D", "Z68S", "Y68S", 
+                 "23DS", "E4J0", "33ES", "T10000B", "J3ES", "E4J0", "X69S", "I6BW",
+                 "Z68W", "I6BS", "W61W", "W62W", "H6EW", "B63W", "L180", "L700",
+                 "66K8", "G69S", "L6HS", "M6BS", "B63S", "H67S", "C7Q0", "C7QH",
+                 "H.70", "F.20", "DAT72", "M63Z", "S63D", "F6CZ", "L63Z", "S63Z",
+                 "G63Z", "V51", "V43", "G67D", "FC420", "SDLT600", "F63D", "SDLT320",
+                 "Ultrium-2", "SDLT220", "SDLT320", "V1613", "C005", "U007", "L007" ]
   doc=open_patchdiag_xref()
   if search_model == "all"
-    prom_info = doc.grep(/PROM:/)
+    prom_info = doc.grep(/PROM:|Tape/)
   else
-    prom_info = doc.grep(/[#{search_model}|x00]/).grep(/PROM:/)
+    prom_info = doc.grep(/[#{search_model}|x00]/).grep(/PROM:|Tape/)
   end
   if prom_info.to_s.match(/[A-z]/)
     prom_info.each do |line|
@@ -278,8 +286,13 @@ def search_prom_fw_page(search_model,url)
         line       = line.chomp
         line       = line.split("|")
         patch_no   = line[0]+"-"+line[1]
-        patch_text = line[10].split(/PROM: /)[1..-1].join
+        if line.to_s.match(/PROM/)
+          patch_text = line[10].split(/PROM: /)[1..-1].join
+        else
+          patch_text = line[10]
+        end
         patch_text = patch_text.gsub(/t1 /,"T1 ")
+        patch_text = patch_text.gsub(/Drive-/,"")
         patch_text = patch_text.gsub(/6800\/4800\/4810i\/3800/,"E6800 E4800 E4810 E3800 ")
         patch_text = patch_text.gsub(/Sun Blade 100\/150 /,"B100 B150 ")
         patch_text = patch_text.gsub(/Sun Blade 1500 /,"B1500 ")
@@ -303,7 +316,7 @@ def search_prom_fw_page(search_model,url)
             doc.each do |readme_line|
               check_strings = [ "ILOM", "Hostconfig", "Hypervisor", "OpenBoot",
                                 "POST", "OBP", "System Firmware", "ScApp",
-                                "PROM", "RTOS", "FCode" ]
+                                "PROM", "RTOS", "FCode", "Tape" ]
               readme_line   = readme_line.chomp
               readme_line   = readme_line.lstrip
               check_strings.each do |check_string|
@@ -335,7 +348,7 @@ def search_prom_fw_page(search_model,url)
             urls.push(patch_url)
             txts.push(patch_text)
             model_list.each do |model_no|
-              if patch_text.match(/#{model_no} /)
+              if patch_text.match(/#{model_no} |#{model_no}$|#{model_no}\//)
                 if model_no.match(/V480/)
                   fw_urls["480R"] = urls
                   fw_text["480R"] = txts
@@ -344,9 +357,9 @@ def search_prom_fw_page(search_model,url)
                 fw_text[model_no] = txts
               end
             end
-            urls   = []
-            txts   = []
-            models = []
+            #urls   = []
+            #txts   = []
+            #models = []
           end
         end
       end
@@ -1270,7 +1283,7 @@ def get_mos_url(mos_url,local_file)
     puts "Downloading: #{mos_url}"
     puts "Destination: #{local_file}"
   end
-  if mos_url.match(/patch_file|zip$/)
+  if mos_url.match(/patch_file|zip$|readme/)
     mos_passwd_file = Dir.home+"/.mospasswd"
     if !File.exist?(mos_passwd_file)
       (mos_username,mos_password)=get_mos_details()
@@ -1302,7 +1315,11 @@ def get_mos_url(mos_url,local_file)
       doc.find_element(:id => "pt1:gl3").click
     rescue
       doc.get(mos)
-      doc.find_element(:id => "pt1:gl3").click
+      begin
+        doc.find_element(:id => "pt1:gl3").click
+      rescue
+        return
+      end
     end
     begin
       doc.find_element(:id => "sso_username").send_keys(mos_username)
@@ -2134,7 +2151,7 @@ def print_output(model,fw_urls,fw_text,output_type,output_file,latest_only,searc
     if fw_urls[model][counter]
       patch_url  = fw_urls[model][counter]
       patch_text = fw_text[model][counter]
-      if !patch_url.match(/emulex|1002631|qlogic/)
+      if !patch_url.match(/emulex|1002631|qlogic/) and !patch_text.match(/Tape/)
         (download_url,download_file) = get_oracle_download_url(model,patch_text,patch_url)
         if model.match(/^T|^M|^V|^NT|^U25|^U45/) and !patch_text.match(/OBP [0-9]\.[0-9]|ScApp/)
           if patch_text.match(/LSI/)
