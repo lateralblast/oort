@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Name:         oort (Oracle OBP Reporting/Reetrieval Tool)
-# Version:      1.1.2
+# Version:      1.1.3
 # Release:      1
 # License:      CC-BA (Creative Commons By Attrbution)
 #               http://creativecommons.org/licenses/by/4.0/legalcode
@@ -257,24 +257,27 @@ def search_prom_fw_page(search_model,url)
   model      = ""
   fw_urls    = {}
   fw_text    = {}
-  model_list = [ "CT900", "CP3220", "CP3250", "CP3260", "CP3270", "T3-1BA",
-                 "V440", "V445", "V440", "V480", "V490", "V880", "V890", "V125",
-                 "U45", "U25", "T6320", "T6340", "B2500", "B1500", "T6300", "V42",
-                 "T5120", "T5220", "T5240", "T1000", "T2000", "V215", "V245",
-                 "V210", "V240", "E6900", "E4900", "E2900", "E6800", "E4800",
-                 "E3000", "E4000", "E5000", "E6000", "E3500", "E4500", "E5500",
-                 "E6500", "E4810", "E3800", "V1280", "V100", "X1", "U1", "U2",
-                 "U1E", "U30", "U5", "U80", "E220R", "E280R", "E250", "E450", "D2",
-                 "T1", "E420R", "X1", "B100", "B150", "T10000A", "L280", "DLT4000",
-                 "DDS-3", "L910", "L11000", "DLT7000", "L1800", "L1000", "DLT8000",
-                 "L3500", "DDS-4", "Ultrium-1", "SLXX", "353D", "Z68S", "Y68S", 
-                 "23DS", "E4J0", "33ES", "T10000B", "J3ES", "E4J0", "X69S", "I6BW",
-                 "Z68W", "I6BS", "W61W", "W62W", "H6EW", "B63W", "L180", "L700",
-                 "66K8", "G69S", "L6HS", "M6BS", "B63S", "H67S", "C7Q0", "C7QH",
-                 "H.70", "F.20", "DAT72", "M63Z", "S63D", "F6CZ", "L63Z", "S63Z",
-                 "G63Z", "V51", "V43", "G67D", "FC420", "SDLT600", "F63D", "SDLT320",
-                 "Ultrium-2", "SDLT220", "SDLT320", "V1613", "C005", "U007", "L007" ]
+  model_list = [ "CT900", "CP3220", "CP3250", "CP3260", "CP3270", "T31BA",
+                 "V440", "V445", "V440", "V480", "V490", "V880", "V890", 
+                 "V125", "U45", "U25", "T6320", "T6340", "B2500", "B1500", "LTO6",
+                 "T6300", "V42", "T5120", "T5220", "T5240", "T1000", "T2000", "L7", 
+                 "V215", "V245", "V210", "V240", "E6900", "E4900", "E2900", "LTO2",
+                 "E6800", "E4800", "E3000", "E4000", "E5000", "E6000", "E3500", 
+                 "E4500", "E5500", "E6500", "E4810", "E3800", "V1280", "V100",
+                 "X1", "U1", "U2", "U1E", "U30", "U5", "U80", "E220R", "E280R", 
+                 "E250", "E450", "D2", "T1", "E420R", "X1", "B100", "B150", "SL48",
+                 "T10000A", "L280", "DLT4000", "DDS3", "L11000", "DLT7000", "SL24",
+                 "L1800", "L1000", "DLT8000", "L3500", "DDS4", "Ultrium1", "LTO4",
+                 "SLXX", "353D", "Z68S", "Y68S", "23DS", "E4J0", "33ES", "T10000B", 
+                 "J3ES", "E4J0", "X69S", "I6BW", "Z68W", "I6BS", "W61W", "W62W", 
+                 "H6EW", "B63W", "L180", "L700", "66K8", "G69S", "L6HS", "M6BS", 
+                 "B63S", "H67S", "C7Q0", "C7QH", "H.70", "F.20", "DAT72", "M63Z", 
+                 "S63D", "F6CZ", "L63Z", "S63Z", "G63Z", "V51", "V43", "G67D", 
+                 "FC420", "SDLT600", "F63D", "SDLT320", "Ultrium2", "SDLT220",
+                 "SDLT320", "V1613", "DLT4700", "LTO", "LTO3", "LTO2V", "LTO6HH", 
+                 "LTO5HH", "LTO3HH", "L25", "L100" ]
   doc=open_patchdiag_xref()
+  search_model = search_model.gsub(/\-/,"")
   if search_model == "all"
     prom_info = doc.grep(/PROM:|Tape/)
   else
@@ -293,6 +296,9 @@ def search_prom_fw_page(search_model,url)
         end
         patch_text = patch_text.gsub(/t1 /,"T1 ")
         patch_text = patch_text.gsub(/Drive-/,"")
+        patch_text = patch_text.gsub(/DDS\-/,"DDS")
+        patch_text = patch_text.gsub(/LTO\-/,"LTO")
+        patch_text = patch_text.gsub(/Ultrium\-/,"Ultrium")
         patch_text = patch_text.gsub(/6800\/4800\/4810i\/3800/,"E6800 E4800 E4810 E3800 ")
         patch_text = patch_text.gsub(/Sun Blade 100\/150 /,"B100 B150 ")
         patch_text = patch_text.gsub(/Sun Blade 1500 /,"B1500 ")
@@ -348,7 +354,7 @@ def search_prom_fw_page(search_model,url)
             urls.push(patch_url)
             txts.push(patch_text)
             model_list.each do |model_no|
-              if patch_text.match(/#{model_no} |#{model_no}$|#{model_no}\//)
+              if patch_text.match(/#{model_no} |#{model_no}$|#{model_no}\/|#{model_no}\,/)
                 if model_no.match(/V480/)
                   fw_urls["480R"] = urls
                   fw_text["480R"] = txts
@@ -2549,6 +2555,8 @@ if opt["n"] or opt["f"]
   if model != "all"
     model = model.upcase
   end
+  model = model.gsub(/Drive\-/,"")
+  model = model.gsub(/\-/,"")
   (fw_urls,fw_text) = search_prom_fw_page(model,url)
   handle_fw_output(model,fw_urls,fw_text,output_type,output_file,latest_only,search_arch)
 end
